@@ -1,0 +1,450 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE MudletPackage>
+<MudletPackage version="1.001">
+	<TriggerPackage />
+	<TimerPackage />
+	<AliasPackage />
+	<ActionPackage />
+	<ScriptPackage>
+		<Script isActive="yes" isFolder="no">
+			<name>initGMCP</name>
+			<packageName></packageName>
+			<script>-------------------------------------------------
+--   Sagt gmcp, dass er alle Daten senden soll --
+-------------------------------------------------
+
+function initGMCP() 
+    if not gmpc_is_initialized then
+      sendGMCP( [[Core.Supports.Set [ "MG.char 1", "MG.room 1", "comm.channel 1" ] ]])
+      deleteOldProfiles(7)
+      gmcp_is_initialized = true
+    end
+end</script>
+			<eventHandlerList>
+				<string>gmcp.Char</string>
+			</eventHandlerList>
+		</Script>
+		<Script isActive="yes" isFolder="no">
+			<name>load and save functions</name>
+			<packageName></packageName>
+			<script>-------------------------------------------------
+--         Put your Lua functions here.        --
+--                                             --
+-- Note that you can also use external scripts --
+-------------------------------------------------
+
+function mload_csv(filename, fls)
+	-- this function loads a csv file from the modules folder
+	--
+	-- the name of the modul Mundron_Core is Mundron_Core.xml
+	-- hence, getModuleDir("Mundron_Core") will yield the path with the moduls name
+	-- without the last 17 charater, we get just the folder!
+	return load_csv(getModulePath("Mundron_Core"):sub(1,-17)..filename..".csv", fls)
+end
+
+function pload_csv(filename, fls)
+	-- this function loads a csv file from the profiles folder
+	--
+	return load_csv(getMudletHomeDir().."/"..filename..".csv", fls)
+end
+
+function mload_tlines(filename)
+	-- this function loads a text file from the modules folder
+	--
+	-- the name of the modul Mundron_Core is Mundron_Core.xml
+	-- hence, getModuleDir("Mundron_Core") will yield the path with the moduls name
+	-- without the last 17 charater, we get just the folder!
+	return load_tlines(getModulePath("Mundron_Core"):sub(1,-17)..filename..".txt")
+end
+
+function pload_tlines(filename)
+	-- this function loads a text file from the profiles folder
+	--
+	return load_tlines(getMudletHomeDir().."/"..filename..".txt")
+end
+
+function msave_csv(filename, lines, setting)
+	-- this function saves a csv file from the modules folder
+	--
+	-- the name of the modul Mundron_Core is Mundron_Core.xml
+	-- hence, getModuleDir("Mundron_Core") will yield the path with the moduls name
+	-- without the last 17 charater, we get just the folder!
+	return save_csv(getModulePath("Mundron_Core"):sub(1,-17)..filename..".csv", lines, setting)
+end
+
+function psave_csv(filename, lines, setting)
+	-- this function saves a text file from the profiles folder
+	-- 
+	return save_csv(getMudletHomeDir().."/"..filename..".csv", lines, setting)
+end
+
+function msave_tlines(filename, lines)
+	-- this function saves a text file from the modules folder
+	--
+	-- the name of the modul Mundron_Core is Mundron_Core.xml
+	-- hence, getModuleDir("Mundron_Core") will yield the path with the moduls name
+	-- without the last 17 charater, we get just the folder!
+	return save_tlines(getModulePath("Mundron_Core"):sub(1,-17)..filename..".txt", lines)
+end
+
+function psave_tlines(filename, lines)
+	-- this function saves a csv file from the profiles folder
+	-- 
+	return save_tlines(getMudletHomeDir().."/"..filename..".txt", lines)
+end
+
+function load_csv(path, fls)
+	if path == nil then
+  	eprint("No filename given to load!")
+  	return
+  end
+  if file_exists(path) then
+  	-- fls = first line setting
+  	local index
+  	if fls then
+  		index = 0
+  	else
+  		index = 1
+  	end
+  	local lines = {}
+  	local temp
+		local setting
+  	for sline in io.lines(path) do
+      temp = {}
+			for cell in (sline..";"):gmatch(".-;") do
+  			temp[#temp+1] = cell:gsub(";", "")
+  		end
+			if index==0 then
+				setting = temp
+			else
+	  		table.insert(lines, temp)
+  		end
+			index = index+1
+    end
+		if fls then
+	  	return setting, lines
+		else
+			return lines
+		end
+	else
+		return nil
+	end
+end
+
+function load_tlines(path)
+	-- fls = first line setting
+	if path == nil then
+  	eprint("No filename given to load!")
+  	return
+  end
+	if file_exists(path) then
+  	local lines = {}
+  	for sline in io.lines(path) do
+      sline = sline:gsub("\r", "")
+  		table.insert(lines, sline)
+    end
+  	return lines
+	else
+		return nil
+	end
+end
+
+function save_csv(path,lines,setting)
+	-- delimiter is ; because , are used in descriptions
+	if #lines == 0 and file_exists(path) then
+		eprint("Versuch die Datei '"..path.."' leer zu ueberschreiben verhindert!")
+		return
+	end
+	local f = io.open(path, "w+")
+	local temp
+	if setting then
+		if type(setting)=='table' then
+			temp=""
+			for i=1,#setting-1 do
+				temp = temp..setting[i]..";"
+			end
+			f:write(temp..setting[#setting], "\n")
+		else
+			f:write(setting, "\n")
+		end
+	end
+	for k,v in ipairs(lines) do
+  	if type(v)=='table' then
+			temp = ""
+			for i=1,#v-1 do
+				temp = temp..v[i]..";"
+			end
+			f:write(temp..v[#v].."\n")
+		else
+			f:write(v, "\n")
+		end
+  end
+  f:close()
+end
+
+function save_tlines(path,lines)
+	if #lines == 0 and file_exists(path) then
+		eprint("Versuch die Datei '"..path.."' leer zu ueberschreiben verhindert!")
+		return
+	end
+	local f = io.open(path, "w+")
+	for i,v in ipairs(lines) do
+  	f:write(v, "\n")
+  end
+  f:close()
+end
+
+function file_exists(path)
+  local f = io.open(path, "rb")
+  if f then
+    f:close()
+  end
+  return f ~= nil
+end</script>
+			<eventHandlerList />
+		</Script>
+		<Script isActive="yes" isFolder="no">
+			<name>color_communication</name>
+			<packageName></packageName>
+			<script>function color_communication()
+  fg(farben.vg.ebenen)
+  bg(farben.hg.ebenen)
+  echo(gmcp.comm.channel.msg)
+  resetFormat()
+end</script>
+			<eventHandlerList>
+				<string>gmcp.comm.channel</string>
+			</eventHandlerList>
+		</Script>
+		<Script isActive="yes" isFolder="no">
+			<name>colored echo / print</name>
+			<packageName></packageName>
+			<script>-------------------------------------------------
+--         Here are three colored echos        --
+--                                             --
+-------------------------------------------------
+
+function wprint(text, reference)
+	reference = reference or ""
+	if reference:len()&gt;0 then
+		reference = " ("..reference..")"
+	end
+	echo("\n\n\n")
+	decho("&lt;255,255,0:0,0,0&gt;WARNUNG"..reference..": ")
+	echo(text)
+	echo("\n\n\n")
+end
+
+function eprint(text, reference)
+	reference = reference or ""
+	if reference:len()&gt;0 then
+		reference = " ("..reference..")"
+	end
+	echo("\n\n\n")
+	decho("&lt;255,155,0:0,0,0&gt;FEHLER"..reference..": ")
+	echo(text)
+	echo("\n\n\n")
+end
+
+function iprint(text, reference)
+	reference = reference or ""
+	if reference:len()&gt;0 then
+		reference = " ("..reference..")"
+	end
+	echo("\n\n\n")
+	decho("&lt;120,170,255:0,0,0&gt;INFO"..reference..": ")
+	echo(text)
+	echo("\n\n\n")
+end
+
+text_farben = {r="&lt;255,0,0:0,0,0&gt;", 
+							g="&lt;0,255,0:0,0,0&gt;", 
+							b="&lt;0,0,255:0,0,0&gt;",
+							y="&lt;255,255,0:0,0,0&gt;",
+							c="&lt;0,255,255:0,0,0&gt;",
+							m="&lt;255,0,255:0,0,0&gt;"}
+
+function print(text)
+	if type(text)=="string" then
+		decho(text)
+	elseif type(text)=="table" then
+		for i,t in ipairs(text) do
+			if type(t)=="string" then
+				decho(t)
+			elseif type(t)=="table" then
+				decho(text_farben[t[0]], t[1])
+			end
+		end
+	end
+end
+
+function print_table(tab)
+	local temp = {}
+	for i=1,#tab do
+		for j=1,#tab[i] do
+			if temp[j] then
+				table.insert(temp[j], tab[i][j])
+			else
+				temp[j] = {tab[i][j]}
+			end
+		end
+	end
+	for i=1,#temp do
+		for j=1,#temp[i] do
+			decho(temp[i][j])
+		end
+		echo("\n")
+	end
+end</script>
+			<eventHandlerList />
+		</Script>
+		<Script isActive="yes" isFolder="no">
+			<name>formatting text</name>
+			<packageName></packageName>
+			<script>-------------------------------------------------
+--         Put your Lua functions here.        --
+--                                             --
+-- Note that you can also use external scripts --
+-------------------------------------------------
+
+function norm_length(strings, orientation, extra)
+	local max_len = 0
+	if type(orientation)=="number" then
+		if (not(orientation==-1)) and (not(orientation==1)) then
+			eprint("Fehler bei der Formatierung: Orientierung muss -1 (rechtsbuendig) oder 1 (linksbuendig) sein.")
+			return
+		end
+	else
+		orientation=-1
+	end
+	local len=0
+	for i,v in ipairs(strings) do
+		if type(v)=="number" then
+			v = tostring(v)
+			strings[i] = v
+		end
+		len = #v
+		for m in v:gmatch("&lt;%d+,%d+,%d+:%d+,%d+,%d+&gt;") do
+			len = len - #m
+		end
+		if len&gt;max_len then
+			max_len = len
+		end
+	end
+	extra = extra or 0
+	local temp
+	for i=1,#strings do
+		temp = ""
+		len = #strings[i]
+		for m in strings[i]:gmatch("&lt;%d+,%d+,%d+:%d+,%d+,%d+&gt;") do
+			len = len - #m
+		end
+		for i=1,max_len-len+extra do
+			temp = temp.." "
+		end
+		if orientation == -1 then
+			strings[i] = strings[i]..temp
+		else
+			strings[i] = temp..strings[i]
+		end
+	end
+	return strings
+end
+
+function unlower(string)
+  return string:sub(1,1):upper()..string:sub(2)
+end
+
+function norm_table(tab, orientations, extras)
+  if type(orientations)=="nil" then
+    orientation={}
+    for i=1,len(tab) do
+      table.insert(orientation, -1)
+    end
+  elseif type(orientations)=="number" then
+    local orient = orientations
+    orientations={}
+    for i=1,len(tab) do
+      table.insert(orientations, orient)
+    end
+  end
+  if type(extras)=="nil" then
+    extras={}
+    for i=1,len(tab) do
+      table.insert(extras, 0)
+    end
+  elseif type(extras)=="number" then
+    local extra = extras
+    extras={}
+    for i=1,len(tab) do
+      table.insert(extras, extra)
+    end
+  end
+  for i=1,len(tab) do
+    tab[i] = norm_length(tab[i], orientations[i], extras[i])
+  end
+  return tab
+end</script>
+			<eventHandlerList />
+		</Script>
+		<Script isActive="yes" isFolder="no">
+			<name>helpers</name>
+			<packageName></packageName>
+			<script>-------------------------------------------------
+--         Put your Lua functions here.        --
+--                                             --
+-- Note that you can also use external scripts --
+-------------------------------------------------
+
+function len(obj)
+  if type(obj)=="string" then
+    return #obj
+  elseif type(obj)=="table" then
+    local result = 0
+    for _,_ in pairs(obj) do
+      result = result+1
+    end
+    return result
+  else
+    return 0
+  end
+end
+
+function break_lines(text, length)
+  length = length or 59
+  local result={""}
+  local index=1
+  for s in text:gmatch("[^%s]+") do
+    if len(result[index]..s)&lt;length then
+      if len(result[index])&gt;0 then
+        result[index] = result[index].." "..s
+      else
+        result[index] = s
+      end
+    else
+      index = index + 1
+      table.insert(result, s)
+    end
+  end
+  return result
+end
+
+function structure(dict)
+  if type(dict)=="table" then
+    echo("\n\n{")
+    for k,v in pairs(dict) do
+      echo(k..": "..type(v).."\n")
+    end
+    echo("}\n\n")
+  else
+    display(dict)
+  end
+end</script>
+			<eventHandlerList />
+		</Script>
+	</ScriptPackage>
+	<KeyPackage />
+	<HelpPackage>
+		<helpURL></helpURL>
+	</HelpPackage>
+</MudletPackage>

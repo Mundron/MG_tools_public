@@ -1,0 +1,1198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE MudletPackage>
+<MudletPackage version="1.001">
+	<TriggerPackage>
+		<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+			<name>EKs lesen</name>
+			<script>--display(matches[2])
+local found_eks = tonumber(matches[2])
+--display(EK.current, found_eks, EK.saved, delta)
+EK.current = found_eks
+local delta = found_eks-EK.saved
+if delta &lt; 0 then
+	GUI.ekanzahl:echo("EK-Anzahl: "..found_eks-delta.."("..delta..")", "black")
+elseif delta == 0 then
+	GUI.ekanzahl:echo("EK-Anzahl: "..found_eks, "black")
+else
+	GUI.ekanzahl:echo("EK-Anzahl: "..found_eks-delta.."(+"..delta..")", "black")
+end</script>
+			<triggerType>0</triggerType>
+			<conditonLineDelta>0</conditonLineDelta>
+			<mStayOpen>0</mStayOpen>
+			<mCommand></mCommand>
+			<packageName></packageName>
+			<mFgColor>#ff0000</mFgColor>
+			<mBgColor>#ffff00</mBgColor>
+			<mSoundFile></mSoundFile>
+			<colorTriggerFgColor>#000000</colorTriggerFgColor>
+			<colorTriggerBgColor>#000000</colorTriggerBgColor>
+			<regexCodeList>
+				<string>^\s+\|\s+(\d+)\s+verschiedene Monster getoetet,\s+\|$</string>
+			</regexCodeList>
+			<regexCodePropertyList>
+				<integer>1</integer>
+			</regexCodePropertyList>
+		</Trigger>
+		<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+			<name>Gag</name>
+			<script>selectCurrentLine()
+deleteLine()</script>
+			<triggerType>0</triggerType>
+			<conditonLineDelta>0</conditonLineDelta>
+			<mStayOpen>0</mStayOpen>
+			<mCommand></mCommand>
+			<packageName></packageName>
+			<mFgColor>#ff0000</mFgColor>
+			<mBgColor>#ffff00</mBgColor>
+			<mSoundFile></mSoundFile>
+			<colorTriggerFgColor>#000000</colorTriggerFgColor>
+			<colorTriggerBgColor>#000000</colorTriggerBgColor>
+			<regexCodeList>
+				<string>       |                                                    |</string>
+				<string>^\s+\|\s+(\w+), Traeger dieser ehrenvollen Plakette,\s+\|$</string>
+				<string>       |       hat, unter absolut heroischem Einsatz        |</string>
+				<string>       |             seines wertvollen Lebens               |</string>
+				<string>       |    fuer deren Hinscheiden er mit Stufenpunkten     |</string>
+				<string>       |                  belohnt wurde.                    |</string>
+			</regexCodeList>
+			<regexCodePropertyList>
+				<integer>0</integer>
+				<integer>1</integer>
+				<integer>0</integer>
+				<integer>0</integer>
+				<integer>0</integer>
+				<integer>0</integer>
+			</regexCodePropertyList>
+		</Trigger>
+		<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+			<name>Plakette zurueckrichten!</name>
+			<script></script>
+			<triggerType>0</triggerType>
+			<conditonLineDelta>0</conditonLineDelta>
+			<mStayOpen>0</mStayOpen>
+			<mCommand></mCommand>
+			<packageName></packageName>
+			<mFgColor>#ff0000</mFgColor>
+			<mBgColor>#ffff00</mBgColor>
+			<mSoundFile></mSoundFile>
+			<colorTriggerFgColor>#000000</colorTriggerFgColor>
+			<colorTriggerBgColor>#000000</colorTriggerBgColor>
+			<regexCodeList>
+				<string>(\w+) richtet (seine|ihre) Plakette auf Dich.$</string>
+			</regexCodeList>
+			<regexCodePropertyList>
+				<integer>1</integer>
+			</regexCodePropertyList>
+		</Trigger>
+		<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+			<name>Auslesen Teil 1</name>
+			<script>display("Du hast:")
+display(matches[2])
+
+if matches[2]=="ein" then
+	EK.plaketten_flag1 = 1
+else
+	EK.plaketten_flag1 = tonumber(matches[2])
+end
+
+EK:save_plakettenabgleich(matches[4])
+</script>
+			<triggerType>0</triggerType>
+			<conditonLineDelta>0</conditonLineDelta>
+			<mStayOpen>0</mStayOpen>
+			<mCommand></mCommand>
+			<packageName></packageName>
+			<mFgColor>#ff0000</mFgColor>
+			<mBgColor>#ffff00</mBgColor>
+			<mSoundFile></mSoundFile>
+			<colorTriggerFgColor>#000000</colorTriggerFgColor>
+			<colorTriggerBgColor>#000000</colorTriggerBgColor>
+			<regexCodeList>
+				<string>^Du hast (\w+) Monster getoetet, (das|die) (\w+) noch nicht getoetet hat.$</string>
+			</regexCodeList>
+			<regexCodePropertyList>
+				<integer>1</integer>
+			</regexCodePropertyList>
+		</Trigger>
+		<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+			<name>Auslesen, Teil 2</name>
+			<script>display(matches[2].." hat:")
+display(matches[3])
+
+if matches[3]=="ein" then
+	EK.plaketten_flag2 = 1
+else
+	EK.plaketten_flag2 = tonumber(matches[3])
+end
+
+EK:save_plakettenabgleich(matches[2])
+</script>
+			<triggerType>0</triggerType>
+			<conditonLineDelta>0</conditonLineDelta>
+			<mStayOpen>0</mStayOpen>
+			<mCommand></mCommand>
+			<packageName></packageName>
+			<mFgColor>#ff0000</mFgColor>
+			<mBgColor>#ffff00</mBgColor>
+			<mSoundFile></mSoundFile>
+			<colorTriggerFgColor>#000000</colorTriggerFgColor>
+			<colorTriggerBgColor>#000000</colorTriggerBgColor>
+			<regexCodeList>
+				<string>^(\w+) hat (\w+) Monster getoetet, (das|die) Du noch nicht getoetet hast.$</string>
+			</regexCodeList>
+			<regexCodePropertyList>
+				<integer>1</integer>
+			</regexCodePropertyList>
+		</Trigger>
+	</TriggerPackage>
+	<TimerPackage />
+	<AliasPackage>
+		<Alias isActive="yes" isFolder="no">
+			<name>hacke EK ab</name>
+			<script>if #matches==2 then
+	EK:check(tonumber(matches[2]))
+else
+	EK:check(tonumber(matches[2]), matches[4])
+end</script>
+			<command></command>
+			<packageName></packageName>
+			<regex>^#EKcheck (\d+)(\s([^\s]+))?$</regex>
+		</Alias>
+		<Alias isActive="yes" isFolder="no">
+			<name>entferne Hacken am EK</name>
+			<script>EK:uncheck(tonumber(matches[2]))</script>
+			<command></command>
+			<packageName></packageName>
+			<regex>^#EKuncheck (\d+)$</regex>
+		</Alias>
+		<Alias isActive="yes" isFolder="no">
+			<name>beschreibe EK</name>
+			<script>EK:describe(tonumber(matches[2]))</script>
+			<command></command>
+			<packageName></packageName>
+			<regex>^#EK (\d+)$</regex>
+		</Alias>
+		<Alias isActive="yes" isFolder="no">
+			<name>Ändere unbekannte EK</name>
+			<script>EK:unknown(tonumber(matches[2]))</script>
+			<command></command>
+			<packageName></packageName>
+			<regex>^#EKunknown (-?\d+)$</regex>
+		</Alias>
+		<AliasGroup isActive="yes" isFolder="yes">
+			<name>EK Infos anzeigen</name>
+			<script></script>
+			<command></command>
+			<packageName></packageName>
+			<regex></regex>
+			<Alias isActive="yes" isFolder="no">
+				<name>finde EK</name>
+				<script>if matches[3]=="" then
+	EK:find("name", matches[4], true)
+else
+	EK:find(matches[3], matches[4], true)
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^#EKfind ((\w+):)?([^:]*)$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>liste Attribute</name>
+				<script>EK:find_attr(matches[2], matches[3])</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^#EKlist (\w+):(.*)$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>EK am Datum anzeigen</name>
+				<script>EK:zeige(matches[2], matches[2])</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^#EKam (\d\d\.\d\d.\d\d)$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>EK ab Datum anzeigen</name>
+				<script>EK:zeige(matches[2], nil)</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^#EKab (\d\d\.\d\d.\d\d)$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>EK bis Datum anzeigen</name>
+				<script>EK:zeige(nil, matches[2])</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^#EKbis (\d\d\.\d\d.\d\d)$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>EK zwischen Daten anzeigen</name>
+				<script>EK:zeige(matches[2], matches[3])</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^#EKzwischen (\d\d\.\d\d\.\d\d) und (\d\d\.\d\d\.\d\d)$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Plaketteninfo</name>
+				<script>EK:diff(matches[2])</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^#EKdiff (\w+)$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Plaketteninfo zeigen</name>
+				<script>EK:show_friend(matches[2])</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^#plakette (\w+)$</regex>
+			</Alias>
+		</AliasGroup>
+		<AliasGroup isActive="yes" isFolder="yes">
+			<name>EK hinzufuegen/bearbeiten/loeschen</name>
+			<script></script>
+			<command></command>
+			<packageName></packageName>
+			<regex></regex>
+			<Alias isActive="yes" isFolder="no">
+				<name>fuege EK hinzu</name>
+				<script>EK:add(matches[2], matches[3], matches[4],matches[5], matches[6], tonumber(matches[7]))</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^#EKadd ([^\|]+)\|([^\|]*)\|([^\|]*)\|([^\|]*)\|([^\|]*)\|(\d)$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>EK loeschen</name>
+				<script>EK:delete(tonumber(matches[2]))</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^#EKdel (\d+)$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>EK verschieben</name>
+				<script>EK:sort(tonumber(matches[2]), tonumber(matches[3]))</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>#EKmove (\d+) (\d+)$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>nur EK-Namen hinzufügen (wenn es schnell gehen muss)</name>
+				<script>EK:add(matches[2], "", "", "", "", 0)</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^#EKsadd (.+)$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>mehrere EKs bearbeiten</name>
+				<script>EK:multichange(matches[2], matches[4], matches[5])</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^#EK (\d+(\s\d+)*) multichange (\w+):(.*)</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Ändere Angaben</name>
+				<script>EK:change(tonumber(matches[2]), matches[3], matches[4])</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^#EK (\d+) change (\w+):(.*)$</regex>
+			</Alias>
+		</AliasGroup>
+		<Alias isActive="yes" isFolder="no">
+			<name>fehlende EKs</name>
+			<script>EK:missing()</script>
+			<command></command>
+			<packageName></packageName>
+			<regex>^#EKmiss$</regex>
+		</Alias>
+		<Alias isActive="yes" isFolder="no">
+			<name>Hilfe</name>
+			<script>decho("&lt;255,255,0:0,0,0&gt;#EKcheck &lt;ID&gt; &lt;Datum&gt;?\n")
+decho("&lt;255,255,0:0,0,0&gt;#EKuncheck &lt;ID&gt;\n")
+decho("&lt;255,255,0:0,0,0&gt;#EK &lt;ID&gt;\n")
+decho("&lt;255,255,0:0,0,0&gt;#EKunknown -?&lt;Anzahl&gt;\n")
+decho("&lt;255,255,0:0,0,0&gt;#EK &lt;ID&gt; change &lt;Attribut&gt;:&lt;Inhalt&gt;\n")
+decho("&lt;255,255,0:0,0,0&gt;#EKfind &lt;Attribut&gt;:?&lt;Suchtext&gt; (Fuer Auflistung der EKs)\n")
+decho("&lt;255,255,0:0,0,0&gt;#EKlist &lt;Attribut&gt;:?&lt;Suchtext&gt; (Fuer Auflistung der Attribute)\n")
+decho("&lt;255,255,0:0,0,0&gt;#EKam &lt;Datum DD.MM.YY&gt;\n")
+decho("&lt;255,255,0:0,0,0&gt;#EKab &lt;Datum DD.MM.YY&gt;\n")
+decho("&lt;255,255,0:0,0,0&gt;#EKbis &lt;Datum DD.MM.YY&gt;\n")
+decho("&lt;255,255,0:0,0,0&gt;#EKzwischen &lt;Datum DD.MM.YY&gt; und &lt;Datum DD.MM.YY&gt;\n")
+decho("&lt;255,255,0:0,0,0&gt;#EKdiff &lt;Zweitiename&gt;\n")
+decho("&lt;255,255,0:0,0,0&gt;#plakette &lt;Konkurrentenname&gt;\n")
+decho("&lt;255,255,0:0,0,0&gt;#EKadd &lt;Name&gt;|&lt;Ort&gt;|&lt;Region&gt;|&lt;Magier&gt;|&lt;Hinweis&gt;|&lt;Para&gt;\n")
+decho("&lt;255,255,0:0,0,0&gt;#EKdel &lt;ID&gt;\n")
+decho("&lt;255,255,0:0,0,0&gt;#EKmove &lt;alte ID&gt; &lt;neue ID&gt;\n")
+decho("&lt;255,255,0:0,0,0&gt;#EKsadd &lt;Name&gt;\n")
+decho("&lt;255,255,0:0,0,0&gt;#EK &lt;ID1&gt; &lt;ID2&gt; ... &lt;IDn&gt; multichange &lt;Attribut&gt;:&lt;Inhalt&gt;\n")
+decho("&lt;255,255,0:0,0,0&gt;#EKmiss\n\n")</script>
+			<command></command>
+			<packageName></packageName>
+			<regex>^#EK$</regex>
+		</Alias>
+		<Alias isActive="yes" isFolder="no">
+			<name>EK filtern und bearbeiten</name>
+			<script>display(matches)
+
+if matches[3]=="" then
+	EK:multichange(EK:find("name", matches[4], false), matches[5], matches[6])
+else
+	EK:multichange(EK:find(matches[3], matches[4], false), matches[5], matches[6])
+end</script>
+			<command></command>
+			<packageName></packageName>
+			<regex>^#EKfilter ((\w+):)?([^:]*) change (\w+):(.*)$</regex>
+		</Alias>
+	</AliasPackage>
+	<ActionPackage />
+	<ScriptPackage>
+		<Script isActive="yes" isFolder="no">
+			<name>Core</name>
+			<packageName></packageName>
+			<script>-------------------------------------------------
+--         Put your Lua functions here.        --
+--                                             --
+-- Note that you can also use external scripts --
+-------------------------------------------------
+
+EK = EK or {
+      first=true,
+			current=0,
+			saved=0,
+			player={},
+			own_id=-1,
+			npc={},
+			player_number=-1,
+			del_flag = -1,
+			change_flag = -1,
+			plaketten_flag1 = -1,
+			plaketten_flag2 = -1,
+			pdel_flag = -1,
+			friends={},
+			mchange_flag="",
+			attr = {"Name", "Ort", "Region", "Magier", "Hinweis", "Para"} 
+			}
+			
+		
+</script>
+			<eventHandlerList />
+		</Script>
+		<Script isActive="yes" isFolder="no">
+			<name>load/save</name>
+			<packageName></packageName>
+			<script>-------------------------------------------------
+--         Put your Lua functions here.        --
+--                                             --
+-- Note that you can also use external scripts --
+-------------------------------------------------
+function EK:get_attr(attr)
+	if attr=="name" then
+		return 1
+	elseif attr=="ort" then
+		return 2
+	elseif attr=="region" then
+		return 3
+	elseif attr=="magier" then
+		return 4
+	elseif attr=="hinweis" then
+		return 5
+	elseif attr=="para" then
+		return 6
+	end
+end
+
+function EK:load(demo)
+  if not (ME.name == "ABCDEFGHKLM") then
+	   self:load_EKs()
+	   self:load_friends()
+  end
+end
+
+function EK:load_friends()
+	local lines
+	local temp
+	local fname
+	lines = pload_csv("Plaketten_Liste")
+  self.friends = {}
+  if lines then
+		for j, sline in ipairs(lines) do
+      temp = {}
+			fname = sline[1]
+			for i=2,#sline do
+				table.insert(temp, sline[i])
+			end
+			if self.friends[fname] then
+				table.insert(self.friends[fname], temp) 
+			else
+				self.friends[fname] = {temp}
+			end
+		end
+	end
+end
+
+
+function EK:load_EKs()
+  	local setting
+  	local lines
+  	setting, lines = mload_csv("EK_Liste", true)
+    self.players = {}
+  	for i=1,#setting/2,1 do
+  		if #setting[2*i-1]&gt;0 then
+    		if setting[2*i-1] == ME.name then
+    			self.own_id = i
+    		end
+    		self.player[setting[2*i-1]] = tonumber(setting[2*i])
+    		table.insert(self.players, setting[2*i-1])
+  		end
+  	end
+    local add_column = self.own_id == -1
+  	if add_column then -- new player!!!
+  		self.player[ME.name] = 0
+  		self.own_id = (#setting/2)+1
+  	end
+  	self.saved = self.player[ME.name]
+  	self.npc={}
+  	local para_id = self:get_attr("para")
+  	for j,sline in ipairs(lines) do
+  		if #sline[para_id]&gt;0 and tonumber(sline[para_id]) then
+  			sline[para_id] = tonumber(sline[para_id])
+  		end
+  		if add_column then
+  			table.insert(sline, "")
+  		end
+  		if (not add_column) and #sline[#self.attr+self.own_id] &gt; 0 then
+  			self.saved = self.saved+1
+  		end
+  		table.insert(self.npc, sline)
+  	end
+  	GUI.ekanzahl:echo("EK-Anzahl: "..self.saved, "black")
+  	if gmcp.MG.char.base.wizlevel == 1 then
+  		send("lies plakette")
+  	else
+  		self.current = self.saved
+  	end
+end
+
+function EK:save()
+	self:save_EK()
+	self:save_friends()
+end
+	
+function EK:save_EK()
+	local setting={}
+	for k,v in pairs(self.player) do
+		table.insert(setting, k)
+		table.insert(setting, v)
+	end
+  self:controll_saving()
+	msave_csv("EK_Liste", EK.npc, setting)
+end
+
+function EK:controll_saving()
+  local norm = len(self.attr)+len(self.player)
+  for i=1,len(self.npc) do
+    for i=1,norm-len(self.npc[i]) do
+      table.insert(self.npc[i], "")
+    end
+  end
+end
+
+
+function EK:save_friends()
+	local temp = {}
+	for k,v in pairs(self.friends) do
+		for j,vv in pairs(v) do
+			table.insert(temp, {k, unpack(vv)})
+		end
+	end
+	psave_csv("Plaketten_Liste", temp)
+end</script>
+			<eventHandlerList />
+		</Script>
+		<Script isActive="yes" isFolder="no">
+			<name>EK-Listen handling</name>
+			<packageName></packageName>
+			<script>-------------------------------------------------
+--         Put your Lua functions here.        --
+--                                             --
+-- Note that you can also use external scripts --
+-------------------------------------------------
+
+function EK:missing()
+  local result={}
+	local max_len = 0
+	
+  local name_id = self:get_attr("name")
+	local para_id = self:get_attr("para")
+	local ort_id = self:get_attr("ort")
+	
+  local oid = #self.attr+self.own_id
+	
+	for k,v in ipairs(self.npc) do
+		if len(v[oid])==0 then
+   		temp_index = ""
+  		temp_index = "&lt;255,255,0:0,0,0&gt;"..k..":\t"
+  		temp_ort = " Ort("..v[para_id].."): "
+  		if type(v[para_id])=="number" and v[para_id]&gt;0 then
+  			temp_ort = "&lt;0,255,0:0,0,0&gt;"..temp_ort
+  		end
+  		if #v[name_id]&gt;max_len then
+  			max_len = #v[name_id]
+  		end
+  		table.insert(result, {temp_index, v[name_id], temp_ort, v[ort_id]})
+   	end
+  end
+	for _,v in ipairs(result) do
+		local len = #v[2]
+		for i=1,max_len-len+1 do
+			v[2] = v[2].." "
+		end
+		decho(v[1])
+		echo(v[2])
+		decho(v[3])
+		echo(v[4].."\n")
+	end
+  echo("\n Es sind ")
+  decho("&lt;255,255,0:0,0,0&gt;"..#result)
+  echo(" fehlende EKs eingetragen.")
+end
+
+function EK:find(attr, tofind, verbose)
+  if not self:check_attr(attr) then
+		return
+	end
+	local result= {}
+  local ret = {}
+	local max_len = 0
+	local count
+  if type(tonumber(tofind))=="number" then
+		count = tonumber(tofind)
+    tofind = ""
+	end
+	local name_id = self:get_attr("name")
+	local para_id = self:get_attr("para")
+	local ort_id = self:get_attr("ort")
+	local attr_id = self:get_attr(attr)
+	local oid = #self.attr+self.own_id
+	
+	tofind = string.lower(tofind)
+  for k,v in ipairs(EK.npc) do
+		if type(string.find(v[attr_id]:lower(), tofind))=="number" then
+   		temp_index = ""
+  		if #v[oid]&gt;0 then
+   			temp_index = "&lt;0,255,0:0,0,0&gt;"..k..":\t"
+  		else
+   			temp_index = "&lt;255,255,0:0,0,0&gt;"..k..":\t"
+  		end
+  		temp_ort = " Ort("..v[para_id].."): "
+  		if type(v[para_id])=="number" and v[para_id]&gt;0 then
+  			temp_ort = "&lt;0,255,0:0,0,0&gt;"..temp_ort
+  		end
+  		if #v[name_id]&gt;max_len then
+  			max_len = #v[name_id]
+  		end
+  		table.insert(result, {temp_index, v[name_id], temp_ort, v[ort_id]})
+      table.insert(ret, k)   	
+    end
+  end
+	if count then
+		local v=#result-count-1
+		for i=1,v do
+			result[i]=nil
+		end
+	end
+  if verbose then
+  	for _,v in ipairs(result) do
+  		local len = #v[2]
+  		for i=1,max_len-len+1 do
+  			v[2] = v[2].." "
+  		end
+  		decho(v[1])
+  		echo(v[2])
+  		decho(v[3])
+  		echo(v[4].."\n")
+  	end
+    echo("\n Es wurden ")
+    decho("&lt;255,255,0:0,0,0&gt;"..#result)
+    echo(" Treffer gefunden.\n\n")
+  end
+  return ret
+end
+
+function EK:check(id, date)
+	if id&gt;#self.npc then
+		eprint("Es gibt nur "..#self.npc.." EKs in der Liste.", "EK-Tracker")
+		return
+	end
+	date = date or os.date("%d.%m.%y")
+	if #self.npc[id][6+self.own_id] &gt;0 then
+		echo("Der EK ")
+		decho("&lt;0,255,0:0,0,0&gt;'"..self.npc[id][1].."'")
+		echo(" wurde schon erworben!\n")
+	else
+    self:load()
+		self.npc[id][6+self.own_id] = date
+		self:save()
+    echo("Der EK ")
+		decho("&lt;0,255,0:0,0,0&gt;'"..self.npc[id][1].."'")
+		echo(" mit dem Datum ")
+		decho("&lt;0,255,0:0,0,0&gt;"..date)
+		echo(" versehen.\n")
+		self.saved = self.saved+1
+		if gmcp.MG.char.base.wizlevel == 1 then
+			send("lies plakette")
+		else
+			self.current = self.current +1
+			GUI.ekanzahl:echo("EK-Anzahl: "..tostring(self.current), "black")
+		end
+	end
+end
+
+function EK:uncheck(id)
+	if id&gt;#EK.npc then
+		eprint("Es gibt nur "..#EK.npc.." EKs in der Liste.", "EK-Tracker")
+		return
+	end
+	self.npc[id][6+self.own_id] = ""
+	self.saved = self.saved-1
+	self:save()
+	if gmcp.MG.char.base.wizlevel == 1 then
+		send("lies plakette")
+	else
+		self.current = self.current -1
+		GUI.ekanzahl:echo("EK-Anzahl: "..tostring(self.current), "black")
+    echo("Der EK ")
+		decho("&lt;0,255,0:0,0,0&gt;'"..self.npc[id][1].."'")
+		echo(" ist nicht mehr als erledigt markiert.")
+	end
+end
+
+function EK:describe(id)
+	local name_id = self:get_attr("name")
+	local ort_id = self:get_attr("ort")
+	local region_id = self:get_attr("region")
+	local magier_id = self:get_attr("magier")
+	local hinweis_id = self:get_attr("hinweis")
+	local para_id = self:get_attr("para")
+	if id&gt;len(EK.npc) then
+		eprint("Es gibt nur "..len(EK.npc).." EKs in der Liste.", "EK-Tracker")
+		return
+	end
+	ziel = EK.npc[id]
+  local tab = {{}, {}}
+  table.insert(tab[1], "&lt;0,255,0:0,0,0&gt;ID:")
+	table.insert(tab[2], id)
+	table.insert(tab[1], "&lt;0,255,0:0,0,0&gt;Name:")
+	table.insert(tab[2], ziel[name_id])
+  local ort = "Ort"
+	if type(ziel[para_id])=="number" then
+		ort = ort .."("..ziel[para_id].."):"
+		if ziel[para_id]&gt;0 then
+		  ort = "&lt;255,255,0:0,0,0&gt;"..ort
+    else
+		  ort = "&lt;0,255,0:0,0,0&gt;"..ort
+    end
+	else
+    ort = "&lt;255,255,0:0,0,0&gt;"..ort.."(Spezial):"
+	end
+  table.insert(tab[1], ort)
+	table.insert(tab[2], ziel[ort_id])
+  table.insert(tab[1], "&lt;0,255,0:0,0,0&gt;Region:")
+	table.insert(tab[2], ziel[region_id])
+	table.insert(tab[1], "&lt;0,255,0:0,0,0&gt;Magier:")
+	table.insert(tab[2], ziel[magier_id])
+	table.insert(tab[1], "&lt;0,255,0:0,0,0&gt;Hinweis:")
+	local hinttext = break_lines(ziel[hinweis_id])
+  table.insert(tab[2], hinttext[1])
+  for i=2,len(hinttext) do
+    table.insert(tab[1], "")
+    table.insert(tab[2], hinttext[i])
+  end
+  table.insert(tab[1], "&lt;0,255,0:0,0,0&gt;Geholt:")
+	if #ziel[#self.attr+self.own_id]&gt;0 then
+		table.insert(tab[2], ziel[len(self.attr)+self.own_id])
+	else
+		table.insert(tab[2], "&lt;255,0,0:0,0,0&gt;Nein")
+	end
+	table.insert(tab[1], "&lt;0,255,0:0,0,0&gt;Zweitis:")
+	for i=1,len(self.players) do
+    if len(self.npc[id]) &lt; len(self.attr)+i then
+      table.insert(self.npc[id], "")
+    end
+		if not(i==self.own_id) then
+			if len(self.npc[id][len(self.attr)+i])&gt;0 then
+				table.insert(tab[2], self.players[i].." - geholt")
+			else
+				table.insert(tab[2], self.players[i].." - nicht geholt")
+			end
+		end
+	end
+  for i=3,len(self.players) do
+    table.insert(tab[1], "")
+  end
+  print_table(norm_table(tab, -1, 1))
+end
+
+function EK:add(name, place, region, magician, description, para)
+	ins = {name, place, region, magician, description, para}
+	for _,_ in pairs(self.player) do
+		table.insert(ins, "")
+	end
+	table.insert(self.npc, ins)
+  self:save()
+  decho("\n\n&lt;0,255,0:0,0,0&gt;Neu eingetragener EK:\n")
+	self:describe(#self.npc)
+end
+
+function EK:find_attr(attr, sub)
+	local result={}
+	sub = sub:lower()
+	local attr_id = self:get_attr(attr)
+	for _,v in pairs(self.npc) do
+		if type(string.find(v[attr_id]:lower(), sub))=="number" then
+			result[v[attr_id]] = 0
+		end
+	end
+	local keys = {}
+	for k,_ in pairs(result) do
+		if #k&gt;0 then
+			table.insert(keys, k)
+		end
+	end
+	table.sort(keys)
+	if #keys == 0 then
+		iprint("Keine "..unlower(attr).." gefunden.", "EK-Tracker")
+	else
+  	decho("\n&lt;0,255,0:0,0,0&gt;Gefundene "..unlower(attr)..":\n\n")
+  	for i,v in ipairs(keys) do
+  		echo(i..": "..v.."\n")	
+  	end
+	end
+  --self:save()
+end
+
+function EK:unknown(x)
+	if self.current == self.saved then
+		echo("\nAlle EKs sind verzeichnet oder zaehlen zu den ")
+		decho("&lt;0,255,0:0,0,0&gt;"..self.player[ME.name])
+		echo(" Unbekannten.\n")
+	else
+		echo("\nDie Anzahl unbekannter EKs aendert sich von ")
+		decho("&lt;0,255,0:0,0,0&gt;"..self.player[ME.name])
+		echo(" zu ")
+		self.player[ME.name] = self.player[ME.name]+x
+		decho("&lt;0,255,0:0,0,0&gt;"..self.player[ME.name])
+		echo(".\n")
+		self.saved = self.saved+x
+		self:save()
+		send("lies plakette")
+	end
+end
+
+function EK:zwischen(von, datum, bis)
+	-- Sonderregel
+	if datum:lower()=="x" then
+		if type(von)=="nil" then
+			return true
+		end
+		return false
+	end
+	datum = tonumber(datum:sub(7,8)..datum:sub(4,5)..datum:sub(1,2))
+	if type(von)=="nil" then
+		bis = tonumber(bis:sub(7,8)..bis:sub(4,5)..bis:sub(1,2))
+		return datum&lt;= bis
+	else
+		if type(bis)=="nil" then
+			von = tonumber(von:sub(7,8)..von:sub(4,5)..von:sub(1,2))
+			return von &lt;= datum
+		else
+			bis = tonumber(bis:sub(7,8)..bis:sub(4,5)..bis:sub(1,2))
+			von = tonumber(von:sub(7,8)..von:sub(4,5)..von:sub(1,2))
+			return von &lt;= datum and datum &lt;= bis
+		end
+	end
+end
+	
+function EK:zeige(von, bis)
+	local max_len = 0
+	local result = {}
+	for k,v in ipairs(self.npc) do
+		datum = v[6+self.own_id]
+		if #datum&gt;0 and self:zwischen(von, datum, bis) then
+			temp_index = "&lt;0,255,0:0,0,0&gt;"..k..":\t"
+  		temp_ort = " Ort("..v[6].."): "
+  		if type(v[6])=="number" and v[6]&gt;0 then
+  			temp_ort = "&lt;0,255,0:0,0,0&gt;"..temp_ort
+  		end
+  		if #v[1]&gt;max_len then
+  			max_len = #v[1]
+  		end
+  		table.insert(result, {temp_index, v[1], temp_ort, v[2]})
+		end
+	end
+	if #result==0 then
+		decho("&lt;255,255,0:0,0,0&gt;Keine Ergebnisse gefunden")
+	end
+	for _,v in ipairs(result) do
+		local len = #v[2]
+		for i=1,max_len-len+1 do
+			v[2] = v[2].." "
+		end
+		decho(v[1])
+		echo(v[2])
+		decho(v[3])
+		echo(v[4].."\n")
+	end
+end
+
+function EK:delete(id)
+	if self.del_flag == id then
+		if #self.npc[id][6+self.own_id]&gt;0 then
+			self.saved = self.saved-1
+			send("lies plakette")
+		end
+		for i=id,#self.npc-1 do
+			self.npc[i]=self.npc[i+1]
+		end
+		self.npc[#self.npc]=nil
+		self.del_flag = 0
+    self:save()
+    decho("&lt;255,255,0:0,0,0&gt;Der EK wurde geloescht.")
+	else
+		echo("\nMoechtest du folgenden EK aus der Liste loeschen? Falls ja, wiederhole den Befehl!\n")
+		self:describe(id)
+		self.del_flag = id
+	end
+end
+
+function EK:sort(old_id, new_id)
+	temp = self.npc[old_id]
+	if old_id &lt; new_id then
+		for i=old_id,new_id-1 do
+			self.npc[i]=self.npc[i+1]
+		end
+	else
+		for i=old_id,new_id+1,-1 do
+			self.npc[i] = self.npc[i-1]
+		end
+	end
+	EK.npc[new_id] = temp
+  self:save()
+	echo("\nDer EK an der Stelle "..old_id.." wurde an die Stelle "..new_id.." gesetzt.\n")
+end
+
+function EK:check_attr(attr)
+	if not(attr=="name" or attr=="ort" or attr=="region" or attr=="magier" or attr=="para" or attr=="hinweis") then
+		eprint("Es kann nur eines der folgenden Attribute geaendert werden: Name, Ort, Region, Magier, Hinweis oder Para", "EK-Tracker")
+		return false
+	end
+	return true
+end
+
+
+function EK:change(id, attr, content)
+	attr = string.lower(attr)
+	if not self:check_attr(attr) then
+		return
+	end
+	if self.change_flag == id then
+    if attr == "para" then
+      if not(tonumber(content)==nil) then
+        content = tonumber(content)
+      end
+    end
+		self.npc[id][self:get_attr(attr)] = content
+    self.change_flag = 0
+		echo("\nDas Attribut ")
+    decho("&lt;0,255,0:0,0,0&gt;"..unlower(attr))
+    echo(" wurde zu \n")
+    decho("&lt;0,255,0:0,0,0&gt;"..content)
+    echo("\ngeaendert.\n\n")
+		self:describe(id)
+    self:save()
+	else
+		echo("Willst du bei ...\n\n")
+		self:describe(id)
+		echo("\n... wirklich das Attribut ")
+    decho("&lt;0,255,0:0,0,0&gt;"..unlower(attr))
+    echo(" zu \n")
+    decho("&lt;0,255,0:0,0,0&gt;"..content)
+    echo("\naendern? Falls ja, dann wiederhole den Befehl.\n\n")
+		self.change_flag = id
+	end
+end
+
+
+function EK:multichange(ids, attr, content)
+	attr = string.lower(attr)
+	if not EK:check_attr(attr) then
+		return
+	end
+	local idn = {}
+  if type(ids) == "string" then
+  	for zahl in ids:gmatch("%d+") do
+  		table.insert(idn, tonumber(zahl))
+  	end
+  elseif type(ids) == "table" then
+    idn = ids
+  end
+  local id_check = false
+  if type(ids) == "string" then
+    id_check = self.mchange_flag == ids
+  elseif type(ids) == "table" then
+    if #self.mchange_flag == #ids then
+      id_check = true
+      for k,v in ipairs(self.mchange_flag) do
+        if not (ids[k] == v) then
+          id_check = false
+          break
+        end
+      end
+    end
+  end
+	if id_check then
+		echo("\nDas Attribut ")
+    decho("&lt;0,255,0:0,0,0&gt;"..unlower(attr))
+    echo(" wurde zu \n")
+    decho("&lt;0,255,0:0,0,0&gt;"..content)
+    echo("\ngeaendert:\n\n")
+		if attr == "para" then
+      if not(tonumber(content)==nil) then
+        content = tonumber(content)
+      end
+    end
+    local tab = {{}, {}, {}, {}}
+		for i,id in ipairs(idn) do
+      table.insert(tab[1], "&lt;0,255,0:0,0,0&gt;Name:")
+			table.insert(tab[2], self.npc[id][1])
+			table.insert(tab[3], "&lt;0,255,0:0,0,0&gt;"..unlower(attr)..":")
+      self.npc[id][self:get_attr(attr)] = content
+			if self.npc[id][self:get_attr(attr)]=="" then
+        table.insert(tab[4], "- kein Eintrag -")
+      else
+        table.insert(tab[4], self.npc[id][self:get_attr(attr)])
+      end
+		end
+    print_table(norm_table(tab, -1, 2))
+	else
+		echo("Willst du bei ...\n\n")
+		local tab = {{}, {}, {}, {}}
+		for i,id in ipairs(idn) do
+			table.insert(tab[1], "&lt;0,255,0:0,0,0&gt;Name:")
+			table.insert(tab[2], self.npc[id][1])
+			table.insert(tab[3], "&lt;0,255,0:0,0,0&gt;"..unlower(attr)..":")
+      if self.npc[id][self:get_attr(attr)]=="" then
+        table.insert(tab[4], "- kein Eintrag -")
+      else
+        table.insert(tab[4], self.npc[id][self:get_attr(attr)])
+      end
+		end
+    print_table(norm_table(tab, -1, 2))
+		echo("\n... wirklich das Attribut ")
+    decho("&lt;0,255,0:0,0,0&gt;"..unlower(attr))
+    echo(" zu \n")
+    decho("&lt;0,255,0:0,0,0&gt;"..content)
+    echo("\naendern? Falls ja, dann wiederhole den Befehl.\n\n")
+		self.mchange_flag = ids
+	end
+end
+</script>
+			<eventHandlerList />
+		</Script>
+		<Script isActive="yes" isFolder="no">
+			<name>Plaketten handling</name>
+			<packageName></packageName>
+			<script>-------------------------------------------------
+--         Put your Lua functions here.        --
+--                                             --
+-- Note that you can also use external scripts --
+-------------------------------------------------
+
+function EK:format_nums(a, b)
+	local temp=""
+	a = tostring(a)
+	temp=temp..a
+	if type(b) == "nil" then
+  	return temp.."   "
+	else
+		b = tonumber(a)-tonumber(b)
+		local vorz = "+"
+		if b&lt;0 then
+  		vorz =""
+  	end
+  	b = tostring(b)
+		for i=1,5-#b-#vorz do
+  		temp = temp.." "
+  	end
+		if #vorz==1 then
+			return temp.."&lt;0,255,0:0,0,0&gt;("..vorz..b..")"
+		else
+			return temp.."&lt;255,255,0:0,0,0&gt;("..vorz..b..")"
+		end
+	end
+end
+
+function EK:save_plakettenabgleich(name)
+  if self.plaketten_flag1 &gt; -1 and self.plaketten_flag2 &gt; -1 then
+  	name = name:lower()
+  	if not self.friends[name] then
+  		self.friends[name] = {{self.current, self.plaketten_flag1, self.plaketten_flag2, os.date("%d.%m.%y %H:%M")}}
+  	else
+  		table.insert(self.friends[name], {self.current, self.plaketten_flag1, self.plaketten_flag2, os.date("%d.%m.%y %H:%M")})
+  	end
+  	self.plaketten_flag1 = -1
+  	self.plaketten_flag2 = -1
+  	self:show_friend(name)
+  	self:save_friends()
+  end
+end
+
+function EK:del_abgleich(name, id)
+	if self.pdel_flag == id then
+		for i=id,#self.friends[name]-1 do
+			self.friends[name][i] = self.friends[name][i+1]
+		end
+		self.friends[name][#self.friends[name]] = nil
+		self.pdel_flag = -1
+		self:show_friend(name,id)
+		self:save_friends()
+	else
+		if type(self.friends[name])=="nil" then
+			iprint("Mit diesem Freund hast du noch keine Plakette verglichen.")
+			return
+		end
+		if id&gt;#self.friends[name] then
+			wprint("Es gibt nur "..#self.friends[name].." gespeicherte Plakettenvergleiche")
+			return
+		end
+		echo("\n\nWillst du wirklich den Eintrag mit der ID "..id.." loeschen?")
+		self:show_friend(name,id)
+		echo("Falls ja, dann wiederhole den Befehl.")
+		self.pdel_flag = id
+	end
+end
+
+function EK:show_friend(name, id)
+	name = name:lower()
+	if type(self.friends[name])=="nil" then
+		iprint("Mit "..name.." wurde noch keine Plakette abgeglichen.", "EK-Tracker")
+		return
+	end
+	id = id or (#self.friends[name]-1)
+	local start_id
+	if id&lt;2 then
+		start_id = 1
+	else
+		start_id = id-1
+	end
+	local end_id
+	if id+1&gt;#self.friends[name] then
+		end_id = #self.friends[name]
+	else
+		end_id = id+1
+	end
+	local max_len = #name+9
+	echo("\n\n")
+	local tab = {}
+	table.insert(tab, norm_length({"ID:", "", "", "", 
+																	"Deine EKs:", 
+																	"EKs von "..name..":", 
+																	"Dir fehlen:", 
+																	name.." fehlen:"}, 1))
+	fi = self.friends[name][start_id]
+	table.insert(tab, norm_length({start_id.." ", 
+																	fi[4]:sub(1,8).." ", 
+																	fi[4]:sub(10,14).." ", "",
+																	self:format_nums(fi[1], nil),
+																	self:format_nums(fi[1]-fi[2]+fi[3], nil),
+																	self:format_nums(fi[3], nil),
+																	self:format_nums(fi[2], nil)}, 1, 2))
+	for i=start_id+1,end_id do
+		fi = self.friends[name][i]
+		fp = self.friends[name][i-1]
+		table.insert(tab, norm_length({i.." ", 
+																	fi[4]:sub(1,8).." ", 
+																	fi[4]:sub(10,14).." ", "",
+																	self:format_nums(fi[1], fp[1]),
+																	self:format_nums(fi[1]-fi[2]+fi[3], fp[1]-fp[2]+fp[3]),
+																	self:format_nums(fi[3], fp[3]),
+																	self:format_nums(fi[2], fp[2])}, 1, 2))
+	end
+	print_table(tab)
+end
+
+
+function EK:diff(friend)
+	friend = friend:lower()
+	local oid = #self.attr+self.own_id
+	local did = 0
+	for i,p in ipairs(self.players) do
+		if p:lower()==friend then
+			did = i
+			break
+		end
+	end
+	did = did + #self.attr
+	local name_id = self:get_attr("name")
+	local para_id = self:get_attr("para")
+	local ort_id = self:get_attr("ort")
+	local max_len = 0
+	local result = {}
+	for i,npc in ipairs(self.npc) do
+		if #npc[oid]==0 and (oid==did or #npc[did]&gt;0) then
+			temp_index = ""
+  		if #npc[oid]&gt;0 then
+   			temp_index = "&lt;0,255,0:0,0,0&gt;"..i..":\t"
+  		else
+   			temp_index = "&lt;255,255,0:0,0,0&gt;"..i..":\t"
+  		end
+  		temp_ort = " Ort("..npc[para_id].."): "
+  		if type(npc[para_id])=="number" and npc[para_id]&gt;0 then
+  			temp_ort = "&lt;0,255,0:0,0,0&gt;"..temp_ort
+  		end
+  		if #npc[name_id]&gt;max_len then
+  			max_len = #npc[name_id]
+  		end
+  		table.insert(result, {temp_index, npc[name_id], temp_ort, npc[ort_id]})
+		end
+	end
+	if count then
+		local v=#result-count-1
+		for i=1,v do
+			result[i]=nil
+		end
+	end
+	if #result==0 then
+		decho("&lt;255,255,0:0,0,0&gt;Keine Ergebnisse gefunden")
+	end
+	for _,v in ipairs(result) do
+		local len = #v[2]
+		for i=1,max_len-len+1 do
+			v[2] = v[2].." "
+		end
+		decho(v[1])
+		echo(v[2])
+		decho(v[3])
+		echo(v[4].."\n")
+	end
+	
+	if oid == did then
+		echo("\nEs wurden ")
+		decho("&lt;0,255,0:0,0,0&gt;"..#result)
+		echo(" EKs gefunden, die noch fehlen.")
+	else
+		echo("\nEs wurden ")
+		friend_info = self.friends[friend]
+		if friend_info then
+			decho("&lt;0,255,0:0,0,0&gt;"..#result.."/"..(friend_info[#self.friends[friend]][3]))
+		else
+			decho("&lt;0,255,0:0,0,0&gt;"..#result.."/XXX")
+		end
+		echo(" EKs gefunden, die noch fehlen.\n")
+	end
+end</script>
+			<eventHandlerList />
+		</Script>
+	</ScriptPackage>
+	<KeyPackage />
+	<HelpPackage>
+		<helpURL></helpURL>
+	</HelpPackage>
+</MudletPackage>

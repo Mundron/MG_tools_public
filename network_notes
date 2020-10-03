@@ -1,0 +1,80 @@
+ip addr sh
+
+loopback = 127.0.0.1 sogar ohne netz
+flags sind LOOPBACK, UP, ...
+
+mtu = maximale Paketlaenge
+
+inet 192.168.12.8/24
+da ist 192.168.12. fest und alles ist die Rechneradresse.
+Die 24 besagt, dass diese ersten 24 Bits fest sind.
+
+Linux virtuelle Netzkarten simulieren, so dass ein Rechner auch mehrere
+Clients simulieren kann und daher auf mehrere IPs hoert.
+
+
+/sbin/route -n
+
+Routing Tabelle, wer was wohin. Falls kein Match, dann default device
+
+0.0.0.0 default device, referenze wer sich drum kuemmert, wenn netzwerk
+nicht klar ist?
+
+
+ping -c <anzahl pakete> <ip address>
+
+IP = Internet Protokoll
+
+IPv6 adressen kann einen scope haben.
+global waere uebers internet erreichbar, wenn der Router es nicht verhindern
+wuerde,
+scope link ist nur fuer innerhalb des Netzwerks bis zum Router
+
+TCP Protokoll, Handshake, langsamer, aber genauer
+
+
+UDP Protokoll, verbindungslos, performant, schickt einfach anfragen los,
+ggf keine Antwort oder falls Paket fehlt oder Paketreihenfolge falsch,
+Fehlerkorrektur hoeher, "lockere Verbindung"
+
+
+Spezielle IPs des Netzwerkes: .0 "das Netzwerk, aber kein spezifischer Client",
+.255 "Broadcast, alle Clients sollten darauf hoeren"
+
+Netzwerke mit 32 festen Bits beschraenkt das Netzwerk auf genau einen Client
+
+ip befehl argument: addr sh = address show
+
+ip befehl zeigt nicht nur, sondern man kann damit auch Dinge setzen (!!!)
+wird im hintergrund genutzt
+
+avahi daemon (Protokoll)
+
+phx system (???)
+
+DHCP = dynamic host configuration protocol
+
+man dhclient
+
+dhclient ist der Client, der sich um das Protokol kuemmert
+
+nameserver (???)
+
+
+ps = prozessliste
+
+ps ax (a=alle Prozesse, auch keine eigene   , x=alle, nicht nur Konsolenprozesse,
+zusammen = alle Prozesse, die auf dem Rechner laufen))
+
+ps ax | grep dhc (zeigt laufenden dhclient)
+
+traceroute <ip adresse>
+Liste aller Router, die auf dem Weg liegt
+
+whois <ip adresse> (Infos zum Router)
+
+host <ip oder name> (Namensaufloesung)
+
+
+
+
