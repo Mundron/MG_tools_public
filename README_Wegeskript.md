@@ -1,4 +1,4 @@
-# Wegeskript (v1.2)
+# Wegeskript (v1.21)
 
 Dieses Skript ist in Lua fürs [Mudlet](https://www.mudlet.org/) geschrieben.
 Das Skript habe ich fuer mich selbst zur Nutzung in [Morgengrauen](http://mg.mud.de) erstellt, so dass gewisse
