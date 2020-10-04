@@ -30,29 +30,17 @@ von gmcp moeglicherweise anders sein, so dass diese Stellen angepasst werden mue
 
      5.2. Wegaufzeichnung
 
-          5.2.1. Wegaufzeichnung Typ 1 (alte Version)
+     5.3. Automatisch speichernde Bewegung/Aktion anzeigen und anpassen
 
-          5.2.2. Wegaufzeichnung Typ 2 (ab v1.2)
+     5.4. Anzeige des bisher aufgezeichneten Weges
 
-     5.3. Wie wird die Bewegung von der Wegaufzeichnung festgehalten?
+     5.5. Korrektur falsch eingegebener manueller Bewegungsaktionen
 
-          5.3.1 Anzeigen der erkennbaren Bewegung/Aktion (v1.2)
+     5.6. Punkt/Wegaufzeichnung speichern
 
-          5.3.2. Hinzufuegen von neuen Bewegung/Aktionen (v1.2)
+     5.7. Speichern nur des Hinweges oder nur des Rueckweges
 
-          5.3.3. Loeschen von Bewegung/Aktion (v1.2)
-
-     5.4. Manuell Bewegungsaktion hinzufuegen
-
-     5.5. Anzeige des bisher aufgezeichneten Weges
-
-     5.6. Korrektur falsch eingegebener manueller Bewegungsaktionen
-
-     5.7. Punkt speichern
-
-     5.8. Speichern nur des Hinweges oder nur des Rueckweges
-
-     5.9. Tipps/Tricks fuer effektive Wege
+     5.8. Tipps/Tricks fuer effektive Wege
 
 6. Welcher Char nutzt welche Wege? Gemeinsame und unterschiedliche Wege.
 
@@ -95,49 +83,67 @@ Das Wegeskript ermoeglicht schnelles Reise zwischen beliebigen gespeichtern Punk
 
 ## 2. Installation
 
-4. Dateinamen auswaehlen in der die Wege gespeichert werden sollen:
+    Das Wegeskript ist ein Teil der Skript-Sammlung. Daher muss zur Nutzung 
+    das Modul Mundron_Core.xml bereits installiert sein und dann nur noch 
+    zusätzlich Wegeskript.xml als Modul installieren und fertig. Die Module 
+    könnt ihr im Mudlet installieren indem ihr Alt+I drückt oder im Menü auf 
+    "Werkzeuge" geht und dort "Module" auswählt. Da klickt ihr auf 
+    "Installieren", wählt die Datei aus und fertig! Möglicherweise muesst 
+    ihr Mudlet einmal neustarten.
 
-    In Zeile 11 sollte stehen:
+    Nun könnt ihr verschiedene Dateien anlegen, da fuer Seher andere Wege 
+    durch Portale moeglich sind, wie Nichtsehern. Aktuell wird eine Datei 
+    mit dem Namen "Wege.txt" erstellt, in der die Wege gespeichert werden.
+    Wollt ihr verschiedene Profile anlegen, die verschiedene Dateien 
+    benutzen sollen, dann muss aktuell eine andere Datei im Skript 
+    geaendert werden, naemlich im Element "Core" in Zeile 10 steht:
 
-        filename="Wege",
+        PF = PF or {filename="Wege",
 
-    dies bedeutet, dass der Dateiname Wege ist. Wenn zwei Profile den selben
-    Dateinamen hier eingegeben haben, dann nutzen sie auch die selbe Datei
-    und greifen auf die selben gespeicherten Wege zurueck.
-    Es empfiehlt sich dabei eine Datei fuer Seher-Charaktere und fuer
-    Nichtseher-Charaktere anzulege, da Seher-Charaktere mit Hilfe der Portale
-    andere Moeglichkeiten haben, siehe 5.9.
+    Wenn ihr hier "Wege" durch etwas anderes ersetzt, dann wird fuer das 
+    Profil die entsprechen andere Datei benutzt oder angelegt, wenn es noch
+    keine gibt.
 
 ## 3. Wie kann man das Wegeskript nutzen?
 
- Als erstes muessen natuerlich die Punkte im Spiel gespeichert werden zwischen denen man schnell reisen moechte.
- Dazu beeinhaltet das Wegeskript auch eine Wegaufzeichnung. Wenn wir zum Beispiel 10 Punkte im Spiel speichern wollen,
- dann braucht man 45 verschiede Wege um von jedem dieser 10 Punkte zu jedem reisen zu koennen. Klingt noch ueberschaubar,
- aber bei 100 Punkten sind es schon 5.050 Wege und dann wird es nicht mehr lustig...
+ Es gibt schon einige vorgefertigte Aliase im Skript, die ihr benutzen
+ koennt. Wenn ihr im Spielt \#WS eingebt, erscheint eine Liste der 
+ moeglichen Befehle und auch, wie man mit der Hilfsfunktion Details
+ zu den Befehlen bekommt.
 
- Daher ist ein wesentliches Konzept dieses Wegeskriptes, dass man sich in einem Gebiet einen zentralen Punkte auswaehlt.
- Sozusagen einen Basispunkt. Und dann speichert man sich einen Punkt indem man den Hin- und Rueckweg vom Basispunkt
- zum neuen Punkt aufzeichnet (mit dem Skript, siehe weiter unten). Wenn man dann von Punkt A nach B reisen will, dann laeuft
- das Wegeskript von A zum Basispunkt und dann vom Basispunkt nach B. Damit braucht man lediglich zwei Wege pro
- gespeicherten Punkt zu sichern.
+ Grundsetzlich muessen natuerlich die Punkte im Spiel gespeichert werden 
+ zwischen denen man schnell reisen moechte. Dazu beeinhaltet das Wegeskript
+ auch eine Wegaufzeichnung. 
 
- Natuerlich gibt es auch Orte, von von diesem Basispunkt aus nicht mit dem Skript erreichbar sind.
- Zum Beispiel Orte, die man nur mit Gefaehrten, wie Schiffe, erreichen kann. Man muss auch dort das Wegeskript nutzen!
- Dazu muss man sich lediglich in jedem getrennten Gebiet einen neuen Basispunkt auswaehlen.
- Das Wegeskript ist auch in der Lage zu erkennen, ob man sich an einem gespeicherten Punkt befindet, so dass man nur
- den Zielpunkt eingeben muss.
+ Ein wesentliches Konzept dieses Wegeskriptes, dass man sich in einem Gebiet
+ einen zentralen Punkte auswaehlt, sozusagen einen Basispunkt. 
+ Und dann speichert man sich einen Punkt indem man den Hin- und Rueckweg vom Basispunkt
+ zum neuen Punkt aufzeichnet (mit dem Skript, siehe weiter unten). 
+ Wenn man dann von Punkt A nach B reisen will, dann laeuft das 
+ Wegeskript von A zum Basispunkt und dann vom Basispunkt nach B. 
+ Damit braucht man lediglich zwei Wege pro gespeicherten Punkt
+ zu sichern.
+
+ Natuerlich gibt es auch Orte, von von diesem Basispunkt aus
+ nicht mit dem Skript erreichbar sind. Zum Beispiel Orte,
+ die man nur mit Gefaehrten, wie Schiffe, erreichen kann.
+ Man muss auch dort das Wegeskript nutzen! Dazu muss man
+ sich lediglich in jedem getrennten Gebiet einen neuen
+ Basispunkt auswaehlen. Das Wegeskript ist auch in der
+ Lage zu erkennen, ob man sich an einem gespeicherten
+ Punkt befindet, so dass man nur den Zielpunkt eingeben muss.
 
 ## 4. Wichtiges zu Updates des Wegeskriptes
 
 ### 4.1. Das Wegeskript wurde geupdatet. Muss ich nun wieder alle Punkte speichern um die neue Version zu nutzen?
 
- Nein, das Wegeskript wurde bewusst so geschrieben, dass alle Wege in einer Textdatei im Arbeitsordner gespeichert werden.
- Wenn du die neue Version nutzen willst, dann musst du erstmal das alte Wegeskript vom Client loeschen.
- Dazu loeschst du den gesamten Ordner bei Aliase und Skripte, die beim Installieren des Wegeskriptes dazugekommen sind.
- (Die Ordner haben im Namen dann Wegeskript oder Pathscript).
-
- Anschliessend laedt man sich wieder Wegeskript.xml runter und installiert das Paket, wie oben bei Schritt 2 erklaert wurde.
- Ebenso muss Schritt 3 auch erneut ausgefuehrt werden. Die alten Wege sollten dann automatisch erkannt und geladen werden.
+ Nein, das Wegeskript wurde bewusst so geschrieben, dass alle
+ Wege in einer Textdatei im Arbeitsordner gespeichert werden.
+ Wenn du das Skript als Modul geladen hast, reicht es auch die
+ Datei auszutauschen, bzw wenn du git nutzt und die Datei aus 
+ dem Repository laedst, kannst du mit git pull die Skripte 
+ aktualisieren. Moeglicherweise ist aber ein Neustart des 
+ Mudlets notwendig.
 
 ### 4.2. Was hat sich  mit Version v1.1 geaendert?
 
@@ -165,7 +171,12 @@ Das Wegeskript ermoeglicht schnelles Reise zwischen beliebigen gespeichtern Punk
   - Unterdrueckte Raummeldungen bei Reisen werden in einer externen Dateie gespeichert und kann nun flexibel angepasst werden, siehe Unterpunkte von 13..
   - Automatisch erkannte Bewegungs bei der Wegauchzeichnung ist nun ebenfalls dynamisch anpassbar, siehe Unterpunkte von 5.3..
 
-### 4.4. Plaene fuer Version v1.3 (bisher)
+### 4.4. Was hat sich  mit Version v1.21 geaendert?
+
+  - Inklusion des Wegeskriptes als Teil eines Skript-Pakets
+  - Wegaufzeichnung Typ 1 entfernt
+
+### 4.5. Plaene fuer Version v1.3 (bisher)
 
   - Alle Bugs erschlagen, die in der Zwischenzeit auftauchen
   - Verwaltungssystem fuer die gespeicherten Wege und Gags um diese zwischen Dateien hin und her zu kopieren und sie nach Wunsch je Profil zu personalisieren.
@@ -174,25 +185,10 @@ Das Wegeskript ermoeglicht schnelles Reise zwischen beliebigen gespeichtern Punk
 
 ## 5. Wegaufzeichnung / Wie speichere ich Punkte fuer das Wegeskript?
 
- Jede notwendige Bearbeitung verlaeuft im Skript. Die Aliase sind lediglich dafuer da um die entsprechenden Funktionen
- im Spiel aufrufen zu koennen. Man startet die Wegaufzeichnung am Basispunkt und benutzt das Nummerfeld zur Bewegung.
- Dabei wird automatisch vom Wegeskript die eingegebene Richtung gespeichert. Automatisch wird auch die Rueckrichtung
- gespeichert!
-
- Wenn man nun nicht das Nummerfeld benutzen moechte oder man einen bestimmen Befehl braucht um den naechsten Raum
- zu betreten, zum Beispiel "betrete haus", dann muss man diese Bewegungsaktion "manuell" an die Wegaufzeichnung eingeben.
- Dann muss aber auch die Bewegungsaktion fuer den Rueckweg eingeben. Dazu gibt es aber auch vorgefertigte Alias-Befehle.
-
- Wenn man am Punkt angekommen ist, den man speichern moechte, dann stoppt man die Wegaufzeichnung und speichert den Punkt.
- Dabei braucht der Punkt wenigstens einen Namen und einen Titel. Die Raum-ID zum Erkennen des Raumes, wird automatisch von
- der Wegaufzeichnung gespeichert.
-
- Es ist aber auch moeglich, dass man statt den Weg vom Basispunkt den Weg von einem anderen in der Naehe befindlichen
- Punkt aufzeichnet und das dann mit angibt.
-
- Wenn man sich an dem zu speichernden Punkt befindet, muss man nicht zwingend vom Basispunkt dahin laufen, sondern man
- kann die Wegaufzeichnung am zu speichernden Punkt startet und zum Basispunkt laufen. Dann uebergibt man beim Speichern
- einen weiteren Parameter, womit das Wegeskript die Wege richtig herum speichert.
+ Grundsaetzlich startet man entweder am Basispunkt oder einem bereits 
+ gespeicherten Wegpunkt, startet die Wegaufzeichnung, laeuft zum Ziel,
+ gibt ein, dass es der Zielpunkt ist, laeuft zurueck und speichert sich
+ das als neuen Weg ein. Und das war es auch schon im Prinzip.
 
 ### 5.1. Basispunkt
 
@@ -201,50 +197,64 @@ Das Wegeskript ermoeglicht schnelles Reise zwischen beliebigen gespeichtern Punk
  Der Wegeskript geht automatisch davon aus, dass der Rueckweg immer zu einem Basispunkt fuehrt. Deswegen ist es kein Problem
  in verschiedenen Gebieten auch unterschiedliche Basispunkte zu benutzen.
 
-### 5.2. Wegaufzeichnung
+#### 5.2. Wegaufzeichnung
 
-  Um einen Weg bzw einen Knoten zu erstellen, muss der Weg vom Basispunkt oder einem Knoten zu einem neuen Knoten aufgezeichnet und dann gespeichert werden. Dazu gibt es (ab v1.2) zwei Typen von Wegaufzeichnungen mit verschiedenen Vor- und Nachteilen. Im Wesentlichen muss man bei beiden den neuen Weg ablaufen. Dabei kann man die Tasten vom Nummernfeld mit Richtungen belegen und diese zur Navigation benutzen oder die Richtung direkt eingeben. Fuer die Standard-Richtungen wird dies automatisch erkannt, fuer mehr Details, siehe 5.3..
-
-#### 5.2.1. Wegaufzeichnung Typ 1 (alte Version)
-
-  Bei der ersten/alten Version der Wegaufzeichnung wurde die Eingabe gespeichert und erst beim Raumwechsel der Aufzeichnung hinzugefuegt. Dies hatte den Vorteil, dass man falsche Eingaben nicht korrigieren musste, da diese nicht aufgezeichnet wurde. Ausserdem wird auch automatisch der Rueckweg mitgespeichert! (Sofern zu der Bewegung eine Umkehrung bekannt ist, wie Norden und Sueden etc.)  Ein Nachteil von diesem Typ ist jedoch, dass der Rueckweg korrigiert werden muss, wenn dieser sich wesentlich vom Hinweg unterscheidet.
-
-  Um die Wegaufzeichnung Typ 1 zu steuern, gibt es folgende Befehle:
-
+  Fuer die Wegaufzeichnung sind folgende Befehle direkt im Spiel nutzbar:
 
              #wa start
              #wa stop
              #wa weiter
+             #wa ziel
 
-  Wie das Argument suggeriert kann man damit die Aufnahme starten, anhalten/beenden und wieder fortsetzen. Allerdings wird beim Fortsetzen geprueft ob man dies im selben Raum tut, wo die Aufnahme angehalten wurde.
-  Man starte also die Wegaufzeichnung, laeuft den Weg von A nach B und anschliessen speichert man diese, wie in 5.7. erklaert wird.
+  Wir beginnen entweder an einem Basispunkt oder einem anderen Wegpunkt
+  und starten die Wegaufzeichnung mit 
 
-  WICHTIG: Das Beenden der Wegaufzeichnung fuehrt nicht automatisch zum Speichern des Weges. Dies muss anschliessend explizit ausgefuehrt werden, siehe 5.7..
+             #wa start
 
-#### 5.2.2. Wegaufzeichnung Typ 2 (ab v1.2)
+  Nun werden vom Skript Aliase fuer die Standardhimmelsrichtungen
 
-  Im Gegensatz zum Typ 1 wird bei Typ 2 die Bewegungsaktion nicht erst beim Raumwechsel gespeichert sondern unmittelbar bei der Eingabe. Dies hat den Vorteil, dass man nicht vom Eventhandler abhaengig ist. Allerdings muss man die etwas andere Bedienung beachten. Es gibt dazu folgende Befehle:
+    n, norden, nordunten, nordoben, 
+    no, nordosten, nordostunten, nordostoben,
+    o, osten, ostunten, ostoben,
+    so, suedosten, suedostunten, suedostoben,
+    s, sueden, suedunten, suedoben,
+    sw, suedwesten, suedwestunten, suedwestoben,
+    w, westen, westunten, westoben,
+    nw, nordwesten, nordwestunten, nordwestoben,
+    ob, oben, 
+    u, unten, 
+    raus
+ 
+  angelegt. Die Liste kann aber, siehe 5.3, ergaenzt werden. 
+  Wenn ihr also diese Richtungen benutzt, wird das vom
+  Skript automatisch gespeichert.
+  **ACHTUNG**
+  Das funktioniert nur, wenn ihr diese Richtungen eintippt!
+  Wenn ihr ueber eine Tastenbelegung arbeitet, dann 
+  funktioniert das nicht.
 
-
-             #wa2 start
-             #wa2 stop
-             #wa2 weiter
-             #wa2 ziel
-
-  Zuerst wird natuerlich die Aufnahme an einer Stelle A gestartet. Dann laufen wird zum Punkt B. Hier muessen wir nun
-
-             #wa2 ziel
-
- eingeben und anschliessen den Weg von B nach A laufen. Dann koennen wir die Wegeaufzeichnung beenden und den Weg speichern. Dies hat den Hintergrund, dass beim Typ 2 nicht automatisch der Rueckweg mitgespeichert wird. Dies kann praktisch sein, wenn der Rueckweg sich wesentlich vom Hinweg unterscheidet. So braucht man bei der Wegaufzeichnung Typ 2 den Rueckweg nicht aufwendig korrigieren, sondern laeuft diesen einfach ab. Wichtig ist am Punkt B den obigen Befehl einzugeben.
- Ausserdem gibt es eine Ausnahme bei der manuellen Eingabe von Bewegungsaktionen, siehe 5.4., denn beim Typ 2 muss auch beim Rueckweg
+  Falls nun eine andere Eingabe fuer das Vorankommen benoetigt
+  wird, ist das auch kein Problem, dabei hilft
 
              #vor <Aktion>
+  
+  welches nicht nur die Bewegung speichert, sondern auch ausfuehrt.
 
- benutzt werden. Kleines Beispiel:
+  Wenn wir am Ziel angekommen sind, wo der neue Wegpunkt entstehen soll,
+  dann geben wir
+
+             #wa ziel
+
+  ein. Damit wird der Endpunkt gespeichert. Nun gehen wir zurueck
+  zum Startpunkt und beenden die Aufzeichnung mit 
+
+             #wa stop
+
+Kleines Beispiel:
 
 Wir wollen eine Weg beginnenden bei einem Knoten starten zu einem Haus, bei dem wir auch ordentlich das Haus und die Tuer oeffnen und hinter uns schliessen wollen.
 
-             #wa2 start
+             #wa start
              osten
              norden
              nordwesten
@@ -253,7 +263,7 @@ Wir wollen eine Weg beginnenden bei einem Knoten starten zu einem Haus, bei dem 
              #vor betrete haus
              #vor schliesse tuer
              #vor schliesse haus ab
-             #wa2 ziel     -- wir sind im Haus, hier soll der Weg enden!
+             #wa ziel     -- wir sind im Haus, hier soll der Weg enden!
              #vor schliesse haus auf
              #vor oeffne tuer
              raus
@@ -262,91 +272,42 @@ Wir wollen eine Weg beginnenden bei einem Knoten starten zu einem Haus, bei dem 
              suedosten
              sueden
              westen
-             #wa2 stop
+             #wa stop
 
- Anschliessend kann der neue Weg gespeichert werden. Ein Nachteil vom Typ 2 ist jedoch, dass nicht geprueft wird, ob eure Eingabe sinnvoll ist oder nicht. Wenn ihr euch vertippt oder vertut, wird dies auch aufgenommen und muss dann rauskorrigiert werden.
+ Anschliessend kann der neue Weg gespeichert werden.
 
+#### 5.3 Automatisch speichernde Bewegung/Aktion anzeigen und anpassen
 
-### 5.3. Wie wird die Bewegung von der Wegaufzeichnung festgehalten?
-
-In der ersten Version war man gezwungen das Nummerfeld zur Steuerung zu nutzen,
-damit die Wegaufzeichnung die Bewegung in die Himmelsrichtungen auch speichert.
-Dies wurde ueber das Skript "evented_number_pad" gesteuert. Alle anderen
-Bewegungsaktionen mussten manuell hinzuzufuegen werden, siehe 5.4.
-Aber mit Version v1.1 ist es nun moeglich die unten aufgelistete Richtungen
-direkt zu nutzen. Diese werden von der Wegaufzeichnung nun automatisch erkannt.
-Lediglich die Bewegungsaktionen ausserhalb dieser Liste sind manuell, wie in 5.4.,
-zur Aufzeichnung hinzuzufuegen. Die Liste der automatisch erkennbaren Richtungen
-ist:
-
-      n, norden, nordoben, nordunten,
-      no, nordosten, nordostoben, nordostunten,
-      o, osten, ostoben, ostunten,
-      so, suedosten, suedostoben, suedostunten,
-      s, sueden, suedoben, suedunten,
-      sw, suedwesten, suedwestoben, suedwestunten,
-      w, westen, westoben, westunten,
-      nw, nordwesten, nordwestoben, nordwestunten,
-      ob, oben,
-      u, unten,
-      raus
-
-Ab v1.2 kann diese Liste erweitert werden, siehe dazu 5.3.1., 5.3.2. und 5.3.3..
-
-Ab v1.2 werden auch die Tasten vom Nummerfeld automatisch erkannt, ohne dass ich "evented_number_pad" installiert habt, falls ihr natuerlich die Tasten mit den selben Richtungen belegt habt, naemlich:
-
-      n    = 8
-      no   = 9
-      o    = 6
-      so   = 3
-      s    = 2
-      sw   = 1
-      w    = 4
-      nw   = 7
-      ob   = -
-      u    = +
-      raus = *
-
-Ebenso kann man mit Tastenkombinationen noch Richtungen, wie Nordostoben oder Suedwestunten hinzufuegen, Dies sollte dann in der Form
-
-      Xunten = Strg+Taste fuer X
-      Xoben  = Alt+Taste fuer X
-
-also zum Beispiel:
-
-      nordostoben   = Alt+9
-      suedwestunten = Strg+1
-
-#### 5.3.1 Anzeigen der erkennbaren Bewegung/Aktion (v1.2)
-
-  Da ihr moeglicherweise die in 5.3. beschriebe Liste an automatisch erkennbaren Bewegungsaktionen erweitert habt, wollt ihr vielleicht nachschauen, welche gespeichert wird. Dies ist moeglich mit dem Befehl
+  Da ihr moeglicherweise die in 5.2. beschriebe Liste an automatisch 
+  erkennbaren Bewegungsaktionen erweitert habt, wollt ihr vielleicht 
+  nachschauen, welche gespeichert wird. Dies ist moeglich mit dem Befehl
 
              #zeigedir
 
- Damit werden alle nummeriert aufgelistet.
-
-#### 5.3.2. Hinzufuegen von neuen Bewegung/Aktionen (v1.2)
-
- Wollt ihr nun eine Bewegungsaktion/Richtung hinzufuegen, die ihr oft benutzt oder fuer wichtig erachtet? Dann kann man das mit
+  Damit werden alle nummeriert aufgelistet.
+  Wollt ihr nun eine Bewegungsaktion/Richtung hinzufuegen, 
+  die ihr oft benutzt oder fuer wichtig erachtet? Dann kann man das mit
 
              #adddir <aktion>
 
- erreichen. Dabei muss die Aktion zwingend aus einem Wort bestehen. Andernfalls muesst ihr leider das manuell eintragen.
+  erreichen. Dabei muss die Aktion zwingend aus einem Wort bestehen. 
+  Andernfalls muesst ihr leider das manuell eintragen.
 
  Beispiel:
 
              #adddir rechts
 
-  Speichert die Richtung "rechts", was dann bei der Wegaufzeichnung automatisch erkannt wird.
+  Speichert die Richtung "rechts", was dann bei der
+  Wegaufzeichnung automatisch erkannt wird.
 
-#### 5.3.3. Loeschen von Bewegung/Aktion (v1.2)
-
-Wenn ihr euch vertan habt, koennt ihr auch eine gespeicherte Aktion wieder loeschen. Dazu benoetigt ihr aber die Nummer der Aktion, die ihr mit der Anzeige, siehe 5.3.1. erhaltet.
-Der Befehl lautet
+  Wenn ihr euch vertan habt, koennt ihr auch eine gespeicherte
+  Aktion wieder loeschen. Dazu benoetigt ihr aber die Nummer der
+  Aktion, die ihr mit der Anzeige, siehe 5.3.1. erhaltet. Der Befehl lautet
 
              #deldir <nummer>
 
-Jedoch koennt ihr nur Aktionen loeschen, die ihr hinzugefuegt habt. Die Aktionen 1 bis 37 sind Standardrichtungen, die nicht loeschbar sind.
+  Jedoch koennt ihr nur Aktionen loeschen, die ihr hinzugefuegt habt. 
+  Die Aktionen 1 bis 37 sind Standardrichtungen, die nicht loeschbar sind.
 
 Beispiel:
 
@@ -355,37 +316,7 @@ Beispiel:
 Loescht die 38. gespeicherte Aktion.
 
 
-### 5.4. Manuell Bewegungsaktion hinzufuegen
-
-Mit
-
-           #vor <aktion>
-
-gibt man manuell die Bewegungsaktion <aktion> an die Wegaufzeichnung weiter UND gleichzeitig wird dieser auch ausgefuehrt.
-Damit braucht nicht die Aktion zur Bewegung eingeben und es an die Wegaufzeichnung weitergeben, sondern man kann beides mit
-diesem einen Befehl machen.
-
-  Beispiel:
-
-           #vor betrete haus
-
-
-  Damit wir die Aktion "betrete haus" ausgefuehrt und an die Wegaufzeichnung weiter gegeben.
-
-
-  Fuer den Rueckweg benutzt man in dem Raum den Befehl
-
-           #zurueck <aktion>
-
-  Im Gegensatz zum Hinweg wird bei dieser Befehl die Aktion _NICHT_ ausgefuehrt. Wenn mehrere Aktionen fuer den Rueckweg
-  noetig sind, dann muss man sie in der Reihenfolge eingeben, in der sie ausgefuehrt werden soll. Muss man zum Beispiel eine
-  Tuer zuerst oeffnen und damit man das Haus betreten kann, dann gibt man in der Reihen Folge auch ein:
-
-           #zurueck oeffne tuer
-           #zurueck betrete haus
-
-
-### 5.5. Anzeige des bisher aufgezeichneten Weges
+### 5.4. Anzeige des bisher aufgezeichneten Weges
 
 Mit dem Befehl
 
@@ -400,7 +331,7 @@ Beispiel:
 
 Zeigt die letzten 5 gespeicherten Bewegungsaktionen.
 
-### 5.6. Korrektur falsch eingegebener manueller Bewegungsaktionen
+### 5.5. Korrektur falsch eingegebener manueller Bewegungsaktionen
 
 Mit
 
@@ -415,7 +346,7 @@ Beispiel:
 
 Loescht die letzten 3 Bewegungsaktionen vom Hinweg.
 
-### 5.7. Punkt speichern
+### 5.6. Punkt speichern
 
 Hat man mit der Wegaufzeichnung den zu speichernden Weg abgelaufen, dann kann man folgende Befehle zum Speichern nutzen:
 
@@ -460,7 +391,7 @@ Hat man mit der Wegaufzeichnung den zu speichernden Weg abgelaufen, dann kann ma
  dauerhaft speichern zu wollen, dann kann man dies noch nachholen indem man den Speicherbefehl erneut mit einem Titel eingibt.
 
 
-### 5.8. Speichern nur des Hinweges oder nur des Rueckweges
+### 5.7. Speichern nur des Hinweges oder nur des Rueckweges
 
 Es kann auch sein, dass notwendig ist, dass nur der Hinweg oder nur der Rueckweg gespeichert ist. Dies kann der Fall sein,
 wenn man von durch irgendwas in einem Raum gelangt von der man zwar weg will, aber eigentlich nicht hinlaufen oder wenn man dort ist, vielleicht einen ganz anderen Weg fuer den Rueckweg braucht und daher beide Wege lieber getrennt aufnehmen will.
@@ -489,7 +420,7 @@ zum Speichern des Hinweges benutzen:
 
 
 
-### 5.9. Tipps/Tricks fuer effektive Wege
+### 5.8. Tipps/Tricks fuer effektive Wege
 
 Trick 1:
 Das Zentrum muss an sich erstmal nicht benannt werden. Es muessen nur alle Punkte einen Weg zum Zentrum hin und zurueck haben.
