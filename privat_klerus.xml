@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE MudletPackage>
+<MudletPackage version="1.001">
+	<TriggerPackage>
+		<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+			<name>Zu schnelles Begraben</name>
+			<script>if SE.klerus_begraben_trigger then
+  send("lege leichentuch in beutel")
+  send("lege phiole in beutel")
+  SE.klerus_begraben_trigger = false
+end</script>
+			<triggerType>0</triggerType>
+			<conditonLineDelta>0</conditonLineDelta>
+			<mStayOpen>0</mStayOpen>
+			<mCommand></mCommand>
+			<packageName></packageName>
+			<mFgColor>#ff0000</mFgColor>
+			<mBgColor>#ffff00</mBgColor>
+			<mSoundFile></mSoundFile>
+			<colorTriggerFgColor>#000000</colorTriggerFgColor>
+			<colorTriggerBgColor>#000000</colorTriggerBgColor>
+			<regexCodeList>
+				<string>So schnell koennen sich die Goetter nicht wieder um Dich kuemmern! </string>
+			</regexCodeList>
+			<regexCodePropertyList>
+				<integer>0</integer>
+			</regexCodePropertyList>
+		</Trigger>
+		<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+			<name>Erfolgreiches Begraben</name>
+			<script>SE.klerus_begraben_trigger = false</script>
+			<triggerType>0</triggerType>
+			<conditonLineDelta>0</conditonLineDelta>
+			<mStayOpen>0</mStayOpen>
+			<mCommand></mCommand>
+			<packageName></packageName>
+			<mFgColor>#ff0000</mFgColor>
+			<mBgColor>#ffff00</mBgColor>
+			<mSoundFile></mSoundFile>
+			<colorTriggerFgColor>#000000</colorTriggerFgColor>
+			<colorTriggerBgColor>#000000</colorTriggerBgColor>
+			<regexCodeList>
+				<string>Du begraebst die Leiche endgueltig.</string>
+			</regexCodeList>
+			<regexCodePropertyList>
+				<integer>0</integer>
+			</regexCodePropertyList>
+		</Trigger>
+	</TriggerPackage>
+	<TimerPackage>
+		<Timer isActive="no" isFolder="no" isTempTimer="no" isOffsetTimer="no">
+			<name>temp</name>
+			<script></script>
+			<command></command>
+			<packageName></packageName>
+			<time>00:00:00.000</time>
+		</Timer>
+	</TimerPackage>
+	<AliasPackage>
+		<Alias isActive="yes" isFolder="no">
+			<name>Einhandanrufungen</name>
+			<script>local cmd_table = {ent="entfluche", bl="blitz"}
+
+local cmd = cmd_table[matches[2]]
+
+local target = matches[3] or ""
+
+expandAlias("swe 1")
+
+if cmd == "entfluche" and target == "" then
+  
+end
+
+if cmd == "blitz" and target == "" then
+  target = SE.kampffokus
+end
+
+send(cmd..target)
+
+expandAlias("zw 1")</script>
+			<command></command>
+			<packageName></packageName>
+			<regex>^(ent|bl)(\s.+)?$</regex>
+		</Alias>
+		<Alias isActive="yes" isFolder="no">
+			<name>Zweihandanrufungen</name>
+			<script>local cmd_table = {sh="schutzhand", se="segne", bli="blitz"}
+
+local cmd = cmd_table[matches[2]]
+
+local target = matches[3] or ""
+
+expandAlias("swe")
+
+if cmd == "schutzhand" or cmd == "segne" and target == "" then
+  send(cmd.." team")
+end
+
+if cmd == "blitz" and target == "" then
+  target = SE.kampffokus
+end
+
+send(cmd..target)
+
+expandAlias("zw")</script>
+			<command></command>
+			<packageName></packageName>
+			<regex>^(sh|se|bli)(\s.+)?$</regex>
+		</Alias>
+		<Alias isActive="yes" isFolder="no">
+			<name>beten</name>
+			<script></script>
+			<command></command>
+			<packageName></packageName>
+			<regex>^#bet (\d+)$</regex>
+		</Alias>
+		<Alias isActive="yes" isFolder="no">
+			<name>begraben</name>
+			<script>send("nimm leichentuch aus beutel")
+send("nimm phiole aus beutel")
+send("begrabe leiche")
+SE.klerus_begraben_trigger = true</script>
+			<command></command>
+			<packageName></packageName>
+			<regex>^b$</regex>
+		</Alias>
+		<Alias isActive="yes" isFolder="no">
+			<name>Nullhandanrufungen</name>
+			<script>if #matches == 1 then
+  send("weihe "..SE.waffe)
+else
+  send("weihe"..matches[2])
+end</script>
+			<command></command>
+			<packageName></packageName>
+			<regex>^ww(\s.+)?$</regex>
+		</Alias>
+	</AliasPackage>
+	<ActionPackage />
+	<ScriptPackage>
+		<Script isActive="no" isFolder="no">
+			<name>temp</name>
+			<packageName></packageName>
+			<script></script>
+			<eventHandlerList />
+		</Script>
+	</ScriptPackage>
+	<KeyPackage />
+	<HelpPackage>
+		<helpURL></helpURL>
+	</HelpPackage>
+</MudletPackage>
