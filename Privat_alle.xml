@@ -1,0 +1,5293 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE MudletPackage>
+<MudletPackage version="1.001">
+	<TriggerPackage>
+		<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="yes" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+			<name>Wecker</name>
+			<script></script>
+			<triggerType>0</triggerType>
+			<conditonLineDelta>0</conditonLineDelta>
+			<mStayOpen>0</mStayOpen>
+			<mCommand></mCommand>
+			<packageName></packageName>
+			<mFgColor>#ff0000</mFgColor>
+			<mBgColor>#ffff00</mBgColor>
+			<mSoundFile></mSoundFile>
+			<colorTriggerFgColor>#000000</colorTriggerFgColor>
+			<colorTriggerBgColor>#000000</colorTriggerBgColor>
+			<regexCodeList>
+				<string>Wecker klingelt bei Dir.</string>
+			</regexCodeList>
+			<regexCodePropertyList>
+				<integer>0</integer>
+			</regexCodePropertyList>
+		</Trigger>
+		<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+			<name>Questtrigger</name>
+			<script></script>
+			<triggerType>0</triggerType>
+			<conditonLineDelta>0</conditonLineDelta>
+			<mStayOpen>0</mStayOpen>
+			<mCommand></mCommand>
+			<packageName></packageName>
+			<mFgColor>#ff0000</mFgColor>
+			<mBgColor>#ffff00</mBgColor>
+			<mSoundFile></mSoundFile>
+			<colorTriggerFgColor>#000000</colorTriggerFgColor>
+			<colorTriggerBgColor>#000000</colorTriggerBgColor>
+			<regexCodeList />
+			<regexCodePropertyList />
+			<TriggerGroup isActive="no" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>Gefaengnisinsel</name>
+				<script></script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList />
+				<regexCodePropertyList />
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>Zocker beginnt</name>
+					<script>if(matches[2]=="linke")then
+	schale={1,0,0}
+end
+
+if(matches[2]=="mittlere")then
+	schale={0,1,0}
+end
+
+if(matches[2]=="rechte")then
+	schale={0,0,1}
+end
+
+display(" | "..schale[1].." |   | "..schale[2].." |   | "..schale[3].." |")</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>.* legt die Erbse unter die (.*) Schale.</string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>1</integer>
+					</regexCodePropertyList>
+				</Trigger>
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>Zocker fertig</name>
+					<script>
+display(" | "..schale[1].." |   | "..schale[2].." |   | "..schale[3].." |")</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>Du hast 20 Sekunden, um zu antworten.</string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>0</integer>
+					</regexCodePropertyList>
+				</Trigger>
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>Zocker schiebt</name>
+					<script>if(matches[2]=="linke")then
+	temp=schale[1]
+	schale[1]=schale[2]
+	schale[2]=schale[3]
+	schale[3]=temp
+else
+	temp=schale[3]
+	schale[3]=schale[2]
+	schale[2]=schale[1]
+	schale[1]=temp
+end
+display(" | "..schale[1].." |   | "..schale[2].." |   | "..schale[3].." |")</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>.* schiebt die (.*) Schale ganz nach (.*).</string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>1</integer>
+					</regexCodePropertyList>
+				</Trigger>
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>Zocker vertauscht</name>
+					<script>if(matches[2]=="linke") then
+	if(matches[3]=="mittleren")then
+		temp=schale[1]
+		schale[1]=schale[2]
+		schale[2]=temp
+	end
+	if(matches[3]=="rechten")then
+		temp=schale[1]
+		schale[1]=schale[3]
+		schale[3]=temp
+	end
+end
+
+if(matches[2]=="mittlere") then
+	if(matches[3]=="linken")then
+		temp=schale[2]
+		schale[2]=schale[1]
+		schale[1]=temp
+	end
+	if(matches[3]=="rechten")then
+		temp=schale[2]
+		schale[2]=schale[3]
+		schale[3]=temp
+	end
+end
+
+if(matches[2]=="rechte") then
+	if(matches[3]=="mittleren")then
+		temp=schale[3]
+		schale[3]=schale[2]
+		schale[2]=temp
+	end
+	if(matches[3]=="linken")then
+		temp=schale[3]
+		schale[3]=schale[1]
+		schale[1]=temp
+	end
+end
+display(" | "..schale[1].." |   | "..schale[2].." |   | "..schale[3].." |")</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>.* vertauscht die (.*) Schale mit der (.*) Schale.</string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>1</integer>
+					</regexCodePropertyList>
+				</Trigger>
+			</TriggerGroup>
+			<TriggerGroup isActive="no" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>Nebel im Lupinental</name>
+				<script></script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList />
+				<regexCodePropertyList />
+				<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>Nebel auf Bergspitze verpassen</name>
+					<script>send("sage illywned")</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>Der Nebel naehert sich dem Boden des Gipfels des Nebelwaechters.</string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>0</integer>
+					</regexCodePropertyList>
+				</Trigger>
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>Nebel betreten</name>
+					<script>send("sage USHURAK")</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>Ein grauer Nebel sinkt herab.</string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>0</integer>
+					</regexCodePropertyList>
+				</Trigger>
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>Nebel unten verlassen</name>
+					<script>send("sage ILLYWNED")</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>Der Nebel naehert sich dem Boden des Tales.</string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>0</integer>
+					</regexCodePropertyList>
+				</Trigger>
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>Nebel auf dem Balkon verlassen</name>
+					<script>send("sage illywned")
+send("n")
+send("o")
+send("kaufe wuerfel")
+send("w")
+send("s")
+send("sage USHURAK")</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>Der Nebel naehert sich dem Boden des Balkons.</string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>0</integer>
+					</regexCodePropertyList>
+				</Trigger>
+			</TriggerGroup>
+			<TriggerGroup isActive="no" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>Darwins Garten</name>
+				<script></script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList />
+				<regexCodePropertyList />
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>Beet bewaessern</name>
+					<script>send("bewaessere beet")
+send("duenge beet")</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>solltest das Beet jetzt bewaessern.</string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>0</integer>
+					</regexCodePropertyList>
+				</Trigger>
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>Beet duengen</name>
+					<script>send("duenge beet")
+tempTimer(0.5, function() send("bewaessere beet") end)</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string> erst duengen</string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>0</integer>
+					</regexCodePropertyList>
+				</Trigger>
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>Wasser nachfuellen</name>
+					<script>send("w")
+send("schuette wasser in wasserrinne")
+send("schuette wasser in wasserrinne")
+send("schuette wasser in wasserrinne")
+send("o")
+send("bewaessere beet")</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string> kein Wasser</string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>0</integer>
+					</regexCodePropertyList>
+				</Trigger>
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>Pflanzen kreuzen</name>
+					<script>send("kreuze pflanzen")</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>zwei fortpflanzungsfaehige Blumen</string>
+						<string> erstrahlen in ihrer Bluete.</string>
+						<string>Die Pflanzen sind erblueht.</string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>0</integer>
+						<integer>0</integer>
+						<integer>0</integer>
+					</regexCodePropertyList>
+				</Trigger>
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>Koerner einsammeln</name>
+					<script>send("sammel koerner ein")
+tempTimer(0.5, function() send("kornuebersicht") end)</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>Die Koerner verteilen sich auf dem Boden.</string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>0</integer>
+					</regexCodePropertyList>
+				</Trigger>
+			</TriggerGroup>
+		</TriggerGroup>
+		<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+			<name>Wegtrigger</name>
+			<script></script>
+			<triggerType>0</triggerType>
+			<conditonLineDelta>0</conditonLineDelta>
+			<mStayOpen>0</mStayOpen>
+			<mCommand></mCommand>
+			<packageName></packageName>
+			<mFgColor>#ff0000</mFgColor>
+			<mBgColor>#ffff00</mBgColor>
+			<mSoundFile></mSoundFile>
+			<colorTriggerFgColor>#000000</colorTriggerFgColor>
+			<colorTriggerBgColor>#000000</colorTriggerBgColor>
+			<regexCodeList />
+			<regexCodePropertyList />
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>Stuhl</name>
+				<script>send("setze in stuhl")
+send("drehe stuhl")
+send("stehe auf")</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>Maarpel geht nach Nordosten.</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>0</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>Para-Asaniels Baum</name>
+				<script>asazahlen = asazahlen or {}
+table.insert(asazahlen, matches[3])
+send("unten")
+send("lies zahl")
+if #asazahlen==4 then
+	asasumme=0
+	for i=1,4,1 do
+		asasumme=asasumme+tonumber(asazahlen[i])
+	end
+	asasumme=asasumme/4
+	display(asasumme)
+	send("drehe rad 1 auf "..(math.floor(asasumme/1000)))
+	send("drehe rad 2 auf "..(math.fmod(math.floor(asasumme/100),10)))
+	send("drehe rad 3 auf "..(math.fmod(math.floor(asasumme/10),10)))
+	send("drehe rad 4 auf "..(math.fmod(asasumme,10)))
+	send("zieh hebel")
+	expandAlias("#dopath no o o o")
+	expandAlias("#go tan haus")
+	asazahlen={}
+end</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>(.*)Du siehst die Zahl (\d+).</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>1</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>Der Erdgraeber</name>
+				<script>send("kletter auf Erdgraeber")
+if previous_place=="furien" then
+	expandAlias("#dopath no o o so no o o no n")
+elseif previous_place=="ht" then
+	expandAlias("#dopath so sw so so o nw no nw")
+else
+	tempTimer(0.2, [[ sweg_erdgraeber() ]])
+end</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>Ein wurmartiger Erdgraeber graebt sich schabend aus der Erde.</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>0</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>Fraternitas-Halef</name>
+				<script>if gmcp.MG.room.info.id=="05f8a313f01d4dc618206f30df66940c" then
+	expandAlias("#dopath n o o o")
+	send("oeffne tuer")
+	send("n")
+	send("feilsche mit Halef")
+end</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>Ah, Besuch. Kommt schnell herein und lasst die Kaelte draussen!</string>
+					<string>Momentan ist das Tor doch offen!</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>0</integer>
+					<integer>0</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>Fiebersumpf - links/rechts</name>
+				<script>send("rechts")</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>links oder rechts</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>0</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>Fiebersumpf-weiter/alternative</name>
+				<script>send("alternative")</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>weiter, oder suchst Du</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>0</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>Parawelten-Wechsel</name>
+				<script>tempTimer(1, function() expandAlias("#go "..previous_place) end)</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>Das Portal flackert kurz auf. Irgendwas ist jetzt passiert. Nur was?</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>0</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>Drachenhorter Bank</name>
+				<script></script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList />
+				<regexCodePropertyList />
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>Vordraengel abgebrochen</name>
+					<script>tempTimer(0.5, function() send("draengel vor") end)</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>Du ueberlegst es Dir anders.</string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>0</integer>
+					</regexCodePropertyList>
+				</Trigger>
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>Aus der Schlange rausgedraengt</name>
+					<script>send("stelle an "..SE.dhs.."schlange an")
+
+tempTimer(0.5, function() send("draengel vor") end)</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>Du draengelst Dich vor, wirst aber von der aufgebrachten Menge aus der</string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>0</integer>
+					</regexCodePropertyList>
+				</Trigger>
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>An der Kasse</name>
+					<script>if SE.dh==0 then
+  send("lade karte auf")
+  send("raus")
+  expandAlias("#go dh "..previous_place)
+  expandAlias("#knonackt")
+elseif SE.dh==1 then
+	tempTimer(1, function() send("lege block vor") end)
+	tempTimer(1.2, function() send("trage block") end)
+	tempTimer(1.4, function() send("raus") end)
+elseif SE.dh==2 then
+	
+elseif SE.dh==3 then
+	
+end
+
+SE.dh=-1</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>Du bist jetzt an der Reihe!</string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>0</integer>
+					</regexCodePropertyList>
+				</Trigger>
+			</TriggerGroup>
+			<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>Lupinental</name>
+				<script></script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList />
+				<regexCodePropertyList />
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>Lupinental-Eingang</name>
+					<script>if matches[1]=="Der Schrein ohne Deckel, Schluessel, Scharnier" then
+	send("antworte Ei")
+elseif matches[1]=="Am Morgen auf vier," then
+	send("antworte Mensch")
+elseif matches[1]=="Man kann es nicht sehen, kann's nicht aufstoeren," then
+	send("antworte Dunkelheit")
+elseif matches[1]=="Mein Kopf schaut ueber die Wolken," then
+	send("antworte Berg")
+elseif matches[1]=="Was hat Wurzeln, die keiner sieht," then
+	send("antworte berg")
+elseif matches[1]=="Er geht nackt zur Winterszeit" then
+	send("antworte baum")
+elseif matches[1]=="Zweiunddreissig Schimmel auf einem roten Hang" then
+	send("antworte Zaehne")
+elseif matches[1]=="Mein Vater ist der Koenig." then
+	send("antworte Prinzessin")
+elseif matches[1]=="'Was habe ich da in meiner Tasche?' fragte Bilbo laut." then
+	send("antworte ring")
+elseif matches[1]=="So hart wie Glas" then
+	send("antworte eis")
+elseif matches[1]=="Was habe ich da in meiner Tasche?" then
+	send("antworte ring")
+end</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>Der Schrein ohne Deckel, Schluessel, Scharnier</string>
+						<string>Am Morgen auf vier,</string>
+						<string>Man kann es nicht sehen, kann's nicht aufstoeren,</string>
+						<string>Mein Kopf schaut ueber die Wolken,</string>
+						<string>Was hat Wurzeln, die keiner sieht,</string>
+						<string>Er geht nackt zur Winterszeit</string>
+						<string>Zweiunddreissig Schimmel auf einem roten Hang</string>
+						<string>Mein Vater ist der Koenig.</string>
+						<string>So hart wie Glas</string>
+						<string>Was habe ich da in meiner Tasche?</string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>0</integer>
+						<integer>0</integer>
+						<integer>0</integer>
+						<integer>0</integer>
+						<integer>0</integer>
+						<integer>0</integer>
+						<integer>0</integer>
+						<integer>0</integer>
+						<integer>0</integer>
+						<integer>0</integer>
+					</regexCodePropertyList>
+				</Trigger>
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>Lupinental-Durchlass</name>
+					<script>send("n;no;nw;n;o")</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>'Sehr gut, Mundron. Glueck auf all Deinen Wegen. Wir werden'</string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>0</integer>
+					</regexCodePropertyList>
+				</Trigger>
+			</TriggerGroup>
+			<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>Terminator</name>
+				<script></script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList />
+				<regexCodePropertyList />
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>Fernseher anmachen</name>
+					<script>send("druecke knopf")</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>Das Flimmern auf der Glasscheibe erloescht.</string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>0</integer>
+					</regexCodePropertyList>
+				</Trigger>
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>Betrete Fernseher</name>
+					<script>send("unt kasten;unt flimmer")</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>Die Glasscheibe faengt an zu flimmern.</string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>0</integer>
+					</regexCodePropertyList>
+				</Trigger>
+			</TriggerGroup>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>schwarze Scheibe</name>
+				<script></script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>.*Pfeil, der nach (.*) zeigt.*</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>1</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>SSP-Trigger</name>
+				<script></script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList />
+				<regexCodePropertyList />
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>SSP-Eingang</name>
+					<script>if SSP then
+	send("ultrakurz")
+	PF:dopath("s s s o o")
+	send("lang")
+	send("schau")
+end
+
+if SSP_z then
+	SSP_z = false
+end</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string> an den Felsvorsprung fuehrt! Du traust deinen Augen nicht!</string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>0</integer>
+					</regexCodePropertyList>
+				</Trigger>
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>Orkanfuehrer</name>
+					<script>if SSP then
+	if matches[1] == "Ein Anfuehrer der Orks" then
+		SSP = false
+    send("toete Ork")
+	else
+		sspn = 1
+		tempTimer(0.2, [[ ssp_laufen() ]])
+	end
+end
+
+if (SSP_z and not (matches[1] == "Ein Anfuehrer der Orks")) then
+	send("ultrakurz")
+	PF:dopath("w w n n n")
+	send("lang")
+	send("schau")
+	SSP_z = false
+end</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>Ein Anfuehrer der Orks</string>
+						<string>denn sein Eingang ist mit glaenzendem Metall seltsam beschlagen.</string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>0</integer>
+						<integer>0</integer>
+					</regexCodePropertyList>
+				</Trigger>
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>Kampfblech</name>
+					<script>if SSP then
+	if matches[1] == "Ein Kampfblech" then
+		SSP = false
+    send("toete kampfblech")
+		sspn = 0
+	else
+		sspn = 2
+		tempTimer(0.2, [[ ssp_laufen() ]])
+	end
+end
+
+if (SSP_z and not (matches[1] == "Ein Kampfblech")) then
+	send("ultrakurz")
+	PF:dopath("o o o o n n w w n n n")
+	send("lang")
+	send("schau")
+end</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>Ein Kampfblech</string>
+						<string>in die schwarze Dunkelheit fuehrt. Deine Schritte hallen hier leicht nach,</string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>0</integer>
+						<integer>0</integer>
+					</regexCodePropertyList>
+				</Trigger>
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>Titanwalze</name>
+					<script>if SSP then
+	if matches[1] == "Eine Titanwalze" then
+		SSP = false
+    send("toete titanwalze")
+		sspn = 0
+	else
+		sspn = 3
+		tempTimer(0.2, [[ ssp_laufen() ]])
+	end
+end
+
+if (SSP_z and not (matches[1] == "Eine Titanwalze")) then
+	send("ultrakurz")
+	PF:dopath("w n n w s s s o o o o n n w w n n n")
+	send("lang")
+	send("schau")
+end</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>Eine Titanwalze</string>
+						<string>nach Westen fuehrt. Ausserdem befindet sich im Boden ein Loch, durch das</string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>0</integer>
+						<integer>0</integer>
+					</regexCodePropertyList>
+				</Trigger>
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>Tentakelmonster1</name>
+					<script>if SSP then
+	if matches[1] == "Ein Tentakelmonster" then
+		SSP = false
+    send("toete tentakelmonster")
+		sspn = 0
+	else
+		sspn = 4
+		tempTimer(0.2, [[ ssp_laufen() ]])
+	end
+end
+
+if (SSP_z and not (matches[1] == "Ein Tentakelmonster")) then
+	send("ultrakurz")
+	PF:dopath("s o n oben w n n w s s s o o o o n n w w n n n")
+	send("lang")
+	send("schau")
+end</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>Ein Tentakelmonster</string>
+						<string>und andere Kletterpflanzen. Im Pflanzengewirr kannst Du Wege in Richtung</string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>0</integer>
+						<integer>0</integer>
+					</regexCodePropertyList>
+				</Trigger>
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>Schneeriese</name>
+					<script>if SSP then
+	if matches[1] == "Ein Schneeriese" then
+		SSP = false
+    send("toete schneeriese")
+		sspn = 0
+	else
+		sspn = 5
+		tempTimer(0.2, [[ ssp_laufen() ]])
+	end
+end
+
+if (SSP_z and not (matches[1] == "Ein Schneeriese")) then
+	send("ultrakurz")
+	PF:dopath("o n oben w w s oben s s s o n oben w n n w s s s o o o o n n w w n n n")
+	send("lang")
+	send("schau")
+end</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>Ein Schneeriese</string>
+						<string>lebendig aus. Gaenge fuehren durch das Eis nach Norden, Sueden, Osten</string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>0</integer>
+						<integer>0</integer>
+					</regexCodePropertyList>
+				</Trigger>
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>Eisriese</name>
+					<script>if SSP then
+	if matches[1] == "Ein Eisriese" then
+		SSP = false
+    send("toete eisriese")
+		sspn = 0
+	else
+		sspn = 6
+		tempTimer(0.2, [[ ssp_laufen() ]])
+	end
+end
+
+if (SSP_z and not (matches[1] == "Ein Eisriese")) then
+	send("ultrakurz")
+	PF:dopath("o n w n n o n oben w w s oben s s s o n oben w n n w s s s o o o o n n w w n n n")
+	send("lang")
+	send("schau")
+end</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>Ein Eisriese</string>
+						<string>wunderbarerweise ist es auch nicht mehr ganz so kalt wie im Osten. Eine</string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>0</integer>
+						<integer>0</integer>
+					</regexCodePropertyList>
+				</Trigger>
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>Killerpopel</name>
+					<script>if SSP_z then
+	if matches[1] == "Ein Killerpopel." then
+		SSP_z = false
+    send("toete killerpopel")
+		sspn = 0
+	else
+		tempTimer(0.2, [[ ssp_laufen() ]])
+	end
+end</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>Ein Killerpopel.</string>
+						<string>einer ziemlich zaehen Konsistenz. Der Geruch erinnert Dich an irgend-</string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>0</integer>
+						<integer>0</integer>
+					</regexCodePropertyList>
+				</Trigger>
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>Schlabbermurks</name>
+					<script>if SSP then
+	if matches[1] == "Ein Schlabbermurks." then
+		SSP = false
+    send("toete schlabbermurks")
+		sspn = 0
+	else
+		sspn = 7
+		tempTimer(0.2, [[ ssp_laufen() ]])
+	end
+end
+
+if (SSP_z and not (matches[1] == "Ein Schlabbermurks.")) then
+	send("ultrakurz")
+	PF:dopath("s s s")
+	send("lang")
+	send("schau")
+end</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>Allmaehlich reicht es, das klebrige Zeugs ueberall raubt Dir noch den</string>
+						<string>Ein Schlabbermurks.</string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>0</integer>
+						<integer>0</integer>
+					</regexCodePropertyList>
+				</Trigger>
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>Tentakelmonster2</name>
+					<script>if SSP then
+	if matches[1] == "Ein Tentakelmonster" then
+		SSP = false
+    send("toete tentakelmonster")
+		sspn = 0
+	else
+		sspn = 8
+		tempTimer(0.2, [[ ssp_laufen() ]])
+	end
+end
+
+if (SSP_z and not (matches[1] == "Ein Tentakelmonster")) then
+	send("ultrakurz")
+	PF:dopath("s w n unten s s s")
+	send("lang")
+	send("schau")
+end</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>Ein Tentakelmonster</string>
+						<string>Gras nimmt wieder eine gruenliche Faerbung an, auch diverse Blumen und</string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>0</integer>
+						<integer>0</integer>
+					</regexCodePropertyList>
+				</Trigger>
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>Vor Eisgigant</name>
+					<script>if SSP_z then
+	send("ultrakurz")
+	PF:dopath("s w n n n oben s w n unten s s s")
+	send("lang")
+	send("schau")
+end</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>Zusaetzlich kannst Du aber eine Leiter durch ein Loch im Boden</string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>0</integer>
+					</regexCodePropertyList>
+				</Trigger>
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>Eisgigant</name>
+					<script>if SSP_z then
+	send("ultrakurz")
+	PF:dopath("oben s w n n n oben s w n unten s s s")
+	send("lang")
+	send("schau")
+end</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>Durch eine Oeffnung in der Decke fuehrt eine stabile Leiter</string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>0</integer>
+					</regexCodePropertyList>
+				</Trigger>
+			</TriggerGroup>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>Drops</name>
+				<script>PF.drops = PF.drops+1
+selectCurrentLine()
+deleteLine()</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>Du bedienst Dich aus der Bonbonniere und nimmst ein Drops heraus, das Du</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>0</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>Pendel</name>
+				<script></script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList />
+				<regexCodePropertyList />
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>Durchlaufen</name>
+					<script>
+if gmcp.MG.room.info.id == "beb27b0cf0b9c3d2f652522d2050081a" then
+  send("n")
+  --send("n")
+  --send("betrete pentagramm;knie nieder;hebe arme;bruelle NIMM MICH AUF, EWIGES FEUER!")
+
+tempTimer(1, function() decho("\n\n&lt;255,255,0:0,0,0&gt;Noerdlich vom Pendel\n\n") end )
+end
+
+if gmcp.MG.room.info.id == "37c223ce9483b96f04cee8efae0e9ade" then
+  send("s")
+  --send("kletter in becken")
+  --send("tauche in oeffnung")
+  --tempTimer(4, function() send("kletter aus becken;w") end)
+  
+  tempTimer(1, function() decho("\n\n&lt;255,255,0:0,0,0&gt;Suedlich vom Pendel\n\n") end )
+end
+</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string> ist das Pendel weit nach Rechts geschwungen und bietet</string>
+						<string>befindet sich das Pendel soweit links, dass Du - mit etwas Glueck</string>
+						<string>Derzeit ist das Pendel fast vollstaendig nach Rechts geschwungen.</string>
+						<string>Das Pendel befindet sich auf der linken Seite des Durchgangs</string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>0</integer>
+						<integer>0</integer>
+						<integer>0</integer>
+						<integer>0</integer>
+					</regexCodePropertyList>
+				</Trigger>
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>Halten!</name>
+					<script>decho("\n\n&lt;255,255,0:0,0,0&gt;ACHTUNG! Pendel zappt!\n\n")
+tempTimer(1, function() send("unt pendel") end)</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>schwingt das Pendel von links nach rechts durch den Durchgang.</string>
+						<string>befindet es sich auf seinem Weg von rechts nach links</string>
+						<string> Im Moment beschreibt es seine Bahn von rechts nach links</string>
+						<string>Die Klinge bewegt sich zur Zeit von links nach rechts,</string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>0</integer>
+						<integer>0</integer>
+						<integer>0</integer>
+						<integer>0</integer>
+					</regexCodePropertyList>
+				</Trigger>
+				<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>tauchen</name>
+					<script>tempTimer(0.5, function() send("kletter aus becken;w;unt pendel") end)</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>Du bist doch gerade mit Tauchen beschaeftigt!</string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>0</integer>
+					</regexCodePropertyList>
+				</Trigger>
+			</TriggerGroup>
+		</TriggerGroup>
+		<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+			<name>Sonstiges</name>
+			<script></script>
+			<triggerType>0</triggerType>
+			<conditonLineDelta>0</conditonLineDelta>
+			<mStayOpen>0</mStayOpen>
+			<mCommand></mCommand>
+			<packageName></packageName>
+			<mFgColor>#ff0000</mFgColor>
+			<mBgColor>#ffff00</mBgColor>
+			<mSoundFile></mSoundFile>
+			<colorTriggerFgColor>#000000</colorTriggerFgColor>
+			<colorTriggerBgColor>#000000</colorTriggerBgColor>
+			<regexCodeList />
+			<regexCodePropertyList />
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>Unterteilung fortfuehren</name>
+				<script>send("\n")</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>--mehr--</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>0</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>Schlag verfehlt</name>
+				<script>selectCurrentLine()
+fg("red")
+bg("cyan")
+resetFormat()</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>Du verfehlst</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>0</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>Kampf: Zustand-Barbar</name>
+				<script>local zustand = {}
+ 
+zustand["ist absolut fit."] = 1
+zustand["ist schon ein wenig schwaecher."] = 0.9 --Matrix
+zustand["ist schon etwas geschwaecht."] = 0.9 -- untersuche
+zustand["fuehlte sich heute auch schon besser."] = 0.8 -- Matrix
+zustand["fuehlte sich heute schon besser."] = 0.8 -- untersuche
+zustand["sieht ein wenig angekratzt aus."] = 0.7 -- Matrix
+zustand["ist leicht angeschlagen."] = 0.7 -- untersuche
+zustand["ist deutlich angekratzt."] = 0.6 -- Matrix
+zustand["sieht nicht mehr taufrisch aus."] = 0.6 -- untersuche
+zustand["sieht recht mitgenommen aus."] = 0.5 -- Matrix
+zustand["macht einen mitgenommenen Eindruck."] = 0.5 -- untersuche
+zustand["schwankt und wankt."] = 0.4 -- Matrix
+zustand["wankt bereits bedenklich."] = 0.4 -- untersuche
+zustand["war auch schon mal deutlich besser drauf."] = 0.3 -- Matrix
+zustand["ist in keiner guten Verfassung."] = 0.3 -- untersuche
+zustand["braucht dringend aerztliche Behandlung."] = 0.2 -- Matrix
+zustand["braucht dringend einen Arzt."] = 0.2 -- untersuche
+zustand["ist schon so gut wie bei Lars."]= 0.1 -- Matrix
+zustand["steht auf der Schwelle des Todes."]= 0.1 -- untersuche
+
+
+local ausgabe = zustand[matches[3]]
+
+if ausgabe then 
+  ausgabe = " (" .. ausgabe*100 .. "%)" 
+else
+  ausgabe = " (???%)"
+end
+
+send("tm Mundron "..matches[2].." "..ausgabe)
+</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>(Osk|Drait|Belsr|Kim|Rhoel|Aise|Tull|Yera|Alenys|Ehina|Bulwai|Thrir|Nyl|Rodek|Leroth|Edyne|Rayra|Ieta|Atona|Slaenth|Osvind) (ist absolut fit.)</string>
+					<string>(Osk|Drait|Belsr|Kim|Rhoel|Aise|Tull|Yera|Alenys|Ehina|Bulwai|Thrir|Nyl|Rodek|Leroth|Edyne|Rayra|Ieta|Atona|Slaenth|Osvind) (ist leicht geschwaecht.)</string>
+					<string>(Osk|Drait|Belsr|Kim|Rhoel|Aise|Tull|Yera|Alenys|Ehina|Bulwai|Thrir|Nyl|Rodek|Leroth|Edyne|Rayra|Ieta|Atona|Slaenth|Osvind) (ist schon etwas geschwaecht.)</string>
+					<string>(Osk|Drait|Belsr|Kim|Rhoel|Aise|Tull|Yera|Alenys|Ehina|Bulwai|Thrir|Nyl|Rodek|Leroth|Edyne|Rayra|Ieta|Atona|Slaenth|Osvind) (fuehlte sich auch schon besser.)</string>
+					<string>(Osk|Drait|Belsr|Kim|Rhoel|Aise|Tull|Yera|Alenys|Ehina|Bulwai|Thrir|Nyl|Rodek|Leroth|Edyne|Rayra|Ieta|Atona|Slaenth|Osvind) (fuehlte sich heute schon besser.)</string>
+					<string>(Osk|Drait|Belsr|Kim|Rhoel|Aise|Tull|Yera|Alenys|Ehina|Bulwai|Thrir|Nyl|Rodek|Leroth|Edyne|Rayra|Ieta|Atona|Slaenth|Osvind) (ist leicht angekratzt.)</string>
+					<string>(Osk|Drait|Belsr|Kim|Rhoel|Aise|Tull|Yera|Alenys|Ehina|Bulwai|Thrir|Nyl|Rodek|Leroth|Edyne|Rayra|Ieta|Atona|Slaenth|Osvind) (ist leicht angeschlagen.)</string>
+					<string>(Osk|Drait|Belsr|Kim|Rhoel|Aise|Tull|Yera|Alenys|Ehina|Bulwai|Thrir|Nyl|Rodek|Leroth|Edyne|Rayra|Ieta|Atona|Slaenth|Osvind) (ist nicht mehr taufrisch.)</string>
+					<string>(Osk|Drait|Belsr|Kim|Rhoel|Aise|Tull|Yera|Alenys|Ehina|Bulwai|Thrir|Nyl|Rodek|Leroth|Edyne|Rayra|Ieta|Atona|Slaenth|Osvind) (sieht nicht mehr taufrisch aus.)</string>
+					<string>(Osk|Drait|Belsr|Kim|Rhoel|Aise|Tull|Yera|Alenys|Ehina|Bulwai|Thrir|Nyl|Rodek|Leroth|Edyne|Rayra|Ieta|Atona|Slaenth|Osvind) (sieht recht mitgekommen aus.)</string>
+					<string>(Osk|Drait|Belsr|Kim|Rhoel|Aise|Tull|Yera|Alenys|Ehina|Bulwai|Thrir|Nyl|Rodek|Leroth|Edyne|Rayra|Ieta|Atona|Slaenth|Osvind) (macht einen mitgenommenen Eindruck.)</string>
+					<string>(Osk|Drait|Belsr|Kim|Rhoel|Aise|Tull|Yera|Alenys|Ehina|Bulwai|Thrir|Nyl|Rodek|Leroth|Edyne|Rayra|Ieta|Atona|Slaenth|Osvind) (wankt bereits bedenklich.)</string>
+					<string>(Osk|Drait|Belsr|Kim|Rhoel|Aise|Tull|Yera|Alenys|Ehina|Bulwai|Thrir|Nyl|Rodek|Leroth|Edyne|Rayra|Ieta|Atona|Slaenth|Osvind) (ist in keiner guten Verfassung.)</string>
+					<string>(Osk|Drait|Belsr|Kim|Rhoel|Aise|Tull|Yera|Alenys|Ehina|Bulwai|Thrir|Nyl|Rodek|Leroth|Edyne|Rayra|Ieta|Atona|Slaenth|Osvind) (braucht dringend einen Arzt.)</string>
+					<string>(Osk|Drait|Belsr|Kim|Rhoel|Aise|Tull|Yera|Alenys|Ehina|Bulwai|Thrir|Nyl|Rodek|Leroth|Edyne|Rayra|Ieta|Atona|Slaenth|Osvind) (steht auf der Schwelle des Todes.)</string>
+					<string>(Osk|Drait|Belsr|Kim|Rhoel|Aise|Tull|Yera|Alenys|Ehina|Bulwai|Thrir|Nyl|Rodek|Leroth|Edyne|Rayra|Ieta|Atona|Slaenth|Osvind) (ist schon ein wenig schwaecher.)</string>
+					<string>(Osk|Drait|Belsr|Kim|Rhoel|Aise|Tull|Yera|Alenys|Ehina|Bulwai|Thrir|Nyl|Rodek|Leroth|Edyne|Rayra|Ieta|Atona|Slaenth|Osvind) (fuehlte sich heute auch schon besser.)</string>
+					<string>(Osk|Drait|Belsr|Kim|Rhoel|Aise|Tull|Yera|Alenys|Ehina|Bulwai|Thrir|Nyl|Rodek|Leroth|Edyne|Rayra|Ieta|Atona|Slaenth|Osvind) (sieht ein wenig angekratzt aus.)</string>
+					<string>(Osk|Drait|Belsr|Kim|Rhoel|Aise|Tull|Yera|Alenys|Ehina|Bulwai|Thrir|Nyl|Rodek|Leroth|Edyne|Rayra|Ieta|Atona|Slaenth|Osvind) (ist deutlich angekratzt.)</string>
+					<string>(Osk|Drait|Belsr|Kim|Rhoel|Aise|Tull|Yera|Alenys|Ehina|Bulwai|Thrir|Nyl|Rodek|Leroth|Edyne|Rayra|Ieta|Atona|Slaenth|Osvind) (sieht recht mitgenommen aus.)</string>
+					<string>(Osk|Drait|Belsr|Kim|Rhoel|Aise|Tull|Yera|Alenys|Ehina|Bulwai|Thrir|Nyl|Rodek|Leroth|Edyne|Rayra|Ieta|Atona|Slaenth|Osvind) (schwankt und wankt.)</string>
+					<string>(Osk|Drait|Belsr|Kim|Rhoel|Aise|Tull|Yera|Alenys|Ehina|Bulwai|Thrir|Nyl|Rodek|Leroth|Edyne|Rayra|Ieta|Atona|Slaenth|Osvind) (war auch schon mal deutlich besser drauf.)</string>
+					<string>(Osk|Drait|Belsr|Kim|Rhoel|Aise|Tull|Yera|Alenys|Ehina|Bulwai|Thrir|Nyl|Rodek|Leroth|Edyne|Rayra|Ieta|Atona|Slaenth|Osvind) (braucht dringend aerztliche Behandlung.)</string>
+					<string>(Osk|Drait|Belsr|Kim|Rhoel|Aise|Tull|Yera|Alenys|Ehina|Bulwai|Thrir|Nyl|Rodek|Leroth|Edyne|Rayra|Ieta|Atona|Slaenth|Osvind) (ist schon so gut wie bei Lars.)</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="yes" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>Wurzelsaft laesst nach</name>
+				<script></script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>Du merkst, wie sich der Wurzelsaft aufloest.</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>0</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="yes" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>Rate ist voll!</name>
+				<script></script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>Der Block fuer diese Rate ist jetzt voll!</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>0</integer>
+				</regexCodePropertyList>
+			</Trigger>
+		</TriggerGroup>
+		<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+			<name>Kampftrigger</name>
+			<script></script>
+			<triggerType>0</triggerType>
+			<conditonLineDelta>0</conditonLineDelta>
+			<mStayOpen>0</mStayOpen>
+			<mCommand></mCommand>
+			<packageName></packageName>
+			<mFgColor>#ff0000</mFgColor>
+			<mBgColor>#ffff00</mBgColor>
+			<mSoundFile></mSoundFile>
+			<colorTriggerFgColor>#000000</colorTriggerFgColor>
+			<colorTriggerBgColor>#000000</colorTriggerBgColor>
+			<regexCodeList />
+			<regexCodePropertyList />
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>Schlag verfehlt</name>
+				<script>selectCurrentLine()
+fg("red")
+bg("cyan")
+resetFormat()</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#000000</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>Du verfehlst</string>
+					<string>dreht sich rasend schnell.</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>0</integer>
+					<integer>0</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<TriggerGroup isActive="no" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>Vesray-Trigger</name>
+				<script></script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList />
+				<regexCodePropertyList />
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>Vesray-Gag</name>
+					<script>deleteLine()</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>verfehlt</string>
+						<string>Grosse Feuerkugeln hageln </string>
+						<string>wird ein wenig tranchiert.</string>
+						<string>Vesray Sit greift </string>
+						<string>Der Feuerregen </string>
+						<string>Dein heiliges Kreuz faengt den Angriff ab.</string>
+						<string>Die Feuerkugeln </string>
+						<string>Du verfolgst jetzt einen starken Zombie.</string>
+						<string>greift Vesray Sit mit </string>
+						<string>stellt sich schuetzend vor seinen Herrn.</string>
+						<string>schuetzt sich mit unheiligen Kraeften</string>
+						<string>entgeht dem Angriff.</string>
+						<string>Die Leichenteile </string>
+						<string>Ein feuriger Daemon fliegt herein und raeumt </string>
+						<string>Gluecklicherweise verschwindet er daraufhin wieder.</string>
+						<string>Eine Leiche explodiert </string>
+						<string>Ein grosser Fleischfetzen </string>
+						<string>Die Explosion schleudert </string>
+						<string>Vesray Sit trifft</string>
+						<string>Vesray Sit kitzelt</string>
+						<string>Du hoerst ein elektrisierendes Summen im Innern Deines Spitzhuts.</string>
+						<string>Vesray Sit kratzt</string>
+						<string>Ein kleiner Wirbelsturm fegt tobend durch den Raum.</string>
+						<string>Der Wirbelsturm schleudert</string>
+						<string>Vesray Sit saugt</string>
+						<string>Du verfehlst Vesray Sit.</string>
+						<string>Wolke</string>
+						<string>Saeuretropfen aetzen</string>
+						<string>Saeuretropfen fressen sich</string>
+						<string>Die Saeuretropfen verfehlen</string>
+						<string>Die Eisspitzen zischen</string>
+						<string>Die Saeure brennt sich</string>
+						<string>Schatten</string>
+						<string>Wirbelsturm</string>
+						<string>Saeure</string>
+						<string>kleine Skelett</string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>0</integer>
+						<integer>0</integer>
+						<integer>0</integer>
+						<integer>0</integer>
+						<integer>0</integer>
+						<integer>0</integer>
+						<integer>0</integer>
+						<integer>0</integer>
+						<integer>0</integer>
+						<integer>0</integer>
+						<integer>0</integer>
+						<integer>0</integer>
+						<integer>0</integer>
+						<integer>0</integer>
+						<integer>0</integer>
+						<integer>0</integer>
+						<integer>0</integer>
+						<integer>0</integer>
+						<integer>0</integer>
+						<integer>0</integer>
+						<integer>0</integer>
+						<integer>0</integer>
+						<integer>0</integer>
+						<integer>0</integer>
+						<integer>0</integer>
+						<integer>0</integer>
+						<integer>0</integer>
+						<integer>0</integer>
+						<integer>0</integer>
+						<integer>0</integer>
+						<integer>0</integer>
+						<integer>0</integer>
+						<integer>0</integer>
+						<integer>0</integer>
+						<integer>0</integer>
+						<integer>0</integer>
+					</regexCodePropertyList>
+				</Trigger>
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="yes" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>Steingolem-Vesray</name>
+					<script>send("springe nach westen")
+send("w")
+send("oeffne tuer")
+send("n")
+
+
+Vesray.steingolem:echo("STOP")
+Vesray.steingolem:setStyleSheet([[background-color: rgba(255,50,10,100%);qproperty-alignment: 'AlignCenter' ]])
+
+tempTimer(5, function() 
+Vesray.steingolem:echo("")
+Vesray.steingolem:setStyleSheet([[background-color: rgba(0,0,0,0%);qproperty-alignment: 'AlignCenter' ]])
+end)</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>Der riesige Steingolem starrt Dich an und holt mit beiden Armen zum</string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>0</integer>
+					</regexCodePropertyList>
+				</Trigger>
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>Waffenverlust bei Vesray</name>
+					<script>send("nimm "..SE.waffe)
+send("zuecke "..SE.waffe)</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>Du laesst unter magischem Zwang </string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>0</integer>
+					</regexCodePropertyList>
+				</Trigger>
+				<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>Vesray Zaubersprueche</name>
+					<script></script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList />
+					<regexCodePropertyList />
+					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+						<name>Dael--kleine Heilung</name>
+						<script>vesray_text(" ~~ kleine Heilung")
+selectCurrentLine()
+fg(farben.vg.komm)
+bg(farben.hg.komm)
+resetFormat()</script>
+						<triggerType>0</triggerType>
+						<conditonLineDelta>0</conditonLineDelta>
+						<mStayOpen>0</mStayOpen>
+						<mCommand></mCommand>
+						<packageName></packageName>
+						<mFgColor>#55ffff</mFgColor>
+						<mBgColor>#000000</mBgColor>
+						<mSoundFile></mSoundFile>
+						<colorTriggerFgColor>#000000</colorTriggerFgColor>
+						<colorTriggerBgColor>#000000</colorTriggerBgColor>
+						<regexCodeList>
+							<string>Dael</string>
+						</regexCodeList>
+						<regexCodePropertyList>
+							<integer>0</integer>
+						</regexCodePropertyList>
+					</Trigger>
+					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+						<name>Dawrok--grosse Heilung</name>
+						<script>vesray_text(" ~~ grosse Heilung")
+selectCurrentLine()
+fg(farben.vg.komm)
+bg(farben.hg.komm)
+resetFormat()</script>
+						<triggerType>0</triggerType>
+						<conditonLineDelta>0</conditonLineDelta>
+						<mStayOpen>0</mStayOpen>
+						<mCommand></mCommand>
+						<packageName></packageName>
+						<mFgColor>#00ffff</mFgColor>
+						<mBgColor>#000000</mBgColor>
+						<mSoundFile></mSoundFile>
+						<colorTriggerFgColor>#000000</colorTriggerFgColor>
+						<colorTriggerBgColor>#000000</colorTriggerBgColor>
+						<regexCodeList>
+							<string>Dawrok.</string>
+						</regexCodeList>
+						<regexCodePropertyList>
+							<integer>0</integer>
+						</regexCodePropertyList>
+					</Trigger>
+					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+						<name>Akilro -- Beschwoerungen</name>
+						<script>if matches[2] then
+	if matches[2]=="s" then
+		vesray_text(" ~~ Beschwoerung I-Skelettkrieger")
+	elseif matches[2]=="z" then
+		vesray_text(" ~~ Beschwoerung II-Zombies")
+  elseif matches[2]=="g" then
+		vesray_text(" ~~ Beschwoerung III-Golems")
+  elseif matches[2]=="e" then
+		vesray_text(" ~~ Beschwoerung IV-Elementare")
+  elseif matches[2]=="d" then
+		vesray_text(" ~~ Beschwoerung V-Daemonen")
+  end
+else
+	vesray_text(" ~~ Beschwoerung I-Skelette")
+end
+selectCurrentLine()
+fg(farben.vg.komm)
+bg(farben.hg.komm)
+resetFormat()</script>
+						<triggerType>0</triggerType>
+						<conditonLineDelta>0</conditonLineDelta>
+						<mStayOpen>0</mStayOpen>
+						<mCommand></mCommand>
+						<packageName></packageName>
+						<mFgColor>#ff0000</mFgColor>
+						<mBgColor>#ffff00</mBgColor>
+						<mSoundFile></mSoundFile>
+						<colorTriggerFgColor>#000000</colorTriggerFgColor>
+						<colorTriggerBgColor>#000000</colorTriggerBgColor>
+						<regexCodeList>
+							<string>.*Vesray Sit sagt: Akilro(\w)?.*</string>
+						</regexCodeList>
+						<regexCodePropertyList>
+							<integer>1</integer>
+						</regexCodePropertyList>
+					</Trigger>
+					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+						<name>Muxdra -- Pfeilangriff</name>
+						<script>if matches[2] then
+	if matches[2]=="a" then
+		vesray_text("~~ Saeurepfeil")
+	elseif matches[2]=="d" then
+		vesray_text(" ~~ Eispfeile")
+  elseif matches[2]=="f" then
+		vesray_text(" ~~ Feuerpfeile")
+  elseif matches[2]=="w" then
+		vesray_text(" ~~ Wasserpfeile")
+  elseif matches[2]=="l" then
+		vesray_text(" ~~ Blitzpfeile")
+  elseif matches[2]=="s" then
+		vesray_text(" ~~ Laermpfeile")
+  end
+else
+	vesray_text(" ~~ Pfeilangriff???")
+end
+selectCurrentLine()
+fg(farben.vg.komm)
+bg(farben.hg.komm)
+resetFormat()</script>
+						<triggerType>0</triggerType>
+						<conditonLineDelta>0</conditonLineDelta>
+						<mStayOpen>0</mStayOpen>
+						<mCommand></mCommand>
+						<packageName></packageName>
+						<mFgColor>#ff0000</mFgColor>
+						<mBgColor>#ffff00</mBgColor>
+						<mSoundFile></mSoundFile>
+						<colorTriggerFgColor>#000000</colorTriggerFgColor>
+						<colorTriggerBgColor>#000000</colorTriggerBgColor>
+						<regexCodeList>
+							<string>.*Vesray Sit sagt: Muxdra(\w)?.*</string>
+						</regexCodeList>
+						<regexCodePropertyList>
+							<integer>1</integer>
+						</regexCodePropertyList>
+					</Trigger>
+					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+						<name>Ixbulls - Magiewolken</name>
+						<script>vesray_text(" ~~ Magiewolken")
+selectCurrentLine()
+fg(farben.vg.komm)
+bg(farben.hg.komm)
+resetFormat()</script>
+						<triggerType>0</triggerType>
+						<conditonLineDelta>0</conditonLineDelta>
+						<mStayOpen>0</mStayOpen>
+						<mCommand></mCommand>
+						<packageName></packageName>
+						<mFgColor>#ff0000</mFgColor>
+						<mBgColor>#ffff00</mBgColor>
+						<mSoundFile></mSoundFile>
+						<colorTriggerFgColor>#000000</colorTriggerFgColor>
+						<colorTriggerBgColor>#000000</colorTriggerBgColor>
+						<regexCodeList>
+							<string>Vesray Sit sagt: Ixbulls</string>
+						</regexCodeList>
+						<regexCodePropertyList>
+							<integer>0</integer>
+						</regexCodePropertyList>
+					</Trigger>
+					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+						<name>Unro-Flaechenangriff</name>
+						<script>if matches[2] then
+	if matches[2]=="c" then
+		vesray_text("~~ Eisregen")
+	elseif matches[2]=="f" then
+		vesray_text(" ~~ Feuerregen")
+  elseif matches[2]=="a" then
+		vesray_text(" ~~ Wirbelsturm")
+  end
+else
+	vesray_text(" ~~ Flaechenangriff???")
+end
+selectCurrentLine()
+fg(farben.vg.komm)
+bg(farben.hg.komm)
+resetFormat()</script>
+						<triggerType>0</triggerType>
+						<conditonLineDelta>0</conditonLineDelta>
+						<mStayOpen>0</mStayOpen>
+						<mCommand></mCommand>
+						<packageName></packageName>
+						<mFgColor>#ff0000</mFgColor>
+						<mBgColor>#ffff00</mBgColor>
+						<mSoundFile></mSoundFile>
+						<colorTriggerFgColor>#000000</colorTriggerFgColor>
+						<colorTriggerBgColor>#000000</colorTriggerBgColor>
+						<regexCodeList>
+							<string>.*Vesray Sit sagt: Unro(\w)?.*</string>
+						</regexCodeList>
+						<regexCodePropertyList>
+							<integer>0</integer>
+						</regexCodePropertyList>
+					</Trigger>
+					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+						<name>Schwaechungszauber!</name>
+						<script>vesray_text(" ~~ ACHTUNG: Schwaechungszauber!")
+selectCurrentLine()
+fg(farben.vg.komm)
+bg(farben.hg.komm)
+resetFormat()
+vesray_text("info")</script>
+						<triggerType>0</triggerType>
+						<conditonLineDelta>0</conditonLineDelta>
+						<mStayOpen>0</mStayOpen>
+						<mCommand></mCommand>
+						<packageName></packageName>
+						<mFgColor>#ff0000</mFgColor>
+						<mBgColor>#ffff00</mBgColor>
+						<mSoundFile></mSoundFile>
+						<colorTriggerFgColor>#000000</colorTriggerFgColor>
+						<colorTriggerBgColor>#000000</colorTriggerBgColor>
+						<regexCodeList>
+							<string>.*Vesray Sit sagt: (Udor|Ador|Murwa|Aldam|Womre).*</string>
+						</regexCodeList>
+						<regexCodePropertyList>
+							<integer>0</integer>
+						</regexCodePropertyList>
+					</Trigger>
+					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+						<name>Wruom Erschoepfungszauber</name>
+						<script>vesray_text(" ~~ Erschoepfungszauber")
+selectCurrentLine()
+fg(farben.vg.komm)
+bg(farben.hg.komm)
+resetFormat()</script>
+						<triggerType>0</triggerType>
+						<conditonLineDelta>0</conditonLineDelta>
+						<mStayOpen>0</mStayOpen>
+						<mCommand></mCommand>
+						<packageName></packageName>
+						<mFgColor>#ff0000</mFgColor>
+						<mBgColor>#ffff00</mBgColor>
+						<mSoundFile></mSoundFile>
+						<colorTriggerFgColor>#000000</colorTriggerFgColor>
+						<colorTriggerBgColor>#000000</colorTriggerBgColor>
+						<regexCodeList>
+							<string>Wruom</string>
+						</regexCodeList>
+						<regexCodePropertyList>
+							<integer>0</integer>
+						</regexCodePropertyList>
+					</Trigger>
+					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+						<name>Prakdom - Lebenskraftsauger</name>
+						<script>vesray_text(" ~~ Lebenskraftsauger")
+selectCurrentLine()
+fg(farben.vg.komm)
+bg(farben.hg.komm)
+resetFormat()</script>
+						<triggerType>0</triggerType>
+						<conditonLineDelta>0</conditonLineDelta>
+						<mStayOpen>0</mStayOpen>
+						<mCommand></mCommand>
+						<packageName></packageName>
+						<mFgColor>#ff0000</mFgColor>
+						<mBgColor>#ffff00</mBgColor>
+						<mSoundFile></mSoundFile>
+						<colorTriggerFgColor>#000000</colorTriggerFgColor>
+						<colorTriggerBgColor>#000000</colorTriggerBgColor>
+						<regexCodeList>
+							<string>Praktom</string>
+						</regexCodeList>
+						<regexCodePropertyList>
+							<integer>0</integer>
+						</regexCodePropertyList>
+					</Trigger>
+					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+						<name>Ildek - Begleiter/Abbilder entlassen</name>
+						<script>vesray_text(" ~~ Begleiter/Abbilder entlassen")
+selectCurrentLine()
+fg(farben.vg.komm)
+bg(farben.hg.komm)
+resetFormat()</script>
+						<triggerType>0</triggerType>
+						<conditonLineDelta>0</conditonLineDelta>
+						<mStayOpen>0</mStayOpen>
+						<mCommand></mCommand>
+						<packageName></packageName>
+						<mFgColor>#ff0000</mFgColor>
+						<mBgColor>#ffff00</mBgColor>
+						<mSoundFile></mSoundFile>
+						<colorTriggerFgColor>#000000</colorTriggerFgColor>
+						<colorTriggerBgColor>#000000</colorTriggerBgColor>
+						<regexCodeList>
+							<string>Ildek</string>
+						</regexCodeList>
+						<regexCodePropertyList>
+							<integer>0</integer>
+						</regexCodePropertyList>
+					</Trigger>
+					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+						<name>Xum - Schutzaura</name>
+						<script>local text=""
+if matches[2] then
+	if matches[2]=="bsr" then
+		text="silbern"
+	elseif matches[2]=="las" then
+		text="weiss"
+  elseif matches[2]=="h" then
+		text="schwarz"
+  end
+else
+	text=" ~~ Schutzaura -- NEUER TYP???"
+end
+selectCurrentLine()
+fg(farben.vg.komm)
+bg(farben.hg.komm)
+resetFormat()
+
+Vesray.shield:echo("Aura: "..text, "black")</script>
+						<triggerType>0</triggerType>
+						<conditonLineDelta>0</conditonLineDelta>
+						<mStayOpen>0</mStayOpen>
+						<mCommand></mCommand>
+						<packageName></packageName>
+						<mFgColor>#ff0000</mFgColor>
+						<mBgColor>#ffff00</mBgColor>
+						<mSoundFile></mSoundFile>
+						<colorTriggerFgColor>#000000</colorTriggerFgColor>
+						<colorTriggerBgColor>#000000</colorTriggerBgColor>
+						<regexCodeList>
+							<string>.*Vesray Sit sagt: Xum(\w*).*</string>
+						</regexCodeList>
+						<regexCodePropertyList>
+							<integer>1</integer>
+						</regexCodePropertyList>
+					</Trigger>
+				</TriggerGroup>
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="yes" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>KRANKHEIT!</name>
+					<script>
+Vesray.sickness:echo("KRANK!")
+Vesray.sickness:setStyleSheet([[background-color: rgba(255,100,50,100%);qproperty-alignment: 'AlignCenter' ]])
+	
+expandAlias("#jp vesrayflucht")</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>Die Flecken blaehen auf und bilden kleine Blasen.</string>
+						<string>Die Blasen jucken, Du wuerdest Dich am liebsten am ganzen Koerper kratzen.</string>
+						<string>Einige der Blasen schmerzen hoellisch, andere sind bereits schmerzvoll</string>
+						<string>Kleine, rote Flecken bilden sich auf Deiner Haut.</string>
+						<string>Du fuehlst Dich gar nicht gut.</string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>0</integer>
+						<integer>0</integer>
+						<integer>0</integer>
+						<integer>0</integer>
+						<integer>0</integer>
+					</regexCodePropertyList>
+				</Trigger>
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="yes" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>VERWIRRUNG</name>
+					<script>
+Vesray.dizzyness:echo("FLUCH!")
+Vesray.dizzyness:setStyleSheet([[background-color: rgba(255,100,50,100%);qproperty-alignment: 'AlignCenter' ]])
+</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#0000ff</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>Ein beklemmendes Gefuehl ueberkommt Dich und Du siehst Dich panisch um.</string>
+						<string>Dem Wahnsinn nahe schlaegst Du verzweifelt auf Deinen eigenen Kopf ein.</string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>0</integer>
+						<integer>0</integer>
+					</regexCodePropertyList>
+				</Trigger>
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>Panikdaemon blockt</name>
+					<script>expandAlias("#go vesrayflucht")</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>Der steinerne Panikdaemon stellt sich vor Dich.</string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>0</integer>
+					</regexCodePropertyList>
+				</Trigger>
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>Portal flackert nicht mehr</name>
+					<script>send("betrete portal")</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>Das Portal flackert nicht mehr.</string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>0</integer>
+					</regexCodePropertyList>
+				</Trigger>
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>Vesray-Leben</name>
+					<script>local zustand={}
+
+zustand["ist absolut fit."] = 100
+zustand["ist schon ein wenig schwaecher."] = 90 --Matrix
+zustand["fuehlte sich heute auch schon besser."] = 80 -- Matrix
+zustand["sieht ein wenig angekratzt aus."] = 70 -- Matrix
+zustand["ist deutlich angekratzt."] = 60 -- Matrix
+zustand["sieht recht mitgenommen aus."] = 50 -- Matrix
+zustand["schwankt und wankt."] = 40 -- Matrix
+zustand["war auch schon mal deutlich besser drauf."] = 30 -- Matrix
+zustand["braucht dringend aerztliche Behandlung."] = 20 -- Matrix
+zustand["ist schon so gut wie bei Lars."]= 10 -- Matrix
+
+for k,v in pairs(zustand) do
+	if string.match(matches[2], k) then
+		Vesray.life:echo("Vesray: "..v.."%")
+	end
+end</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>Matrix: Vesray Sit (.*)</string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>1</integer>
+					</regexCodePropertyList>
+				</Trigger>
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>Krankheit ist weg</name>
+					<script>
+Vesray.sickness:echo("")
+Vesray.sickness:setStyleSheet([[background-color: rgba(0,0,0,0%);qproperty-alignment: 'AlignCenter' ]])
+</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>Du murmelst ein Gebet und wirst von Deiner Krankheit befreit.</string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>0</integer>
+					</regexCodePropertyList>
+				</Trigger>
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>Verwirrung schwindet</name>
+					<script>
+Vesray.dizzyness:echo("")
+Vesray.dizzyness:setStyleSheet([[background-color: rgba(0,0,0,0%);qproperty-alignment: 'AlignCenter' ]])
+</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>Du fuehlst Dich wieder etwas sicherer.</string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>0</integer>
+					</regexCodePropertyList>
+				</Trigger>
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>Vesray-Heiltrank</name>
+					<script>Vesray.life:echo("Vesray: 100%")</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>Vesray Sit trinkt einen Heiltrank.</string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>0</integer>
+					</regexCodePropertyList>
+				</Trigger>
+			</TriggerGroup>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="yes" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>Waffe wird aus der Hand geschlagen</name>
+				<script>send("nimm "..SE.waffe)
+send("zuecke "..SE.waffe)</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>die Waffe aus der Hand.</string>
+					<string>Du laesst vor Schreck Deine Waffe fallen.</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>0</integer>
+					<integer>0</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>Gag...</name>
+				<script>deleteLine()</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>Ein Viech verfehlt Dich.</string>
+					<string>Ein Viech wird ein wenig tranchiert.</string>
+					<string>Die Augenhoehlen Deines Totenkopf-Ohrringes blitzen blutrot auf.</string>
+					<string>Ein Mammutbulle verfehlt Dich.</string>
+					<string>Eine Mammutkuh verfehlt Dich.</string>
+					<string>Ein Mammutbaby verfehlt Dich.</string>
+					<string>Du verfehlst (einen Mammutbullen|eine Mammutkuh|ein Mammutbaby).</string>
+					<string>verfehlt ein Einhorn.</string>
+					<string>Dein funkelnder Spitzhut teilt Dir mit: </string>
+					<string>Eine Loewenzahnhydra wird ein wenig tranchiert.</string>
+					<string>ine Loewenzahnhydra verfehlt Dich.</string>
+					<string>u schlaegst einen Loewenzahnhydrakopf</string>
+					<string> Eine Loewenzahnhydra</string>
+					<string>tranchiert</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>0</integer>
+					<integer>0</integer>
+					<integer>0</integer>
+					<integer>0</integer>
+					<integer>0</integer>
+					<integer>0</integer>
+					<integer>1</integer>
+					<integer>0</integer>
+					<integer>0</integer>
+					<integer>0</integer>
+					<integer>0</integer>
+					<integer>0</integer>
+					<integer>0</integer>
+					<integer>0</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>Hydrakopf ausbrennen</name>
+				<script>--if hydraausbrenner then
+	send("brenne stumpf aus")
+	--hydraausbrenner = false
+--else
+--	hydraausbrenner = true
+---end</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>Der Hydrakopf faellt tot zu Boden.</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>0</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="yes" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>Loewenzahnhydra wachsen zwei neue Koepfe</name>
+				<script>
+</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>Der Loewenzahnhydra wachsen zwei neue Koepfe.</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>0</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="yes" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>Loewenzahnhydrakopf ausbrennen</name>
+				<script>if normal then
+	send("brenne staengel aus")
+else
+  if loewenzahnausbrennzaehler then
+  	send("brenne staengel aus")
+  end
+  loewenzahnausbrennzaehler=not loewenzahnausbrennzaehler
+end</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#000000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>Der Loewenzahnhydrakopf faellt vom Staengel ab.</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>0</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>Schreckensdrache</name>
+				<script>send("verknote hals")</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>faellt blutend vom Hals des Schreckensdra</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>0</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="yes" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>Ork Wirbelwind!</name>
+				<script>if SE.ork then
+  send("druecke stein")
+end</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string> dreht sich rasend schnell.</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>0</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>Schild faengt Schaden ab</name>
+				<script>selectCurrentLine()
+fg("red")
+bg("cyan")
+resetFormat()</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>Dein Schild faengt</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>0</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>Hexen</name>
+				<script>send("aktiviere guertel")</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>wirst von Spinnweben eingehuellt</string>
+					<string>Spinnweben kleben an dir fest</string>
+					<string>Spinnweben halten dich fest</string>
+					<string>Die Spinnweben halten Dich fest.</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>0</integer>
+					<integer>0</integer>
+					<integer>0</integer>
+					<integer>0</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>Vesray Tuer</name>
+				<script>send("sage ASDRAK")</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>Wie von Geisterhand schliesst sich die grosse Eisentuer.</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>0</integer>
+				</regexCodePropertyList>
+			</Trigger>
+		</TriggerGroup>
+		<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+			<name>Kampfreduzierung</name>
+			<script></script>
+			<triggerType>0</triggerType>
+			<conditonLineDelta>0</conditonLineDelta>
+			<mStayOpen>0</mStayOpen>
+			<mCommand></mCommand>
+			<packageName></packageName>
+			<mFgColor>#ff0000</mFgColor>
+			<mBgColor>#ffff00</mBgColor>
+			<mSoundFile></mSoundFile>
+			<colorTriggerFgColor>#000000</colorTriggerFgColor>
+			<colorTriggerBgColor>#000000</colorTriggerBgColor>
+			<regexCodeList />
+			<regexCodePropertyList />
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>Ich treffe Gegner</name>
+				<script>--display(matches)
+local gegner = "XYZ"
+local schaden= "nichts"
+if #matches==4 then
+  gegner = matches[3]
+  schaden=matches[4]
+  if schaden == "hart" and gegner:sub(-4)=="sehr" then
+  	gegner = gegner:gsub(" sehr", "")
+		schaden = "sehr hart"
+ 	end
+	local trefferarten = {pulverisierst=true, vernichtest=true, verfehlst=true, kratzt=true, triffst=true, zerschmetterst=true, atomierst=true, zerstaeubst=true}
+	if trefferarten[gegner] then
+		local temp = gegner
+		gegner = schaden
+		schaden = temp
+	end
+else
+	display(matches)
+end
+selectCurrentLine()
+deleteLine()
+if #gegner&gt;6 then
+	local artikel={"ein", "eine", "einen", "einer", "der", "die", "das"}
+	for _,a in pairs(artikel) do
+		local i=string.find(gegner, a)
+		if i==1 then
+			gegner=gegner:gsub(a.." ", "", 1)
+		end
+	end
+end
+
+if #gegner&gt;6 then
+	gegner = gegner:sub(1,3)..gegner:sub(-3)
+end
+
+if #gegner&lt;6 then
+	local space=""
+	for i=1,6-#gegner,1 do
+		space = space.." "
+	end
+	gegner = gegner..space
+end
+
+decho("\n  Du ----------------- "..gegner.." -------- &lt;0,200,0:0,0,0&gt;"..schaden)</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>^(.*)Du triffst (.+) (hart).$</string>
+					<string>^(.*)Du schlaegst (.+) mit dem (Krachen) brechender Knochen.$</string>
+					<string>^(.*)Du kitzelst (.+) am (Bauch).$</string>
+					<string>^(.*)Du (kratzt|triffst|zersteubst|atomisierst|verfehlst|pulverisierst|vernichtest) (.+).$</string>
+					<string>^(.*)Du schlaegst (.+) zu (Brei).$</string>
+					<string>^(.*)Du (zerschmetterst) (.+) in kleine Stueckchen.$</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>Anderer Spieler trifft NPC oder vice versa</name>
+				<script>--display(matches)
+local spieler="ABC"
+local gegner = "XYZ"
+local schaden= "nichts"
+
+--display(matches)
+
+if not (spieler=="Du" or gegner=="Dich") then
+
+  if #matches==4 then
+  	spieler = matches[2]
+    gegner = matches[3]
+    schaden=matches[4]
+    if schaden == "hart" and gegner:sub(-4)=="sehr" then
+    	gegner = gegner:gsub(" sehr", "")
+  		schaden = "sehr hart"
+   	end
+  	local trefferarten = {pulverisiert=true, vernichtet=true, verfehlt=true, kratzt=true, trifft=true, zerschmettert=true, atomiert=true, zerstaeubt=true}
+  	if trefferarten[gegner] then
+  		local temp = gegner
+  		gegner = schaden
+  		schaden = temp
+  	end
+    selectCurrentLine()
+    deleteLine()
+    
+    if #spieler&gt;6 then
+    	local artikel={"Ein", "Eine", "Einen", "Einer", "Der", "Die", "Das"}
+    	for _,a in pairs(artikel) do
+    		local i=string.find(spieler, a)
+    		if i==1 then
+    			spieler=spieler:gsub(a.." ", "", 1)
+    		end
+    	end
+    end
+    
+    if #spieler&gt;6 then
+    	spieler = spieler:sub(1,6)
+    end
+    
+    if #spieler&lt;6 then
+    	local space=""
+    	for i=1,6-#spieler,1 do
+    		space = space.." "
+    	end
+    	spieler = spieler..space
+    end
+    
+    if #gegner&gt;6 then
+    	local artikel={"ein", "eine", "einen", "einer", "der", "die", "das"}
+    	for _,a in pairs(artikel) do
+    		local i=string.find(gegner, a)
+    		if i==1 then
+    			gegner=gegner:gsub(a.." ", "", 1)
+    		end
+    	end
+    end
+    
+    if #gegner&gt;6 then
+    	gegner = gegner:sub(1,3)..gegner:sub(-3)
+    end
+    
+    if #gegner&lt;6 then
+    	local space=""
+    	for i=1,6-#gegner,1 do
+    		space = space.." "
+    	end
+    	gegner = gegner..space
+    end
+    
+    decho("\n  ------ "..spieler.." ------ "..gegner.." -------- &lt;200,200,0:0,0,0&gt;"..schaden)
+
+  else
+  	display(matches)
+  end
+end</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>^\s\s(.*) trifft (.+) (hart).$</string>
+					<string>^\s\s(.*) schlaegt (.+) mit dem (Krachen) brechender Knochen.$</string>
+					<string>^\s\s(.*) kitzelt (.+) am (Bauch).$</string>
+					<string>^\s\s(.*) (kratzt|trifft|zersteubt|atomisiert|verfehlt) (.+).$</string>
+					<string>^\s\s(.*) schlaegt (.+) zu (Brei).$</string>
+					<string>^\s\s(.*) (zerschmettert) (.+) in kleine Stueckchen.$</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>Gegner trifft mich</name>
+				<script>--display(matches)
+local gegner = "XYZ"
+local schaden= "nichts"
+if #matches==4 then
+	gegner = matches[3]
+  schaden = matches[4]
+
+	local trefferarten = {pulverisiert=true, vernichtet=true, verfehlt=true, kratzt=true, trifft=true, zerschmettert=true, atomiert=true, zerstaeubt=true}
+	if trefferarten[gegner] then
+		local temp = gegner
+		gegner = schaden
+		schaden = temp
+	end
+else
+	display(matches)
+end
+selectCurrentLine()
+deleteLine()
+if #gegner&gt;6 then
+	local artikel={"Ein", "Eine", "Einen", "Einer", "Der", "Die", "Das"}
+	for _,a in pairs(artikel) do
+		local i=string.find(gegner, a)
+		if i==1 then
+			gegner=gegner:gsub(a.." ", "", 1)
+		end
+	end
+end
+
+if #gegner&gt;6 then
+	gegner = gegner:sub(1,3)..gegner:sub(-3)
+end
+
+if #gegner&lt;6 then
+	local space=""
+	for i=1,6-#gegner,1 do
+		space = space.." "
+	end
+	gegner = gegner..space
+end
+
+decho("\n  ------------- "..gegner.." ------ Dich --- &lt;255,0,0:0,0,0&gt;"..schaden)</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>^(\s*)(.*) (trifft|kratzt|verfehlt|atomisiert|zerstaeubt|pulverisiert|vernichtetqqq) Dich.$</string>
+					<string>^(\s*)(.*) (kitzelt) Dich am Bauch.$</string>
+					<string>^(\s*)(.*) trifft Dich (hart|sehr hart).$</string>
+					<string>^(\s*)(.*) (zerschmettert) Dich in kleine Stueckchen.$</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+				</regexCodePropertyList>
+			</Trigger>
+		</TriggerGroup>
+		<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+			<name>Gags</name>
+			<script></script>
+			<triggerType>0</triggerType>
+			<conditonLineDelta>0</conditonLineDelta>
+			<mStayOpen>0</mStayOpen>
+			<mCommand></mCommand>
+			<packageName></packageName>
+			<mFgColor>#ff0000</mFgColor>
+			<mBgColor>#ffff00</mBgColor>
+			<mSoundFile></mSoundFile>
+			<colorTriggerFgColor>#000000</colorTriggerFgColor>
+			<colorTriggerBgColor>#000000</colorTriggerBgColor>
+			<regexCodeList />
+			<regexCodePropertyList />
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>Gag...</name>
+				<script>selectCurrentLine()
+deleteLine()</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>Du verfehlst einen Mammutbullen.</string>
+					<string>Du verfehlst eine Mammutkuh.</string>
+					<string>Du verfehlst ein Mammutbaby.</string>
+					<string>Yxaqui verfehlt</string>
+					<string>Orkoli verfehlt</string>
+					<string>Allia verfehlt</string>
+					<string>Maunzerle verfehlt</string>
+					<string>Djtom verfehlt</string>
+					<string>Malie verfehlt</string>
+					<string>Der Vollstrecka </string>
+					<string>^(.*)(Eine Mammutkuh|Ein Mammutbaby|Ein Mammutbulle)\s(verfehlt| kitzelt|krazt).*$</string>
+					<string>Der Rubin beginnt rot zu leuchten und zwingt Dich, ihn zu behalten.</string>
+					<string>Behalt den Zettel lieber, vielleicht brauchst Du ihn noch.</string>
+					<string>Das Drops ist doch viel zu lecker, um es einfach wegzuwerfen.</string>
+					<string>Das ist Dein Trank. Bella hat ihn Dir gegeben, niemand anders.</string>
+					<string>Du kannst das heilige Silberkreuz nicht wegwerfen!</string>
+					<string>Du kannst das Freundschaftsband nicht wegwerfen!</string>
+					<string>Die Karte behaeltst Du lieber. Als Seher kannst Du sie in Deine spezielle</string>
+					<string>Du kannst den Block puren Elfenbeins nicht wegwerfen!</string>
+					<string>Du kannst den Runenstab nicht wegwerfen!</string>
+					<string>Du willst doch nicht Dein Kerbholz weggeben!</string>
+					<string>Diese Pfeife solltest Du nicht verlieren !</string>
+					<string>Du willst Dein Siegel nicht wegwerfen. Es macht Dich stolz!</string>
+					<string>Diese seltene Trophaee willst Du doch nicht weggeben.</string>
+					<string>Du kannst die Ruestung des Hydratoeters nicht wegwerfen!</string>
+					<string>Du willst doch nicht etwa Deine Kristallkugel wegwerfen?</string>
+					<string>Dieses Armband ist viel zu schade, um es fallenzulassen.</string>
+					<string>Wenn Du den Talisman loswerden willst, solltest Du aus dem Heiligen Orden</string>
+					<string>Du kannst den Planeditor nicht wegwerfen!</string>
+					<string>Das persoenliche Servicepaket der MPA kann man nicht wegwerfen.</string>
+					<string>Du kannst die Plakette nicht wegwerfen!</string>
+					<string>Du willst das Abenteuertagebuch doch nicht wegwerfen?</string>
+					<string>Dein heiliges Kreuz faengt den Angriff ab.</string>
+					<string>WAS moechtest Du nehmen?</string>
+					<string>Deine Robe schuetzt Dich.</string>
+					<string>tranchiert</string>
+					<string>verfehlt</string>
+					<string>Spitzhut teilt Dir mit:</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>0</integer>
+					<integer>0</integer>
+					<integer>0</integer>
+					<integer>0</integer>
+					<integer>0</integer>
+					<integer>0</integer>
+					<integer>0</integer>
+					<integer>0</integer>
+					<integer>0</integer>
+					<integer>0</integer>
+					<integer>1</integer>
+					<integer>0</integer>
+					<integer>0</integer>
+					<integer>0</integer>
+					<integer>0</integer>
+					<integer>0</integer>
+					<integer>0</integer>
+					<integer>0</integer>
+					<integer>0</integer>
+					<integer>0</integer>
+					<integer>0</integer>
+					<integer>0</integer>
+					<integer>0</integer>
+					<integer>0</integer>
+					<integer>0</integer>
+					<integer>0</integer>
+					<integer>0</integer>
+					<integer>0</integer>
+					<integer>0</integer>
+					<integer>0</integer>
+					<integer>0</integer>
+					<integer>0</integer>
+					<integer>0</integer>
+					<integer>0</integer>
+					<integer>0</integer>
+					<integer>0</integer>
+					<integer>0</integer>
+					<integer>0</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>Disko-Gag bei Friedhofsquest</name>
+				<script>deleteLine()</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>BUMM</string>
+					<string>SIRR</string>
+					<string>DER SAENGER</string>
+					<string>BESOFFENER</string>
+					<string>QUIETSCH</string>
+					<string>TROOOOOOOOOOEEEEEEEEEEEEEEEET!!!!!!</string>
+					<string>SKELETTE</string>
+					<string>DEAD</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>0</integer>
+					<integer>0</integer>
+					<integer>0</integer>
+					<integer>0</integer>
+					<integer>0</integer>
+					<integer>0</integer>
+					<integer>0</integer>
+					<integer>0</integer>
+				</regexCodePropertyList>
+			</Trigger>
+		</TriggerGroup>
+		<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+			<name>Architekten-Quest</name>
+			<script></script>
+			<triggerType>0</triggerType>
+			<conditonLineDelta>0</conditonLineDelta>
+			<mStayOpen>0</mStayOpen>
+			<mCommand></mCommand>
+			<packageName></packageName>
+			<mFgColor>#ff0000</mFgColor>
+			<mBgColor>#ffff00</mBgColor>
+			<mSoundFile></mSoundFile>
+			<colorTriggerFgColor>#000000</colorTriggerFgColor>
+			<colorTriggerBgColor>#000000</colorTriggerBgColor>
+			<regexCodeList />
+			<regexCodePropertyList />
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>Bitte hebeln</name>
+				<script>saved_player=matches[2]
+send("zieh hebel")</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>^(.*) teilt Dir mit: bitte hebeln.*$</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>1</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>Erfolgreiches Hebeln</name>
+				<script>send("tm "..saved_player.." Gehebelt!")</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>Du hoerst ein Rumpeln irgendwoher.</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>0</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>Hebel klemmt</name>
+				<script>send("tm "..saved_player.." der Hebel klemmt...")</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>Der Hebel scheint zu klemmen.</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>0</integer>
+				</regexCodePropertyList>
+			</Trigger>
+		</TriggerGroup>
+		<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+			<name>Entgiften</name>
+			<script>send("entgifte "..matches[2])</script>
+			<triggerType>0</triggerType>
+			<conditonLineDelta>0</conditonLineDelta>
+			<mStayOpen>0</mStayOpen>
+			<mCommand></mCommand>
+			<packageName></packageName>
+			<mFgColor>#ff0000</mFgColor>
+			<mBgColor>#ffff00</mBgColor>
+			<mSoundFile></mSoundFile>
+			<colorTriggerFgColor>#000000</colorTriggerFgColor>
+			<colorTriggerBgColor>#000000</colorTriggerBgColor>
+			<regexCodeList>
+				<string>^(.*) teilt Dir mit: bitte entgiften.*$</string>
+			</regexCodeList>
+			<regexCodePropertyList>
+				<integer>1</integer>
+			</regexCodePropertyList>
+		</Trigger>
+		<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+			<name>Heiltrank</name>
+			<script>send("trinke heiltrank")</script>
+			<triggerType>0</triggerType>
+			<conditonLineDelta>0</conditonLineDelta>
+			<mStayOpen>0</mStayOpen>
+			<mCommand></mCommand>
+			<packageName></packageName>
+			<mFgColor>#ff0000</mFgColor>
+			<mBgColor>#ffff00</mBgColor>
+			<mSoundFile></mSoundFile>
+			<colorTriggerFgColor>#000000</colorTriggerFgColor>
+			<colorTriggerBgColor>#000000</colorTriggerBgColor>
+			<regexCodeList>
+				<string>gibt Dir einen Heiltrank</string>
+			</regexCodeList>
+			<regexCodePropertyList>
+				<integer>0</integer>
+			</regexCodePropertyList>
+		</Trigger>
+	</TriggerPackage>
+	<TimerPackage>
+		<Timer isActive="no" isFolder="no" isTempTimer="no" isOffsetTimer="no">
+			<name>count_hydra</name>
+			<script>HZ:decrease_time()</script>
+			<command></command>
+			<packageName></packageName>
+			<time>00:00:01.000</time>
+		</Timer>
+	</TimerPackage>
+	<AliasPackage>
+		<AliasGroup isActive="no" isFolder="yes">
+			<name>Quest-Alias</name>
+			<script></script>
+			<command></command>
+			<packageName></packageName>
+			<regex></regex>
+			<Alias isActive="no" isFolder="no">
+				<name>Kataheilung</name>
+				<script>local heilung = matches[2]
+send("spiele mit Jojo")
+expandAlias("#dopath n w w")
+send("heile "..heilung)
+expandAlias("#dopath n n w n n w")
+send("krieche n")
+send("krieche n")</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^kh (\d*)$</regex>
+			</Alias>
+			<Alias isActive="no" isFolder="no">
+				<name>Katakombe</name>
+				<script>if matches[2]=="1" then
+	send("druecke knopf")
+	expandAlias("#dopath n o o n w")
+	send("lies inschrift")
+elseif matches[2]=="2" then
+	send("spiele mit Jojo")
+	expandAlias("#dopath n w w n o n n w")
+	send("antworte Fluss")
+elseif matches[2]=="3" then
+	send("spiele mit Jojo")
+	expandAlias("#dopath n n")
+	send("druecke knopf")
+elseif matches[2]=="4" then
+	send("spiele mit Jojo")
+	expandAlias("#dopath n w w n o n n")
+	expandAlias("kampf h")
+	send("toete alle")
+elseif matches[2]=="5" then
+	send("nimm kniescheibe")
+	send("spiele mit Jojo")
+	expandAlias("#dopath n o o n n o")
+	send("werfe kniescheibe gegen Knopf")
+elseif matches[2]=="6" then
+	send("spiele mit Jojo")
+	expandAlias("#dopath n w w n n n w n")
+	send("unt steine")
+	send("nimm kniescheibe")
+	expandAlias("#dopath s o")
+	send("nimm flasche")
+	send("spiele mit Jojo")
+	expandAlias("#dopath n o o n n o")
+	send("fuelle flasche mit wasser")
+	send("spiele mit Jojo")
+	expandAlias("#dopath n w w n n w n n o")
+	send("loesche feuer")
+	send("druecke knopf")
+elseif matches[2]=="7" then
+	send("spiele mit Jojo")
+	expandAlias("#dopath n w w n o n n n")
+	send("gebe Skelett Kniescheibe")
+elseif matches[2]=="8" then
+	send("spiele mit Jojo")
+	expandAlias("#dopath n o o n n o o s s")
+	send("fluche Putzdaifell")
+elseif matches[2]=="9" then
+	send("spiele mit Jojo")
+	expandAlias("#dopath n n n")
+	send("druecke knopf")
+elseif matches[2]=="10" then
+	send("spiele mit Jojo")
+	expandAlias("#dopath n w w n o n n n")
+	send("lass alles fallen")
+	send("nimm feuer")
+	expandAlias("#dopath s s s w w w s")
+	send("lass feuer fallen")
+	send("zuende zuendschnur an")
+	expandAlias("#dopath n o o o n n n")
+	send("nimm alles")
+	send("trage alles")
+	send("zuecke hammer")
+	send("ziehe Ohrenschuetzer aus")
+	send("kampfinfo")
+	tempTimer(20, [[ display("BUUUUUUUMMMM") ]])
+elseif matches[2]=="11" then
+	send("spiele mit Jojo")
+	expandAlias("#dopath n w w n w w s o")
+	--send("nimm handschuhe")
+	send("druecke steinplatte")
+elseif matches[2]=="12" then
+	send("spiele mit Jojo")
+	expandAlias("#dopath n o o n n o o n n n w s")
+	send("beruehre decke")
+elseif matches[2]=="13" then
+	send("spiele mit Jojo")
+	expandAlias("#dopath n w w n n w n n n o")
+	send("zieh nase")
+elseif matches[2]=="14" then
+	send("spiele mit Jojo")
+	expandAlias("#dopath n n n n")
+	send("zieh faden")
+elseif matches[2]=="15" then
+	send("spiele mit Jojo")
+	expandAlias("#dopath n o o n n o o n n n w w s s o")
+	send("beisse Kette durch")
+elseif matches[2]=="16" then
+	send("spiele mit Jojo")
+	expandAlias("#dopath n w w n w w n n")
+	send("antworte Quotzlipeck")
+elseif matches[2]=="17" then
+	send("spiele mit Jojo")
+	expandAlias("#dopath n n n n n")
+	send("druecke Amulett")
+elseif matches[2]=="18" then
+	send("spiele mit Jojo")
+	expandAlias("#dopath n o o n n o o n n n w n o")
+	send("druecke linkes Auge")
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^kata (\d*)$</regex>
+			</Alias>
+		</AliasGroup>
+		<AliasGroup isActive="yes" isFolder="yes">
+			<name>SSP-Aliase</name>
+			<script></script>
+			<command></command>
+			<packageName></packageName>
+			<regex></regex>
+			<Alias isActive="yes" isFolder="no">
+				<name>SSP Eingang starten</name>
+				<script>SSP = true 	-- SSP-Variable um durch Trigger so weit reinzugelangen,
+send("schau")
+
+if(table.getn(matches)&gt;1)then
+	SSP_Ziel = matches[3]
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^#ssp(\s(\w+))?$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>raus aus der SSP</name>
+				<script>SSP_z = true
+send("schau")</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^#sspr$</regex>
+			</Alias>
+		</AliasGroup>
+		<Alias isActive="yes" isFolder="no">
+			<name>Terminator</name>
+			<script>send("unt kasten")
+send("unt glasscheibe")
+send("unt flimmern")</script>
+			<command></command>
+			<packageName></packageName>
+			<regex>^term$</regex>
+		</Alias>
+		<AliasGroup isActive="yes" isFolder="yes">
+			<name>Wege-Makros</name>
+			<script></script>
+			<command></command>
+			<packageName></packageName>
+			<regex></regex>
+			<Alias isActive="yes" isFolder="no">
+				<name>Geld aufladen</name>
+				<script>expandAlias("#knackt")
+SE.dh=0
+SE.dhs="karten"
+if PF.ids[gmcp.MG.room.info.id] then
+	previous_place = PF.ids[gmcp.MG.room.info.id] -- Start speichern
+	expandAlias("#go "..previous_place.." dh")
+  send("stell an kartenschlange an")
+  tempTimer(0.5, function() send("draengel vor") end )
+else
+	display("Kein Knotenpunkt da!")
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^#ga$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Rate einzahlen</name>
+				<script>SE.dh=1
+SE.dhs="raten"
+if PF.ids[gmcp.MG.room.info.id] then
+	previous_place = PF.ids[gmcp.MG.room.info.id] -- Start speichern
+	expandAlias("#go "..previous_place.." dh")
+  send("stell an ratenschlange an")
+  tempTimer(0.5, function() send("draengel vor") end )
+else
+	display("Kein Knotenpunkt da!")
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^#rate$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Gehe nach Para</name>
+				<script> local pwelt = matches[2]
+ previous_place = PF.ids[gmcp.MG.room.info.id]
+ 
+ if previous_place then
+  expandAlias("#go "..previous_place.." para")
+  send("betrete portal")
+  
+  
+  tempTimer(1.5, function() send(pwelt) end)
+  
+  ME.para = tonumber(pwelt)
+  
+  if ME.para == 0 then
+    GUI.ort_raum:setStyleSheet([[background-color: rgba(0,0,0,0%)]])
+    GUI.ort_region:setStyleSheet([[background-color: rgba(0,0,0,0%)]])
+  else
+    GUI.ort_raum:setStyleSheet([[background-color: rgba(255,0,0,100%)]])
+    GUI.ort_region:setStyleSheet([[background-color: rgba(255,0,0,100%)]])
+  end
+	ME:save_setting()
+  GUI:save_setting()
+else
+ display("Kein Knotenpunkt vorhanden!")
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^#para (\d)$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Seher Drops holen</name>
+				<script>local previous_place=PF.ids[gmcp.MG.room.info.id]
+  
+if previous_place then
+	if ME.para&gt;0 then
+		decho("&lt;255,155,0:0,0,0&gt;FEHLER (PF): In der Para-Welt gibt es keine Drops auf der Rieseninsel")
+	else
+		PF.drops = 0
+  	send("ultrakurz", false)
+		PF:start_trigger()
+    PF:jump(previous_place.."_z", true)
+    send("teleportiere 30",false)
+		send("s", false)
+		send("w", false)
+		send("nw", false)
+		send("n", false)
+		send("nw", false)
+		send("n", false)
+		send("o", false)
+    send("bediene mich",false)
+    send("bediene mich",false)
+    send("bediene mich",false)
+    send("bediene mich",false)
+		send("w", false)
+		send("s", false)
+		send("so", false)
+		send("s", false)
+		send("so", false)
+		send("o", false)
+		send("n", false)
+		PF:jump(previous_place, true)
+    send("lang", false)
+		send("schau",false)
+		tempTimer(1, function() PF:kill_trigger() end)
+		tempTimer(1, function() PF:info("Du hast "..PF.drops.." Drop(s) geholt.") end)
+	end
+else
+	decho("&lt;255,155,0:0,0,0&gt;FEHLER (PF):  Raum ist kein Knotenpunkt")
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^#sdrops$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Vesray-Tuer-Portal</name>
+				<script></script>
+				<command>springe nach westen;w</command>
+				<packageName></packageName>
+				<regex>^#w$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Vesray-Portal-Tuer</name>
+				<script></script>
+				<command>o;springe nach osten;sage ASDRAK</command>
+				<packageName></packageName>
+				<regex>^#o$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Verkaufen</name>
+				<script>if ME.para&gt;0 and shopindex==13 then
+	SE.shopindex=15
+end
+
+local index = SE.shopindex
+
+if #matches &gt; 1 then
+  index = tonumber(matches[3])
+else
+  SE.shopindex = index+1
+  if SE.shopindex &gt; #SE.shops then
+		SE.shopindex = 1
+	end
+end
+
+if PF.ids[gmcp.MG.room.info.id] then
+	previous_place = PF.ids[gmcp.MG.room.info.id] -- Start speichern
+	expandAlias("#go "..previous_place.." "..SE.shops[index])
+	send("verkaufe alles")
+	expandAlias("#go "..SE.shops[index].." haus")
+	send("sage "..SE.shops[index].." Index "..index)
+	expandAlias("#go haus "..previous_place)
+else
+	display("Kein Knotenpunkt da!")
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^#shop(\s(\d+))?$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Loot-Sammelnd-Laufen</name>
+				<script>send(matches[2])
+send("nimm alles aus haufen 1")
+send("nimm alles aus haufen 2")
+send("nimm alles aus haufen 3")
+send("nimm alles aus haufen 4")
+send("nimm alles aus leiche 1")
+send("nimm alles aus leiche 2")
+send("nimm alles aus leiche 3")
+send("nimm alles aus leiche 4")
+send("nimm alles")</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^#geh (.*)$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Drachenhorter Bank</name>
+				<script>if gmcp.MG.room.info.id=="21f4c4d3592750b9d178c3c928edaed1" then
+  SE.dhs=matches[2]
+  send(matches[1])
+  send("draengel vor")
+else
+	send(matches[1])
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^stell an (.*)schlange an$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Becken im Baumstumpf</name>
+				<script>send("kletter in becken")
+send("tauche in oeffnung")
+tempTimer(4, function() send("kletter aus becken") end)</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^kb$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Ausziehen (alles)</name>
+				<script></script>
+				<command>n;lege alles in mir in kommode 1;lass alles fallen;s</command>
+				<packageName></packageName>
+				<regex>^#nackt$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Anziehen (alles)</name>
+				<script>send("n;nimm alles aus kommode 1;nimm alles")
+expandAlias("zw")
+send("trage alles;s")</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^#nonackt$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Ausziehen (Geld aufladen)</name>
+				<script></script>
+				<command>n;lege alles in mir in kommode 1;lass alles fallen;nimm geldkarte aus kommode 1;nimm geldkarte;s;nimm boerse aus kommode;lege 110000 muenzen in boerse;oeffne tresor;lege 110000 muenzen aus tresor in boerse;schliesse tresor</command>
+				<packageName></packageName>
+				<regex>^#knackt$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Anziehen (Geld aufladen)</name>
+				<script>send("oeffne tresor;lege muenzen aus boerse in tresor;schliesse tresor;lass muenzen aus boerse fallen")
+send("lege boerse in kommode;n;nimm alles aus kommode 1;nimm alles")
+expandAlias("zw")
+send("trage alles;s")</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^#knonackt$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Drakonierpyramide aufraeumen</name>
+				<script>expandAlias("#geh n")
+send("n")
+send("n")
+expandAlias("#geh o")
+send("w")
+expandAlias("#geh w")
+send("o")
+expandAlias("#geh n")
+expandAlias("#geh o")
+expandAlias("#geh n")
+expandAlias("#geh o")
+expandAlias("#geh n")
+send("s;w")
+expandAlias("#geh n")
+expandAlias("#geh w")
+expandAlias("#geh n")
+send("s")
+expandAlias("#geh w")
+expandAlias("#geh s")
+expandAlias("#geh s")
+send("n")
+expandAlias("#geh w")
+expandAlias("#geh oben")
+expandAlias("#geh n")
+send("s")
+expandAlias("#geh s")
+expandAlias("#geh o")
+if ME.para==0 then
+  expandAlias("#geh oben")
+  send("unten")
+end
+expandAlias("#geh o")
+expandAlias("#geh n")
+if ME.para==0 then
+	expandAlias("#geh n")
+	send("s")
+end
+send("unten;w;s;w;s;s;s")
+tempTimer(0.5, function() send("s") expandAlias("laf") end)
+</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^#drak$</regex>
+			</Alias>
+		</AliasGroup>
+		<Alias isActive="yes" isFolder="no">
+			<name>Fegefeuer-Barbar</name>
+			<script>send("duelliere barbar")
+send("tm Osk T")
+send("tm Drait Boss")
+send("tm Belsr 0")
+send("tm Kim T")
+send("tm Rhoel T")
+send("tm Aise MAX")
+send("tm Tull T")
+send("tm Yera T")
+send("tm Alenys T")
+send("tm Ehina T")
+send("tm Bulwai MAX")
+send("tm Thrir 3")
+send("tm Nyl 3-MAX-ARGH!")
+send("tm Rodek T")
+send("tm Leroth T")
+send("tm Edyne MAX-ARGH!")
+send("tm Rayra MAX")
+send("tm Ieta T")
+send("tm Atona T")
+send("tm Slaenth 3")
+send("tm Osvind 3")</script>
+			<command></command>
+			<packageName></packageName>
+			<regex>^#barbar$</regex>
+		</Alias>
+		<Alias isActive="yes" isFolder="no">
+			<name>Terminator raus</name>
+			<script>send("krieche in loch")
+send("druecke knopf")</script>
+			<command></command>
+			<packageName></packageName>
+			<regex>^rr$</regex>
+		</Alias>
+		<Alias isActive="yes" isFolder="no">
+			<name>Zaubi-Kompos nehmen</name>
+			<script>local zaubikomposmehrzahl = {"flaeschchen", "phiolen", "schwungfedern", "sturmvogelfeder", "haare", "Topas", "Aquamarin", "Blutstein", "Rubin", "Diamant", "Saphir", "Smaragd", "Lasuritstein", "Oktarin", "Quarzstein"}
+local zaubikompos = {"flaeschchen", "phiole", "schwungfeder", "sturmvogelfeder", "haare", "Topas", "Aquamarin", "Blutstein", "Rubin", "Diamant", "Saphir", "Smaragd", "Lasuritstein", "Oktarin", "Quarzstein"}
+
+for k=1,7,1 do
+  for i=1,#zaubikompos,1 do
+  	send("nimm "..zaubikompos[i], false)
+		for j=1,6,1 do
+	  	send("nimm "..zaubikompos[i].." aus leiche "..j, false)
+  		send("nimm "..zaubikompos[i].." aus haufen "..j, false)
+	  	send("nimm "..zaubikompos[i].." aus leiche "..j, false)
+  		send("nimm "..zaubikompos[i].." aus haufen "..j, false)
+		end
+  end
+end
+echo("\nSammeln abgeschlossen.\n")</script>
+			<command></command>
+			<packageName></packageName>
+			<regex>^#z$</regex>
+		</Alias>
+		<Alias isActive="yes" isFolder="no">
+			<name>Scoreamulett</name>
+			<script>if SE.score then
+	SE.score=false
+	decho("\n\n&lt;120,170,255:0,0,0&gt;INFO (Settings):")
+	echo(" Scoreamulett wird nicht getragen.\n\n")
+else
+	SE.score=true
+	decho("\n\n&lt;120,170,255:0,0,0&gt;INFO (Settings):")
+	echo(" Scoreamulett wird getragen.\n\n")
+end
+
+SE:save()</script>
+			<command></command>
+			<packageName></packageName>
+			<regex>^#score$</regex>
+		</Alias>
+		<Alias isActive="yes" isFolder="no">
+			<name>Beenden</name>
+			<script>send("fwinke")
+send("schlaf ein")
+no_reconnect = true</script>
+			<command></command>
+			<packageName></packageName>
+			<regex>^exit$</regex>
+		</Alias>
+		<Alias isActive="yes" isFolder="no">
+			<name>Multieingabe</name>
+			<script>multitemp = {}
+
+for w in string.gmatch(matches[3], "%w+") do
+	multitemp[#multitemp+1]=matches[2]..w..matches[4]
+end
+
+
+rekursiverabbau()
+</script>
+			<command></command>
+			<packageName></packageName>
+			<regex>^(.*)#(.*)#(.*)?$</regex>
+		</Alias>
+		<Alias isActive="yes" isFolder="no">
+			<name>Flucht</name>
+			<script>FLUCHT.vorsicht=tonumber(matches[2])
+FLUCHT.reaktion={matches[3]}
+update_wimpy()</script>
+			<command></command>
+			<packageName></packageName>
+			<regex>^flucht (\d*)\s(.*)(\\(.*))?$</regex>
+		</Alias>
+		<Alias isActive="yes" isFolder="no">
+			<name>Guthaben im Haus pruefen</name>
+			<script>send("oeffne tresor")
+send("unt tresor")
+send("schliesse tresor")</script>
+			<command></command>
+			<packageName></packageName>
+			<regex>^geld$</regex>
+		</Alias>
+		<Alias isActive="yes" isFolder="no">
+			<name>Fragen</name>
+			<script>send("frage "..matches[2].." nach "..matches[3])</script>
+			<command></command>
+			<packageName></packageName>
+			<regex>^f (\w+) (.*)$</regex>
+		</Alias>
+		<Alias isActive="yes" isFolder="no">
+			<name>Seherraeuber</name>
+			<script>SE.raeuber=( matches[2]=="an" )
+display("Seherraeuber-Trigger ist "..matches[2])
+if SE.raeuber then
+	send("lass geldkarte fallen")
+else
+	send("nimm geldkarte")
+end</script>
+			<command></command>
+			<packageName></packageName>
+			<regex>^#raeuber (an|aus)$</regex>
+		</Alias>
+		<Alias isActive="yes" isFolder="no">
+			<name>Loesche Kampffokus</name>
+			<script>SE.kampffokus=nil</script>
+			<command></command>
+			<packageName></packageName>
+			<regex>^lkf$</regex>
+		</Alias>
+		<AliasGroup isActive="yes" isFolder="yes">
+			<name>Kampf</name>
+			<script></script>
+			<command></command>
+			<packageName></packageName>
+			<regex></regex>
+			<Alias isActive="yes" isFolder="no">
+				<name>Kampfmodus</name>
+				<script>
+
+if #matches == 3 then
+	GUI.spieler:setStyleSheet([[background-color: rgba(0,225,0,100%)]])
+  GUI.spieler:echo(ME.name .. " [" .. ME.stufe .. "&amp;nbsp;-&amp;nbsp;"..ME.gildenlevel.."] ("..matches[3]..")", "black")
+	send("ziehe Ohrenschuetzer an")
+	send("titel traegt Ohrenschuetzer")
+  SE.kampfmodus = matches[3]
+  decho("\n\n&lt;200,200,0:0,0,0&gt;Kampfmodus "..matches[3].." aktiviert.\n\n")
+else
+  if SE.kampfmodus then
+	  GUI.spieler:setStyleSheet([[background-color: rgba(0,220,0,0%)]])
+	  GUI.spieler:echo(ME.name .. " [" .. ME.stufe .. "&amp;nbsp;-&amp;nbsp;"..ME.gildenlevel.."]", "black")
+	  send("ziehe Ohrenschuetzer aus")
+  	send("titel bringt Monster zum Weinen")
+	  SE.kampfmodus = false
+  else
+	  GUI.spieler:setStyleSheet([[background-color: rgba(0,225,0,100%)]])
+	  GUI.spieler:echo(ME.name .. " [" .. ME.stufe .. "&amp;nbsp;-&amp;nbsp;"..ME.gildenlevel.."] (solo)", "black")
+	  send("ziehe Ohrenschuetzer an")
+	  send("titel traegt Ohrenschuetzer")
+    SE.kampfmodus = "solo"
+    decho("\n\n&lt;200,200,0:0,0,0&gt;Kampfmodus solo aktiviert.\n\n")  
+  end
+end
+
+SE:save()</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^#kampf(\s(solo|team|zaub))?$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Waffe einstecken</name>
+				<script>if SE.score then
+	send("sstecke waffe weg")
+	if( not (SE.schild=="") and not matches[2]) then
+    send("sziehe schild aus")
+  end
+else
+  send("stecke "..SE.waffe.." ein")
+  if( not (SE.schild=="") and not matches[2]) then
+  	send("ziehe "..SE.schild.." aus")
+  end
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^swe(\s1)?$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Waffe ausruesten</name>
+				<script>if table.getn(matches)==3 then -- in dem Fall wird nur eine Waffe gezueckt
+  neue_waffe = matches[3]
+  neues_schild = ""
+end
+
+if table.getn(matches)==5 then -- in dem Fall wird Waffe mit Schild gezueckt
+  neue_waffe = matches[3]
+  neues_schild = matches[5]
+end
+
+local waffenwechsel = not (SE.waffe == neue_waffe)
+local schildwechsel = not (SE.schild == neues_schild)
+local einhand = #matches == 6
+
+if waffenwechsel then
+  if SE.score then
+    send("sstecke waffe weg")
+  else
+    if SE.waffe then
+      send("stecke "..SE.waffe.." weg")
+    end
+  end
+end
+
+
+if schildwechsel and not (SE.schild == "") and not einhand then
+  display("step 3")
+  if SE.score then
+    send("sziehe schild aus")
+  else
+    if SE.schild then
+      send("ziehe "..SE.schild.." aus")
+    end
+  end
+end
+
+
+SE.waffe = neue_waffe
+SE.schild = neues_schild
+
+if SE.score and not waffenwechsel then
+  send("szuecke waffe")
+else
+  send("zuecke "..SE.waffe)
+end
+
+if not (SE.schild == "") and not einhand then
+  if SE.score and not schildwechsel then
+    send("strage schild")
+  else
+    tempTimer(1.5, function() send("trage "..SE.schild) end )
+  end
+end
+
+SE:save()
+
+</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^zw(\s([a-z]+)(\s([a-z]+))?)?(\s1)?$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>^rka (.+)$</name>
+				<script>if SE.score then
+	send("sstecke waffe weg")
+else
+	send("stecke "..SE.waffe.." weg")
+end
+
+send("richte Kerbholz auf "..matches[2])
+
+if SE.score then
+	send("szuecke waffe")
+else
+	send("zuecke "..SE.waffe)
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^rka (.+)$</regex>
+			</Alias>
+		</AliasGroup>
+		<Alias isActive="yes" isFolder="no">
+			<name>Nach Barbaren-Kampf</name>
+			<script>send("entlasse abbild;nimm kopf aus leiche;befestige kopf an stab;nimm muenzen;verkaufe alles in leiche")
+expandAlias("#kampf aus")</script>
+			<command></command>
+			<packageName></packageName>
+			<regex>^bend$</regex>
+		</Alias>
+	</AliasPackage>
+	<ActionPackage />
+	<ScriptPackage>
+		<Script isActive="yes" isFolder="no">
+			<name>ssp_laufen</name>
+			<packageName></packageName>
+			<script>
+function ssp_laufen()
+	if SSP then
+		send("ultrakurz")
+		if sspn == 1 then -- Orkanfuehrer
+			PF:workoff({"#dopath s s w w w w"})
+		elseif sspn == 2 then -- Kampfblech
+			PF:workoff({"#dopath n n n o s s o"})
+		elseif sspn == 3 then -- Titanwalze
+			if SSP_Ziel == "1" then
+				PF:workoff({"#dopath unten s"})
+				SSP=false
+			else
+				PF:workoff({"#dopath unten s w n"})
+			end
+		elseif sspn == 4 then -- Tentakelmonster 1
+			if SSP_Ziel == "2" then
+				PF:workoff({"#dopath n n unten n o o unten s"})
+				SSP=false
+			else
+				PF:workoff({"#dopath n n unten n o o unten s w"})
+			end
+		elseif sspn == 5 then -- Schneeriese
+			if SSP_Ziel=="wd" then
+				-- Richtung Wasserdrache/neue Feuerebene
+				PF:workoff({"#dopath n w"}) 
+				SSP=false
+				sspn=0
+			else
+				-- Richtung Kristalldrache, Glasdrache, Schlammdrache, alte Feuerebene, Luftebene
+				PF:workoff({"#dopath s s o s w"})
+			end
+		elseif sspn == 6 then -- Eisriese
+			if SSP_Ziel=="sd" then
+				-- zum Schlammdrachen
+				PF:workoff({"#dopath oben n w n"})
+				SSP=false
+				sspn=0
+			else
+				-- Richtung Kristalldrache, Glasdrache, alte Feuerebene, Luftebene
+				PF:workoff({"#dopath oben n n n"})
+				if SSP_Ziel == "3" then
+					SSP=false
+				end
+			end			
+		elseif sspn == 7 then -- Schlabbermurks
+			PF:workoff({"#dopath oben s o n"})
+			
+		elseif sspn == 8 then -- Tentakelmonster 2
+			if SSP_Ziel=="kd" then
+				-- zum Kristalldrachen/Glasdrachen
+				PF:workoff({"#dopath unten o n"}) 
+				SSP=false
+				sspn=0
+			elseif SSP_Ziel=="d" then
+				-- Klitzeldrom
+				PF:workoff({"#dopath unten s s s o n unten"})
+				SSP=false
+				sspn=0
+			else
+				-- Richtung alte Feuerebene
+				PF:workoff({"#dopath unten s s s o n unten n w"})
+				SSP=false
+				sspn=0
+			end	
+		end
+		send("lang")
+		send("schau")
+	end
+	if SSP_z then
+		send("ultrakurz")
+		PF:workoff({"#dopath unten o n w n n o n oben w w s oben s s s o n oben w n n w s s s o o o o n n w w n n n"})
+		send("lang")
+		send("schau")
+	end
+end
+</script>
+			<eventHandlerList />
+		</Script>
+		<ScriptGroup isActive="yes" isFolder="yes">
+			<name>Fluchtreaktion</name>
+			<packageName></packageName>
+			<script>-------------------------------------------------
+--         Put your Lua functions here.        --
+--                                             --
+-- Note that you can also use external Scripts --
+-------------------------------------------------
+</script>
+			<eventHandlerList />
+			<Script isActive="yes" isFolder="no">
+				<name>Core</name>
+				<packageName></packageName>
+				<script>-------------------------------------------------
+--         Put your Lua functions here.        --
+--                                             --
+-- Note that you can also use external Scripts --
+-------------------------------------------------
+
+FLUCHT = FLUCHT or {vorsicht=0,reaktion={},delay=false}</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>fluchtreaktion</name>
+				<packageName></packageName>
+				<script>-------------------------------------------------
+--         Put your Lua functions here.        --
+--                                             --
+-- Note that you can also use external Scripts --
+-------------------------------------------------
+
+function fluchtreaktion()
+	if type(gmcp.MG.char.vitals.hp)=="number" then
+  	if gmcp.MG.char.vitals.hp &lt; FLUCHT.vorsicht and not FLUCHT.delay then
+  		for _,aktion in ipairs(FLUCHT.reaktion) do
+  			expandAlias(aktion)
+			end
+			FLUCHT.delay=true
+		else
+			if gmcp.MG.char.vitals.hp &gt; FLUCHT.vorsicht then
+				FLUCHT.delay=false
+			end
+		end
+	else
+		display("haeh?")
+	end
+end</script>
+				<eventHandlerList>
+					<string>gmcp.MG.char.vitals</string>
+				</eventHandlerList>
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>update_wimpy</name>
+				<packageName></packageName>
+				<script>function update_wimpy()
+
+  if gmcp.MG.char.wimpy.wimpy &gt; 0 then
+		echo("\n\n\nVorsichtsaenderung verhindert.\n\n\n", "yellow")
+	end
+
+	local zeile=""
+  -- Prinz Eisenherz?
+
+	if ME.vorsicht&gt;0 then
+		zeile = "Vorsicht: "..ME.vorsicht
+	else
+		if FLUCHT.vorsicht&gt;0 then
+			zeile = "Vorsicht: " .. FLUCHT.vorsicht.."  FR: "..FLUCHT.reaktion[1]
+		else
+			zeile = "Prinz Eisenherz"
+		end
+	end
+
+	-- Statuszeile aktualisieren
+
+  GUI.vorsicht:echo(zeile, "black")
+
+end</script>
+				<eventHandlerList>
+					<string>gmcp.MG.char.wimpy</string>
+				</eventHandlerList>
+			</Script>
+		</ScriptGroup>
+		<ScriptGroup isActive="yes" isFolder="yes">
+			<name>Settings</name>
+			<packageName></packageName>
+			<script>-------------------------------------------------
+--         Put your Lua functions here.        --
+--                                             --
+-- Note that you can also use external Scripts --
+-------------------------------------------------
+</script>
+			<eventHandlerList />
+			<Script isActive="yes" isFolder="no">
+				<name>Core</name>
+				<packageName></packageName>
+				<script>-------------------------------------------------
+--         Put your Lua functions here.        --
+--                                             --
+-- Note that you can also use external Scripts --
+-------------------------------------------------
+
+SE= SE or{waffe="tonfa",
+		schild="schild",
+		file = "/home/mundron/Morgengrauen/Einstellungen/Einstellungen_",
+		kampfmodus=false,
+		kampffokus="",
+		score=true,
+		shopindex=1,
+		ep={},
+		dh=-1
+		}
+		
+SE.shops={"fwshop1",
+          "fwshop2",          
+          "krtel", 
+					"torshop", 
+					"shakyshop",  
+					"akharshop", 
+					"edwshop", 
+					"oh", 
+					"umshop", 
+					"maya", 
+					"snarken", 
+					"svshop", 
+					"saphirshop", 
+					"mkshop", 
+					"mmshop", 
+					"kmshop", 
+					"brad", 
+					"brad2", 
+					"pvshop", 
+					"eh"}
+</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>load_settings</name>
+				<packageName></packageName>
+				<script>-------------------------------------------------
+--         Put your Lua functions here.        --
+--                                             --
+-- Note that you can also use external Scripts --
+-------------------------------------------------
+
+function load_settings()
+	SE:load()
+end
+
+function SE:load()
+  local einstellungen = pload_tlines("Einstellungen")
+  self.waffe = einstellungen[1]
+  self.schild = einstellungen[2]
+  if einstellungen[3] == "false" then
+    self.kampfmodus = false
+  else
+    self.kampfmodus = einstellungen[3]
+	end
+  self.score = (einstellungen[4] == "Scoreamulett")
+  
+	if self.kampfmodus then
+		GUI.spieler:setStyleSheet([[background-color: rgba(100,255,100,100%)]])
+	  GUI.spieler:echo(ME.name .. " [" .. ME.stufe .. "&amp;nbsp;-&amp;nbsp;"..ME.gildenlevel.."] ("..SE.kampfmodus..")", "black")
+	end
+  
+	if ME.para&gt;0 then
+		GUI.ort_raum:setStyleSheet([[background-color: rgba(255,0,0,100%) ]])
+		GUI.ort_region:setStyleSheet([[background-color: rgba(255,0,0,100%) ]])
+	end	
+end
+
+function SE:save()
+  lines = {}
+  table.insert(lines, SE.waffe)
+  table.insert(lines, SE.schild)
+  if SE.kampfmodus then
+		table.insert(lines, SE.kampfmodus)
+	else
+    table.insert(lines, "false")
+	end
+	if SE.score then
+	  table.insert(lines, "Scoreamulett")
+	else
+	  table.insert(lines, "Ohneamulett")
+	end
+  
+  psave_tlines("Einstellungen", lines)
+end</script>
+				<eventHandlerList>
+					<string>GUI_loaded</string>
+				</eventHandlerList>
+			</Script>
+		</ScriptGroup>
+		<Script isActive="yes" isFolder="no">
+			<name>Hilfsfunktionen</name>
+			<packageName></packageName>
+			<script>-------------------------------------------------
+--         Put your Lua functions here.        --
+--                                             --
+-- Note that you can also use external Scripts --
+-------------------------------------------------
+
+function rekursiverabbau()
+	send(multitemp[1])
+  for i = 1, #multitemp - 1, 1 do
+    multitemp[i] = multitemp[i + 1]
+  end
+	multitemp[#multitemp]=nil
+  if #multitemp &gt; 0 then
+    tempTimer(0.2, [[ rekursiverabbau() ]])
+  end
+end
+
+
+function vesray_text(a)
+  send("teile findus mit " .. a)
+end
+
+function zuecke_waffe(anz)
+	if anz==0 then
+		send("zuecke "..SE.waffe)
+    if not (SE.schild == "") then
+  		tempTimer(1.5, function() send("trage "..SE.schild) end )
+	  end
+  elseif anz==1 then
+		send("zuecke "..SE.waffe)
+	else
+		send("zuecke "..SE.waffe)
+		if not (SE.schild == "") then
+      tempTimer(1.5, function() send("trage "..SE.schild) end )
+	  end
+  end
+end</script>
+			<eventHandlerList />
+		</Script>
+		<ScriptGroup isActive="yes" isFolder="yes">
+			<name>Quests</name>
+			<packageName></packageName>
+			<script>-------------------------------------------------
+--         Put your Lua functions here.        --
+--                                             --
+-- Note that you can also use external Scripts --
+-------------------------------------------------
+</script>
+			<eventHandlerList />
+			<Script isActive="no" isFolder="no">
+				<name>Tempel des Todes</name>
+				<packageName></packageName>
+				<script>-------------------------------------------------
+--         Put your Lua functions here.        --
+--                                             --
+-- Note that you can also use external Scripts --
+-------------------------------------------------
+
+tdtzahlenmoeglichkeiten = {}
+
+tdtzahlenindex = 0
+
+function set()
+	--for z=0,9,1 do
+		local zahlen={7,8,6,2}
+  	for i=1,4,1 do
+  		for j=1,4,1 do
+  			if not (j==i) then
+  				display(i.." / "..j)
+    			for k=1,4,1 do
+    				if not(k==i or k==j) then
+  						display(i.."/"..j.."/"..k)
+  						for l=1,4,1 do
+  							if not(l==i or l==j or l==k) then
+  								tdtzahlenmoeglichkeiten[#tdtzahlenmoeglichkeiten+1] = {zahlen[i], zahlen[j], zahlen[k], zahlen[l]}
+  							end
+  						end
+  					end
+    			end
+  			end
+  		end
+  	end
+	--end
+end
+
+
+function test()
+	send("verstelle rad 1 auf ziffer "..tdtzahlenmoeglichkeiten[tdtzahlenindex][1])
+	send("verstelle rad 2 auf ziffer "..tdtzahlenmoeglichkeiten[tdtzahlenindex][2])
+	send("verstelle rad 3 auf ziffer "..tdtzahlenmoeglichkeiten[tdtzahlenindex][3])
+	send("verstelle rad 4 auf ziffer "..tdtzahlenmoeglichkeiten[tdtzahlenindex][4])
+	send("oeffne zahlenschloss")
+	display(tdtzahlenindex.."/"..#tdtzahlenmoeglichkeiten)
+	tdtzahlenindex = tdtzahlenindex + 1
+end</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="no" isFolder="no">
+				<name>Pyramide-Raetsel</name>
+				<packageName></packageName>
+				<script>-------------------------------------------------
+--         Put your Lua functions here.        --
+--                                             --
+-- Note that you can also use external Scripts --
+-------------------------------------------------
+
+function comp(a, b,c)
+	-- a = Raum, b = Ausgang, c = Ziel
+	if(a+b==c) then
+		-- Raum+Ausgang fuehrt zum Ziel 235
+		display("a="..a.." b="..b)
+		return true
+	elseif (a+b&lt;c) then
+		-- falls Raum+Ausgang noch nicht im richtigen Raum landet,
+		-- dann muessen alle moeglichen Ausgaenge rekursiv geprueft werden.
+		if comp(a+b, ((a+b)/2-(((a+b)/2)%1)),c) then
+			display((a+b).."/2  "..((a+b)/2-(((a+b)/2)%1)))
+			return true
+		end
+		if comp(a+b, a+b+1,c) then
+			display((a+b).."+1  "..(a+b+1))
+			return true
+		end
+		if comp(a+b, ((a+b)*1.5-(((a+b)*1.5)%1)),c) then
+			display((a+b).."*1.5  "..((a+b)*1.5-(((a+b)*1.5)%1)),c)
+			return true
+		end
+		if comp(a+b, (a+b)*2,c) then
+			display((a+b).."*2  "..((a+b)*2))
+			return true
+		end
+	elseif (a+b&gt;c) then
+		-- Falls Ziel ueber 235 hinaus schiesst, dann war das ein falscher Weg.
+		return false
+	end
+end
+
+
+function sort(liste, nr)
+	local erg={}
+	local tindex=0
+	local tdiv=1
+	local tmod=#liste
+	local lanz = #liste
+	for i=1,lanz,1 do
+		tindex = (((nr/tdiv)-(nr/tdiv)%1)%tmod)+1
+		erg[i] = liste[tindex]
+		table.remove(liste,tindex)
+		tmod=tmod-1
+		tdiv=tdiv*(lanz+1-i)
+	end
+	return erg
+end
+
+function test()
+	local temp={}
+	local nenner=1
+	local zaehler=1
+	for i=1,362880,1 do
+		temp=sort({1,2,3,4,5,6,7,8,9}, i)
+		nenner=temp[1]*10000+temp[2]*1000+temp[3]*100+temp[4]*10+temp[5]
+		zaehler=temp[6]*1000+temp[7]*100+temp[8]*10+temp[9]
+		if (zaehler/nenner==1/4) then
+			display(zaehler.."/"..nenner.."="..(zaehler/nenner))
+		end
+	end
+	display("Ende")
+end
+
+function asd()
+	bla=sort({"a", "b", "d", "h", "i"}, titi)
+	send("frage Fuhrmann nach "..bla[1]..bla[2]..bla[3]..bla[4]..bla[5])
+	titi=titi+1
+end
+
+local drehlab = {}
+local raum1 = {1,2,3,4}
+local raum2 = {2,3,4,1}
+local raum3 = {3,4,1,2}
+local raum4 = {4,1,2,3}
+
+function init_drehlab()
+		
+end
+</script>
+				<eventHandlerList />
+			</Script>
+		</ScriptGroup>
+		<Script isActive="yes" isFolder="no">
+			<name>deleteOldProfiles script</name>
+			<packageName></packageName>
+			<script>function deleteOldProfiles(keepdays_arg)
+
+--[[
+	Deletes old profiles/maps in the "current"/"map" folders of the Mudlet home directory.
+	The following files are NOT deleted:
+	- Files newer than the amount of days specified as an argument to deleteOldProfiles(), or 31 days if not specified.	
+	- One file for every month before that. Specifically: The first available file of every month prior to this.
+	Setting the second argument to true will delete maps instead of profiles. (e.g. deleteOldProfiles(10, true))
+--]]
+
+	local keepdays = tonumber(keepdays_arg) or 31
+	local profile_table = {}
+	local used_last_mod_days = {}
+	local slash = (string.char(getMudletHomeDir():byte()) == "/") and "/" or "\\"
+	local dirpath = getMudletHomeDir()..slash.."current"
+	local delnum = 0
+  
+  display(dirpath)
+
+	-- Traverse the profiles folder and create a table of files:
+	for filename in lfs.dir(dirpath) do
+    if filename~="." and filename~=".." then
+      local lm = lfs.attributes(dirpath..slash..filename, "modification")
+  		table.insert(profile_table, {name = filename, last_mod = lm})
+  	end
+	end
+
+	-- Sort the table according to last modification date from new to old:
+	table.sort(profile_table, function (a,b) return a.last_mod &gt; b.last_mod end)
+
+	echo(string.format("\nDeleting old %s. Files newer than %d days and one profile for every month before that will be kept.", delete_maps and "maps" or "profiles", keepdays))
+	for i,v in ipairs(profile_table) do
+    local days = math.floor(os.difftime(os.time(), v.last_mod)/86400)
+		local last_mod_day = os.date("%Y/%m/%d", v.last_mod)
+		if days &gt; keepdays then
+      local success, errorstring = os.remove(dirpath..slash..v.name)
+				if success then
+					delnum = delnum + 1
+          cecho("\n&lt;green&gt;SUCCESS: "..dirpath..slash..v.name.." deleted.")
+				else
+					cecho("\n&lt;red&gt;ERROR: "..errorstring)
+				end
+    else
+			-- For profiles older than X days, check if we already kept a table for this month:
+			if not table.contains(used_last_mod_days, last_mod_day) then
+				-- If not, do nothing and mark this month as "kept".
+				table.insert(used_last_mod_days, last_mod_day)
+		 	else
+      	-- Otherwise remove the file:
+				local success, errorstring = os.remove(dirpath..slash..v.name)
+				if success then
+					delnum = delnum + 1
+          cecho("\n&lt;green&gt;SUCCESS: "..v.name.." deleted.")
+				else
+					cecho("\n&lt;red&gt;ERROR: "..errorstring)
+				end
+			end
+		end
+	end
+  if delnum &gt; 0 then
+  	echo(string.format("\nDeletion complete. %d/%d files were removed successfully.", delnum, #profile_table))
+  end
+end
+</script>
+			<eventHandlerList />
+		</Script>
+	</ScriptPackage>
+	<KeyPackage>
+		<KeyGroup isActive="yes" isFolder="yes">
+			<name>evented number pad</name>
+			<packageName></packageName>
+			<script></script>
+			<command></command>
+			<keyCode>-1</keyCode>
+			<keyModifier>-1</keyModifier>
+			<Key isActive="yes" isFolder="no">
+				<name>8: norden</name>
+				<packageName></packageName>
+				<script>local direction="norden"
+local room=gmcp.MG.room.info
+
+raiseEvent("movedirection", room, direction)
+send(direction)</script>
+				<command></command>
+				<keyCode>56</keyCode>
+				<keyModifier>536870912</keyModifier>
+				<Key isActive="yes" isFolder="no">
+					<name>Strg+8: nordunten</name>
+					<packageName></packageName>
+					<script>local direction="nordunten"
+local room=gmcp.MG.room.info
+
+raiseEvent("movedirection", room, direction)
+send(direction)</script>
+					<command></command>
+					<keyCode>56</keyCode>
+					<keyModifier>603979776</keyModifier>
+				</Key>
+				<Key isActive="yes" isFolder="no">
+					<name>Alt+8: nordoben</name>
+					<packageName></packageName>
+					<script>local direction="nordoben"
+local room=gmcp.MG.room.info
+
+raiseEvent("movedirection", room, direction)
+send(direction)</script>
+					<command></command>
+					<keyCode>56</keyCode>
+					<keyModifier>671088640</keyModifier>
+				</Key>
+			</Key>
+			<Key isActive="yes" isFolder="no">
+				<name>9: nordosten</name>
+				<packageName></packageName>
+				<script>local direction="nordosten"
+local room=gmcp.MG.room.info
+
+raiseEvent("movedirection", room, direction)
+send(direction)</script>
+				<command></command>
+				<keyCode>57</keyCode>
+				<keyModifier>536870912</keyModifier>
+				<Key isActive="yes" isFolder="no">
+					<name>Strg+9: nordostunten</name>
+					<packageName></packageName>
+					<script>local direction="nordostunten"
+local room=gmcp.MG.room.info
+
+raiseEvent("movedirection", room, direction)
+send(direction)</script>
+					<command></command>
+					<keyCode>57</keyCode>
+					<keyModifier>603979776</keyModifier>
+				</Key>
+				<Key isActive="yes" isFolder="no">
+					<name>Alt+9: nordostoben</name>
+					<packageName></packageName>
+					<script>local direction="nordostoben"
+local room=gmcp.MG.room.info
+
+raiseEvent("movedirection", room, direction)
+send(direction)</script>
+					<command></command>
+					<keyCode>57</keyCode>
+					<keyModifier>671088640</keyModifier>
+				</Key>
+			</Key>
+			<Key isActive="yes" isFolder="no">
+				<name>6: osten</name>
+				<packageName></packageName>
+				<script>local direction="osten"
+local room=gmcp.MG.room.info
+
+raiseEvent("movedirection", room, direction)
+send(direction)</script>
+				<command></command>
+				<keyCode>54</keyCode>
+				<keyModifier>536870912</keyModifier>
+				<Key isActive="yes" isFolder="no">
+					<name>Strg+6: ostunten</name>
+					<packageName></packageName>
+					<script>local direction="ostunten"
+local room=gmcp.MG.room.info
+
+raiseEvent("movedirection", room, direction)
+send(direction)</script>
+					<command></command>
+					<keyCode>54</keyCode>
+					<keyModifier>603979776</keyModifier>
+				</Key>
+				<Key isActive="yes" isFolder="no">
+					<name>Alt+6: ostoben</name>
+					<packageName></packageName>
+					<script>local direction="ostoben"
+local room=gmcp.MG.room.info
+
+raiseEvent("movedirection", room, direction)
+send(direction)</script>
+					<command></command>
+					<keyCode>54</keyCode>
+					<keyModifier>671088640</keyModifier>
+				</Key>
+			</Key>
+			<Key isActive="yes" isFolder="no">
+				<name>3: suedosten</name>
+				<packageName></packageName>
+				<script>local direction="suedosten"
+local room=gmcp.MG.room.info
+
+raiseEvent("movedirection", room, direction)
+send(direction)</script>
+				<command></command>
+				<keyCode>51</keyCode>
+				<keyModifier>536870912</keyModifier>
+				<Key isActive="yes" isFolder="no">
+					<name>Strg+3: suedostunten</name>
+					<packageName></packageName>
+					<script>local direction="suedostunten"
+local room=gmcp.MG.room.info
+
+raiseEvent("movedirection", room, direction)
+send(direction)</script>
+					<command></command>
+					<keyCode>51</keyCode>
+					<keyModifier>603979776</keyModifier>
+				</Key>
+				<Key isActive="yes" isFolder="no">
+					<name>Alt+3: suedostoben</name>
+					<packageName></packageName>
+					<script>local direction="suedostoben"
+local room=gmcp.MG.room.info
+
+raiseEvent("movedirection", room, direction)
+send(direction)</script>
+					<command></command>
+					<keyCode>51</keyCode>
+					<keyModifier>671088640</keyModifier>
+				</Key>
+			</Key>
+			<Key isActive="yes" isFolder="no">
+				<name>2: sueden</name>
+				<packageName></packageName>
+				<script>local direction="sueden"
+local room=gmcp.MG.room.info
+
+raiseEvent("movedirection", room, direction)
+send(direction)</script>
+				<command></command>
+				<keyCode>50</keyCode>
+				<keyModifier>536870912</keyModifier>
+				<Key isActive="yes" isFolder="no">
+					<name>Strg+2: suedunten</name>
+					<packageName></packageName>
+					<script>local direction="suedunten"
+local room=gmcp.MG.room.info
+
+raiseEvent("movedirection", room, direction)
+send(direction)</script>
+					<command></command>
+					<keyCode>50</keyCode>
+					<keyModifier>603979776</keyModifier>
+				</Key>
+				<Key isActive="yes" isFolder="no">
+					<name>Alt+2: suedoben</name>
+					<packageName></packageName>
+					<script>local direction="suedoben"
+local room=gmcp.MG.room.info
+
+raiseEvent("movedirection", room, direction)
+send(direction)</script>
+					<command></command>
+					<keyCode>50</keyCode>
+					<keyModifier>671088640</keyModifier>
+				</Key>
+			</Key>
+			<Key isActive="yes" isFolder="no">
+				<name>1: suedwesten</name>
+				<packageName></packageName>
+				<script>local direction="suedwesten"
+local room=gmcp.MG.room.info
+
+raiseEvent("movedirection", room, direction)
+send(direction)</script>
+				<command></command>
+				<keyCode>49</keyCode>
+				<keyModifier>536870912</keyModifier>
+				<Key isActive="yes" isFolder="no">
+					<name>Strg+1: suedwestunten</name>
+					<packageName></packageName>
+					<script>local direction="suedwestunten"
+local room=gmcp.MG.room.info
+
+raiseEvent("movedirection", room, direction)
+send(direction)</script>
+					<command></command>
+					<keyCode>49</keyCode>
+					<keyModifier>603979776</keyModifier>
+				</Key>
+				<Key isActive="yes" isFolder="no">
+					<name>Alt+1: suedwestoben</name>
+					<packageName></packageName>
+					<script>local direction="suedwestoben"
+local room=gmcp.MG.room.info
+
+raiseEvent("movedirection", room, direction)
+send(direction)</script>
+					<command></command>
+					<keyCode>49</keyCode>
+					<keyModifier>671088640</keyModifier>
+				</Key>
+			</Key>
+			<Key isActive="yes" isFolder="no">
+				<name>4: westen</name>
+				<packageName></packageName>
+				<script>local direction="westen"
+local room=gmcp.MG.room.info
+
+raiseEvent("movedirection", room, direction)
+send(direction)</script>
+				<command></command>
+				<keyCode>52</keyCode>
+				<keyModifier>536870912</keyModifier>
+				<Key isActive="yes" isFolder="no">
+					<name>Strg+4: westunten</name>
+					<packageName></packageName>
+					<script>local direction="westunten"
+local room=gmcp.MG.room.info
+
+raiseEvent("movedirection", room, direction)
+send(direction)</script>
+					<command></command>
+					<keyCode>52</keyCode>
+					<keyModifier>603979776</keyModifier>
+				</Key>
+				<Key isActive="yes" isFolder="no">
+					<name>Alt+4: westoben</name>
+					<packageName></packageName>
+					<script>local direction="westoben"
+local room=gmcp.MG.room.info
+
+raiseEvent("movedirection", room, direction)
+send(direction)</script>
+					<command></command>
+					<keyCode>52</keyCode>
+					<keyModifier>671088640</keyModifier>
+				</Key>
+			</Key>
+			<Key isActive="yes" isFolder="no">
+				<name>7: nordwesten</name>
+				<packageName></packageName>
+				<script>local direction="nordwesten"
+local room=gmcp.MG.room.info
+
+raiseEvent("movedirection", room, direction)
+send(direction)</script>
+				<command></command>
+				<keyCode>55</keyCode>
+				<keyModifier>536870912</keyModifier>
+				<Key isActive="yes" isFolder="no">
+					<name>Strg+7: nordwestunten</name>
+					<packageName></packageName>
+					<script>local direction="nordwestunten"
+local room=gmcp.MG.room.info
+
+raiseEvent("movedirection", room, direction)
+send(direction)</script>
+					<command></command>
+					<keyCode>55</keyCode>
+					<keyModifier>603979776</keyModifier>
+				</Key>
+				<Key isActive="yes" isFolder="no">
+					<name>Alt+7: nordwestoben</name>
+					<packageName></packageName>
+					<script>local direction="nordwestoben"
+local room=gmcp.MG.room.info
+
+raiseEvent("movedirection", room, direction)
+send(direction)</script>
+					<command></command>
+					<keyCode>55</keyCode>
+					<keyModifier>671088640</keyModifier>
+				</Key>
+			</Key>
+			<Key isActive="yes" isFolder="no">
+				<name>-: oben</name>
+				<packageName></packageName>
+				<script>local direction="oben"
+local room=gmcp.MG.room.info
+
+raiseEvent("movedirection", room, direction)
+send(direction)</script>
+				<command></command>
+				<keyCode>45</keyCode>
+				<keyModifier>536870912</keyModifier>
+			</Key>
+			<Key isActive="yes" isFolder="no">
+				<name>+: unten</name>
+				<packageName></packageName>
+				<script>local direction="unten"
+local room=gmcp.MG.room.info
+
+raiseEvent("movedirection", room, direction)
+send(direction)</script>
+				<command></command>
+				<keyCode>43</keyCode>
+				<keyModifier>536870912</keyModifier>
+			</Key>
+			<Key isActive="yes" isFolder="no">
+				<name>x: raus</name>
+				<packageName></packageName>
+				<script>local direction="raus"
+local room=gmcp.MG.room.info
+
+raiseEvent("movedirection", room, direction)
+send(direction)</script>
+				<command></command>
+				<keyCode>42</keyCode>
+				<keyModifier>536870912</keyModifier>
+			</Key>
+			<Key isActive="yes" isFolder="no">
+				<name>/: kurz</name>
+				<packageName></packageName>
+				<script>local newmodus = ""
+
+if ME.modus == "lang" then
+  newmodus = "kurz"
+elseif ME.modus == "kurz" then
+  newmodus = "ultrakurz"
+elseif ME.modus == "ultrakurz" then
+  newmodus = "lang"
+else
+  newmodus = "kurz"
+end
+
+ME.modus = newmodus
+send(newmodus)</script>
+				<command></command>
+				<keyCode>47</keyCode>
+				<keyModifier>536870912</keyModifier>
+			</Key>
+			<Key isActive="yes" isFolder="no">
+				<name>,: ausruestung</name>
+				<packageName></packageName>
+				<script></script>
+				<command>ausruestung</command>
+				<keyCode>44</keyCode>
+				<keyModifier>536870912</keyModifier>
+			</Key>
+			<Key isActive="yes" isFolder="no">
+				<name>5: schau</name>
+				<packageName></packageName>
+				<script></script>
+				<command>schau</command>
+				<keyCode>53</keyCode>
+				<keyModifier>536870912</keyModifier>
+			</Key>
+			<Key isActive="yes" isFolder="no">
+				<name>0: inventory</name>
+				<packageName></packageName>
+				<script></script>
+				<command>inv</command>
+				<keyCode>48</keyCode>
+				<keyModifier>536870912</keyModifier>
+			</Key>
+		</KeyGroup>
+		<KeyGroup isActive="no" isFolder="yes">
+			<name>Kilgar-Gebirge</name>
+			<packageName></packageName>
+			<script></script>
+			<command></command>
+			<keyCode>-1</keyCode>
+			<keyModifier>-1</keyModifier>
+			<Key isActive="yes" isFolder="no">
+				<name>sw</name>
+				<packageName></packageName>
+				<script></script>
+				<command>linkszurueck</command>
+				<keyCode>49</keyCode>
+				<keyModifier>536870912</keyModifier>
+			</Key>
+			<Key isActive="yes" isFolder="no">
+				<name>s</name>
+				<packageName></packageName>
+				<script></script>
+				<command>zurueck</command>
+				<keyCode>50</keyCode>
+				<keyModifier>536870912</keyModifier>
+			</Key>
+			<Key isActive="yes" isFolder="no">
+				<name>so</name>
+				<packageName></packageName>
+				<script></script>
+				<command>rechtszurueck</command>
+				<keyCode>51</keyCode>
+				<keyModifier>536870912</keyModifier>
+			</Key>
+			<Key isActive="yes" isFolder="no">
+				<name>o</name>
+				<packageName></packageName>
+				<script></script>
+				<command>rechts</command>
+				<keyCode>54</keyCode>
+				<keyModifier>536870912</keyModifier>
+			</Key>
+			<Key isActive="yes" isFolder="no">
+				<name>no</name>
+				<packageName></packageName>
+				<script></script>
+				<command>rechtsvor</command>
+				<keyCode>57</keyCode>
+				<keyModifier>536870912</keyModifier>
+			</Key>
+			<Key isActive="yes" isFolder="no">
+				<name>n</name>
+				<packageName></packageName>
+				<script></script>
+				<command>vor</command>
+				<keyCode>56</keyCode>
+				<keyModifier>536870912</keyModifier>
+			</Key>
+			<Key isActive="yes" isFolder="no">
+				<name>nw</name>
+				<packageName></packageName>
+				<script></script>
+				<command>linksvor</command>
+				<keyCode>55</keyCode>
+				<keyModifier>536870912</keyModifier>
+			</Key>
+			<Key isActive="yes" isFolder="no">
+				<name>w</name>
+				<packageName></packageName>
+				<script></script>
+				<command>links</command>
+				<keyCode>52</keyCode>
+				<keyModifier>536870912</keyModifier>
+			</Key>
+			<Key isActive="yes" isFolder="no">
+				<name>Schauen</name>
+				<packageName></packageName>
+				<script></script>
+				<command>schau</command>
+				<keyCode>53</keyCode>
+				<keyModifier>536870912</keyModifier>
+			</Key>
+		</KeyGroup>
+		<KeyGroup isActive="no" isFolder="yes">
+			<name>Narrenball</name>
+			<packageName></packageName>
+			<script></script>
+			<command></command>
+			<keyCode>-1</keyCode>
+			<keyModifier>-1</keyModifier>
+			<Key isActive="yes" isFolder="no">
+				<name>Vorne</name>
+				<packageName></packageName>
+				<script></script>
+				<command>vorne</command>
+				<keyCode>56</keyCode>
+				<keyModifier>536870912</keyModifier>
+			</Key>
+			<Key isActive="yes" isFolder="no">
+				<name>Vorne rechts</name>
+				<packageName></packageName>
+				<script></script>
+				<command>vornerechts</command>
+				<keyCode>57</keyCode>
+				<keyModifier>536870912</keyModifier>
+			</Key>
+			<Key isActive="yes" isFolder="no">
+				<name>Rechts</name>
+				<packageName></packageName>
+				<script></script>
+				<command>rechts</command>
+				<keyCode>54</keyCode>
+				<keyModifier>536870912</keyModifier>
+			</Key>
+			<Key isActive="yes" isFolder="no">
+				<name>Hinten rechts</name>
+				<packageName></packageName>
+				<script></script>
+				<command>hintenrechts</command>
+				<keyCode>51</keyCode>
+				<keyModifier>536870912</keyModifier>
+			</Key>
+			<Key isActive="yes" isFolder="no">
+				<name>Hinten</name>
+				<packageName></packageName>
+				<script></script>
+				<command>hinten</command>
+				<keyCode>50</keyCode>
+				<keyModifier>536870912</keyModifier>
+			</Key>
+			<Key isActive="yes" isFolder="no">
+				<name>Hinten links</name>
+				<packageName></packageName>
+				<script></script>
+				<command>hintenlinks</command>
+				<keyCode>49</keyCode>
+				<keyModifier>536870912</keyModifier>
+			</Key>
+			<Key isActive="yes" isFolder="no">
+				<name>Links</name>
+				<packageName></packageName>
+				<script></script>
+				<command>links</command>
+				<keyCode>52</keyCode>
+				<keyModifier>536870912</keyModifier>
+			</Key>
+			<Key isActive="yes" isFolder="no">
+				<name>Vorne links</name>
+				<packageName></packageName>
+				<script></script>
+				<command>vornelinks</command>
+				<keyCode>55</keyCode>
+				<keyModifier>536870912</keyModifier>
+			</Key>
+			<Key isActive="yes" isFolder="no">
+				<name>Unten</name>
+				<packageName></packageName>
+				<script></script>
+				<command>unten</command>
+				<keyCode>43</keyCode>
+				<keyModifier>536870912</keyModifier>
+			</Key>
+			<Key isActive="yes" isFolder="no">
+				<name>Oben</name>
+				<packageName></packageName>
+				<script></script>
+				<command>oben</command>
+				<keyCode>45</keyCode>
+				<keyModifier>536870912</keyModifier>
+			</Key>
+			<Key isActive="yes" isFolder="no">
+				<name>Schau</name>
+				<packageName></packageName>
+				<script></script>
+				<command>schau</command>
+				<keyCode>53</keyCode>
+				<keyModifier>536870912</keyModifier>
+			</Key>
+		</KeyGroup>
+		<KeyGroup isActive="no" isFolder="yes">
+			<name>Paddeln</name>
+			<packageName></packageName>
+			<script></script>
+			<command></command>
+			<keyCode>-1</keyCode>
+			<keyModifier>-1</keyModifier>
+			<Key isActive="yes" isFolder="no">
+				<name>Norden</name>
+				<packageName></packageName>
+				<script></script>
+				<command>paddel nach norden</command>
+				<keyCode>56</keyCode>
+				<keyModifier>536870912</keyModifier>
+			</Key>
+			<Key isActive="yes" isFolder="no">
+				<name>Osten</name>
+				<packageName></packageName>
+				<script></script>
+				<command>paddel nach osten</command>
+				<keyCode>54</keyCode>
+				<keyModifier>536870912</keyModifier>
+			</Key>
+			<Key isActive="yes" isFolder="no">
+				<name>Sueden</name>
+				<packageName></packageName>
+				<script></script>
+				<command>paddel nach sueden</command>
+				<keyCode>50</keyCode>
+				<keyModifier>536870912</keyModifier>
+			</Key>
+			<Key isActive="yes" isFolder="no">
+				<name>Westen</name>
+				<packageName></packageName>
+				<script></script>
+				<command>paddel nach westen</command>
+				<keyCode>52</keyCode>
+				<keyModifier>536870912</keyModifier>
+			</Key>
+			<Key isActive="yes" isFolder="no">
+				<name>schauen</name>
+				<packageName></packageName>
+				<script></script>
+				<command>schau</command>
+				<keyCode>53</keyCode>
+				<keyModifier>536870912</keyModifier>
+			</Key>
+			<Key isActive="yes" isFolder="no">
+				<name>Nordosten</name>
+				<packageName></packageName>
+				<script></script>
+				<command>paddel nach nordosten</command>
+				<keyCode>57</keyCode>
+				<keyModifier>536870912</keyModifier>
+			</Key>
+			<Key isActive="yes" isFolder="no">
+				<name>Suedosten</name>
+				<packageName></packageName>
+				<script></script>
+				<command>paddel nach suedosten</command>
+				<keyCode>51</keyCode>
+				<keyModifier>536870912</keyModifier>
+			</Key>
+			<Key isActive="yes" isFolder="no">
+				<name>Suedwesten</name>
+				<packageName></packageName>
+				<script></script>
+				<command>paddel nach suedwesten</command>
+				<keyCode>49</keyCode>
+				<keyModifier>536870912</keyModifier>
+			</Key>
+			<Key isActive="yes" isFolder="no">
+				<name>Nordwesten</name>
+				<packageName></packageName>
+				<script></script>
+				<command>paddel nach nordwesten</command>
+				<keyCode>55</keyCode>
+				<keyModifier>536870912</keyModifier>
+			</Key>
+		</KeyGroup>
+		<KeyGroup isActive="no" isFolder="yes">
+			<name>zeitlose Wueste</name>
+			<packageName></packageName>
+			<script></script>
+			<command></command>
+			<keyCode>-1</keyCode>
+			<keyModifier>-1</keyModifier>
+			<Key isActive="yes" isFolder="no">
+				<name>vorne</name>
+				<packageName></packageName>
+				<script></script>
+				<command>vorne</command>
+				<keyCode>56</keyCode>
+				<keyModifier>536870912</keyModifier>
+			</Key>
+			<Key isActive="yes" isFolder="no">
+				<name>hinten</name>
+				<packageName></packageName>
+				<script></script>
+				<command>hinten</command>
+				<keyCode>50</keyCode>
+				<keyModifier>536870912</keyModifier>
+			</Key>
+			<Key isActive="yes" isFolder="no">
+				<name>vornerechts</name>
+				<packageName></packageName>
+				<script></script>
+				<command>vornerechts</command>
+				<keyCode>57</keyCode>
+				<keyModifier>536870912</keyModifier>
+			</Key>
+			<Key isActive="yes" isFolder="no">
+				<name>links</name>
+				<packageName></packageName>
+				<script></script>
+				<command>links</command>
+				<keyCode>52</keyCode>
+				<keyModifier>536870912</keyModifier>
+			</Key>
+			<Key isActive="yes" isFolder="no">
+				<name>schau</name>
+				<packageName></packageName>
+				<script></script>
+				<command>schau</command>
+				<keyCode>53</keyCode>
+				<keyModifier>536870912</keyModifier>
+			</Key>
+			<Key isActive="yes" isFolder="no">
+				<name>hinten</name>
+				<packageName></packageName>
+				<script></script>
+				<command>hinten</command>
+				<keyCode>16777237</keyCode>
+				<keyModifier>536870912</keyModifier>
+			</Key>
+			<Key isActive="yes" isFolder="no">
+				<name>hintenrechts</name>
+				<packageName></packageName>
+				<script></script>
+				<command>hintenrechts</command>
+				<keyCode>51</keyCode>
+				<keyModifier>536870912</keyModifier>
+			</Key>
+			<Key isActive="yes" isFolder="no">
+				<name>hintenlinks</name>
+				<packageName></packageName>
+				<script></script>
+				<command>hintenlinks</command>
+				<keyCode>49</keyCode>
+				<keyModifier>536870912</keyModifier>
+			</Key>
+			<Key isActive="yes" isFolder="no">
+				<name>vornelinks</name>
+				<packageName></packageName>
+				<script></script>
+				<command>vornelinks</command>
+				<keyCode>55</keyCode>
+				<keyModifier>536870912</keyModifier>
+			</Key>
+			<Key isActive="yes" isFolder="no">
+				<name>rechts</name>
+				<packageName></packageName>
+				<script></script>
+				<command>rechts</command>
+				<keyCode>54</keyCode>
+				<keyModifier>536870912</keyModifier>
+			</Key>
+		</KeyGroup>
+		<KeyGroup isActive="no" isFolder="yes">
+			<name>Pudding-Lab (Oma Wetterwachs)</name>
+			<packageName></packageName>
+			<script></script>
+			<command></command>
+			<keyCode>-1</keyCode>
+			<keyModifier>-1</keyModifier>
+			<Key isActive="yes" isFolder="no">
+				<name>Norden</name>
+				<packageName></packageName>
+				<script></script>
+				<command>iss norden</command>
+				<keyCode>56</keyCode>
+				<keyModifier>536870912</keyModifier>
+			</Key>
+			<Key isActive="yes" isFolder="no">
+				<name>Osten</name>
+				<packageName></packageName>
+				<script></script>
+				<command>iss osten</command>
+				<keyCode>54</keyCode>
+				<keyModifier>536870912</keyModifier>
+			</Key>
+			<Key isActive="yes" isFolder="no">
+				<name>Sueden</name>
+				<packageName></packageName>
+				<script></script>
+				<command>iss sueden</command>
+				<keyCode>50</keyCode>
+				<keyModifier>536870912</keyModifier>
+			</Key>
+			<Key isActive="yes" isFolder="no">
+				<name>Westen</name>
+				<packageName></packageName>
+				<script></script>
+				<command>iss westen</command>
+				<keyCode>52</keyCode>
+				<keyModifier>536870912</keyModifier>
+			</Key>
+			<Key isActive="yes" isFolder="no">
+				<name>Schau</name>
+				<packageName></packageName>
+				<script></script>
+				<command>schau</command>
+				<keyCode>53</keyCode>
+				<keyModifier>536870912</keyModifier>
+			</Key>
+		</KeyGroup>
+		<KeyGroup isActive="no" isFolder="yes">
+			<name>Klassisch</name>
+			<packageName></packageName>
+			<script></script>
+			<command></command>
+			<keyCode>-1</keyCode>
+			<keyModifier>-1</keyModifier>
+			<Key isActive="yes" isFolder="no">
+				<name>n</name>
+				<packageName></packageName>
+				<script></script>
+				<command>n</command>
+				<keyCode>56</keyCode>
+				<keyModifier>536870912</keyModifier>
+			</Key>
+			<Key isActive="yes" isFolder="no">
+				<name>no</name>
+				<packageName></packageName>
+				<script></script>
+				<command>no</command>
+				<keyCode>57</keyCode>
+				<keyModifier>536870912</keyModifier>
+			</Key>
+			<Key isActive="yes" isFolder="no">
+				<name>o</name>
+				<packageName></packageName>
+				<script></script>
+				<command>o</command>
+				<keyCode>54</keyCode>
+				<keyModifier>536870912</keyModifier>
+			</Key>
+			<Key isActive="yes" isFolder="no">
+				<name>so</name>
+				<packageName></packageName>
+				<script></script>
+				<command>so</command>
+				<keyCode>51</keyCode>
+				<keyModifier>536870912</keyModifier>
+			</Key>
+			<Key isActive="yes" isFolder="no">
+				<name>s</name>
+				<packageName></packageName>
+				<script></script>
+				<command>s</command>
+				<keyCode>50</keyCode>
+				<keyModifier>536870912</keyModifier>
+			</Key>
+			<Key isActive="yes" isFolder="no">
+				<name>sw</name>
+				<packageName></packageName>
+				<script></script>
+				<command>sw</command>
+				<keyCode>49</keyCode>
+				<keyModifier>536870912</keyModifier>
+			</Key>
+			<Key isActive="yes" isFolder="no">
+				<name>w</name>
+				<packageName></packageName>
+				<script></script>
+				<command>w</command>
+				<keyCode>52</keyCode>
+				<keyModifier>536870912</keyModifier>
+			</Key>
+			<Key isActive="yes" isFolder="no">
+				<name>nw</name>
+				<packageName></packageName>
+				<script></script>
+				<command>nw</command>
+				<keyCode>55</keyCode>
+				<keyModifier>536870912</keyModifier>
+			</Key>
+			<Key isActive="yes" isFolder="no">
+				<name>schau</name>
+				<packageName></packageName>
+				<script></script>
+				<command>schau</command>
+				<keyCode>53</keyCode>
+				<keyModifier>536870912</keyModifier>
+			</Key>
+			<Key isActive="yes" isFolder="no">
+				<name>unten</name>
+				<packageName></packageName>
+				<script></script>
+				<command>unten</command>
+				<keyCode>43</keyCode>
+				<keyModifier>536870912</keyModifier>
+			</Key>
+			<Key isActive="yes" isFolder="no">
+				<name>oben</name>
+				<packageName></packageName>
+				<script></script>
+				<command>oben</command>
+				<keyCode>45</keyCode>
+				<keyModifier>536870912</keyModifier>
+			</Key>
+		</KeyGroup>
+	</KeyPackage>
+	<HelpPackage>
+		<helpURL></helpURL>
+	</HelpPackage>
+</MudletPackage>
