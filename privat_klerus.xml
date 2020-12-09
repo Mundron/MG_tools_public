@@ -46,6 +46,44 @@ end</script>
 				<integer>0</integer>
 			</regexCodePropertyList>
 		</Trigger>
+		<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+			<name>Aufopferungsvolles beten</name>
+			<script>local jetzt = os.time()
+
+if SE.bettrigger and SE.bettrigger &gt; 0 then
+  SE.bettrigger =  SE.bettrigger - 1
+else
+  SE.bettrigger = 0
+end
+
+if SE.bettrigger &gt; 0 then
+  if ME.lp &gt; 30 then
+    expandAlias(string.format("#bet %d", SE.bettrigger))
+  else
+    wprint("Abbruch des Betens wegen Lebensgefahr", "Bettrigger")
+  end
+else
+  SE.bettrigger = nil  
+  iprint("Beten wurde beendet")
+end
+</script>
+			<triggerType>0</triggerType>
+			<conditonLineDelta>0</conditonLineDelta>
+			<mStayOpen>0</mStayOpen>
+			<mCommand></mCommand>
+			<packageName></packageName>
+			<mFgColor>#ff0000</mFgColor>
+			<mBgColor>#ffff00</mBgColor>
+			<mSoundFile></mSoundFile>
+			<colorTriggerFgColor>#000000</colorTriggerFgColor>
+			<colorTriggerBgColor>#000000</colorTriggerBgColor>
+			<regexCodeList>
+				<string>Du legst die Geissel beiseite und beendest Dein Gebet.</string>
+			</regexCodeList>
+			<regexCodePropertyList>
+				<integer>0</integer>
+			</regexCodePropertyList>
+		</Trigger>
 	</TriggerPackage>
 	<TimerPackage>
 		<Timer isActive="no" isFolder="no" isTempTimer="no" isOffsetTimer="no">
@@ -109,10 +147,23 @@ expandAlias("zw")</script>
 		</Alias>
 		<Alias isActive="yes" isFolder="no">
 			<name>beten</name>
-			<script></script>
+			<script>if #matches == 1 then
+  iprint("Zyklus dauert 30 bis 60 Sekunden")
+else
+  SE.bettrigger = SE.bettrigger or tonumber(matches[3])
+  local bt = SE.bettrigger
+  iprint(string.format("Noch %d mal wird gebetet.\nEnde der Betzeit ca %s.\n\nDauer zwischen %02d:%02d und %02d:%02d Minuten.\nFruehstes Ende %s\npaetestes Ende  %s",
+    bt, 
+    os.date("%H:%M:%S", os.time()+45*bt), 
+    30*bt / 60, 30*bt % 60, bt, 0, 
+    os.date("%H:%M:%S", os.time()+30*bt),
+    os.date("%H:%M:%S", os.time()+60*bt))) 
+  send("bete aufopferungsvoll")
+end
+</script>
 			<command></command>
 			<packageName></packageName>
-			<regex>^#bet (\d+)$</regex>
+			<regex>^#bet(\s(\d+))?$</regex>
 		</Alias>
 		<Alias isActive="yes" isFolder="no">
 			<name>begraben</name>
