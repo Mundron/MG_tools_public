@@ -482,7 +482,9 @@ if #asazahlen==4 then
 	send("drehe rad 4 auf "..(math.fmod(asasumme,10)))
 	send("zieh hebel")
 	expandAlias("#dopath no o o o")
-	expandAlias("#go tan haus")
+  if PF.last_goal then
+    PF:run(PF.last_goal)
+  end
 	asazahlen={}
 end</script>
 				<triggerType>0</triggerType>
@@ -526,33 +528,6 @@ end</script>
 					<string>Ein wurmartiger Erdgraeber graebt sich schabend aus der Erde.</string>
 				</regexCodeList>
 				<regexCodePropertyList>
-					<integer>0</integer>
-				</regexCodePropertyList>
-			</Trigger>
-			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-				<name>Fraternitas-Halef</name>
-				<script>if gmcp.MG.room.info.id=="05f8a313f01d4dc618206f30df66940c" then
-	expandAlias("#dopath n o o o")
-	send("oeffne tuer")
-	send("n")
-	send("feilsche mit Halef")
-end</script>
-				<triggerType>0</triggerType>
-				<conditonLineDelta>0</conditonLineDelta>
-				<mStayOpen>0</mStayOpen>
-				<mCommand></mCommand>
-				<packageName></packageName>
-				<mFgColor>#ff0000</mFgColor>
-				<mBgColor>#ffff00</mBgColor>
-				<mSoundFile></mSoundFile>
-				<colorTriggerFgColor>#000000</colorTriggerFgColor>
-				<colorTriggerBgColor>#000000</colorTriggerBgColor>
-				<regexCodeList>
-					<string>Ah, Besuch. Kommt schnell herein und lasst die Kaelte draussen!</string>
-					<string>Momentan ist das Tor doch offen!</string>
-				</regexCodeList>
-				<regexCodePropertyList>
-					<integer>0</integer>
 					<integer>0</integer>
 				</regexCodePropertyList>
 			</Trigger>
@@ -1333,7 +1308,7 @@ deleteLine()</script>
 				</regexCodePropertyList>
 			</Trigger>
 			<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-				<name>Pendel</name>
+				<name>Pendel / Baumstumpf / Vier Kerzen</name>
 				<script></script>
 				<triggerType>0</triggerType>
 				<conditonLineDelta>0</conditonLineDelta>
@@ -1348,23 +1323,27 @@ deleteLine()</script>
 				<regexCodeList />
 				<regexCodePropertyList />
 				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-					<name>Durchlaufen</name>
+					<name>Pendelbewegung</name>
 					<script>
 if gmcp.MG.room.info.id == "beb27b0cf0b9c3d2f652522d2050081a" then
   send("n")
-  --send("n")
+  if PF.last_goal == "wu3" then
+    send("n;lang;schau")
+  elseif PF.last_goal == "wu4" then
+    send("n")
+    expandAlias("#zen")
+  else
+    tempTimer(1, function() decho("\n\n&lt;255,255,0:0,0,0&gt;Noerdlich vom Pendel\n\n") end )
+  end
   --send("betrete pentagramm;knie nieder;hebe arme;bruelle NIMM MICH AUF, EWIGES FEUER!")
-
-tempTimer(1, function() decho("\n\n&lt;255,255,0:0,0,0&gt;Noerdlich vom Pendel\n\n") end )
 end
 
 if gmcp.MG.room.info.id == "37c223ce9483b96f04cee8efae0e9ade" then
-  send("s")
-  --send("kletter in becken")
-  --send("tauche in oeffnung")
-  --tempTimer(4, function() send("kletter aus becken;w") end)
-  
-  tempTimer(1, function() decho("\n\n&lt;255,255,0:0,0,0&gt;Suedlich vom Pendel\n\n") end )
+  send("s;kletter in becken;tauche in oeffnung")
+  -- send("kletter in becken")
+  -- send("tauche in oeffnung")
+  -- tempTimer(4, function() send("kletter aus becken;w") end)  
+  -- tempTimer(1, function() decho("\n\n&lt;255,255,0:0,0,0&gt;Suedlich vom Pendel\n\n") end )
 end
 </script>
 					<triggerType>0</triggerType>
@@ -1391,7 +1370,7 @@ end
 					</regexCodePropertyList>
 				</Trigger>
 				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-					<name>Halten!</name>
+					<name>PENDEL!</name>
 					<script>decho("\n\n&lt;255,255,0:0,0,0&gt;ACHTUNG! Pendel zappt!\n\n")
 tempTimer(1, function() send("unt pendel") end)</script>
 					<triggerType>0</triggerType>
@@ -1417,9 +1396,21 @@ tempTimer(1, function() send("unt pendel") end)</script>
 						<integer>0</integer>
 					</regexCodePropertyList>
 				</Trigger>
-				<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-					<name>tauchen</name>
-					<script>tempTimer(0.5, function() send("kletter aus becken;w;unt pendel") end)</script>
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>Durch Becken tauchen</name>
+					<script>local rid = gmcp.MG.room.info.id
+
+if rid == "5111b36a7cff65f2fb88647b9e350dea" then
+  send("kletter aus becken;unt pendel")
+elseif rid == "0f28bd48ac5c2cee2b1741868a41ff30" then
+  send("kletter aus becken;w")
+  if PF.last_goal and not (PF.last_goal == "wu2" or PF.last_goal == "wu3" or PF.last_goal == "wu4") then
+    tempTimer(1, function() PF:goto(PF.last_goal) end)
+  else
+    tempTimer(1, function() decho("\n\n&lt;255,255,0:0,0,0&gt;Beim Grabraeuber\n\n") end )
+  end
+end
+</script>
 					<triggerType>0</triggerType>
 					<conditonLineDelta>0</conditonLineDelta>
 					<mStayOpen>0</mStayOpen>
@@ -1431,7 +1422,259 @@ tempTimer(1, function() send("unt pendel") end)</script>
 					<colorTriggerFgColor>#000000</colorTriggerFgColor>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
 					<regexCodeList>
-						<string>Du bist doch gerade mit Tauchen beschaeftigt!</string>
+						<string>durchstoesst Du die Wasseroberflaeche</string>
+						<string>Keuchend erreichst Du die Oberflaeche.</string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>0</integer>
+						<integer>0</integer>
+					</regexCodePropertyList>
+				</Trigger>
+			</TriggerGroup>
+			<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>Fraternitas</name>
+				<script></script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList />
+				<regexCodePropertyList />
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>Fraternitas rein</name>
+					<script>if gmcp.MG.room.info.id=="05f8a313f01d4dc618206f30df66940c" then
+	if PF.last_goal == "halef" then
+    -- Halef:
+    expandAlias("#dopath n o o o")
+  	send("oeffne tuer")
+  	send("n")
+  	send("feilsche mit Halef")
+  elseif PF.last_goal == "brumni" then
+    -- Brumni:
+    expandAlias("#dopath n o o oben o")
+    send("oeffne tuer")
+    send("o")
+    send("schiebe brett")
+  elseif PF.last_goal == "kamin" then
+    -- Kaminzimmer:
+    expandAlias("#dopath n o o oben w w")
+  else
+    send("n")
+  end
+end</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>Ah, Besuch. Kommt schnell herein und lasst die Kaelte draussen!</string>
+						<string>Momentan ist das Tor doch offen!</string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>0</integer>
+						<integer>0</integer>
+					</regexCodePropertyList>
+				</Trigger>
+			</TriggerGroup>
+			<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>Zu Zendai</name>
+				<script></script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList />
+				<regexCodePropertyList />
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>Nordhebel richtig</name>
+					<script>if gmcp.MG.room.info.id == "10bafbe8c7936059df7b8760dc1de016" then
+  send("s;s;bewege hebel")
+end</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>KLICK.</string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>0</integer>
+					</regexCodePropertyList>
+				</Trigger>
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>Nordhebel falsch</name>
+					<script>if gmcp.MG.room.info.id == "10bafbe8c7936059df7b8760dc1de016" then
+  send("bewege hebel")
+end</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>KLACK.</string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>0</integer>
+					</regexCodePropertyList>
+				</Trigger>
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>Suedhebel richtig</name>
+					<script>if gmcp.MG.room.info.id == "37c223ce9483b96f04cee8efae0e9ade" then
+  send("n;w;druecke knopf")
+end</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>Du hoerst ein Knirschen, als Du den Hebel in die obere Position bewegst. </string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>0</integer>
+					</regexCodePropertyList>
+				</Trigger>
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>Suedhebel falsch</name>
+					<script>if gmcp.MG.room.info.id == "37c223ce9483b96f04cee8efae0e9ade" then
+  send("bewege hebel")
+end</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>Du hoerst ein Schaben, als Du den Hebel in die untere Position bewegst. </string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>0</integer>
+					</regexCodePropertyList>
+				</Trigger>
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>Westknopf richtig</name>
+					<script>if gmcp.MG.room.info.id == "2e61d5cea198dffd9b6350044ca5e580" then
+  send("o;o;druecke knopf")
+end</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>Als Du den Knopf in die Wand drueckst, glaubst Du ein Rumpeln unter Dir </string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>0</integer>
+					</regexCodePropertyList>
+				</Trigger>
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>Westknopf falsch</name>
+					<script>if gmcp.MG.room.info.id == "2e61d5cea198dffd9b6350044ca5e580" then
+  send("druecke knopf")
+end</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>Du drueckst den Knopf noch weiter in die Wand und laesst ihn wieder los,</string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>0</integer>
+					</regexCodePropertyList>
+				</Trigger>
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>Ostknopf richtig</name>
+					<script>if gmcp.MG.room.info.id == "472801de9467effc11ead7631c5660c1" then
+  send("drehe schaedel")
+  send("steige ueber lichtschimmer")
+end</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>Du drueckst den Knopf. Er versinkt im Stein des Sargs.</string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>0</integer>
+					</regexCodePropertyList>
+				</Trigger>
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>Ostknopf falsch</name>
+					<script>if gmcp.MG.room.info.id == "472801de9467effc11ead7631c5660c1" then
+  send("druecke knopf;drehe schaedel")
+end</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>Du drueckst noch etwas weiter in den Stein hinein, worauf er sich sofort</string>
 					</regexCodeList>
 					<regexCodePropertyList>
 						<integer>0</integer>
@@ -3610,6 +3853,13 @@ tempTimer(0.5, function() send("s") expandAlias("laf") end)
 				<packageName></packageName>
 				<regex>^#drak$</regex>
 			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Zendai</name>
+				<script></script>
+				<command>n;bewege hebel;lang;schau</command>
+				<packageName></packageName>
+				<regex>#zen</regex>
+			</Alias>
 		</AliasGroup>
 		<Alias isActive="yes" isFolder="no">
 			<name>Fegefeuer-Barbar</name>
@@ -4488,6 +4738,12 @@ send(direction)</script>
 				<name>9: nordosten</name>
 				<packageName></packageName>
 				<script>local direction="nordosten"
+
+-- bei Zendai / vier Kerzen
+if gmcp.MG.room.info.id == "4c91c3219fd46113454e5f359e3f5169" then
+  direction = "steige ueber lichtschimmer"
+end
+
 local room=gmcp.MG.room.info
 
 raiseEvent("movedirection", room, direction)
@@ -4524,6 +4780,12 @@ send(direction)</script>
 				<name>6: osten</name>
 				<packageName></packageName>
 				<script>local direction="osten"
+
+-- bei Vesray
+if gmcp.MG.room.info.id == "99b4a21c561c1fcd7e78002b0b7698ef" then
+  direction = "springe nach osten"
+end
+
 local room=gmcp.MG.room.info
 
 raiseEvent("movedirection", room, direction)
@@ -4632,6 +4894,12 @@ send(direction)</script>
 				<name>1: suedwesten</name>
 				<packageName></packageName>
 				<script>local direction="suedwesten"
+
+-- bei Zendai / vier Kerzen
+if gmcp.MG.room.info.id == "9a07f3d313b1fe4b7aead9eca8420048" then
+  direction = "steige ueber lichtschimmer"
+end
+
 local room=gmcp.MG.room.info
 
 raiseEvent("movedirection", room, direction)
@@ -4668,6 +4936,12 @@ send(direction)</script>
 				<name>4: westen</name>
 				<packageName></packageName>
 				<script>local direction="westen"
+
+-- bei Vesray
+if gmcp.MG.room.info.id == "29638569a78bbdcd22a6f447dddb34e8" then
+  direction = "springe nach westen"
+end
+
 local room=gmcp.MG.room.info
 
 raiseEvent("movedirection", room, direction)
