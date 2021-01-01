@@ -69,7 +69,12 @@ else
     send("lang")
 		send("schau")
 	else
-		PF:goto(matches[2])
+    goal = matches[2]
+    local pseudo_start = {
+      ["dfd2d86b6050371df585f15e32b96daa"]=true, -- wu3: Vier Kerzen / Baumstumpf
+      ["4c91c3219fd46113454e5f359e3f5169"]=true, -- wu4: Vor Zendai
+    } 
+		PF:goto(goal, pseudo_start[gmcp.MG.room.info.id])
 	end
 end</script>
 				<command></command>
@@ -104,20 +109,7 @@ PF:dopath(matches[2])</script>
 			<packageName></packageName>
 			<regex></regex>
 			<Alias isActive="yes" isFolder="no">
-				<name>Wegaufzeichnung Typ1</name>
-				<script>if matches[2]=="start" then
-	PF:init(1)
-elseif matches[2]=="stop" then
-	PF:stop()
-else
-	PF:continue()
-end</script>
-				<command></command>
-				<packageName></packageName>
-				<regex>^#wa (start|stop|weiter)$</regex>
-			</Alias>
-			<Alias isActive="yes" isFolder="no">
-				<name>Wegaufzeichnung Typ2</name>
+				<name>Wegaufzeichnung</name>
 				<script>if matches[2]=="start" then
 	PF:init(2)
 elseif matches[2]=="stop" then
@@ -129,7 +121,7 @@ else
 end</script>
 				<command></command>
 				<packageName></packageName>
-				<regex>^#wa2 (start|stop|weiter|ziel)$</regex>
+				<regex>^#wa (start|stop|weiter|ziel)$</regex>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
 				<name>Zeige Wegaufnahme</name>
@@ -731,7 +723,7 @@ end</script>
 -- Basic variables
 PF = PF or {filename="Wege",
 			gagfilename="Wege_Gag",
-			aliasfilename="Wege_Gag",
+			aliasfilename="Wege_Alias",
 			pathes={}, 
 			titles={}, 
 			ids={},
@@ -1277,10 +1269,14 @@ end</script>
 -- Note that you can also use external Scripts --
 -------------------------------------------------
 
-function PF:goto(goal)
+function PF:goto(goal, pseudo)
 	local id = gmcp.MG.room.info.id
 	
-	if self.ids[id] then
+  PF.last_goal = goal
+  
+	if pseudo then
+    PF:jump(self.ids[id].."_z", false)
+  elseif self.ids[id] then
 		PF:run(self.ids[id], goal)
 	else
 		self:error("Dieser Raum ist kein Startpunkt!")

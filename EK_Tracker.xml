@@ -477,9 +477,9 @@ end
 	
 function EK:save_EK()
 	local setting={}
-	for k,v in pairs(self.player) do
-		table.insert(setting, k)
-		table.insert(setting, v)
+	for _,name in ipairs(self.players) do
+		table.insert(setting, name)
+		table.insert(setting, self.player[name])
 	end
   self:controll_saving()
 	msave_csv("EK_Liste", EK.npc, setting)
