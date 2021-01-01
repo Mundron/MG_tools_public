@@ -467,8 +467,7 @@ PF:info({"Die Richtungen werden in ", "&lt;255,255,0:0,0,0&gt;"..PF.aliasfilenam
 							"&lt;255,255,0:0,0,0&gt;#jp &lt;Pfad&gt;",
 							"&lt;255,255,0:0,0,0&gt;#dopath &lt;List of Steps&gt;", 
 							"\n&lt;55,255,55:0,0,0&gt;Zum Knoten erstellen:",
-							"&lt;255,255,0:0,0,0&gt;#wa start|stop|weiter",
-							"&lt;255,255,0:0,0,0&gt;#wa2 start|stop|weiter|ziel",
+							"&lt;255,255,0:0,0,0&gt;#wa start|stop|weiter|ziel",
 							"&lt;255,255,0:0,0,0&gt;#zeigewa &lt;Anzahl letzter Schritte&gt;",
 							"&lt;255,255,0:0,0,0&gt;#vor &lt;Schritt&gt;",
 							"&lt;255,255,0:0,0,0&gt;#lvor &lt;Anzahl zu Loeschen&gt;",
@@ -535,13 +534,9 @@ helpdetail["#dopath"] =  {"Ein Relikt aus TF, welches aber intern im Skript auch
 													"Damit laeuft man nach Norden, dann zweimal nach Osten, gefolgt von Norden",
 													"biegt nach Nordosten ab und endet mit einem Schritt nach Westen. Tada~"}
 													
-helpdetail["#wa"] =  {"Damit steuern wir die Wegaufzeichnung vom Typ 1 (alte Version) um neue Wege hinzuzufuegen.\n",
+helpdetail["#wa"] =  {"Damit steuern wir die Wegaufzeichnung (ab v1.2) um neue Wege hinzuzufuegen.\n",
 											"Zum Starten der Aufzeichnung: #wa start",
-											"Zum Stoppen der Aufzeichnung: #wa stop",
-											"Zum Fortsetzen der Aufzeichnung: #wa weiter"}
-											
-helpdetail["#wa2"] =  {"Damit steuern wir die Wegaufzeichnung vom Typ 2 (neu ab v1.2) um neue Wege hinzuzufuegen.\n",
-											"Zum Starten der Aufzeichnung: #wa start",
+                      "Um Zielpunkt zu markieren: #wa ziel",
 											"Zum Stoppen der Aufzeichnung: #wa stop",
 											"Zum Fortsetzen der Aufzeichnung: #wa weiter"}
 											
