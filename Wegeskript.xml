@@ -32,7 +32,7 @@
 if #matches==4 then
 	PF:run(matches[2],matches[4])
 else
-	if SE.raeuber then
+	if SE and SE.raeuber then
 		-- seherraeuber ist eine globale Variable. Wenn die an ist,
 		-- dann wird beim Reise beruecksichtigt, dass nur wenn man hier
 		-- unten gespeicherte Knoten (Kneipen) als Ziel hat, dann 
