@@ -1772,7 +1772,7 @@ end</script>
 																width=GUI.width-10,
 																height=GUI.height-10}, 
 																GUI.statuszeile)
-		GUI.bgi:setTiledBackgroundImage([[/home/mundron/Morgengrauen/Einstellungen/bg.gif]])
+		GUI.bgi:setTiledBackgroundImage(getModulePath("Mundron_Core"):sub(1,-17).."Bilder/bg.gif")
 		
 		
 		-- Zeile 1
@@ -2460,7 +2460,7 @@ AK = AK or {directory=getModulePath("Mundron_Core"):sub(1,-17).."/Bilder/",
 																width=-GUI.y-10,
 																height=-GUI.y-10}, 
 																AK.kreuz_container)
-  	AK.akbgi:setTiledBackgroundImage([[/home/mundron/Morgengrauen/Einstellungen/bg.gif]])
+  	AK.akbgi:setTiledBackgroundImage(AK.directory.."bg.gif")
   		
 		local width = -GUI.y-20
 		local x=10

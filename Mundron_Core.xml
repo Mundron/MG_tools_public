@@ -268,7 +268,7 @@ function print(text)
 	if type(text)=="string" then
 		decho(text)
 	elseif type(text)=="table" then
-		for i,t in ipairs(text) do
+		for _,t in ipairs(text) do
 			if type(t)=="string" then
 				decho(t)
 			elseif type(t)=="table" then
@@ -439,6 +439,18 @@ function structure(dict)
   else
     display(dict)
   end
+end
+
+function substring(text, subtext)
+  return string.match(text, subtext)
+end
+
+function beginswith(text, subtext)
+  --display("beginswith('"..text.."', '"..subtext.."')")
+  --display(#subtext)
+  --display(text:sub(1,#subtext))
+  --display(text:sub(1,#subtext) == subtext)
+  return text:sub(1,#subtext) == subtext
 end</script>
 			<eventHandlerList />
 		</Script>

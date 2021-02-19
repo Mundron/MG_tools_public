@@ -14,7 +14,7 @@
 				<name>Laufen</name>
 				<script>-- You can use this alias with one or two arguments.
 -- If you use two arguments A and B, then the pathscript
--- let you run from A to B (brute force). 
+-- let you run from A to B (brute force).
 -- But the pathscript runs through blindly in the sence,
 -- that it doesn't check if you really stay at A.
 -- It loads the pathed and just send it to the server.
@@ -35,19 +35,19 @@ else
 	if SE and SE.raeuber then
 		-- seherraeuber ist eine globale Variable. Wenn die an ist,
 		-- dann wird beim Reise beruecksichtigt, dass nur wenn man hier
-		-- unten gespeicherte Knoten (Kneipen) als Ziel hat, dann 
+		-- unten gespeicherte Knoten (Kneipen) als Ziel hat, dann
 		-- holt man seine Geldkarte aus seinem Seherhaus (bei mir der Knoten "haus")
 		-- und wenn man von der Kneipe wegrennt, dann bringt man die Geldkarte wieder
 		-- ins Seherhaus. Damit wird verhindert, dass man mit der Geldkarte
 		-- zu den Seherraeubern rein rennt und dann nicht mehr raus kann.
 		-- Die Loesung mit der globalen Variable ist unschoen und wird vielleicht
 		-- noch geaendert. Ebenso muss man hier im Code eingeben, welche Knoten man
-		-- als Kneipe betrachtet. 
+		-- als Kneipe betrachtet.
 		local previous_place=PF.ids[gmcp.MG.room.info.id]
  		local ziel=matches[2]
 		local kneipen = {um=true, ama=true}
 		send("ultrakurz")
-    if kneipen[ziel] then 
+    if kneipen[ziel] then
 			-- ich will zur Kneipe tanken: Hole Geldkarte
 			PF:jump(previous_place.."_z")
     	PF:jump("haus", false)
@@ -73,7 +73,7 @@ else
     local pseudo_start = {
       ["dfd2d86b6050371df585f15e32b96daa"]=true, -- wu3: Vier Kerzen / Baumstumpf
       ["4c91c3219fd46113454e5f359e3f5169"]=true, -- wu4: Vor Zendai
-    } 
+    }
 		PF:goto(goal, pseudo_start[gmcp.MG.room.info.id])
 	end
 end</script>
@@ -90,10 +90,10 @@ end</script>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
 				<name>Altes dopath</name>
-				<script>-- Ersetzt das alte tf-dopath; übergeben wird ein String mit 
+				<script>-- Ersetzt das alte tf-dopath; übergeben wird ein String mit
 -- Ausgängen.
 
--- Bspw: "#dopath o o w n" macht dann jeweils send("o"), 
+-- Bspw: "#dopath o o w n" macht dann jeweils send("o"),
 -- send("o"), send("w"), send("n")
 
 PF:dopath(matches[2])</script>
@@ -144,7 +144,7 @@ end</script>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
 				<name>WA vorwaerts</name>
-				<script>-- gibt das Argument als Gehbewegung aus, welches dann auch 
+				<script>-- gibt das Argument als Gehbewegung aus, welches dann auch
 -- in der Wegaufzeichnung gespeichert wird. Zum Beispiel
 -- #vor zwaenge durch gebuesch
 
@@ -152,27 +152,6 @@ PF:move_forth(matches[2])</script>
 				<command></command>
 				<packageName></packageName>
 				<regex>^#vor (.+)$</regex>
-			</Alias>
-			<Alias isActive="yes" isFolder="no">
-				<name>WA zurueck</name>
-				<script>-- speichert die Eingabe fuer den Rueckweg.
--- werden mehrere Befehle fuer den Rueckweg benoetigt,
--- dann muessen diese in der Reihenfolge eingegeben werden,
--- wie sie spaeter abgearbeitet werden sollen.
--- Will man zum Beispiel ein Weg in ein Seherhaus
--- machen, wobei auch stets die Tuer hinter einem geschlossen werden soll.
--- dann muss man fuer den Rueckweg folgende Befehle in dieser Reihenfolge
--- eingeben:
--- #zurueck schliesse haustuer auf
--- #zurueck oeffne haustuer
--- #zurueck raus
--- #zurueck schliesse haustuer
--- #zurueck schluesse haustuer ab
-
-PF:save_back(matches[2])</script>
-				<command></command>
-				<packageName></packageName>
-				<regex>^#zurueck (.+)$</regex>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
 				<name>Weg speichern (nur eine Richtung)</name>
@@ -191,7 +170,7 @@ elseif #matches==5 then
 	-- also Wege umkehren zur Speicherung
 	PF:save_onedirection(matches[2], matches[4], true, "")
 elseif #matches==7 then
-	-- In diesem Fall ist ein Titel mit angegeben und daher folgende Eingaben zusammengefasst: 
+	-- In diesem Fall ist ein Titel mit angegeben und daher folgende Eingaben zusammengefasst:
 	-- #sweg &lt;name&gt;:&lt;Titel&gt;
 	-- #sweg &lt;name&gt; &lt;startpunkt&gt;:&lt;Titel&gt;
 	-- #sweg &lt;name&gt;-z:&lt;Titel&gt;
@@ -219,7 +198,7 @@ elseif #matches==5 then
 	-- also Wege umkehren zur Speicherung
 	PF:save_path(matches[2], matches[4], true, "")
 elseif #matches==7 then
-	-- In diesem Fall ist ein Titel mit angegeben und daher folgende Eingaben zusammengefasst: 
+	-- In diesem Fall ist ein Titel mit angegeben und daher folgende Eingaben zusammengefasst:
 	-- #sweg &lt;name&gt;:&lt;Titel&gt;
 	-- #sweg &lt;name&gt; &lt;startpunkt&gt;:&lt;Titel&gt;
 	-- #sweg &lt;name&gt;-z:&lt;Titel&gt;
@@ -232,22 +211,18 @@ end
 				<regex>^#sweg (\w+)(\s(\w+))?(-z)?(:(.*))?$</regex>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
-				<name>Loesche Eingabe Rueckwaerts</name>
-				<script>-- Loescht die letzten X Eingaben vom Rueckweg,
--- wobei X der Parameter ist. Beispiel: #lzurueck 3
-PF:clear_back(tonumber(matches[2]))</script>
+				<name>Loesche Eingabe Vorwaerts</name>
+				<script>PF:clear_last(tonumber(matches[2]))</script>
 				<command></command>
 				<packageName></packageName>
-				<regex>^#lzurueck (\d+)$</regex>
+				<regex>^#wa delete (\d+)$</regex>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
-				<name>Loesche Eingabe Vorwaerts</name>
-				<script>-- Loescht die letzten X Eingaben vom Vorwaertsweg,
--- wobei X der Parameter ist. Beispiel: #lvor 3
-PF:clear_forth(tonumber(matches[2]))</script>
+				<name>Wartebefehl</name>
+				<script>PF:move_forth(matches[1])</script>
 				<command></command>
 				<packageName></packageName>
-				<regex>^#lvor (\d+)$</regex>
+				<regex>^#wait \d+$</regex>
 			</Alias>
 			<AliasGroup isActive="yes" isFolder="yes">
 				<name>Richtungserkennung für Wegaufzeichnung</name>
@@ -286,14 +261,14 @@ PF:clear_forth(tonumber(matches[2]))</script>
 			<regex></regex>
 			<Alias isActive="yes" isFolder="no">
 				<name>Weg loeschen</name>
-				<script>-- loescht einen gespeicherten Weg. 
+				<script>-- loescht einen gespeicherten Weg.
 -- Beispiel: #loesche st
 -- Gibt man einmal den Befehl zum Loeschen, dann kann man
 -- den Weg auch wieder herstellen indem man den Titel aendert.
 -- Allerdings nur solange der Wegeskript nicht neu geladen oder
 -- der Client/das Profil beendet wurde.
 -- Gibt man den Befehl auch ein zweites Mal ein, dann wird
--- der Weg unwiderruflich geloescht. 
+-- der Weg unwiderruflich geloescht.
 
 PF:delete_path(matches[2])</script>
 				<command></command>
@@ -408,6 +383,19 @@ echo("\n\n")</script>
 				<packageName></packageName>
 				<regex>^#runned$</regex>
 			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Weg korrigieren</name>
+				<script>if matches[4] == "add" then
+  PF:fix_path_add(unpack(matches, 2))
+elseif matches[4] == "delete" then
+  PF:fix_path_delete(matches[2], matches[3])
+elseif matches[4] == "replace" then
+  PF:fix_path_replace(unpack(matches, 2))
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^#WSfix ([^\s]+) at (-?\d+) (add|delete|replace)(.*)</regex>
+			</Alias>
 		</AliasGroup>
 		<AliasGroup isActive="yes" isFolder="yes">
 			<name>Wege-Management</name>
@@ -463,9 +451,9 @@ PF:info({"Die Richtungen werden in ", "&lt;255,255,0:0,0,0&gt;"..PF.aliasfilenam
 				<name>Hilfe - Syntax</name>
 				<script>local help ={	"&lt;150,150,255:0,0,0&gt;Funktionen fuer den Wegeskript:",
 							"\n&lt;55,255,55:0,0,0&gt;Fuers Laufen:",
-							"&lt;255,255,0:0,0,0&gt;#go &lt;Start&gt;? &lt;Ziel&gt;", 
+							"&lt;255,255,0:0,0,0&gt;#go &lt;Start&gt;? &lt;Ziel&gt;",
 							"&lt;255,255,0:0,0,0&gt;#jp &lt;Pfad&gt;",
-							"&lt;255,255,0:0,0,0&gt;#dopath &lt;List of Steps&gt;", 
+							"&lt;255,255,0:0,0,0&gt;#dopath &lt;List of Steps&gt;",
 							"\n&lt;55,255,55:0,0,0&gt;Zum Knoten erstellen:",
 							"&lt;255,255,0:0,0,0&gt;#wa start|stop|weiter|ziel",
 							"&lt;255,255,0:0,0,0&gt;#zeigewa &lt;Anzahl letzter Schritte&gt;",
@@ -495,7 +483,7 @@ PF:info({"Die Richtungen werden in ", "&lt;255,255,0:0,0,0&gt;"..PF.aliasfilenam
 							"&lt;255,255,0:0,0,0&gt;#retitle &lt;Name&gt; &lt;Neuer Titel&gt;",
 							"\n&lt;150,150,255:0,0,0&gt;Fuer detailiertere Hilfe zu den Funktionen einfach \"hilfe WS &lt;Funktionsname&gt;\" eingeben.\nz.B. \"hilfe WS #go\""
 						}
-						
+
 echo("\n\n")
 for i=1,#help,1 do
 	decho(help[i].."\n")
@@ -521,44 +509,44 @@ helpdetail["#go"]= {"Man kann den Befehl benutzen indem man nur den Zielknoten d
 										"zwingen 'blind' zum Laufen indem man Start- und Zielknoten eingibt.\n",
 										"Zum Beispiel '#go sandtiger abenteurergilde'. Dann arbeitet das Skript",
 										"stur den Weg von sandtiger zur abenteurergilde ab."}
-										
+
 helpdetail["#jp"]= {"Es ist auch moeglich 'Einbahnwege' zu speichern. Also Wege, die man",
 										"entlanglaeuft, aber wozu es keinen Rueckweg gibt, weil man es nicht benoetigt.",
 										"Dies kann man mit diesem Befehl entlanglaufen, denn hiermit wird kein",
 										"Knoten als Startort benoetigt um zum Ziel zu laufen."}
-										
+
 helpdetail["#dopath"] =  {"Ein Relikt aus TF, welches aber intern im Skript auch noch genutzt wird.",
 													"Als Argument gibt man eine Folge von Richtungen ein, die dann abgelaufen werden.",
 													"Wichtig ist natuerlich, dass die Richtung aus einem Wort bestehen muss.\n",
 													"Beispiel: '#dopath n o o n no w'",
 													"Damit laeuft man nach Norden, dann zweimal nach Osten, gefolgt von Norden",
 													"biegt nach Nordosten ab und endet mit einem Schritt nach Westen. Tada~"}
-													
+
 helpdetail["#wa"] =  {"Damit steuern wir die Wegaufzeichnung (ab v1.2) um neue Wege hinzuzufuegen.\n",
 											"Zum Starten der Aufzeichnung: #wa start",
                       "Um Zielpunkt zu markieren: #wa ziel",
 											"Zum Stoppen der Aufzeichnung: #wa stop",
 											"Zum Fortsetzen der Aufzeichnung: #wa weiter"}
-											
+
 helpdetail["#zeigewa"] = {"Man kann auch den Zwischenstand der Wegaufzeichnung abfragen.",
 													"Mit '#zeigewa &lt;Anzahl&gt;' werden die letzten &lt;Anzahl&gt; viele Schritte",
 													"angezeigt. Eine Sonderheit ist natuerlich '#zeigewa 0' bei der",
 													"die gesamte Aufzeichnung angezeigt wird."}
-													
+
 helpdetail["#vor"] = {"Wenn man nun keine Standard-Richtung (siehe 'hilfe WS Richtungen') gehen",
 											"moechte, vor allem wenn es eine Aktion ist, die aus mehr als einem Wort besteht,",
 											"dann kann man dies hiermit machen. Wenn man es als Argument eingibt, dann wird",
 											"diese Richtung/Bewegung/Aktion fuer die Aufzeichnung gespeichert UND gleichzeitig",
 											"auch auszugefuehrt. Zum Beispiel '#vor oeffne tuer' speichert die Aktion",
 											"'oeffne tuer' fuer die Aufzeichnung und fuehrt diesen auch aus."}
-										
+
 helpdetail["Richtungen"] = {"Fuer die Wegaufzeichnung wird die Eingabe der unten aufgelisteten Richtungen automatisch",
 														"erkannt. Alle anderen Richtungen/Aktionen, insbesondere Aktion die aus mehr als",
 														"einem Wort bestehen, muss der Befehl #vor benutzt werden, damit die Aufzeichnung",
 														"dies auch erfasst. Die eingetragenen Richtungen, die automatisch erkannt werden, sind:\n"}
-							
+
 local Zusammenfassung
-							
+
 for i=1,8,1 do
 	Zusammenfassung=""
 	for j=1,4,1 do
@@ -574,15 +562,15 @@ table.insert(helpdetail["Richtungen"], PF.aliaseddir[35]..", "..PF.aliaseddir[36
 for i=37,#PF.aliaseddir,1 do
 	table.insert(helpdetail["Richtungen"], PF.aliaseddir[i].."\n")
 end
-											
+
 helpdetail["#lvor"] =  {"Hiermit kann man eine fuer die Aufzeichnung gespeicherte Aktion fuer den",
 												"Vorwaertsweg wieder loeschen. Mit dem Argument kann man sogar angeben wie",
 												"viele der letzten Eingaben geloescht werden sollen.",
 												"Zum Beispiel '#lvor 3' loescht die letzten 3 Aktionen zur Vorwaertsbewegung."}
-												
+
 helpdetail["#zurueck"] = {"Wenn man fuer den Rueckweg eine besondere Aktion benoetigt, kann man es an",
 													"der Stelle speichern. Vergleiche mit 'hilfe WS #vor'."}
-													
+
 helpdetail["#lzurueck"] = {"Wie auch '#lvor' werden Eingaben geloescht, nur fuer den Rueckweg statt Vorweg."}
 
 helpdetail["#sweg"] = {"Damit speichern wir nun den aufgezeichneten Weg. Dabei gibt es einige Moeglichkeiten.\n",
@@ -615,12 +603,12 @@ helpdetail["#sweg"] = {"Damit speichern wir nun den aufgezeichneten Weg. Dabei g
 												"#sweg st-z",
 												"#sweg st-z:Am Sandtiger\n",
 												"Wichtig ist, dass fuer dem '-z' KEIN Leerzeichen steht!"}
-												
-helpdetail["Zentrum"] = {"Hier bin ich so frei und verweise auf die ReadMe-Datei, die auf github auch einzusehen ist."} 
+
+helpdetail["Zentrum"] = {"Hier bin ich so frei und verweise auf die ReadMe-Datei, die auf github auch einzusehen ist."}
 
 helpdetail["#sebs"] = {"Eigentlich fast das selbe, wie '#sweg', nur dass hiermit einzelne Wege ohne die Rueckrichtung",
 												"gespeichert wird. Die Syntax und Moeglichkeiten mit dem Argument ist identisch zu '#sweg'."}
-												
+
 helpdetail["#finde"]= {"Knotennamen sollten kurz sein, damit man schnell reisen kann. Doch wer kann sich einen",
 												"Knotennamen merken, wenn man ihn erst in einem jahr wieder braucht? Ich zumindest nicht!",
 												"Und dazu hilft uns auch die Eingabe von sinnvollen Titeln beim Speichern. Dort sollte zwar",
@@ -631,63 +619,63 @@ helpdetail["#finde"]= {"Knotennamen sollten kurz sein, damit man schnell reisen 
 												"man diesen mit '#retitel' aendern...\n",
 												"Beispiel: #finde Drakonier",
 												"Sucht alle Titel, die das Wort 'Drakonier' enthalten."}
-												
+
 helpdetail["#zeigeweg"] = {"Mit dem Argument als Knotennamen wird angezeigt, welcher Weg hin und zurueck gespeichert",
 														"wurde. Zum Beispiel '#zeigeweg haus' zeigt den Weg vom Zentrum zum Knoten 'haus' und zurueck"}
-														
+
 helpdetail["#zeigeids"] = {"Wenn man wissen moechte, welche Raum-IDs zu einem Knoten gespeichert wurden, dann man dies tun.",
 													"Zum Beispiel '#zeigeids haus' zeigt die Liste der IDs, die mit dem Knoten 'haus' identifiziert",
 													"werden. In der Regel speichert man nur eine Raum-ID pro Knoten. Eine taktische Ausnahme ist,",
 													"wenn man die Portale als Zentrum waehlt. Siehe dazu die ReadMe-Datei auf github."}
-													
+
 helpdetail["#runned"] = {"Dies zeigt an, welchen Weg man zuletzt mit dem Wegeskript entlanggelaufen ist. Dies kann man",
 													"nutzen um zu pruefen ob am Weg etwas falsch gespeichert wurde oder eine unerwartete Aktion auf",
 													"dem Weg dafuer sorgte, dass man nicht da gelandet ist, wo man es erwartet..."}
-													
+
 helpdetail["#loesche"] = {"Wie der Name suggeriert wird damit ein Knoten geloescht. Ueberlegt man es sich anders,",
 													"dann fuege man mit '#retitel' noch ein Titel zum Knoten hinzu und der Knoten ist gerettet.",
 													"Wenn man aber wirklich sehr sicher ist, kann man den Befehl wiederholen und damit wird",
 													"der Knoten sofort entgueltig geloescht.\n",
 													"Beispiel: #loesche st",
 													"Loescht den Knoten mit dem Namen 'st'"}
-													
+
 helpdetail["#rename"] = {"Dieser Befehl erlaubt es den Knotennamen zu aendern. Zum Beispiel wenn der ungluecklich",
 													"gewaehlt wurde oder fuer einen anderen Knoten besser geeignet ist.\n",
 													"Beispiel: #rename st sandtiger",
 													"Aendern den Knoten 'st' zu 'sandtiger'"}
-													
+
 helpdetail["#lid"] = {"Loescht eine ID eines Knotens. Die Nummer erhaelt man mit dem Befehl '#zeigeids'.\n",
 											"Beispiel: #lid st 5",
 											"Loescht die 5. ID des Knotens 'st'."}
-											
+
 helpdetail["#aid"] = {"Fuegt die ID des aktuellen Raumes zu dem Knoten hinzu.\n",
 											"Beispiel: #aid haus",
 											"Fuegt die ID des aktuellen Raumes zum Knoten 'haus' hinzu."}
-											
+
 helpdetail["#retitel"] = {"Dies aendert den Titel eines Knotens oder fuegt ihn hinzu, wenn es keinen hat.\n",
 													"Beispiel: #retitel haus Dies ist mein Seherhaus, worauf ich stolz bin!",
 													"Fuegt den Titel 'Dies ist mein Seherhaus, worauf ich stolz bin!' dem Knoten 'haus' hinzu."}
-													
+
 helpdetail["#zeigegags"] = {"Beim Laufen im Ultakurz-Modus gibt es immernoch Raummeldungen, die angezeigt werden.",
 														"Enthaelt dieser eines der Texte, die durch diesen Befehl aufgelistet werden, so wird diese",
 														"Zeile beim Laufen mit dem Skript geloescht fuer eine schoenere Uebersicht."}
-														
+
 helpdetail["addgag &lt;text&gt;"] = {"Fuegt einen weiteren Text hinzu, der beim Rennen mit dem Skript geloescht werden soll."}
 
 helpdetail["delgag &lt;number&gt;"] = {"Loescht wieder einen Gag. Als Argument muss die Nummer angegeben werden, welches bei",
 																	"\#zeigegags angegeben wird."}
-																	
+
 helpdetail["#zeigedir"] = {"Diese Richtungen werden bei der Wegaufzeichnung automatisch erkannt.",
 														"Alle anderen Bewegungsaktionen muessen mit \#vor ausgefuehrt werden.",
 														"Jedoch kann die Liste mit \#adddir erweitert werden!"}
-														
+
 helpdetail["adddir &lt;text&gt;"] = {"Fuegt eine weitere Richtung hinzu, die ohne \#vor bei der Wegaufzeichnung automatisch",
 																"erkannt wird. Jedoch muss die Richtung oder Aktion aus nur einem Wort bestehen!"}
 
 helpdetail["deldir &lt;number&gt;"] = {"Loescht wieder eine Richtung von \#zeigedir. Als Argument muss die Nummer angegeben werden,",
 																	" welches bei \#zeigedir angegeben wird.",
 																	"Das Loeschen von den Standard-Richtungen (1-37)ist allerdings nicht moeglich."}
-												
+
 if helpdetail[matches[4]] then
 	decho("&lt;255,255,0:0,0,0&gt;Hilfe zum Wegeskript-Befehl/Stichwort &lt;55,255,55:0,0,0&gt;'"..matches[4].."':\n\n")
 	for _,v in pairs(helpdetail[matches[4]]) do
@@ -701,6 +689,13 @@ end</script>
 				<regex>^#?(hilfe|help) (WS|Wegeskript|PF|Pathfinder) (.*)$</regex>
 			</Alias>
 		</AliasGroup>
+		<Alias isActive="yes" isFolder="no">
+			<name>TODO</name>
+			<script>-- Dokumentation fuer #wait und #WS &lt;path&gt; at &lt;line&gt; add|remove|replace &lt;string&gt;?</script>
+			<command></command>
+			<packageName></packageName>
+			<regex></regex>
+		</Alias>
 	</AliasPackage>
 	<ActionPackage />
 	<ScriptPackage>
@@ -719,8 +714,8 @@ end</script>
 PF = PF or {filename="Wege",
 			gagfilename="Wege_Gag",
 			aliasfilename="Wege_Alias",
-			pathes={}, 
-			titles={}, 
+			pathes={},
+			titles={},
 			ids={},
 			trigger_ids={},
 			runned_path={},
@@ -740,26 +735,26 @@ PF = PF or {filename="Wege",
 			super_safe=true}
 
 -- Table to translate the long exit name to the short version
-PF.shortendir = {norden="n", 
-								nordosten="no", 
-								osten="o", 
-								suedosten="so", 
-								sueden="s", 
-								suedwesten="sw", 
-								westen="w", 
+PF.shortendir = {norden="n",
+								nordosten="no",
+								osten="o",
+								suedosten="so",
+								sueden="s",
+								suedwesten="sw",
+								westen="w",
 								nordwesten="nw"}
 
 -- Table to give the direction for the backwards path
 PF.oppositedirection={norden="sueden", n="s",
-											nordunten="nordoben", 
-											nordoben="nordunten", 
+											nordunten="nordoben",
+											nordoben="nordunten",
 											nordosten="suedwesten", no="sw",
 											nordostoben="suedwestunten",
 											nordostunten="suedwestoben",
 											osten="westen", o="w",
 											ostunten="westoben",
 											ostoben="westunten",
-											suedosten="nordwesten", so="nw", 
+											suedosten="nordwesten", so="nw",
 											suedostoben="nordwestunten",
 											suedostunten="nordwestoben",
 											sueden="norden", s="n",
@@ -776,7 +771,7 @@ PF.oppositedirection={norden="sueden", n="s",
 											nordwestunten="suedostoben",
 											oben="unten", ob="unten",
 											unten="oben", u="oben"}
-											
+
 -- Table contains all directiosn which are aliased while recording a new path
 PF.aliaseddir =  {"n", "norden", "nordunten", "nordoben",
 									"no", "nordosten", "nordostunten", "nordostoben",
@@ -789,8 +784,8 @@ PF.aliaseddir =  {"n", "norden", "nordunten", "nordoben",
 									"ob", "oben", "u","unten", "raus"}
 
 PF.dirtokey = {8,9,6,3,2,1,4,7}
-											
--- These texts can appear on the path and should be deleted. 
+
+-- These texts can appear on the path and should be deleted.
 -- We do not need to see them.
 PF.deleteonpath =  {"&gt; ",
 										"Das ist noch nicht noetig!",
@@ -834,10 +829,10 @@ PF.deleteonpath =  {"&gt; ",
 --  PF:add_back(dir)
 --  PF:show_forth(num)
 --  PF:show_back(num)
+--  PF:clear_last(num)
 --  PF:clear_forth(num)
 --  PF:clear_back(num)
 --  PF:move_forth(dir)
---  PF:save_back(dir)
 --	PF:show_path(path)
 --  PF:rename_path(oldname, newname)
 --  PF:show_ids(path)
@@ -858,10 +853,8 @@ PF.deleteonpath =  {"&gt; ",
 --
 -------------------------------------------------
 
-function PF:init(type)
+function PF:init()
 	self.enterfrom=""
-	self.active=(type==1)
-	self.type=type
 	self.cpforth={}
 	self.cpback={}
 	self.goback=false -- wir starten mit dem Hinweg
@@ -874,39 +867,21 @@ function PF:init(type)
 end
 
 function PF:stop()
-	self.active=false
 	self:kill_alias()
 	self:kill_keys()
 	self:info("Wegaufzeichnung angehalten.")
 end
 
 function PF:continue()
-	if self.type==1 then
-  	self.active=(gmcp.MG.room.info.id==self.endid)
-  	if self.active then
-  		self:create_alias()
-  		self.type=1
-  		self:info("Wegaufzeichnung Typ 1 fortgesetzt.")
-  	else
-  		self:error("Wegaufzeichnung wurde in einem anderen Raum gestoppt.")
-  	end
-	elseif type==2 then
-		self:create_keys()
-		self:create_alias()
-  	self:info("Wegaufzeichnung Typ 2 fortgesetzt.")
-	else
-		self:error("Die Wegaufzeichnung muss gestartet werden bevor sie fortgesetzt werden kann.")
-	end
+	self:create_keys()
+	self:create_alias()
+	self:info("Wegaufzeichnung fortgesetzt.")
 end
 
 function PF:set_goal()
-	if self.type==1 then
-		self:error("Diese Funktion steht nur fuer die Wegaufzeichnung Typ 2 zur Verfuegung.")
-	else
-  	self.endid = gmcp.MG.room.info.id
-  	self.goback=true
-		self:info("Die Wegaufzeichnung wurde zu diesem Punkt gefuehrt. Anschliessen den Weg zuruecklaufen. Sonderbefehle jetzt weiter mit ",  "&lt;250,250,0:0,0,0&gt;#vor", " eingeben!")
-	end
+	self.endid = gmcp.MG.room.info.id
+	self.goback=true
+	self:info("Die Wegaufzeichnung wurde zu diesem Punkt gefuehrt. Anschliessen den Weg zuruecklaufen. Sonderbefehle jetzt weiter mit ",  "&lt;250,250,0:0,0,0&gt;#vor", " eingeben!")
 end
 
 function PF:add_forth(dir)
@@ -915,11 +890,7 @@ function PF:add_forth(dir)
 end
 
 function PF:add_back(dir)
-	if self.type==1 then
-		self.cpback={dir,unpack(self.cpback)}
-	elseif self.type == 2 then
-		table.insert(self.cpback, dir)
-	end
+	table.insert(self.cpback, dir)
 end
 
 function PF:show_forth(num)
@@ -950,6 +921,14 @@ function PF:show_back(num)
 	echo("\n\n\n")
 end
 
+function PF:clear_last(num)
+  if self.goback then
+		self:clear_back(num)
+	else
+		self:clear_forth(num)
+	end 
+end
+
 function PF:clear_forth(num)
 	-- remove num times the last element
 	if num&gt;0 then
@@ -963,7 +942,7 @@ function PF:clear_forth(num)
 			self:info("In der Wegaufzeichnung wurden vorwaerts die letzten "..num.." Eingaben geloescht")
 		end
 	else
-		self:error("Es koennen nicht die letzten "..num.." Eingaben geloescht werden")
+		eprint("Wegeskript", "Es koennen nicht die letzten "..num.." Eingaben geloescht werden")
 	end
 end
 
@@ -975,62 +954,93 @@ function PF:clear_back(num)
 			self:info("In der Wegaufzeichnung wurde der Rueckwaerts-Weg komplett geloescht.")
 		else
 			for i=1,num,1 do
-				if self.type == 1 then
-					table.remove(self.cpback,1)
-				else
-					table.remove(self.cpback,#self.cpback)
-				end
+				table.remove(self.cpback,#self.cpback)
 			end
 			self:info("In der Wegaufzeichnung wurden vorwaerts die letzten "..num.." Eingaben geloescht")
 		end
 	else
-		self:error("Es koennen nicht die letzten "..num.." Eingaben geloescht werden")
+		eprint("Wegeskript", "Es koennen nicht die letzten "..num.." Eingaben geloescht werden")
 	end
 end
 
 function PF:move_forth(dir)
-  if self.active then
-		self.enterfrom = ""
+	if self.goback then
+		self:add_back(dir)
+	else
 		self:add_forth(dir)
-		if self.oppositedirection[dir] then
-			self:add_back(PF.oppositedirection[dir])
-		else
-			self:warning("Rueckweg nachtragen!")
-		end
 	end
-	if self.type==2 then
-		if self.goback then
-			self:add_back(dir)
-		else
-			self:add_forth(dir)
-		end
-	end
-	send(dir,not(self.type==2))
+	send(dir,false)
 end
 
-function PF:save_back(dir)
-	if type(self.cpback[1])=="table" then
-		table.insert(self.cpback[1],dir)
-	else
-		self.cpback={{dir},unpack(self.cpback)}
-	end
-	self:info("Als Rueckweg wurde '"..dir.."' gespeichert.")
-end
 
 function PF:show_path(path)
 	if self.pathes[path] then
 		self:info("Der Hinweg von '"..path.."' ist:")
 		for key,value in pairs(self.pathes[path]) do
-			echo(value.."\n")
+			echo(key..": "..value.."\n")
 		end
 		self:info("Der Rueckweg von '"..path.."' ist:")
 		for key,value in pairs(self.pathes[path.."_z"]) do
-			echo(value.."\n")
+			echo("-"..key..": "..value.."\n")
 		end
 	else
-		self:error("Der Weg '"..path.."' existiert nicht.")
+		eprint("Der Weg '"..path.."' existiert nicht.", "Wegeskript")
 	end
 	echo("\n\n\n")
+end
+
+function PF:fix_path_add(path, nr, new_line)
+  display(path)
+  display(nr)
+  display(new_line)
+  if self.pathes[path] then
+    if new_line[1] == " " then
+      new_line = string.sub(new_line, 2)
+    end
+    table.insert(self.pathes[path], nr, new_line)
+    self:save()
+  else
+    eprint("Den Weg '"..path.."' gibt es nicht.", "Wegeskript")
+  end
+end
+
+function PF:fix_path_delete(path, nr)
+  if self.pathes[path] then
+    table.remove(self.pathes[path], nr)
+    self:save()
+  else
+    eprint("Den Weg '"..path.."' gibt es nicht.", "Wegeskript")
+  end  
+end
+
+function PF:fix_path_replace(path, nr, new_line)
+  if nr &gt; 0 then
+    if self.pathes[path] then
+      if nr &lt; #self.pathes[path] then
+        if new_line[1] == " " then
+          new_line = string.sub(new_line, 2)
+        end
+        self.pathes[path][nr] = new_line
+        self:save()
+      else
+        eprint("So viele Zeilen hat der Weg '"..path.."' nicht", "Wegeskript")
+      end
+    else
+      eprint("Den Weg '"..path.."' gibt es nicht.", "Wegeskript")
+    end
+  end
+  if nr &lt; 0 then
+    if self.pathes[path.."_z"] then
+      if nr &gt; -#self.pathes[path.."_z"] then
+        self.pathes[path.."_z"][-nr] = new_line
+        self:save()
+      else
+        eprint("So viele Zeilen hat der Rueckweg von '"..path.."' nicht.", "wegeskript")
+      end
+    else
+      eprint("Den Weg '"..path.."' gibt es nicht.", "Wegeskript")
+    end
+  end
 end
 
 function PF:rename_path(oldname, newname)
@@ -1062,7 +1072,7 @@ function PF:show_ids(path)
    	end
 		echo("\n\n\n")
 	else
-		self:error("Der Weg  '"..path.."' existiert nicht!")
+		eprint("Wegeskript", "Der Weg  '"..path.."' existiert nicht!")
 	end
 end
 
@@ -1084,7 +1094,7 @@ function PF:delete_id(path,num)
    	end
   	echo("\n\n\n")
 	else
-		self:error("Der Weg '"..path.."' existiert nicht!")
+		eprint("Wegeskript", "Der Weg '"..path.."' existiert nicht!")
 	end
 end
 
@@ -1095,7 +1105,7 @@ function PF:add_id(path)
 		self:save()
 		self:info("Die ID '"..gmcp.MG.room.info.id.."' wurde dem Weg '"..path.."' zugewiesen.")
 	else
-		self:error("Der Weg '"..path.."' existiert nicht.")
+		eprint("Wegeskript", "Der Weg '"..path.."' existiert nicht.")
 	end
 end
 
@@ -1139,7 +1149,7 @@ function PF:retitle_path(path, title)
 			self:info("Der Weg '"..path.."' hat nun den Titel '"..title.."' erhalten.")
 		end
 	else
-		self:error("Ein Weg mit dem Namen '"..path.."' existiert nicht.")
+		eprint("Wegeskript", "Ein Weg mit dem Namen '"..path.."' existiert nicht.")
 	end
 end
 
@@ -1148,7 +1158,7 @@ function PF:delete_path(path)
 		self:retitle_path(path,nil)
     self:info("Der Weg '"..path.."' wurde geloescht.")
 	else
-		self:error("Ein Weg mit dem Namen "..path.." existiert nicht.")
+		eprint("Wegeskript", "Ein Weg mit dem Namen "..path.." existiert nicht.")
 	end
 end
 
@@ -1170,7 +1180,7 @@ end
 
 function PF:delete_gag(number)
 	if number&lt;1 or number&gt;#self.deleteonpath then
-		self:error("Ein Gag mit der Nummer "..number.." existiert nicht.")
+		eprint("Wegeskript", "Ein Gag mit der Nummer "..number.." existiert nicht.")
 	else
     self.deleteonpath = mload_tlines(self.gagfilename)
     table.remove(self.deleteonpath, number)
@@ -1181,7 +1191,7 @@ end
 function PF:show_aliases()
 	self:info("Alle Richtungen, die automatisch bei der Wegaufzeichnung erkannt werden:")
   local Zusammenfassung
-							
+
   for i=1,8,1 do
   	decho("&lt;250,250,0:0,0,0&gt;"..((i-1)*4+1).."-"..(i*4)..": ")
 		Zusammenfassung=""
@@ -1191,12 +1201,12 @@ function PF:show_aliases()
   	Zusammenfassung=Zusammenfassung:sub(1,-3).."\n\n"
   	decho(Zusammenfassung)
   end
-  
+
 	for i=0,1,1 do
 	  decho("&lt;250,250,0:0,0,0&gt;"..(33+2*i).."+"..(34+2*i)..": ")
 		echo(PF.aliaseddir[33+2*i]..", "..PF.aliaseddir[34+2*i].."\n\n")
 	end
-  
+
   for i=37,#PF.aliaseddir,1 do
   	decho("&lt;250,250,0:0,0,0&gt;"..i..": ")
 		echo(PF.aliaseddir[i].."\n\n")
@@ -1205,7 +1215,7 @@ end
 
 function PF:add_alias(subtext)
 	if #subtext:gsub("%a+", "")&gt;0 then
-		self:error({"Eine Richtung darf nur aus einem Wort bestehen. Fuer Bewegungsaktionen aus mehr als einem Wort muss man den Befehl ", "&lt;250,250,0:0,0,0&gt;\#vor", " nutzen."})
+		eprint("Wegeskript", {"Eine Richtung darf nur aus einem Wort bestehen. Fuer Bewegungsaktionen aus mehr als einem Wort muss man den Befehl ", "&lt;250,250,0:0,0,0&gt;\#vor", " nutzen."})
 	else
 		-- zuerst testen ob die Richtung nicht bereits in der Liste ist.
 		local aliasexists = false
@@ -1213,7 +1223,7 @@ function PF:add_alias(subtext)
 			aliasexists = aliasexists or (v==subtext)
 		end
 		if aliasexists then
-			self:error("Die Richtung "..subtext.." steht bereits in der Liste!")
+			eprint("Wegeskript", "Die Richtung "..subtext.." steht bereits in der Liste!")
 		else
       table.insert(self.aliaseddir, subtext)
       self:save_lines(self.aliasfilename, self.aliaseddir)
@@ -1224,9 +1234,9 @@ end
 
 function PF:delete_alias(number)
 	if number&lt;1 or number&gt;#self.aliaseddir then
-		self:error("Eine Richtung mit der Nummer "..number.." existiert nicht.")
+		eprint("Wegeskript", "Eine Richtung mit der Nummer "..number.." existiert nicht.")
 	elseif number &lt; 38 then
-		self:error("Die Standard-Richtungen koennen nicht geloescht werden.")
+		eprint("Wegeskript", "Die Standard-Richtungen koennen nicht geloescht werden.")
 	else
 		local todel = self.aliaseddir[number]
     table.remove(self.aliaseddir, number)
@@ -1242,10 +1252,10 @@ function PF:help()
 		echo("PF:init()\nPF:stop()\nPF:continue()\n")
 		echo("PF:load()\nPF:save()\n")
 		echo("PF:save_path(name,startpoint,backwards,title)\n")
-		echo("PF:save_onedirection(name,startpoint,backwards,title)\n")		
+		echo("PF:save_onedirection(name,startpoint,backwards,title)\n")
 		echo("PF:show_forth(num)\nPF:show_back(num)\n")
 		echo("PF:clear_forth(num)\nPF:clear_back(num)\n")
-		echo("PF:move_forth(dir)\nPF:save_back(dir)\n")
+		echo("PF:move_forth(dir)\n")
 		echo("PF:goto(goal)\nPF:jump(goal)\nPF:run(start,goal)\n")
 		echo("PF:rename_path(oldname, newname)\nPF:show_ids(path)\n")
 		echo("PF:delete_id(path,num)\nPF:add_id(path)\n")
@@ -1266,28 +1276,28 @@ end</script>
 
 function PF:goto(goal, pseudo)
 	local id = gmcp.MG.room.info.id
-	
+
   PF.last_goal = goal
-  
+
 	if pseudo then
     PF:jump(self.ids[id].."_z", false)
   elseif self.ids[id] then
 		PF:run(self.ids[id], goal)
 	else
-		self:error("Dieser Raum ist kein Startpunkt!")
+		eprint("Wegeskript", "Dieser Raum ist kein Startpunkt!")
 	end
 end
 
 function PF:jump(path,stacked)
 	local kommandos={}
-	
+
 	if self.pathes[path] then
   	for k,v in ipairs(self.pathes[path]) do
     	kommandos[#kommandos+1] = v
     end
 		if not stacked then
-			send("ultrakurz", false)   		
-  		self.start_trigger() 		
+			send("ultrakurz", false)
+  		self.start_trigger()
   		self:workoff(kommandos)
 			send("lang", false)
 			send("schau", false)
@@ -1296,7 +1306,7 @@ function PF:jump(path,stacked)
 	  	self:workoff(kommandos)
 		end
 	else
-		self:error("Der Weg '"..path.."' existiert nicht!")
+		eprint("Der Weg '"..path.."' existiert nicht!", "Wegeskript")
 	end
 end
 
@@ -1313,17 +1323,17 @@ function PF:run(start,goal)
   		for k,v in ipairs(self.pathes[goal]) do
   			kommandos[#kommandos+1] = v
   		end
-			send("ultrakurz", false)  		
+			send("ultrakurz", false)
   		self.start_trigger()
 			self:workoff(kommandos)
 			send("lang", false)
 			send("schau", false)
 			tempTimer(2, function() PF:kill_trigger() end)
 		else
-			self:error("Der Weg '"..start.."' existiert nicht!")
+			eprint("Wegeskript", "Der Weg '"..start.."' existiert nicht!")
 		end
 	else
-		self:error("Der Weg '"..goal.."' existiert nicht!")
+		eprint("Wegeskript", "Der Weg '"..goal.."' existiert nicht!")
 	end
 end</script>
 			<eventHandlerList />
@@ -1352,23 +1362,40 @@ end
 
 function PF:workoff(kommandos)
  	if type(kommandos) == "table" then
-   for k,v in ipairs(kommandos) do
-			-- Wenn "#dopath" oder "#go", dann das Ali ausführen
-      self.runned_path[#self.runned_path+1]= v
-			if (type(v) == "string" and v:sub(1,7) == "#dopath") then
-				self:dopath(v:gsub("#dopath ", ""))
-			elseif (type(v) == "string" and v:sub(1,3) == "#go") then
-				self.runned_path[#self.runned_path]="Beginn von: "..self.runned_path[#self.runned_path]
-				self:jump(v:gsub("#go ", ""),true)
-				self.runned_path[#self.runned_path+1]= "Ende von: "..v
-      else    
-        -- sonst ohne Ali Ersetzung senden (erst mal keine weiteren Ersetzungen
-        -- vorgesehen.
-				send(v, false)
+    kommando = kommandos[1]
+    kommandos = {unpack(kommandos, 2)}
+    do_recursion = true
+    if not (type(kommando) == "string") then
+      eprint("Eingabe hat falschen Typ. Erwarte string statt "..type(v), "Wegeskript")
+      return
+    end
+    -- Wenn "#dopath" oder "#go", dann das Ali ausführen
+    self.runned_path[#self.runned_path+1]= kommando
+		
+    if beginswith(kommando, "#dopath") then
+			self:dopath(kommando:gsub("#dopath ", ""))
+		elseif beginswith(kommando, "#go") then
+			self.runned_path[#self.runned_path]="Beginn von: "..self.runned_path[#self.runned_path]
+			self:jump(kommando:gsub("#go ", ""), true)
+			self.runned_path[#self.runned_path+1]= "Ende von: "..kommando
+    elseif beginswith(kommando, "#wait") then
+      if #kommandos &gt; 0 then
+        parameter,_ = kommando:gsub("#wait ", "")
+        iprint("Warte fuer "..tonumber(parameter).." Sekunden", "Wegeskript")
+        tempTimer(tonumber(parameter), function() PF:workoff(kommandos) end)
+        do_recursion = false
       end
+      --os.execute(v:gsub("#wait", "sleep"))
+    else
+      -- sonst ohne Ali Ersetzung senden (erst mal keine weiteren Ersetzungen
+      -- vorgesehen.
+			send(kommando, false)
+    end
+    if do_recursion and #kommandos &gt; 0 then
+      self:workoff(kommandos)
     end
 	else
-		self:error("Eingabe zum Abarbeiten war kein Array!")
+		eprint("Wegeskript", "Eingabe zum Abarbeiten war kein Array!")
 	end
 end
 
@@ -1391,15 +1418,15 @@ function PF:create_keys()
 	-- Himmelsrichtungen inklusive Steigung
 	for i=1,8,1 do
 		table.insert(self.key_ids, tempKey(mudlet.keymodifier.Keypad, mudlet.key[tostring(self.dirtokey[i])], [[ PF:raiseEvent("]]..self.aliaseddir[(i-1)*4+2]..[[", false)]]))
-		table.insert(self.key_ids, tempKey(mudlet.keymodifier.Keypad+mudlet.keymodifier.Control, mudlet.key[tostring(self.dirtokey[i])], [[ PF:raiseEvent("]]..self.aliaseddir[(i-1)*4+3]..[[", false)]])) 
-		table.insert(self.key_ids, tempKey(mudlet.keymodifier.Keypad+mudlet.keymodifier.Alt, mudlet.key[tostring(self.dirtokey[i])], [[ PF:raiseEvent("]]..self.aliaseddir[i*4]..[[", false)]])) 
+		table.insert(self.key_ids, tempKey(mudlet.keymodifier.Keypad+mudlet.keymodifier.Control, mudlet.key[tostring(self.dirtokey[i])], [[ PF:raiseEvent("]]..self.aliaseddir[(i-1)*4+3]..[[", false)]]))
+		table.insert(self.key_ids, tempKey(mudlet.keymodifier.Keypad+mudlet.keymodifier.Alt, mudlet.key[tostring(self.dirtokey[i])], [[ PF:raiseEvent("]]..self.aliaseddir[i*4]..[[", false)]]))
 	end
 	-- oben
-	table.insert(self.key_ids, tempKey(mudlet.keymodifier.Keypad, mudlet.key.Minus, [[ PF:raiseEvent("oben", false)]])) 
+	table.insert(self.key_ids, tempKey(mudlet.keymodifier.Keypad, mudlet.key.Minus, [[ PF:raiseEvent("oben", false)]]))
 	-- unten
-	table.insert(self.key_ids, tempKey(mudlet.keymodifier.Keypad, mudlet.key.Plus, [[ PF:raiseEvent("unten", false)]])) 
+	table.insert(self.key_ids, tempKey(mudlet.keymodifier.Keypad, mudlet.key.Plus, [[ PF:raiseEvent("unten", false)]]))
 	-- raus
-	table.insert(self.key_ids, tempKey(mudlet.keymodifier.Keypad, mudlet.key.Asterisk, [[ PF:raiseEvent("raus", false)]])) 
+	table.insert(self.key_ids, tempKey(mudlet.keymodifier.Keypad, mudlet.key.Asterisk, [[ PF:raiseEvent("raus", false)]]))
 end
 
 function PF:kill_keys()
@@ -1581,7 +1608,7 @@ function PF:load()
       local keytemp = ""
       while i &lt; #weglinien + 1 do
 				if #weglinien-i&lt;7 then
-  				self:error("In der Wege-Datei liegt ein Fehler vor!")
+  				eprint("Wegeskript", "In der Wege-Datei liegt ein Fehler vor!")
   				break
   			else
 					self.pathcounter = self.pathcounter+1
@@ -1593,7 +1620,7 @@ function PF:load()
       		self.titles[keytemp] = titeltemp
 					while not (weglinien[i] == "begin") do
       			self.ids[weglinien[i]]=keytemp -- hier ist ID der Key und der Pfadname der Value
-          	i = i+1	
+          	i = i+1
       		end
       		i = i + 1 -- Begin-Marker ueberspringen
           self.pathes[keytemp] = {}
@@ -1620,8 +1647,8 @@ function PF:test_backup()
 		to_backup=(to_backup or tonumber(os.date("%m"))&gt;tonumber(last_backup[2]))
 	end
 	echo("\nOk, ausgewertet\n")
-	if to_backup then	
-		msave_tlines(self.filename.."_backup_"..os.date("%y")..os.date("%m"),self:load_lines(self.filename))	
+	if to_backup then
+		msave_tlines(self.filename.."_backup_"..os.date("%y")..os.date("%m"),self:load_lines(self.filename))
 		msave_tlines("pathscript_backup_date", {os.date("%y"),os.date("%m")})
 		self:info("Ein Backup der Wege-Datei wurde erstellt.")
 	else
@@ -1670,7 +1697,7 @@ function PF:save()
     endindex = endindex + 1
   end
   local temp={}
-	
+
 	for i = 1, endindex, 1 do
     if self.titles[sortkeys[i]] then
       table.insert(temp,"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
@@ -1703,27 +1730,27 @@ function PF:save_path(name, startpoint, backwards, title)
   -- Name Wegpunkt Ruecklaufig Titel
   if self.titles[name] then
     -- Faengt das ueberschreiben bereits existenter Wegpunkte ab
-    self:error("Ein Weg mit dem Namen '"..name.."' existiert mit dem  Titel:\n" .. self.titles[name])
+    eprint("Wegeskript", "Ein Weg mit dem Namen '"..name.."' existiert mit dem  Titel:\n" .. self.titles[name])
 	elseif (backwards and self.ids[self.startid]) then
-		self:error("Der Pfad "..self.ids[self.startid].." endet bereits dort")
+		eprint("Wegeskript", "Der Pfad "..self.ids[self.startid].." endet bereits dort")
 	elseif self.ids[self.endid] then
-		self:error("Der Pfad "..self.ids[self.endid].." endet bereits dort")
+		eprint("Wegeskript", "Der Pfad "..self.ids[self.endid].." endet bereits dort")
 	else
 		-- Alles in Ordnung, Speicherung beginnt...
 		--self:shortinfo("Wegaufzeichnung beginnt die Speicherung.")
 		self:stop()
-		
+
 		self.cpforth=self:simplifypath(self.cpforth)
 		self.cpforth = self:groupdirections(self.cpforth)
-		
+
 		self.cpback=self:merge(self.cpback)
 		self.cpback=self:simplifypath(self.cpback)
    	self.cpback = self:groupdirections(self.cpback)
-		
+
 		--self:shortinfo("Die Wege sollten nun etwas vereinfacht worden sein. Die Aufzeichnung enthaelt nun:")
 		--display(PF.cpforth)
 		--display(PF.cpback)
-		
+
 		if backwards then
       if #startpoint &gt; 0 then
         self.pathes[name] = {"#go " .. startpoint, unpack(self.cpback)}
@@ -1745,9 +1772,9 @@ function PF:save_path(name, startpoint, backwards, title)
       end
 			self.ids[self.endid]=name
     end
-		
+
 		self:shortinfo("Der Weg und die Raum-ID sind nun hinzugefuegt.")
-		
+
     -- Falls Titel angegeben wird, dann wird der neue
     -- Weg dauerhaft gespeichert
     if #title &gt; 0 then
@@ -1765,27 +1792,27 @@ function PF:save_onedirection(name, point, backwards, title)
   -- Name Wegpunkt Ruecklaufig Titel
   if self.titles[name] then
     -- Faengt das ueberschreiben bereits existenter Wegpunkte ab
-    self:error("Ein Weg mit dem Namen '"..name.."' existiert mit dem  Titel:\n" .. self.titles[name])
+    eprint("Wegeskript", "Ein Weg mit dem Namen '"..name.."' existiert mit dem  Titel:\n" .. self.titles[name])
 	elseif (backwards and self.ids[self.startid]) then
-		self:error("Der Pfad "..self.ids[self.startid].." endet bereits dort")
+		eprint("Wegeskript", "Der Pfad "..self.ids[self.startid].." endet bereits dort")
 	elseif self.ids[self.endid] then
-		self:error("Der Pfad "..self.ids[self.endid].." endet bereits dort")
+		eprint("Wegeskript", "Der Pfad "..self.ids[self.endid].." endet bereits dort")
 	else
 		-- Alles in Ordnung, Speicherung beginnt...
 		self:stop()
-		
+
    	self:simplifypath(self.cpforth)
 		self.cpforth = self:groupdirections(self.cpforth)
-		
+
 		if backwards then
   		local temp={}
-  		
+
   		for i=1,#self.cpforth,1 do
   			temp[i]=self.cpforth[#self.cpforth-i+1]
   		end
   		self.cpback=temp
 		end
-		
+
     if backwards then
       if #point &gt; 0 then
 				table.insert(self.cpforth, "#go " .. startpoint .. "_z")
