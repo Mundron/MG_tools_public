@@ -396,6 +396,15 @@ end</script>
 -- Note that you can also use external scripts --
 -------------------------------------------------
 
+function getMundronCoreDir()
+  -- getModulePath("Mundron_Core") liefert den 
+  -- ganzen Pfad zum Modul. Diese Funktion soll
+  -- aber nur das Verzeichnis wiedergeben in der 
+  -- sich das Modul befindet.
+  local path_table = string.split(getModulePath("Mundron_Core"), "/")
+  return table.concat(path_table, "/", 1, #path_table-1).."/"
+end
+
 function len(obj)
   if type(obj)=="string" then
     return #obj
@@ -451,6 +460,80 @@ function beginswith(text, subtext)
   --display(text:sub(1,#subtext))
   --display(text:sub(1,#subtext) == subtext)
   return text:sub(1,#subtext) == subtext
+end</script>
+			<eventHandlerList />
+		</Script>
+		<Script isActive="yes" isFolder="no">
+			<name>DB extension</name>
+			<packageName></packageName>
+			<script>require "lfs"
+
+
+function db:create(db_name, sheets, host_db)
+  if not db.__env or (db.__env and db.__env == 'SQLite3 environment (closed)') then
+    db.__env = luasql.sqlite3()
+  end
+
+  db_name = db:safe_name(db_name)
+
+  local db_path, db_dir
+  if host_db then
+    local host, _ = getConnectionInfo()
+    db_dir = getMundronCoreDir()..host
+    if not lfs.attributes(db_dir) then
+      lfs.mkdir(db_dir)
+    end
+    db_path = db_dir.."/Database_"..db_name..".db"
+  else
+    db_dir = getMudletHomeDir()
+    db_path = db_dir.."/Database_"..db_name..".db"
+  end
+  
+  if not db.__conn[db_name] or (db.__conn[db_name] and db.__conn[db_name] == 'SQLite3 connection (closed)') or (not io.exists(getMudletHomeDir() .. "/Database_" .. db_name .. ".db")) then
+    db.__conn[db_name] = db.__env:connect(db_path)
+    display("created connection")
+    db.__conn[db_name]:setautocommit(false)
+    db.__autocommit[db_name] = true
+  end
+
+  db.__schema[db_name] = {}
+
+  -- We need to separate the actual column configuration from the meta-configuration of the desired
+  -- sheet. {sheet={"column"}} verses {sheet={"column"}, _index={"column"}}. In the former we are
+  -- creating a database with a single field; in the latter we are also adding an index on that
+  -- field. The db package reserves any key that begins with an underscore to be special and syntax
+  -- for its own use.
+  for s_name, sht in pairs(sheets) do
+    options = {}
+
+    if sht[1] ~= nil then
+      -- in case the sheet was provided in the sheet = {"column1", "column2"} format:
+      local t = {}               --   assume field types are text, and should default to ""
+      for k, v in pairs(sht) do
+        t[v] = ""
+      end
+      sht = t
+    else -- sheet provided in the sheet = {"column1" = default} format
+      local opts = {}
+      for k, v in pairs(sht) do
+        if string.starts(k, "_") then
+          options[k] = v
+          opts[#opts + 1] = k
+        end
+      end
+      for _, v in ipairs(opts) do
+        sht[v] = nil
+      end
+    end
+
+    if not options._violations then
+      options._violations = "FAIL"
+    end
+
+    db.__schema[db_name][s_name] = { columns = sht, options = options }
+    db:_migrate(db_name, s_name)
+  end
+  return db:get_database(db_name)
 end</script>
 			<eventHandlerList />
 		</Script>

@@ -3,7 +3,22 @@
 <MudletPackage version="1.001">
 	<TriggerPackage />
 	<TimerPackage />
-	<AliasPackage />
+	<AliasPackage>
+		<Alias isActive="yes" isFolder="no">
+			<name>ZT suchen</name>
+			<script>ZT:search_zt(matches[2], true)</script>
+			<command></command>
+			<packageName></packageName>
+			<regex>#ZTfind (.+)</regex>
+		</Alias>
+		<Alias isActive="yes" isFolder="no">
+			<name>ZT anzeige</name>
+			<script>ZT:describe(tonumber(matches[2]))</script>
+			<command></command>
+			<packageName></packageName>
+			<regex>^#ZT (\d+)$</regex>
+		</Alias>
+	</AliasPackage>
 	<ActionPackage />
 	<ScriptPackage>
 		<Script isActive="yes" isFolder="no">
@@ -343,7 +358,7 @@ function ZT:update_own()
   self:save_all()
   --------------------------------------
   -- nun unterscheiden wir schauen wir
-  -- welches der Sprueche hinzugekommen 
+  -- welches der Sprueche hinzugekommen
   -- sind
   --------------------------------------
   local new_zt = {}
@@ -366,7 +381,7 @@ function ZT:update_own()
   -- Spruechen einer dabei ist, der
   -- einen alternativen Spruch
   -- hat und dieser gleichzeitig
-  -- als fehlender Spruch gespeichert 
+  -- als fehlender Spruch gespeichert
   -- ist. In dem Fall loeschen wir
   -- diesen aus der "neue ZT"-Liste
   -- da wir nur einen Spruch durch den
@@ -376,7 +391,7 @@ function ZT:update_own()
   for k,_ in pairs(new_zt) do
     ref = self.saved_zt[k]["ref"]
     if ref&gt;0 and missing_zt[ref] then
-      new_zt[k] = nil   
+      new_zt[k] = nil
       missing_zt[ref] = nil
     end
   end
@@ -511,7 +526,7 @@ function ZT:zeige_own()
       echo(data.title.."\n")
     else
       echo(data.spruch[1].."\n")
-    end 
+    end
   end
   echo("\n")
 end
@@ -524,7 +539,7 @@ function ZT:zeige_all()
       echo(data.title.."\n")
     else
       echo(data.spruch[1].."\n")
-    end 
+    end
   end
   echo("\n")
 end
@@ -564,7 +579,7 @@ function ZT:describe(id)
   table.insert(temp, "")
   for _,sline in ipairs(item.spruch) do
     table.insert(temp, sline)
-  end 
+  end
   table.insert(temp, "")
   if len(item.hinweis)==0 then
     table.insert(temp, "- kein Hinweis vorhanden -")

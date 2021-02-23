@@ -370,8 +370,36 @@ EK = EK or {
 			attr = {"Name", "Ort", "Region", "Magier", "Hinweis", "Para"} 
 			}
 			
-		
-</script>
+if not EK.npc_db then
+  iprint("try to connect to npc database.", "EK-Tracker")
+  EK.npc_db = db:create("npc_list", {
+    npc = {
+      position=0,
+      name="",
+      place="",
+      region="",
+      creator="",
+      hint="",
+      world=0,
+      killpoints=true,
+      _index={{"name", position}},
+      _violations = "IGNORE"
+    }
+  }, true)
+  iprint("connected to npc database.", "EK-Tracker")
+end
+
+if (not EK.player_db and not (ME.name == "ABCDEFGHKLM")) then
+  iprint("try to connect to player kill list.", "EK-Tracker")
+  EK.player_db = db:create(ME.name.."_kill_list", {
+    kills = {
+      id=0,
+      date="",
+      _index={"id"}
+    }
+  })
+  iprint("connected to player kill list", "EK-Tracker")
+end</script>
 			<eventHandlerList />
 		</Script>
 		<Script isActive="yes" isFolder="no">
@@ -1187,6 +1215,69 @@ function EK:diff(friend)
 		end
 		echo(" EKs gefunden, die noch fehlen.\n")
 	end
+end</script>
+			<eventHandlerList />
+		</Script>
+		<Script isActive="yes" isFolder="no">
+			<name>experimental</name>
+			<packageName></packageName>
+			<script>function EK:transfer_npc_to_database(first)
+  if first then
+    transfer_npc_id = 1
+  else
+    transfer_npc_id = transfer_npc_id+1
+  end
+  display("Transfer NPC "..transfer_npc_id)
+  npc = EK.npc[transfer_npc_id]
+  local doc = {
+    position=transfer_npc_id,
+    name=npc[1],
+    place=npc[2],
+    region=npc[3],
+    creator=npc[4],
+    hint=npc[5],
+    world=npc[6]
+  }
+  db:add(EK.npc_db.npc, doc)
+  if transfer_npc_id &lt; #EK.npc then
+    tempTimer(0.1, function() EK:transfer_npc_to_database() end)
+  end
+end
+
+function EK:transfer_to_kill_list(first)
+  if first then
+    transfer_kill_id = 1
+  else
+    transfer_kill_id = transfer_kill_id+1
+  end
+  display("transfer kill or no kill "..transfer_kill_id)
+  player_position = 0
+  for i,name in ipairs(EK.players) do
+    if name == ME.name then
+      player_position = i
+      break
+    end
+  end
+  npc = EK.npc[transfer_kill_id]
+  date = npc[6+player_position]
+  if #date &gt; 0 then
+    if #date &gt; 1 then
+      date = "20"..date:sub(7,8).."."..date:sub(4,5).."."..date:sub(1,2)
+    end
+    db:add(EK.player_db.kills, {id=i, date=date})
+  end
+  if transfer_kill_id &lt; #EK.npc then
+    tempTimer(0.1, function() EK:transfer_to_kill_list() end)
+  end
+end
+
+function EK:transfer_unknown_kills(first)
+  
+  for i = 1,EK.player[ME.name],1 do
+    db:add(EK.player_db.kills, {id=-i, date="???"})
+    display(i)
+  end
+  display("done")
 end</script>
 			<eventHandlerList />
 		</Script>

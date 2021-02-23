@@ -1772,7 +1772,7 @@ end</script>
 																width=GUI.width-10,
 																height=GUI.height-10}, 
 																GUI.statuszeile)
-		GUI.bgi:setTiledBackgroundImage(getModulePath("Mundron_Core"):sub(1,-17).."Bilder/bg.gif")
+		GUI.bgi:setTiledBackgroundImage(getMundronCoreDir().."Bilder/bg.gif")
 		
 		
 		-- Zeile 1
@@ -2393,7 +2393,7 @@ end
 -- Note that you can also use external Scripts --
 -------------------------------------------------
 
-AK = AK or {directory=getModulePath("Mundron_Core"):sub(1,-17).."/Bilder/",
+AK = AK or {directory=getMundronCoreDir().."Bilder/",
 			posdir ={
 							 norden=true,
 							 nordoben=true,
@@ -2868,7 +2868,7 @@ function init_klerus_addon()
 																		width=90,
 																		height=GUI.height-10}, 
 																		GGUI.guild_container)
-  	GGUI.klbgi:setTiledBackgroundImage([[/home/mundron/Morgengrauen/Einstellungen/bg.gif]])
+  	GGUI.klbgi:setTiledBackgroundImage(getMundronCoreDir().."Bilder/bg.gif")
   	
    	-- Auren-Label
   	GGUI.heiligenschein = Geyser.Label:new({
@@ -2973,7 +2973,7 @@ function init_werwoelfe_addon()
 																		width=90,
 																		height=GUI.height-10}, 
 																		GGUI.guild_container)
-  	GGUI.klbgi:setTiledBackgroundImage([[/home/mundron/Morgengrauen/Einstellungen/bg.gif]])
+  	GGUI.klbgi:setTiledBackgroundImage(getMundronCoreDir().."Bilder/bg.gif")
   	
    	-- Auren-Label
   	GGUI.form = Geyser.Label:new({
