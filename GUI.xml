@@ -17,7 +17,7 @@
 			<colorTriggerBgColor>#000000</colorTriggerBgColor>
 			<regexCodeList />
 			<regexCodePropertyList />
-			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="yes" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 				<name>Kommunikation</name>
 				<script>-- Keine Ahnung, ob das besser geht, aber ich will die ganze Zeile einfärben und nicht nur
 -- den "Match".
@@ -164,15 +164,13 @@ resetFormat()</script>
 fg(farben.vg.info)
 bg(farben.hg.info)
 resetFormat()
-
-if gmcp.MG.char.base.wizlevel == 1 then
+if EK and EK.config.plaketten_lesen then
   send("lies plakette")
 end
-
-if SE.kampfmodus == "solo" then
+if SE and SE.kampfmodus == "solo" then
   send("lege alles aus leiche in paket in mir")
   send("lege alles im raum in paket in mir")
-elseif SE.kampfmodus == "zaub" then
+elseif SE and SE.kampfmodus == "zaub" then
   send("lege flaeschchen in leiche in paket in mir")
   send("lege flaeschchen in paket in mir")
   send("lege phiolen in leiche in paket in mir")
@@ -229,15 +227,13 @@ end</script>
 fg(farben.vg.info)
 bg(farben.hg.info)
 resetFormat()
-
-if gmcp.MG.char.base.wizlevel == 1 then
+if EK and EK.config.plaketten_lesen then
   send("lies plakette")
 end
-
-if SE.kampfmodus == "solo" then
+if SE and SE.kampfmodus == "solo" then
   send("lege alles aus leiche in paket in mir")
   send("lege alles im raum in paket in mir")
-elseif SE.kampfmodus == "zaub" then
+elseif SE and SE.kampfmodus == "zaub" then
   send("lege flaeschchen in leiche in paket in mir")
   send("lege flaeschchen in paket in mir")
   send("lege phiolen in leiche in paket in mir")
@@ -318,22 +314,17 @@ resetFormat()</script>
 			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 				<name>Para-/Normalwelt</name>
 				<script>-- Prüfung über Portal 23
-
 selectCurrentLine()
-
 if (matches[3] == "gruenlich") then
-    fg(farben.vg.info)
-    bg(farben.hg.info)
-
-    PLAYER.para = 0
+  fg(farben.vg.info)
+  bg(farben.hg.info)
+  PLAYER.para = 0
 end
-
 if (matches[3] == "roetlich") then
-    fg(farben.vg.alarm)
-    bg(farben.hg.alarm)
-    PLAYER.para = 1
+  fg(farben.vg.alarm)
+  bg(farben.hg.alarm)
+  PLAYER.para = 1
 end
-
 zeigeRaum()
 resetFormat()</script>
 				<triggerType>0</triggerType>
@@ -432,7 +423,9 @@ resetFormat()</script>
 					<regexCodePropertyList />
 					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 						<name>Heiligenschein erscheint</name>
-						<script>GuildGUI.heiligenschein:setStyleSheet([[background-color: rgba(255,255,0,100%);qproperty-alignment: 'AlignCenter' ]])</script>
+						<script>GuildGUI.heiligenschein:setStyleSheet(
+  [[background-color: rgba(255,255,0,100%);qproperty-alignment: 'AlignCenter' ]]
+)</script>
 						<triggerType>0</triggerType>
 						<conditonLineDelta>0</conditonLineDelta>
 						<mStayOpen>0</mStayOpen>
@@ -454,7 +447,9 @@ resetFormat()</script>
 					</Trigger>
 					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="yes" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 						<name>Heiligenschein erlischt</name>
-						<script>GuildGUI.heiligenschein:setStyleSheet([[background-color: rgba(0,0,0,0%);qproperty-alignment: 'AlignCenter' ]])</script>
+						<script>GuildGUI.heiligenschein:setStyleSheet(
+  [[background-color: rgba(0,0,0,0%);qproperty-alignment: 'AlignCenter' ]]
+)</script>
 						<triggerType>0</triggerType>
 						<conditonLineDelta>0</conditonLineDelta>
 						<mStayOpen>0</mStayOpen>
@@ -474,19 +469,29 @@ resetFormat()</script>
 					</Trigger>
 					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 						<name>Elementarsphare an</name>
-						<script>if matches[3]=="Feuer" then
-	GuildGUI.elementarsphaere:setStyleSheet([[background-color: rgba(255,0,0,100%);qproperty-alignment: 'AlignCenter' ]])
-	GuildGUI.elementarsphaere:echo("EW", "white")
-elseif matches[3]=="Erde" then
-	GuildGUI.elementarsphaere:setStyleSheet([[background-color: rgba(170,85,0,100%);qproperty-alignment: 'AlignCenter' ]])
-	GuildGUI.elementarsphaere:echo("EW", "white")
-elseif matches[3]=="Wasser" then
-	GuildGUI.elementarsphaere:setStyleSheet([[background-color: rgba(0,0,255,100%);qproperty-alignment: 'AlignCenter' ]])
-	GuildGUI.elementarsphaere:echo("EW", "white")
-elseif matches[3]=="Kaelte" then
-	GuildGUI.elementarsphaere:setStyleSheet([[background-color: rgba(0,255,255,100%);qproperty-alignment: 'AlignCenter' ]])
-elseif matches[3]=="Luft" then
-	GuildGUI.elementarsphaere:setStyleSheet([[background-color: rgba(255,255,255,100%);qproperty-alignment: 'AlignCenter' ]])
+						<script>if matches[3] == "Feuer" then
+  GuildGUI.elementarsphaere:setStyleSheet(
+    [[background-color: rgba(255,0,0,100%);qproperty-alignment: 'AlignCenter' ]]
+  )
+  GuildGUI.elementarsphaere:echo("EW", "white")
+elseif matches[3] == "Erde" then
+  GuildGUI.elementarsphaere:setStyleSheet(
+    [[background-color: rgba(170,85,0,100%);qproperty-alignment: 'AlignCenter' ]]
+  )
+  GuildGUI.elementarsphaere:echo("EW", "white")
+elseif matches[3] == "Wasser" then
+  GuildGUI.elementarsphaere:setStyleSheet(
+    [[background-color: rgba(0,0,255,100%);qproperty-alignment: 'AlignCenter' ]]
+  )
+  GuildGUI.elementarsphaere:echo("EW", "white")
+elseif matches[3] == "Kaelte" then
+  GuildGUI.elementarsphaere:setStyleSheet(
+    [[background-color: rgba(0,255,255,100%);qproperty-alignment: 'AlignCenter' ]]
+  )
+elseif matches[3] == "Luft" then
+  GuildGUI.elementarsphaere:setStyleSheet(
+    [[background-color: rgba(255,255,255,100%);qproperty-alignment: 'AlignCenter' ]]
+  )
 end</script>
 						<triggerType>0</triggerType>
 						<conditonLineDelta>0</conditonLineDelta>
@@ -507,7 +512,9 @@ end</script>
 					</Trigger>
 					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="yes" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 						<name>Elementarsphaere geht aus</name>
-						<script>GuildGUI.elementarsphaere:setStyleSheet([[background-color: rgba(0,0,0,0%);qproperty-alignment: 'AlignCenter' ]])
+						<script>GuildGUI.elementarsphaere:setStyleSheet(
+  [[background-color: rgba(0,0,0,0%);qproperty-alignment: 'AlignCenter' ]]
+)
 GuildGUI.elementarsphaere:echo("EW", "black")</script>
 						<triggerType>0</triggerType>
 						<conditonLineDelta>0</conditonLineDelta>
@@ -528,7 +535,9 @@ GuildGUI.elementarsphaere:echo("EW", "black")</script>
 					</Trigger>
 					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 						<name>Schutzhand an</name>
-						<script>GuildGUI.schutzhand:setStyleSheet([[background-color: rgba(255,255,255,100%);qproperty-alignment: 'AlignCenter' ]])</script>
+						<script>GuildGUI.schutzhand:setStyleSheet(
+  [[background-color: rgba(255,255,255,100%);qproperty-alignment: 'AlignCenter' ]]
+)</script>
 						<triggerType>0</triggerType>
 						<conditonLineDelta>1</conditonLineDelta>
 						<mStayOpen>0</mStayOpen>
@@ -550,7 +559,9 @@ GuildGUI.elementarsphaere:echo("EW", "black")</script>
 					</Trigger>
 					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="yes" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 						<name>Schutzhand verschwindet</name>
-						<script>GuildGUI.schutzhand:setStyleSheet([[background-color: rgba(0,0,0,0%);qproperty-alignment: 'AlignCenter' ]])</script>
+						<script>GuildGUI.schutzhand:setStyleSheet(
+  [[background-color: rgba(0,0,0,0%);qproperty-alignment: 'AlignCenter' ]]
+)</script>
 						<triggerType>0</triggerType>
 						<conditonLineDelta>0</conditonLineDelta>
 						<mStayOpen>0</mStayOpen>
@@ -570,7 +581,9 @@ GuildGUI.elementarsphaere:echo("EW", "black")</script>
 					</Trigger>
 					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 						<name>Waffe geweiht</name>
-						<script>GuildGUI.weihe:setStyleSheet([[background-color: rgba(255,255,255,100%);qproperty-alignment: 'AlignCenter' ]])</script>
+						<script>GuildGUI.weihe:setStyleSheet(
+  [[background-color: rgba(255,255,255,100%);qproperty-alignment: 'AlignCenter' ]]
+)</script>
 						<triggerType>0</triggerType>
 						<conditonLineDelta>1</conditonLineDelta>
 						<mStayOpen>0</mStayOpen>
@@ -590,7 +603,9 @@ GuildGUI.elementarsphaere:echo("EW", "black")</script>
 					</Trigger>
 					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="yes" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 						<name>Weihe läuft ab</name>
-						<script>GuildGUI.weihe:setStyleSheet([[background-color: rgba(0,0,0,0%);qproperty-alignment: 'AlignCenter' ]])</script>
+						<script>GuildGUI.weihe:setStyleSheet(
+  [[background-color: rgba(0,0,0,0%);qproperty-alignment: 'AlignCenter' ]]
+)</script>
 						<triggerType>0</triggerType>
 						<conditonLineDelta>0</conditonLineDelta>
 						<mStayOpen>0</mStayOpen>
@@ -610,20 +625,34 @@ GuildGUI.elementarsphaere:echo("EW", "black")</script>
 					</Trigger>
 					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 						<name>Elementarschild an (ausser Erdschild)</name>
-						<script>if matches[1]=="Eine Stichflamme schiesst vor Dir aus dem Boden und umgibt Dich mit einem" then
-	GuildGUI.elementarschild:setStyleSheet([[background-color: rgba(255,0,0,100%);qproperty-alignment: 'AlignCenter' ]])
-	GuildGUI.elementarschild:echo("ES", "white")
-elseif matches[1]=="Ein ploetzlicher Regenschauer prasselt hernieder, ohne Dich jedoch zu" then
-	GuildGUI.elementarschild:setStyleSheet([[background-color: rgba(0,0,255,100%);qproperty-alignment: 'AlignCenter' ]])
-	GuildGUI.elementarschild:echo("ES", "white")
-elseif matches[1]=="Klirrende Kaelte umgibt Dich auf einmal schuetzend." then
-	GuildGUI.elementarschild:setStyleSheet([[background-color: rgba(0,255,255,100%);qproperty-alignment: 'AlignCenter' ]])
-	GuildGUI.elementarschild:decho("&lt;0,0,0:0,0,0&gt;&lt;center&gt;ES&lt;/center&gt;")
-elseif matches[1]=="Ein starker Wind umtost Dich auf einmal und bildet so einen luftigen Schild." then
-	GuildGUI.elementarschild:setStyleSheet([[background-color: rgba(255,255,255,100%);qproperty-alignment: 'AlignCenter' ]])
-	GuildGUI.elementarschild:decho("&lt;0,0,0:0,0,0&gt;&lt;center&gt;ES&lt;/center&gt;")
-elseif matches[1]=="Eine Wolke aus Saeuregasen bildet sich um Dich herum. Einige Blitze erden sich" then
-	GuildGUI.elementarschild:setStyleSheet([[background-color: rgba(255,255,0,100%);qproperty-alignment: 'AlignCenter' ]])
+						<script>if matches[1] == "Eine Stichflamme schiesst vor Dir aus dem Boden und umgibt Dich mit einem" then
+  GuildGUI.elementarschild:setStyleSheet(
+    [[background-color: rgba(255,0,0,100%);qproperty-alignment: 'AlignCenter' ]]
+  )
+  GuildGUI.elementarschild:echo("ES", "white")
+elseif matches[1] == "Ein ploetzlicher Regenschauer prasselt hernieder, ohne Dich jedoch zu" then
+  GuildGUI.elementarschild:setStyleSheet(
+    [[background-color: rgba(0,0,255,100%);qproperty-alignment: 'AlignCenter' ]]
+  )
+  GuildGUI.elementarschild:echo("ES", "white")
+elseif matches[1] == "Klirrende Kaelte umgibt Dich auf einmal schuetzend." then
+  GuildGUI.elementarschild:setStyleSheet(
+    [[background-color: rgba(0,255,255,100%);qproperty-alignment: 'AlignCenter' ]]
+  )
+  GuildGUI.elementarschild:decho("&lt;0,0,0:0,0,0&gt;&lt;center&gt;ES&lt;/center&gt;")
+elseif
+  matches[1] == "Ein starker Wind umtost Dich auf einmal und bildet so einen luftigen Schild."
+then
+  GuildGUI.elementarschild:setStyleSheet(
+    [[background-color: rgba(255,255,255,100%);qproperty-alignment: 'AlignCenter' ]]
+  )
+  GuildGUI.elementarschild:decho("&lt;0,0,0:0,0,0&gt;&lt;center&gt;ES&lt;/center&gt;")
+elseif
+  matches[1] == "Eine Wolke aus Saeuregasen bildet sich um Dich herum. Einige Blitze erden sich"
+then
+  GuildGUI.elementarschild:setStyleSheet(
+    [[background-color: rgba(255,255,0,100%);qproperty-alignment: 'AlignCenter' ]]
+  )
 end</script>
 						<triggerType>0</triggerType>
 						<conditonLineDelta>0</conditonLineDelta>
@@ -673,7 +702,9 @@ end</script>
 						</regexCodePropertyList>
 						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 							<name>zweite Zeile von der Meldung</name>
-							<script>GuildGUI.elementarschild:setStyleSheet([[background-color: rgba(170,85,0,100%);qproperty-alignment: 'AlignCenter' ]])
+							<script>GuildGUI.elementarschild:setStyleSheet(
+  [[background-color: rgba(170,85,0,100%);qproperty-alignment: 'AlignCenter' ]]
+)
 GuildGUI.elementarschild:echo("ES", "white")</script>
 							<triggerType>0</triggerType>
 							<conditonLineDelta>0</conditonLineDelta>
@@ -695,7 +726,9 @@ GuildGUI.elementarschild:echo("ES", "white")</script>
 					</TriggerGroup>
 					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="yes" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 						<name>Elementarschild aus</name>
-						<script>GuildGUI.elementarschild:setStyleSheet([[background-color: rgba(0,0,0,0%);qproperty-alignment: 'AlignCenter' ]])
+						<script>GuildGUI.elementarschild:setStyleSheet(
+  [[background-color: rgba(0,0,0,0%);qproperty-alignment: 'AlignCenter' ]]
+)
 GuildGUI.elementarschild:echo("ES", "black")</script>
 						<triggerType>0</triggerType>
 						<conditonLineDelta>0</conditonLineDelta>
@@ -716,7 +749,9 @@ GuildGUI.elementarschild:echo("ES", "black")</script>
 					</Trigger>
 					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 						<name>Messerkreis an</name>
-						<script>GuildGUI.messerkreis:setStyleSheet([[background-color: rgba(220,220,220,100%);qproperty-alignment: 'AlignCenter' ]])</script>
+						<script>GuildGUI.messerkreis:setStyleSheet(
+  [[background-color: rgba(220,220,220,100%);qproperty-alignment: 'AlignCenter' ]]
+)</script>
 						<triggerType>0</triggerType>
 						<conditonLineDelta>0</conditonLineDelta>
 						<mStayOpen>0</mStayOpen>
@@ -738,7 +773,9 @@ GuildGUI.elementarschild:echo("ES", "black")</script>
 					</Trigger>
 					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 						<name>Messerkreis aus</name>
-						<script>GuildGUI.messerkreis:setStyleSheet([[background-color: rgba(0,0,0,0%);qproperty-alignment: 'AlignCenter' ]])</script>
+						<script>GuildGUI.messerkreis:setStyleSheet(
+  [[background-color: rgba(0,0,0,0%);qproperty-alignment: 'AlignCenter' ]]
+)</script>
 						<triggerType>0</triggerType>
 						<conditonLineDelta>0</conditonLineDelta>
 						<mStayOpen>0</mStayOpen>
@@ -758,7 +795,9 @@ GuildGUI.elementarschild:echo("ES", "black")</script>
 					</Trigger>
 					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 						<name>Abbildung erscheint</name>
-						<script>GuildGUI.spaltung:setStyleSheet([[background-color: rgba(255,170,125,100%);qproperty-alignment: 'AlignCenter' ]])</script>
+						<script>GuildGUI.spaltung:setStyleSheet(
+  [[background-color: rgba(255,170,125,100%);qproperty-alignment: 'AlignCenter' ]]
+)</script>
 						<triggerType>0</triggerType>
 						<conditonLineDelta>0</conditonLineDelta>
 						<mStayOpen>0</mStayOpen>
@@ -780,7 +819,9 @@ GuildGUI.elementarschild:echo("ES", "black")</script>
 					</Trigger>
 					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 						<name>Abbild loest sich auf</name>
-						<script>GuildGUI.spaltung:setStyleSheet([[background-color: rgba(0,0,0,0%);qproperty-alignment: 'AlignCenter' ]])</script>
+						<script>GuildGUI.spaltung:setStyleSheet(
+  [[background-color: rgba(0,0,0,0%);qproperty-alignment: 'AlignCenter' ]]
+)</script>
 						<triggerType>0</triggerType>
 						<conditonLineDelta>0</conditonLineDelta>
 						<mStayOpen>0</mStayOpen>
@@ -800,7 +841,9 @@ GuildGUI.elementarschild:echo("ES", "black")</script>
 					</Trigger>
 					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 						<name>Goettermacht erwacht</name>
-						<script>GuildGUI.goettermacht:setStyleSheet([[background-color: rgba(255,170,0,100%);qproperty-alignment: 'AlignCenter' ]])</script>
+						<script>GuildGUI.goettermacht:setStyleSheet(
+  [[background-color: rgba(255,170,0,100%);qproperty-alignment: 'AlignCenter' ]]
+)</script>
 						<triggerType>0</triggerType>
 						<conditonLineDelta>0</conditonLineDelta>
 						<mStayOpen>0</mStayOpen>
@@ -820,7 +863,9 @@ GuildGUI.elementarschild:echo("ES", "black")</script>
 					</Trigger>
 					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="yes" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 						<name>Goettermacht erlischt</name>
-						<script>GuildGUI.goettermacht:setStyleSheet([[background-color: rgba(0,0,0,0%);qproperty-alignment: 'AlignCenter' ]])</script>
+						<script>GuildGUI.goettermacht:setStyleSheet(
+  [[background-color: rgba(0,0,0,0%);qproperty-alignment: 'AlignCenter' ]]
+)</script>
 						<triggerType>0</triggerType>
 						<conditonLineDelta>0</conditonLineDelta>
 						<mStayOpen>0</mStayOpen>
@@ -881,7 +926,6 @@ GuildGUI.elementarschild:echo("ES", "black")</script>
 					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 						<name>Talisman-Anzeige</name>
 						<script>local zustand = {}
-
 zustand["Ein schwarz angelaufener Talisman"] = 4
 zustand["Ein dunkel angelaufener Talisman"] = 12
 zustand["Ein angelaufener Talisman"] = 20
@@ -895,25 +939,19 @@ zustand["Ein glaenzender Talisman"] = 76
 zustand["Ein hell glaenzender Talisman"] = 84
 zustand["Ein funkelnder Talisman"] = 92
 zustand["Ein strahlender Talisman"] = 100
-
 local ausgabe = zustand[matches[1]]
-
 if ausgabe then
   ausgabe = " (" .. ausgabe .. "%)"
 else
   ausgabe = " (???%)"
 end
-
 selectCurrentLine()
 fg(farben.vg.info)
 bg(farben.hg.info)
-
-
-if moveCursor(string.find(line, matches[1])+#(matches[1])-1, getLineNumber()) then
-	insertText(ausgabe)
+if moveCursor(string.find(line, matches[1]) + #(matches[1]) - 1, getLineNumber()) then
+  insertText(ausgabe)
 end
-resetFormat()
-</script>
+resetFormat()</script>
 						<triggerType>0</triggerType>
 						<conditonLineDelta>0</conditonLineDelta>
 						<mStayOpen>0</mStayOpen>
@@ -957,96 +995,92 @@ resetFormat()
 					</Trigger>
 					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 						<name>Skilleinschaetzung</name>
-						<script>ausdruck=matches[2]
-dummy=string.split(ausdruck," ")
-if dummy[#dummy]=="gut." then
-	if dummy[#dummy-1]=="unuebertrefflich" then
-		skill="unuebertrefflich gut"
-		prozent="100%"
-	elseif dummy[#dummy-1]=="phantastisch" then
-		skill="phantastisch gut"
-		prozent="90%"
-	elseif dummy[#dummy-1]=="ausserordentlich" then
-		skill="ausserordentlich gut"
-		prozent="80%"
-	elseif dummy[#dummy-1]=="sehr" then
-		skill="schon sehr gut"
-		prozent="75%"
-	elseif dummy[#dummy-1]=="recht" then
-		skill="recht gut"
-		prozent="65%"
-	elseif dummy[#dummy-1]=="ueberdurchschnittlich" then
-		skill="ueberdurchschnittlich gut"
-		prozent="55%"
-	elseif dummy[#dummy-1]=="durchschnittlich" then
-		if dummy[#dummy-1]=="fast" then
-			skill="fast durchschnittlich gut"
-			prozent="45%"
-		else
-			skill="durchschnittlich gut"
-			prozent="47.5%"
-		end
-	elseif dummy[#dummy-1]=="nicht" then
-		if dummy[#dummy-1]=="noch" then
-			skill="noch nicht gut"
-			prozent="30%"
-		elseif dummy[#dummy-1]=="gar" then
-			skill="gar nicht gut"
-			prozent="20%"
-		end
-	else
-		skill="gut"
-		prozent="70%"
-	end
-elseif dummy[#dummy]=="Durchschnitt." then
-	if dummy[#dummy-3]=="besser" then
-		if dummy[#dummy-1]=="etwas" then
-			skill="etwas besser als der Durchschnitt"
-			prozent="52.5%"
-		else
-			skill="besser als der Durchschnitt"
-			prozent="60%"
-		end
-	end
-
-elseif dummy[#dummy]=="unterdurchschnittlich." then
-	skill="nur unterdurchschnittlich"
-	prozent="40%"
-elseif dummy[#dummy]=="wenig." then
-	if dummy[#dummy-1]=="nur" then
-		skill="nur wenig"
-		prozent="25%"
-	elseif dummy[#dummy-1]=="sehr" then
-		skill="nur sehr wenig"
-		prozent="15%"
-	end
-elseif dummy[#dummy]=="kaum." then
-	skill="noch kaum"
-	prozent="10%"
-elseif dummy[#dummy]=="schlecht." then
-	if dummy[#dummy-1]=="nicht" then
-		skill="schon nicht schlecht"
-		prozent="35%"
-	elseif dummy[#dummy-1]=="sehr" then
-		skill="sehr schlecht"
-		prozent="5%"
-	elseif dummy[#dummy-1]=="erbaermlich" then
-		skill="erbaermlich schlecht"
-		prozent="0%"
-	end
-
-
-elseif dummy[#dummy]=="hervorragend." then
-	skill="hervorragend"
-	prozent="85%"
-elseif dummy[#dummy]=="perfekt." then
-	skill="fast perfekt"
-	prozent="95%"
+						<script>ausdruck = matches[2]
+dummy = string.split(ausdruck, " ")
+if dummy[#dummy] == "gut." then
+  if dummy[#dummy - 1] == "unuebertrefflich" then
+    skill = "unuebertrefflich gut"
+    prozent = "100%"
+  elseif dummy[#dummy - 1] == "phantastisch" then
+    skill = "phantastisch gut"
+    prozent = "90%"
+  elseif dummy[#dummy - 1] == "ausserordentlich" then
+    skill = "ausserordentlich gut"
+    prozent = "80%"
+  elseif dummy[#dummy - 1] == "sehr" then
+    skill = "schon sehr gut"
+    prozent = "75%"
+  elseif dummy[#dummy - 1] == "recht" then
+    skill = "recht gut"
+    prozent = "65%"
+  elseif dummy[#dummy - 1] == "ueberdurchschnittlich" then
+    skill = "ueberdurchschnittlich gut"
+    prozent = "55%"
+  elseif dummy[#dummy - 1] == "durchschnittlich" then
+    if dummy[#dummy - 1] == "fast" then
+      skill = "fast durchschnittlich gut"
+      prozent = "45%"
+    else
+      skill = "durchschnittlich gut"
+      prozent = "47.5%"
+    end
+  elseif dummy[#dummy - 1] == "nicht" then
+    if dummy[#dummy - 2] == "noch" then
+      skill = "noch nicht gut"
+      prozent = "30%"
+    elseif dummy[#dummy - 2] == "gar" then
+      skill = "gar nicht gut"
+      prozent = "20%"
+    end
+  else
+    skill = "gut"
+    prozent = "70%"
+  end
+elseif dummy[#dummy] == "Durchschnitt." then
+  if dummy[#dummy - 3] == "besser" then
+    if dummy[#dummy - 1] == "etwas" then
+      skill = "etwas besser als der Durchschnitt"
+      prozent = "52.5%"
+    else
+      skill = "besser als der Durchschnitt"
+      prozent = "60%"
+    end
+  end
+elseif dummy[#dummy] == "unterdurchschnittlich." then
+  skill = "nur unterdurchschnittlich"
+  prozent = "40%"
+elseif dummy[#dummy] == "wenig." then
+  if dummy[#dummy - 1] == "nur" then
+    skill = "nur wenig"
+    prozent = "25%"
+  elseif dummy[#dummy - 1] == "sehr" then
+    skill = "nur sehr wenig"
+    prozent = "15%"
+  end
+elseif dummy[#dummy] == "kaum." then
+  skill = "noch kaum"
+  prozent = "10%"
+elseif dummy[#dummy] == "schlecht." then
+  if dummy[#dummy - 1] == "nicht" then
+    skill = "schon nicht schlecht"
+    prozent = "35%"
+  elseif dummy[#dummy - 1] == "sehr" then
+    skill = "sehr schlecht"
+    prozent = "5%"
+  elseif dummy[#dummy - 1] == "erbaermlich" then
+    skill = "erbaermlich schlecht"
+    prozent = "0%"
+  end
+elseif dummy[#dummy] == "hervorragend." then
+  skill = "hervorragend"
+  prozent = "85%"
+elseif dummy[#dummy] == "perfekt." then
+  skill = "fast perfekt"
+  prozent = "95%"
 end
-
 -- Ausgabe ersetzen
-selectString(skill,1)
-replace(prozent.." --|-- "..skill)</script>
+selectString(skill, 1)
+replace(prozent .. " --|-- " .. skill)</script>
 						<triggerType>0</triggerType>
 						<conditonLineDelta>0</conditonLineDelta>
 						<mStayOpen>0</mStayOpen>
@@ -1083,7 +1117,9 @@ replace(prozent.." --|-- "..skill)</script>
 				<regexCodePropertyList />
 				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 					<name>Begleiter rufen</name>
-					<script>GuildGUI.begleiter:setStyleSheet([[background-color: rgba(100,255,50,100%);qproperty-alignment: 'AlignCenter' ]])</script>
+					<script>GuildGUI.begleiter:setStyleSheet(
+  [[background-color: rgba(100,255,50,100%);qproperty-alignment: 'AlignCenter' ]]
+)</script>
 					<triggerType>0</triggerType>
 					<conditonLineDelta>0</conditonLineDelta>
 					<mStayOpen>0</mStayOpen>
@@ -1103,7 +1139,9 @@ replace(prozent.." --|-- "..skill)</script>
 				</Trigger>
 				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 					<name>Begleiter geht</name>
-					<script>GuildGUI.begleiter:setStyleSheet([[background-color: rgba(0,0,0,0%);qproperty-alignment: 'AlignCenter' ]])</script>
+					<script>GuildGUI.begleiter:setStyleSheet(
+  [[background-color: rgba(0,0,0,0%);qproperty-alignment: 'AlignCenter' ]]
+)</script>
 					<triggerType>0</triggerType>
 					<conditonLineDelta>0</conditonLineDelta>
 					<mStayOpen>0</mStayOpen>
@@ -1124,7 +1162,9 @@ replace(prozent.." --|-- "..skill)</script>
 				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 					<name>Rage beginnt</name>
 					<script>GuildGUI.rage:echo("Rage")
-GuildGUI.rage:setStyleSheet([[background-color: rgba(230,230,30,100%);qproperty-alignment: 'AlignCenter' ]])</script>
+GuildGUI.rage:setStyleSheet(
+  [[background-color: rgba(230,230,30,100%);qproperty-alignment: 'AlignCenter' ]]
+)</script>
 					<triggerType>0</triggerType>
 					<conditonLineDelta>0</conditonLineDelta>
 					<mStayOpen>0</mStayOpen>
@@ -1145,7 +1185,9 @@ GuildGUI.rage:setStyleSheet([[background-color: rgba(230,230,30,100%);qproperty-
 				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 					<name>Rage endet</name>
 					<script>GuildGUI.rage:echo("ruhig")
-GuildGUI.rage:setStyleSheet([[background-color: rgba(0,0,0,0%);qproperty-alignment: 'AlignCenter' ]])</script>
+GuildGUI.rage:setStyleSheet(
+  [[background-color: rgba(0,0,0,0%);qproperty-alignment: 'AlignCenter' ]]
+)</script>
 					<triggerType>0</triggerType>
 					<conditonLineDelta>0</conditonLineDelta>
 					<mStayOpen>0</mStayOpen>
@@ -1166,7 +1208,9 @@ GuildGUI.rage:setStyleSheet([[background-color: rgba(0,0,0,0%);qproperty-alignme
 				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 					<name>Menschform</name>
 					<script>GuildGUI.form:echo("Mensch")
-GuildGUI.form:setStyleSheet([[background-color: rgba(0,0,0,0%);qproperty-alignment: 'AlignCenter' ]])</script>
+GuildGUI.form:setStyleSheet(
+  [[background-color: rgba(0,0,0,0%);qproperty-alignment: 'AlignCenter' ]]
+)</script>
 					<triggerType>0</triggerType>
 					<conditonLineDelta>0</conditonLineDelta>
 					<mStayOpen>0</mStayOpen>
@@ -1187,7 +1231,9 @@ GuildGUI.form:setStyleSheet([[background-color: rgba(0,0,0,0%);qproperty-alignme
 				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 					<name>Menschwolfsform</name>
 					<script>GuildGUI.form:echo("Galbrag")
-GuildGUI.form:setStyleSheet([[background-color: rgba(100,255,50,100%);qproperty-alignment: 'AlignCenter' ]])</script>
+GuildGUI.form:setStyleSheet(
+  [[background-color: rgba(100,255,50,100%);qproperty-alignment: 'AlignCenter' ]]
+)</script>
 					<triggerType>0</triggerType>
 					<conditonLineDelta>0</conditonLineDelta>
 					<mStayOpen>0</mStayOpen>
@@ -1208,7 +1254,9 @@ GuildGUI.form:setStyleSheet([[background-color: rgba(100,255,50,100%);qproperty-
 				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 					<name>Halbwolfform</name>
 					<script>GuildGUI.form:echo("Ghourdal")
-GuildGUI.form:setStyleSheet([[background-color: rgba(150,200,50,100%);qproperty-alignment: 'AlignCenter' ]])</script>
+GuildGUI.form:setStyleSheet(
+  [[background-color: rgba(150,200,50,100%);qproperty-alignment: 'AlignCenter' ]]
+)</script>
 					<triggerType>0</triggerType>
 					<conditonLineDelta>0</conditonLineDelta>
 					<mStayOpen>0</mStayOpen>
@@ -1229,7 +1277,9 @@ GuildGUI.form:setStyleSheet([[background-color: rgba(150,200,50,100%);qproperty-
 				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 					<name>Wolfmensch</name>
 					<script>GuildGUI.form:echo("Horpas")
-GuildGUI.form:setStyleSheet([[background-color: rgba(200,150,50,100%);qproperty-alignment: 'AlignCenter' ]])</script>
+GuildGUI.form:setStyleSheet(
+  [[background-color: rgba(200,150,50,100%);qproperty-alignment: 'AlignCenter' ]]
+)</script>
 					<triggerType>0</triggerType>
 					<conditonLineDelta>0</conditonLineDelta>
 					<mStayOpen>0</mStayOpen>
@@ -1250,7 +1300,9 @@ GuildGUI.form:setStyleSheet([[background-color: rgba(200,150,50,100%);qproperty-
 				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 					<name>Wolfform</name>
 					<script>GuildGUI.form:echo("Wolf")
-GuildGUI.form:setStyleSheet([[background-color: rgba(255,100,50,100%);qproperty-alignment: 'AlignCenter' ]])</script>
+GuildGUI.form:setStyleSheet(
+  [[background-color: rgba(255,100,50,100%);qproperty-alignment: 'AlignCenter' ]]
+)</script>
 					<triggerType>0</triggerType>
 					<conditonLineDelta>0</conditonLineDelta>
 					<mStayOpen>0</mStayOpen>
@@ -1373,20 +1425,42 @@ iprint("Die Attribute wurden wie folgt, gespeichert:\nAusdauer: "..PLAYER.con.."
 		</Alias>
 		<Alias isActive="yes" isFolder="no">
 			<name>Plakette aktivieren/deaktivieren</name>
-			<script>if matches[2]=="an" then
-	PLAYER.plakette = 1
-	PLAYER:save_setting()
-	EK.firsttrigger=true
-	send("lies plakette")
+			<script>if EK then
+  EK.config.plaketten_lesen = matches[2]=="an"
+  if EK.config.plaketten_lesen then
+	  send("lies plakette")
+  else
+    MainGUI.ekanzahl:echo("")
+  end
 else
-	PLAYER.plakette = 0
-	PLAYER:save_setting()
-	MainGUI.ekanzahl:echo("")
-end
-</script>
+  eprint("EK nicht geladen. Ist das Modul installiert?", "EK")
+end</script>
 			<command></command>
 			<packageName></packageName>
 			<regex>^#plakette (an|aus)$</regex>
+		</Alias>
+		<Alias isActive="yes" isFolder="no">
+			<name>GUI verschieben</name>
+			<script>local x,y
+
+x = tonumber(matches[3])
+y = tonumber(matches[4])
+
+local window
+
+if matches[2] == "main" then
+  window = MainGUI.statuszeile
+elseif matches[2] == "guild" then
+  window = GuildGUI.guild_container
+elseif matches[2] == "exists" then
+  window = AK.kreuz_container
+end
+
+window:move(tonumber(window.x:sub(1,-3))+x, tonumber(window.y:sub(1,-3))+y)
+</script>
+			<command></command>
+			<packageName></packageName>
+			<regex>^#GUImove (main|guild|exit) (-?\d+) (-?\d+)</regex>
 		</Alias>
 	</AliasPackage>
 	<ActionPackage />
@@ -1396,39 +1470,25 @@ end
 			<packageName></packageName>
 			<script>-- Einstellungen fuer Farben Allgemein
 farben = {}
-farben.vg =
-  { komm = "cyan",
-    ebenen = "red",
-    info = "green",
-    alarm = "white",
-    script = "dark_green" }
-farben.hg =
-  { komm = "black",
-    ebenen = "black",
-    info = "black",
-    alarm = "red",
-    script = "black" }
-
+farben.vg = {komm = "cyan", ebenen = "red", info = "green", alarm = "white", script = "dark_green"}
+farben.hg = {komm = "black", ebenen = "black", info = "black", alarm = "red", script = "black"}
 --- komm: Kommunikation wie teile-mit
 --- ebenen: Einfaerben der "normalen" Ebenen
 --- info: Einfaerben von Informationen des Muds (Status Gegner)
 --- alarm: Alarm-Nachrichten
 --- script: Nachrichten, die nicht vom Mud, sondern von einem Script stammen.
-
 --- Einstellungen fuer Farben Kampfscroll
 
-function msg (type, what)
+function msg(type, what)
   -- setzt VG und HG je nach Typ der Kommunikation
   local vg = farben.vg[type]
   local hg = farben.hg[type]
-
   if vg and hg then
-    cecho("&lt;"..vg..":"..hg.."&gt;"..what)
+    cecho("&lt;" .. vg .. ":" .. hg .. "&gt;" .. what)
   else
     echo(what)
   end
-end
-</script>
+end</script>
 			<eventHandlerList />
 		</Script>
 		<Script isActive="yes" isFolder="no">
@@ -1439,38 +1499,31 @@ end
 --                                             --
 -- Note that you can also use external Scripts --
 -------------------------------------------------
-
-PLAYER = PLAYER or {
-  name="ABCDEFGHKLM",
-	stufe=-1,
-	gildenlevel=-1,
-	gift=-1,
-	para=0,
-	plakette=0,
-	vorsicht=-1,
-	lp_alt=-1,
-	lp=-1,
-	lp_max=-1,
-	kp=-1,
-	kp_max=-1,
-	str=99,
-	dex=99,
-	con=99,
-	int=99,
-	raum_kurz="No room",
-	raum_region="~",
-	raum_id="XXX"
-}
-
-MainGUI = MainGUI or {
-	x=50,
-	y=-150,
-	width=510,
-	height=150
-}</script>
-			<eventHandlerList>
-				<string>sysLoadEvent</string>
-			</eventHandlerList>
+PLAYER =
+  PLAYER or
+  {
+    name = "ABCDEFGHKLM",
+    stufe = -1,
+    gildenlevel = -1,
+    gift = -1,
+    para = 0,
+    plakette = 0,
+    vorsicht = -1,
+    lp_alt = -1,
+    lp = -1,
+    lp_max = -1,
+    kp = -1,
+    kp_max = -1,
+    str = 99,
+    dex = 99,
+    con = 99,
+    int = 99,
+    raum_kurz = "No room",
+    raum_region = "~",
+    raum_id = "XXX",
+  }
+MainGUI = MainGUI or {x = 50, y = -150, width = 510, height = 150}</script>
+			<eventHandlerList />
 		</Script>
 		<Script isActive="yes" isFolder="no">
 			<name>update_all</name>
@@ -1482,17 +1535,17 @@ MainGUI = MainGUI or {
 -------------------------------------------------
 
 function update_all()
-	MainGUI:info("Lade Base")
-	update_base()
-	MainGUI:info("Lade Vitals")
-	update_vitals()
-	MainGUI:info("Lade Gift")
-	update_poison()
-	MainGUI:info("Lade Vorsicht")
-	update_wimpy()
-	MainGUI:info("Lade Raum")
-	update_room()
-	MainGUI:info("Alles wurde ordnungsgemaess geladen")
+  MainGUI:info("Lade Base")
+  update_base()
+  MainGUI:info("Lade Vitals")
+  update_vitals()
+  MainGUI:info("Lade Gift")
+  update_poison()
+  MainGUI:info("Lade Vorsicht")
+  update_wimpy()
+  MainGUI:info("Lade Raum")
+  update_room()
+  MainGUI:info("Alles wurde ordnungsgemaess geladen")
 end</script>
 			<eventHandlerList>
 				<string>sysLoadEvent</string>
@@ -1512,199 +1565,197 @@ end</script>
 				<name>initMainGUI</name>
 				<packageName></packageName>
 				<script>function initMainGUI()
-	if not MainGUI.angezeigt then
+  if not MainGUI.angezeigt then
     -- Textfenster begrenzen
     --setBorderTop(0)
-    setBorderBottom(MainGUI.height+5) -- bisschen Platz fuer Statuszeile
+    setBorderBottom(MainGUI.height + 5)
+    -- bisschen Platz fuer Statuszeile
     --setBorderLeft(0)
     --setBorderRight(0)
-
     -- Statuszeile malen. Layout wie folgt:
-    -- Zeile 1: 	spieler (Name, Stufe), gift, trenner_1, vorsicht (Vorsicht, Fluchtrichtung)
-    -- Zeile 2: 	ort_raum (Region, Raumnummer, Para), ort_region (Ort kurz)
-    -- Zeile 3: 	lp_titel, lp_anzeige (Lebenspunkte-Anzeige), kp_titel, kp_anzeige (KP-Anzeige), trenner_2
-    -- Zeile 4: 	Heiligenschein, Schutzhand, Elementarsphaere,
-    --				Elementarschild, Goettermacht, Weihe,
-    --				Abbild und Messerkreis
-
-    MainGUI.statuszeile = Geyser.Container:new({name = "statuszeile",
-																						x=MainGUI.x,
-																						y=MainGUI.y,
-																						width = MainGUI.width,
-																						height=MainGUI.height})
-
-		-- label for the border
-		MainGUI.bgb = Geyser.Label:new({name="bgb",
-																x=0,
-																y=0,
-																width="100%",
-																height="100%"},
-																MainGUI.statuszeile)
-		MainGUI.bgb:setStyleSheet([[border-width: 5px;
-  						border-style: solid;
-  						border-color: rgb(100,50,0);
-  						border-radius: 5px;
-						]])
-
-		-- label for the image background
-		MainGUI.bgi = Geyser.Label:new({name="bgi",
-																x=5,
-																y=5,
-																width=MainGUI.width-10,
-																height=MainGUI.height-10},
-																MainGUI.statuszeile)
-		MainGUI.bgi:setTiledBackgroundImage(getMundronCoreDir().."Bilder/bg.gif")
-
-
-		-- Zeile 1
-    MainGUI.spieler = Geyser.Label:new({
-      name = "spieler",
-      x = 10, y = 10,
-      width = 150, height = 15}, MainGUI.statuszeile)
-  	MainGUI.spieler:setStyleSheet([[background-color: rgba(0,0,0,0%)]])
-		MainGUI.spieler:setFontSize(9)
-		MainGUI.spieler:echo(PLAYER.name .. " [" .. PLAYER.stufe .. "&amp;nbsp;-&amp;nbsp;"..PLAYER.gildenlevel.."]", "black")
-
-    MainGUI.gift = Geyser.Label:new({
-      name = "gift",
-      x = 160, y = 10,
-      width = 50, height = 15}, MainGUI.statuszeile)
-		MainGUI.gift:setStyleSheet([[background-color: rgba(0,0,0,0%)]])
-		MainGUI.gift:setFontSize(9)
-
-    MainGUI.vorsicht = Geyser.Label:new({
-      name = "vorsicht",
-      x = 210, y = 10,
-      width = 300, height = 15}, MainGUI.statuszeile)
-		MainGUI.vorsicht:setStyleSheet([[background-color: rgba(0,0,0,0%)]])
-		MainGUI.vorsicht:setFontSize(9)
-		MainGUI.vorsicht:echo("Vorsicht: undefined yet", "black")
-
+    -- Zeile 1:  spieler (Name, Stufe), gift, trenner_1, vorsicht (Vorsicht, Fluchtrichtung)
+    -- Zeile 2:  ort_raum (Region, Raumnummer, Para), ort_region (Ort kurz)
+    -- Zeile 3:  lp_titel, lp_anzeige (Lebenspunkte-Anzeige), kp_titel, kp_anzeige (KP-Anzeige), trenner_2
+    -- Zeile 4:  Heiligenschein, Schutzhand, Elementarsphaere,
+    --           Elementarschild, Goettermacht, Weihe,
+    --           Abbild und Messerkreis
+    MainGUI.statuszeile =
+      Geyser.Container:new(
+        {
+          name = "statuszeile",
+          x = MainGUI.x,
+          y = MainGUI.y,
+          width = MainGUI.width,
+          height = MainGUI.height,
+        }
+      )
+    -- label for the border
+    MainGUI.bgb =
+      Geyser.Label:new(
+        {name = "bgb", x = 0, y = 0, width = "100%", height = "100%"}, MainGUI.statuszeile
+      )
+    MainGUI.bgb:setStyleSheet(
+      [[border-width: 5px;
+        border-style: solid;
+        border-color: rgb(100,50,0);
+        border-radius: 5px;
+      ]]
+    )
+    -- label for the image background
+    MainGUI.bgi =
+      Geyser.Label:new(
+        {name = "bgi", x = 5, y = 5, width = MainGUI.width - 10, height = MainGUI.height - 10},
+        MainGUI.statuszeile
+      )
+    MainGUI.bgi:setTiledBackgroundImage(getMundronCoreDir() .. "Bilder/bg.gif")
+    -- Zeile 1
+    MainGUI.spieler =
+      Geyser.Label:new(
+        {name = "spieler", x = 10, y = 10, width = 150, height = 15}, MainGUI.statuszeile
+      )
+    MainGUI.spieler:setStyleSheet([[background-color: rgba(0,0,0,0%)]])
+    MainGUI.spieler:setFontSize(9)
+    MainGUI.spieler:echo(
+      PLAYER.name .. " [" .. PLAYER.stufe .. "&amp;nbsp;-&amp;nbsp;" .. PLAYER.gildenlevel .. "]", "black"
+    )
+    MainGUI.gift =
+      Geyser.Label:new(
+        {name = "gift", x = 160, y = 10, width = 50, height = 15}, MainGUI.statuszeile
+      )
+    MainGUI.gift:setStyleSheet([[background-color: rgba(0,0,0,0%)]])
+    MainGUI.gift:setFontSize(9)
+    MainGUI.vorsicht =
+      Geyser.Label:new(
+        {name = "vorsicht", x = 210, y = 10, width = 300, height = 15}, MainGUI.statuszeile
+      )
+    MainGUI.vorsicht:setStyleSheet([[background-color: rgba(0,0,0,0%)]])
+    MainGUI.vorsicht:setFontSize(9)
+    MainGUI.vorsicht:echo("Vorsicht: undefined yet", "black")
     -- EK-Anzahl
-  	MainGUI.ekanzahl = Geyser.Label:new({
-      name = "ekanzahl",
-      x = 10, y = 25,
-      width = 150, height = 15}, MainGUI.statuszeile)
-		MainGUI.ekanzahl:setStyleSheet([[background-color: rgba(0,0,0,0%)]])
-		MainGUI.ekanzahl:setFontSize(9)
-		if PLAYER.plakette&gt;0 then
-			MainGUI.ekanzahl:echo("EK-Anzahl: "..EK.number, "black")
-			tempTimer(5, function() send("lies plakette") end)
-		end
-
-		-- Ausdauer-Anzeige
-		MainGUI.ausdauer = Geyser.Label:new({
-      name = "ausdauer",
-      x =250, y = 25,
-      width = 60, height = 15}, MainGUI.statuszeile)
-		MainGUI.ausdauer:setStyleSheet([[background-color: rgba(0,0,0,0%);qproperty-alignment: 'AlignCenter']])
-		MainGUI.ausdauer:setFontSize(9)
-		MainGUI.ausdauer:echo("A: "..PLAYER.con.."+99", "black")
-
-		-- Intelligenz-Anzeige
-		MainGUI.intelligenz = Geyser.Label:new({
-      name = "intelligenz",
-      x = 310, y = 25,
-      width = 60, height = 15}, MainGUI.statuszeile)
-		MainGUI.intelligenz:setStyleSheet([[background-color: rgba(0,0,0,0%);qproperty-alignment: 'AlignCenter']])
-		MainGUI.intelligenz:setFontSize(9)
-		MainGUI.intelligenz:echo("I: "..PLAYER.int.."+99", "black")
-
-		-- Kraft-Anzeige
-		MainGUI.kraft = Geyser.Label:new({
-      name = "kraft",
-      x = 370, y = 25,
-      width = 60, height = 15}, MainGUI.statuszeile)
-		MainGUI.kraft:setStyleSheet([[background-color: rgba(0,0,0,0%);qproperty-alignment: 'AlignCenter']])
-		MainGUI.kraft:setFontSize(9)
-		MainGUI.kraft:echo("K: "..PLAYER.str.."+99", "black")
-
-		-- Geschick-Anzeige
-		MainGUI.geschick = Geyser.Label:new({
-      name = "geschick",
-      x = 430, y = 25,
-      width = 60, height = 15}, MainGUI.statuszeile)
-		MainGUI.geschick:setStyleSheet([[background-color: rgba(0,0,0,0%);qproperty-alignment: 'AlignCenter']])
-		MainGUI.geschick:setFontSize(9)
-		MainGUI.geschick:echo("G: "..PLAYER.dex.."+99", "black")
-
-
+    MainGUI.ekanzahl =
+      Geyser.Label:new(
+        {name = "ekanzahl", x = 10, y = 25, width = 150, height = 15}, MainGUI.statuszeile
+      )
+    MainGUI.ekanzahl:setStyleSheet([[background-color: rgba(0,0,0,0%)]])
+    MainGUI.ekanzahl:setFontSize(9)
+    if PLAYER and PLAYER.plakette &gt; 0 and EK then
+      MainGUI.ekanzahl:echo("EK-Anzahl: " .. EK:count(), "black")
+      if EK and EK.config.plaketten_lesen then
+        tempTimer(
+          5,
+          function()
+            send("lies plakette")
+          end
+        )
+      end
+    end
+    -- Ausdauer-Anzeige
+    MainGUI.ausdauer =
+      Geyser.Label:new(
+        {name = "ausdauer", x = 250, y = 25, width = 60, height = 15}, MainGUI.statuszeile
+      )
+    MainGUI.ausdauer:setStyleSheet(
+      [[background-color: rgba(0,0,0,0%);qproperty-alignment: 'AlignCenter']]
+    )
+    MainGUI.ausdauer:setFontSize(9)
+    MainGUI.ausdauer:echo("A: " .. PLAYER.con .. "+99", "black")
+    -- Intelligenz-Anzeige
+    MainGUI.intelligenz =
+      Geyser.Label:new(
+        {name = "intelligenz", x = 310, y = 25, width = 60, height = 15}, MainGUI.statuszeile
+      )
+    MainGUI.intelligenz:setStyleSheet(
+      [[background-color: rgba(0,0,0,0%);qproperty-alignment: 'AlignCenter']]
+    )
+    MainGUI.intelligenz:setFontSize(9)
+    MainGUI.intelligenz:echo("I: " .. PLAYER.int .. "+99", "black")
+    -- Kraft-Anzeige
+    MainGUI.kraft =
+      Geyser.Label:new(
+        {name = "kraft", x = 370, y = 25, width = 60, height = 15}, MainGUI.statuszeile
+      )
+    MainGUI.kraft:setStyleSheet(
+      [[background-color: rgba(0,0,0,0%);qproperty-alignment: 'AlignCenter']]
+    )
+    MainGUI.kraft:setFontSize(9)
+    MainGUI.kraft:echo("K: " .. PLAYER.str .. "+99", "black")
+    -- Geschick-Anzeige
+    MainGUI.geschick =
+      Geyser.Label:new(
+        {name = "geschick", x = 430, y = 25, width = 60, height = 15}, MainGUI.statuszeile
+      )
+    MainGUI.geschick:setStyleSheet(
+      [[background-color: rgba(0,0,0,0%);qproperty-alignment: 'AlignCenter']]
+    )
+    MainGUI.geschick:setFontSize(9)
+    MainGUI.geschick:echo("G: " .. PLAYER.dex .. "+99", "black")
     -- LP / KP - Anzeige
-    MainGUI.lp_titel = Geyser.Label:new({
-      name = "lp_titel",
-      x = 20, y = 50,
-      width = 470, height = 20}, MainGUI.statuszeile)
-    MainGUI.lp_titel:echo("&lt;b&gt;&lt;center&gt; " .. PLAYER.lp .. "/" .. PLAYER.lp_max .. "&lt;/center&gt;&lt;/b&gt; ", "black")
-		MainGUI.lp_titel:setStyleSheet([[background-color: rgba(0,0,0,0%)]])
-
-		MainGUI.lp_anzeige_border = Geyser.Gauge:new({
-      name = "lp_anzeige_border",
-      x = 18, y = 43,
-      width = 474, height = 9}, MainGUI.statuszeile)
-		MainGUI.lp_anzeige_border:setColor(50,50,50)
-
-    MainGUI.lp_anzeige = Geyser.Gauge:new({
-      name = "lp_anzeige",
-      x = 19, y = 44,
-      width = 472, height = 7}, MainGUI.statuszeile)
+    MainGUI.lp_titel =
+      Geyser.Label:new(
+        {name = "lp_titel", x = 20, y = 50, width = 470, height = 20}, MainGUI.statuszeile
+      )
+    MainGUI.lp_titel:echo(
+      "&lt;b&gt;&lt;center&gt; " .. PLAYER.lp .. "/" .. PLAYER.lp_max .. "&lt;/center&gt;&lt;/b&gt; ", "black"
+    )
+    MainGUI.lp_titel:setStyleSheet([[background-color: rgba(0,0,0,0%)]])
+    MainGUI.lp_anzeige_border =
+      Geyser.Gauge:new(
+        {name = "lp_anzeige_border", x = 18, y = 43, width = 474, height = 9}, MainGUI.statuszeile
+      )
+    MainGUI.lp_anzeige_border:setColor(50, 50, 50)
+    MainGUI.lp_anzeige =
+      Geyser.Gauge:new(
+        {name = "lp_anzeige", x = 19, y = 44, width = 472, height = 7}, MainGUI.statuszeile
+      )
     MainGUI.lp_anzeige:setColor(0, 180, 50)
-
-    MainGUI.kp_titel = Geyser.Label:new({
-      name = "kp_titel",
-      x =20, y = 80,
-      width = 470, height = 20}, MainGUI.statuszeile)
-    MainGUI.kp_titel:echo("&lt;b&gt;&lt;center&gt; " .. PLAYER.kp .. "/" .. PLAYER.kp_max .. "&lt;/center&gt;&lt;/b&gt; ", "black")
-		MainGUI.kp_titel:setStyleSheet([[background-color: rgba(0,0,0,0%)]])
-
-		MainGUI.kp_anzeige_border = Geyser.Gauge:new({
-      name = "kp_anzeige_border",
-      x = 18, y = 73,
-      width = 474, height = 9}, MainGUI.statuszeile)
-    MainGUI.kp_anzeige_border:setColor(50,50,50)
-
-    MainGUI.kp_anzeige = Geyser.Gauge:new({
-      name = "kp_anzeige",
-      x =19, y = 74,
-      width = 472, height = 7}, MainGUI.statuszeile)
+    MainGUI.kp_titel =
+      Geyser.Label:new(
+        {name = "kp_titel", x = 20, y = 80, width = 470, height = 20}, MainGUI.statuszeile
+      )
+    MainGUI.kp_titel:echo(
+      "&lt;b&gt;&lt;center&gt; " .. PLAYER.kp .. "/" .. PLAYER.kp_max .. "&lt;/center&gt;&lt;/b&gt; ", "black"
+    )
+    MainGUI.kp_titel:setStyleSheet([[background-color: rgba(0,0,0,0%)]])
+    MainGUI.kp_anzeige_border =
+      Geyser.Gauge:new(
+        {name = "kp_anzeige_border", x = 18, y = 73, width = 474, height = 9}, MainGUI.statuszeile
+      )
+    MainGUI.kp_anzeige_border:setColor(50, 50, 50)
+    MainGUI.kp_anzeige =
+      Geyser.Gauge:new(
+        {name = "kp_anzeige", x = 19, y = 74, width = 472, height = 7}, MainGUI.statuszeile
+      )
     MainGUI.kp_anzeige:setColor(0, 50, 250)
-
-
-  	-- Raum-Angaben
-    MainGUI.ort_raum = Geyser.Label:new({
-      name = "ort_raum",
-      x = 20, y = 100,
-      width = 250, height = 20}, MainGUI.statuszeile)
-		MainGUI.ort_raum:setStyleSheet([[background-color: rgba(0,0,0,0%)]])
-		MainGUI.ort_raum:setFontSize(9)
-  	MainGUI.ort_raum:echo("&amp;nbsp;"..PLAYER.raum_kurz, "black")
-
-    MainGUI.ort_region = Geyser.Label:new({
-      name = "ort_region",
-      x = 270, y = 100,
-      width = 220, height = 20}, MainGUI.statuszeile)
-  	MainGUI.ort_region:setFontSize(9)
-		MainGUI.ort_region:echo(PLAYER.raum_region .. " [" .. PLAYER.raum_id .. "]", "black")
-		MainGUI.ort_region:setStyleSheet([[background-color: rgba(0,0,0,0%)]])
-
+    -- Raum-Angaben
+    MainGUI.ort_raum =
+      Geyser.Label:new(
+        {name = "ort_raum", x = 20, y = 100, width = 250, height = 20}, MainGUI.statuszeile
+      )
+    MainGUI.ort_raum:setStyleSheet([[background-color: rgba(0,0,0,0%)]])
+    MainGUI.ort_raum:setFontSize(9)
+    MainGUI.ort_raum:echo("&amp;nbsp;" .. PLAYER.raum_kurz, "black")
+    MainGUI.ort_region =
+      Geyser.Label:new(
+        {name = "ort_region", x = 270, y = 100, width = 220, height = 20}, MainGUI.statuszeile
+      )
+    MainGUI.ort_region:setFontSize(9)
+    MainGUI.ort_region:echo(PLAYER.raum_region .. " [" .. PLAYER.raum_id .. "]", "black")
+    MainGUI.ort_region:setStyleSheet([[background-color: rgba(0,0,0,0%)]])
     -- falls man in Para war:
-    if PLAYER.para&gt;0 then
+    if PLAYER.para &gt; 0 then
       MainGUI.ort_raum:setStyleSheet([[background-color: rgba(255,0,0,100%)]])
       MainGUI.ort_region:setStyleSheet([[background-color: rgba(255,0,0,100%)]])
     end
-
-  	-- Timer
-    MainGUI.hydra = Geyser.Label:new({
-  	 name = "hydra",
-  	 x=20, y=120,
-  	 width = 220, height = 20}, MainGUI.statuszeile)
-		MainGUI.hydra:setStyleSheet([[background-color: rgba(0,0,0,0%)]])
-		MainGUI.hydra:setFontSize(9)
-
-		MainGUI:info("MainGUI ist nun aufgebaut.")
-
-  	raiseEvent("MainGUI_loaded")
-
-  	MainGUI.angezeigt = true
+    -- Timer
+    MainGUI.hydra =
+      Geyser.Label:new(
+        {name = "hydra", x = 20, y = 120, width = 220, height = 20}, MainGUI.statuszeile
+      )
+    MainGUI.hydra:setStyleSheet([[background-color: rgba(0,0,0,0%)]])
+    MainGUI.hydra:setFontSize(9)
+    MainGUI:info("MainGUI ist nun aufgebaut.")
+    raiseEvent("MainGUI_loaded")
+    MainGUI.angezeigt = true
   end
 end</script>
 				<eventHandlerList>
@@ -1721,24 +1772,24 @@ end</script>
 -------------------------------------------------
 
 function MainGUI:warning(text)
-	echo("\n\n\n")
-	decho("&lt;255,255,0:0,0,0&gt;WARNUNG (MainGUI): ")
-	echo(text)
-	echo("\n\n\n")
+  echo("\n\n\n")
+  decho("&lt;255,255,0:0,0,0&gt;WARNUNG (MainGUI): ")
+  echo(text)
+  echo("\n\n\n")
 end
 
 function MainGUI:error(text)
-	echo("\n\n\n")
-	decho("&lt;255,155,0:0,0,0&gt;FEHLER (MainGUI): ")
-	echo(text)
-	echo("\n\n\n")
+  echo("\n\n\n")
+  decho("&lt;255,155,0:0,0,0&gt;FEHLER (MainGUI): ")
+  echo(text)
+  echo("\n\n\n")
 end
 
 function MainGUI:info(text)
-	echo("\n\n\n")
-	decho("&lt;120,170,255:0,0,0&gt;INFO (MainGUI): ")
-	echo(text)
-	echo("\n\n\n")
+  echo("\n\n\n")
+  decho("&lt;120,170,255:0,0,0&gt;INFO (MainGUI): ")
+  echo(text)
+  echo("\n\n\n")
 end</script>
 				<eventHandlerList />
 			</Script>
@@ -1752,68 +1803,64 @@ end</script>
 -------------------------------------------------
 
 function load_setting()
-	MainGUI:load_setting()
-	PLAYER:load_setting()
-	raiseEvent("MainGUI_setting_loaded")
+  MainGUI:load_setting()
+  PLAYER:load_setting()
+  raiseEvent("MainGUI_setting_loaded")
 end
 
 function MainGUI:load_setting()
-	local lines=pload_tlines("MainGUI_setting")
-	if lines then
-  	self.x=tonumber(lines[2])
-  	self.y=tonumber(lines[4])
-  	self.width=tonumber(lines[6])
-  	self.height=tonumber(lines[8])
-	else
-		self:save_setting()
-		self:info("Datei mit Einstellungen fuer die MainGUI wurde erstellt!")
-	end
+  local lines = pload_tlines("MainGUI_setting")
+  if lines then
+    self.x = tonumber(lines[2])
+    self.y = tonumber(lines[4])
+    self.width = tonumber(lines[6])
+    self.height = tonumber(lines[8])
+  else
+    self:save_setting()
+    self:info("Datei mit Einstellungen fuer die MainGUI wurde erstellt!")
+  end
 end
 
 function PLAYER:load_setting()
-	lines=pload_tlines("Charakter_setting")
-	if lines then
-  	self.para=tonumber(lines[2])
-  	self.con=tonumber(lines[4])
-  	self.int=tonumber(lines[6])
-  	self.str=tonumber(lines[8])
-  	self.dex=tonumber(lines[10])
-		self.plakette=tonumber(lines[12])
-	else
-		self:save_setting()
-		MainGUI:info("Datei mit Spieler-Werten wurde erstellt! Bitte die Attribute manuell einstellen.")
-	end
+  lines = pload_tlines("Charakter_setting")
+  if lines then
+    self.para = tonumber(lines[2])
+    self.con = tonumber(lines[4])
+    self.int = tonumber(lines[6])
+    self.str = tonumber(lines[8])
+    self.dex = tonumber(lines[10])
+  else
+    self:save_setting()
+    MainGUI:info("Datei mit Spieler-Werten wurde erstellt! Bitte die Attribute manuell einstellen.")
+  end
 end
 
-
 function MainGUI:save_setting()
-	local lines={}
-	lines[1]="Der x-Wert fuer die MainGUI:"
-	lines[2]=self.x
-	lines[3]="Der y-Wert fuer die MainGUI:"
-	lines[4]=self.y
-	lines[5]="Die Breite fuer die MainGUI:"
-	lines[6]=self.width
-	lines[7]="Die Hoehe fuer die MainGUI:"
-	lines[8]=self.height
-	psave_tlines("MainGUI_setting", lines)
+  local lines = {}
+  lines[1] = "Der x-Wert fuer die MainGUI:"
+  lines[2] = self.x
+  lines[3] = "Der y-Wert fuer die MainGUI:"
+  lines[4] = self.y
+  lines[5] = "Die Breite fuer die MainGUI:"
+  lines[6] = self.width
+  lines[7] = "Die Hoehe fuer die MainGUI:"
+  lines[8] = self.height
+  psave_tlines("MainGUI_setting", lines)
 end
 
 function PLAYER:save_setting()
-	local lines={}
-	lines[1]="Die Para-Welt:"
-	lines[2]=self.para
-	lines[3]="Die Ausdauer:"
-	lines[4]=self.con
-	lines[5]="Die Intelligenz:"
-	lines[6]=self.int
-	lines[7]="Die Staerke:"
-	lines[8]=self.str
-	lines[9]="Die Geschick:"
-	lines[10]=self.dex
-	lines[11]="Lies Plakette, wenn der Wert groesser als 0 ist:"
-	lines[12]=self.plakette
-	psave_tlines("Charakter_setting", lines)
+  local lines = {}
+  lines[1] = "Die Para-Welt:"
+  lines[2] = self.para
+  lines[3] = "Die Ausdauer:"
+  lines[4] = self.con
+  lines[5] = "Die Intelligenz:"
+  lines[6] = self.int
+  lines[7] = "Die Staerke:"
+  lines[8] = self.str
+  lines[9] = "Die Geschick:"
+  lines[10] = self.dex
+  psave_tlines("Charakter_setting", lines)
 end</script>
 				<eventHandlerList>
 					<string>sysLoadEvent</string>
@@ -1834,23 +1881,30 @@ end</script>
 					<packageName></packageName>
 					<script>--- Basisdaten erzeugen. Sowohl Name/Level von der MainGUI als auch Wege
 
-
 function update_base()
   if gmcp.MG.char.base then
     PLAYER.name = gmcp.MG.char.base.name
     PLAYER.stufe = gmcp.MG.char.info.level
-  	PLAYER.gildenlevel = gmcp.MG.char.info.guild_level
-    
+    PLAYER.gildenlevel = gmcp.MG.char.info.guild_level
     raiseEvent("PLAYER_name_now_known")
-    
     if SE and SE.kampfmodus then
-    	MainGUI.spieler:echo(PLAYER.name .. " [" .. PLAYER.stufe .. "&amp;nbsp;-&amp;nbsp;"..PLAYER.gildenlevel.."] ("..SE.kampfmodus..")", "black")
-	  else
-      MainGUI.spieler:echo(PLAYER.name .. " [" .. PLAYER.stufe .. "&amp;nbsp;-&amp;nbsp;"..PLAYER.gildenlevel.."]", "black")
+      MainGUI.spieler:echo(
+        PLAYER.name ..
+        " [" ..
+        PLAYER.stufe ..
+        "&amp;nbsp;-&amp;nbsp;" ..
+        PLAYER.gildenlevel ..
+        "] (" ..
+        SE.kampfmodus ..
+        ")",
+        "black"
+      )
+    else
+      MainGUI.spieler:echo(
+        PLAYER.name .. " [" .. PLAYER.stufe .. "&amp;nbsp;-&amp;nbsp;" .. PLAYER.gildenlevel .. "]", "black"
+      )
     end
-    
     if MainGUI.angezeigt and gmcp.MG.char.base.guild and not GuildGUI then
-      iprint("Folgende Gilde wurde gefunden: "..gmcp.MG.char.base.guild, "GUI")
       if gmcp.MG.char.base.guild == "klerus" then
         init_klerus_addon()
       elseif gmcp.MG.char.base.guild == "werwoelfe" then
@@ -1860,8 +1914,7 @@ function update_base()
       end
     end
   end
-end
-</script>
+end</script>
 					<eventHandlerList>
 						<string>gmcp.MG.char.base</string>
 						<string>gmcp.MG.char.info</string>
@@ -1870,38 +1923,34 @@ end
 				<Script isActive="yes" isFolder="no">
 					<name>update_vitals</name>
 					<packageName></packageName>
-					<script>
-function update_vitals()
+					<script>function update_vitals()
   -- GMCP Vitaldaten merken
-	if gmcp.MG.char.vitals and gmcp.MG.char.maxvitals then
-
+  if gmcp.MG.char.vitals and gmcp.MG.char.maxvitals then
     PLAYER.lp_max = gmcp.MG.char.maxvitals.max_hp
     PLAYER.kp_max = gmcp.MG.char.maxvitals.max_sp
-  	PLAYER.lp = gmcp.MG.char.vitals.hp
+    PLAYER.lp = gmcp.MG.char.vitals.hp
     PLAYER.kp = gmcp.MG.char.vitals.sp
-
     -- falls man stirbt, landet man in Normal:
-    if PLAYER.para&gt;0 and not (PLAYER.name=="ABCDEFGHKLM") and PLAYER.lp&lt;0 then
+    if PLAYER.para &gt; 0 and not (PLAYER.name == "ABCDEFGHKLM") and PLAYER.lp &lt; 0 then
       MainGUI.ort_raum:setStyleSheet([[background-color: rgba(0,0,0,0%)]])
       MainGUI.ort_region:setStyleSheet([[background-color: rgba(0,0,0,0%)]])
       PLAYER.para = 0
     end
-
     -- Werte der Balken aktualisieren
-
-    if PLAYER.lp_max+1 &gt; PLAYER.lp then
-  		MainGUI.lp_anzeige:setValue(PLAYER.lp, PLAYER.lp_max, "")
-    	MainGUI.lp_titel:echo("&lt;b&gt;&lt;center&gt; " .. PLAYER.lp .. "/" .. PLAYER.lp_max .. "&lt;/center&gt;&lt;/b&gt; ", "black")
-  	end
-
-    if PLAYER.kp_max+1 &gt; PLAYER.kp then
-  		MainGUI.kp_anzeige:setValue(PLAYER.kp, PLAYER.kp_max, "")
-  		MainGUI.kp_titel:echo("&lt;b&gt;&lt;center&gt; " .. PLAYER.kp .. "/" .. PLAYER.kp_max .. "&lt;/center&gt;&lt;/b&gt; ", "black")
-  	end
-
+    if PLAYER.lp_max + 1 &gt; PLAYER.lp then
+      MainGUI.lp_anzeige:setValue(PLAYER.lp, PLAYER.lp_max, "")
+      MainGUI.lp_titel:echo(
+        "&lt;b&gt;&lt;center&gt; " .. PLAYER.lp .. "/" .. PLAYER.lp_max .. "&lt;/center&gt;&lt;/b&gt; ", "black"
+      )
+    end
+    if PLAYER.kp_max + 1 &gt; PLAYER.kp then
+      MainGUI.kp_anzeige:setValue(PLAYER.kp, PLAYER.kp_max, "")
+      MainGUI.kp_titel:echo(
+        "&lt;b&gt;&lt;center&gt; " .. PLAYER.kp .. "/" .. PLAYER.kp_max .. "&lt;/center&gt;&lt;/b&gt; ", "black"
+      )
+    end
     -- Treffer? Dann LP Balken blinken lassen
-  	diff = PLAYER.lp - PLAYER.lp_alt
-
+    diff = PLAYER.lp - PLAYER.lp_alt
     if diff &lt; 0 then
       lp_anzeige_blinken(0.2)
     else
@@ -1909,45 +1958,38 @@ function update_vitals()
         lp_anzeige_faerben()
       end
     end
-
     PLAYER.lp_alt = PLAYER.lp
-	end
+  end
 end
 
 function lp_anzeige_faerben()
-
   -- Je nach LP Verlust wird Farbe gruen/gelb/rot
   local lp_quote = PLAYER.lp / PLAYER.lp_max
-	MainGUI.lp_anzeige:setColor(ivalue(255,200,0,lp_quote),
-                          ivalue(0,200,180,lp_quote),
-													50)
+  MainGUI.lp_anzeige:setColor(ivalue(255, 200, 0, lp_quote), ivalue(0, 200, 180, lp_quote), 50)
 end
 
-function ivalue(a,b,c,t)
-	-- for t from 0 to 1/3 the value goes linearly from a to b
-	-- and for t from 1/3 to 1 the value goes linearly from b to c
-	local result
-  if 3*t &lt; 1 then
-		result = a + 3 * (b - a) * t
-	else
-		result = b + (c - b) * (3 * t - 1) / 2
-	end
+function ivalue(a, b, c, t)
+  -- for t from 0 to 1/3 the value goes linearly from a to b
+  -- and for t from 1/3 to 1 the value goes linearly from b to c
+  local result
+  if 3 * t &lt; 1 then
+    result = a + 3 * (b - a) * t
+  else
+    result = b + (c - b) * (3 * t - 1) / 2
+  end
   return result - (result % 1)
 end
 
 function lp_anzeige_blinken(dauer)
-
   MainGUI.lp_anzeige_blinkt = true
-  MainGUI.lp_anzeige:setColor(255, 0, 50) -- rot
+  MainGUI.lp_anzeige:setColor(255, 0, 50)
+  -- rot
   tempTimer(dauer, [[ lp_anzeige_entblinken() ]])
-
 end
 
 function lp_anzeige_entblinken()
-
   MainGUI.lp_anzeige_blinkt = false
   lp_anzeige_faerben()
-
 end</script>
 					<eventHandlerList>
 						<string>gmcp.MG.char.vitals</string>
@@ -1958,28 +2000,23 @@ end</script>
 					<name>update_poison</name>
 					<packageName></packageName>
 					<script>function update_poison()
-
   PLAYER.gift = gmcp.MG.char.vitals.poison
   local zeile = ""
-
   -- vergiftet?
-
   if PLAYER.gift == 0 then
     r = 30
     g = 30
     b = 30
-  else  -- Farbuebergang gelb-&gt;orange-&gt;rot
+  else
+    -- Farbuebergang gelb-&gt;orange-&gt;rot
     r = 255
     g = 255 - PLAYER.gift * 25
     b = 0
     zeile = "&lt;black&gt;G I F T"
   end
-
   -- Statuszeile aktualisieren
-
   MainGUI.gift:echo(zeile)
   MainGUI.gift:setColor(r, g, b)
-
 end</script>
 					<eventHandlerList>
 						<string>gmcp.MG.char.vitals</string>
@@ -1989,50 +2026,25 @@ end</script>
 					<name>update_wimpy</name>
 					<packageName></packageName>
 					<script>function update_wimpy()
-
   PLAYER.vorsicht = gmcp.MG.char.wimpy.wimpy
   PLAYER.fluchtrichtung = gmcp.MG.char.wimpy.wimpy_dir
-
   if gmcp.MG.char.wimpy.wimpy &gt; 0 then
-		echo("\n\n\nVorsichtsaenderung verhindert.\n\n\n", "yellow")
-	end
-
-	local zeile=""
-  -- Prinz Eisenherz?
-
-	if PLAYER.vorsicht&gt;0 then
-		zeile = "Vorsicht: "..PLAYER.vorsicht
-	else
-		if FLUCHT.vorsicht&gt;0 then
-			zeile = "Vorsicht: " .. FLUCHT.vorsicht.."  FR: "..FLUCHT.reaktion[1]
-		else
-			zeile = "Prinz Eisenherz"
-		end
-	end
-
-	-- Statuszeile aktualisieren
-
+    echo("\n\n\nVorsichtsaenderung verhindert.\n\n\n", "yellow")
+  end
+  local zeile = ""
+  -- Fluchtrichtung erst ab Seher moeglich. Anzeige erfolgt
+  -- automatisch nur, wenn sie vorhanden ist.
+  if PLAYER.vorsicht &gt; 0 then
+    zeile = "Vorsicht: " .. PLAYER.vorsicht
+    if type(gmcp.MG.char.wimpy.wimpy_dir) == "string" then
+      zeile = zeile .. " FR: " .. gmcp.MG.char.wimpy.wimpy_dir
+    end
+  else
+    zeile = "Prinz Eisenherz"
+  end
+  -- Statuszeile aktualisieren
   MainGUI.vorsicht:echo(zeile, "black")
-
-end
-
-function blabla()
-	local zeile=""
-  -- Prinz Eisenherz?
-
-	if PLAYER.vorsicht&gt;0 then
-		zeile = "Vorsicht: " .. PLAYER.vorsicht.."  FR: "..PLAYER.fluchtrichtung
-	else
-		zeile = "Prinz Eisenherz"
-	end
-
-	-- Statuszeile aktualisieren
-
-  MainGUI.vorsicht:echo(zeile, "black")
-
-end
-
-</script>
+end</script>
 					<eventHandlerList>
 						<string>gmcp.MG.char.wimpy</string>
 					</eventHandlerList>
@@ -2041,34 +2053,29 @@ end
 					<name>update_room</name>
 					<packageName></packageName>
 					<script>function update_room()
-
   PLAYER.raum_kurz = gmcp.MG.room.info.short
   PLAYER.raum_region = gmcp.MG.room.info.domain
   PLAYER.raum_id = string.sub(gmcp.MG.room.info.id, 1, 5)
-
   -- Para?
-
-  local color="black"
-
+  local color = "black"
   if PLAYER.para &gt; 0 then
     PLAYER.raum_region = "Para-" .. PLAYER.raum_region
-    color="white"
+    color = "white"
   end
-
   -- Statuszeile aktualisieren
-
-  MainGUI.ort_raum:echo("&amp;nbsp;"..PLAYER.raum_kurz, color)
-
-	if PF then
-		local id = gmcp.MG.room.info.id
-		if PF.ids[id] then
-			MainGUI.ort_region:echo(PLAYER.raum_region .. " [" .. PLAYER.raum_id .. "] WS: "..PF.ids[id], color)
-		else
-		  MainGUI.ort_region:echo(PLAYER.raum_region .. " [" .. PLAYER.raum_id .. "]", color)
-		end
-	else
-		MainGUI.ort_region:echo(PLAYER.raum_region .. " [" .. PLAYER.raum_id .. "]", color)
-	end
+  MainGUI.ort_raum:echo("&amp;nbsp;" .. PLAYER.raum_kurz, color)
+  if PF then
+    local id = gmcp.MG.room.info.id
+    if PF.ids[id] then
+      MainGUI.ort_region:echo(
+        PLAYER.raum_region .. " [" .. PLAYER.raum_id .. "] WS: " .. PF.ids[id], color
+      )
+    else
+      MainGUI.ort_region:echo(PLAYER.raum_region .. " [" .. PLAYER.raum_id .. "]", color)
+    end
+  else
+    MainGUI.ort_region:echo(PLAYER.raum_region .. " [" .. PLAYER.raum_id .. "]", color)
+  end
 end</script>
 					<eventHandlerList>
 						<string>gmcp.MG.room</string>
@@ -2084,33 +2091,40 @@ end</script>
 -------------------------------------------------
 
 function MainGUI:update_attr(label, name, value, delta)
-	if delta &gt; 0 then
-		label:echo(name..": "..value.."+"..delta, "black")
-		label:setStyleSheet([[background-color: rgba(0,255,0,50%);qproperty-alignment: 'AlignCenter']])
-	elseif delta == 0 then
-		label:echo(name..": "..value, "black")
-		label:setStyleSheet([[background-color: rgba(0,0,0,0%);qproperty-alignment: 'AlignCenter']])
-	else
-		if delta == -1 then
-			label:setStyleSheet([[background-color: rgba(250,250,0,70%);qproperty-alignment: 'AlignCenter']])
-			label:echo(name..": "..value..delta, "black")
-		elseif delta == -2 then
-			label:setStyleSheet([[background-color: rgba(250,170,0,80%);qproperty-alignment: 'AlignCenter']])
-			label:echo(name..": "..value..delta, "black")
-		else
-			label:setStyleSheet([[background-color: rgba(255,50,0,100%);qproperty-alignment: 'AlignCenter']])
-			label:echo(name..": "..value..delta, "white")
-		end
-	end
+  if delta &gt; 0 then
+    label:echo(name .. ": " .. value .. "+" .. delta, "black")
+    label:setStyleSheet([[background-color: rgba(0,255,0,50%);qproperty-alignment: 'AlignCenter']])
+  elseif delta == 0 then
+    label:echo(name .. ": " .. value, "black")
+    label:setStyleSheet([[background-color: rgba(0,0,0,0%);qproperty-alignment: 'AlignCenter']])
+  else
+    if delta == -1 then
+      label:setStyleSheet(
+        [[background-color: rgba(250,250,0,70%);qproperty-alignment: 'AlignCenter']]
+      )
+      label:echo(name .. ": " .. value .. delta, "black")
+    elseif delta == -2 then
+      label:setStyleSheet(
+        [[background-color: rgba(250,170,0,80%);qproperty-alignment: 'AlignCenter']]
+      )
+      label:echo(name .. ": " .. value .. delta, "black")
+    else
+      label:setStyleSheet(
+        [[background-color: rgba(255,50,0,100%);qproperty-alignment: 'AlignCenter']]
+      )
+      label:echo(name .. ": " .. value .. delta, "white")
+    end
+  end
 end
 
 function update_attributes()
-	MainGUI:update_attr(MainGUI.ausdauer, "A", PLAYER.con, gmcp.MG.char.attributes.con-PLAYER.con)
-  MainGUI:update_attr(MainGUI.intelligenz, "I", PLAYER.int, gmcp.MG.char.attributes.int-PLAYER.int)
-  MainGUI:update_attr(MainGUI.kraft, "K", PLAYER.str, gmcp.MG.char.attributes.str-PLAYER.str)
-  MainGUI:update_attr(MainGUI.geschick, "G", PLAYER.dex, gmcp.MG.char.attributes.dex-PLAYER.dex)
-end
-</script>
+  MainGUI:update_attr(MainGUI.ausdauer, "A", PLAYER.con, gmcp.MG.char.attributes.con - PLAYER.con)
+  MainGUI:update_attr(
+    MainGUI.intelligenz, "I", PLAYER.int, gmcp.MG.char.attributes.int - PLAYER.int
+  )
+  MainGUI:update_attr(MainGUI.kraft, "K", PLAYER.str, gmcp.MG.char.attributes.str - PLAYER.str)
+  MainGUI:update_attr(MainGUI.geschick, "G", PLAYER.dex, gmcp.MG.char.attributes.dex - PLAYER.dex)
+end</script>
 					<eventHandlerList>
 						<string>gmcp.MG.char.attributes</string>
 					</eventHandlerList>
@@ -2135,39 +2149,43 @@ end
 --                                             --
 -- Note that you can also use external Scripts --
 -------------------------------------------------
-
-AK = AK or {directory=getMundronCoreDir().."Bilder/",
-			posdir ={
-							 norden=true,
-							 nordoben=true,
-							 nordunten=true,
-							 nordosten=true,
-							 nordostunten=true,
-							 nordostoben=true,
-							 osten=true,
-							 ostunten=true,
-							 ostoben=true,
-							 suedosten=true,
-							 suedostunten=true,
-							 suedostoben=true,
-							 sueden=true,
-							 suedunten=true,
-							 suedoben=true,
-							 suedwesten=true,
-							 suedwestunten=true,
-							 suedwestoben=true,
-							 westen=true,
-							 westoben=true,
-							 westunten=true,
-							 nordwesten=true,
-							 nordwestoben=true,
-							 nordwestunten=true,
-							 oben=true,
-							 unten=true,
-							 raus=true
-							},
-			directions={},
-			aufgebaut=false}</script>
+AK =
+  AK or
+  {
+    directory = getMundronCoreDir() .. "Bilder/",
+    posdir =
+      {
+        norden = true,
+        nordoben = true,
+        nordunten = true,
+        nordosten = true,
+        nordostunten = true,
+        nordostoben = true,
+        osten = true,
+        ostunten = true,
+        ostoben = true,
+        suedosten = true,
+        suedostunten = true,
+        suedostoben = true,
+        sueden = true,
+        suedunten = true,
+        suedoben = true,
+        suedwesten = true,
+        suedwestunten = true,
+        suedwestoben = true,
+        westen = true,
+        westoben = true,
+        westunten = true,
+        nordwesten = true,
+        nordwestoben = true,
+        nordwestunten = true,
+        oben = true,
+        unten = true,
+        raus = true,
+      },
+    directions = {},
+    aufgebaut = false,
+  }</script>
 				<eventHandlerList>
 					<string>sysLoadEvent</string>
 				</eventHandlerList>
@@ -2176,237 +2194,197 @@ AK = AK or {directory=getMundronCoreDir().."Bilder/",
 				<name>init_kreuz</name>
 				<packageName></packageName>
 				<script>function init_kreuz()
-	if not AK.aufgebaut then
-		AK.kreuz_container = Geyser.Container:new({name = "kreuz_container",
-  																								x=MainGUI.y,
-  																								y=MainGUI.y,
-  																								width = -MainGUI.y,
-  																								height=-MainGUI.y})
-
-
-  	-- label for the border
-  	AK.akbgb = Geyser.Label:new({name="akbgb",
-																x=0,
-																y=0,
-																width=-MainGUI.y,
-																height=-MainGUI.y},
-																AK.kreuz_container)
-
-  	AK.akbgb:setStyleSheet([[border-width: 5px;
-    						border-style: solid;
-    						border-color: rgb(100,50,0);
-    						border-radius: 5px;
-  						]])
-
-  	-- label for the image background
-  	AK.akbgi = Geyser.Label:new({name="akbgi",
-																x=5,
-																y=5,
-																width=-MainGUI.y-10,
-																height=-MainGUI.y-10},
-																AK.kreuz_container)
-  	AK.akbgi:setTiledBackgroundImage(AK.directory.."bg.gif")
-
-		local width = -MainGUI.y-20
-		local x=10
-		while (width%3 &gt;0) do
-			width = width-2
-			x=x+1
-		end
-		width = width/3
-
-   	AK.nordwestunten = Geyser.Label:new({
-        name = "nordwestunten",
-        x = x,
-				y = x,
-        width = width, height = width}, AK.kreuz_container)
-  	AK.nordwestunten:setStyleSheet([[background-color: rgba(0,0,0,0%)]])
-
-   	AK.nordwesten = Geyser.Label:new({
-        name = "nordwesten",
-        x = x,
-				y = x,
-        width = width, height = width}, AK.kreuz_container)
-  	AK.nordwesten:setStyleSheet([[background-color: rgba(0,0,0,0%)]])
-
-   	AK.nordwestoben = Geyser.Label:new({
-        name = "nordwestoben",
-        x = x,
-				y = x,
-        width = width, height = width}, AK.kreuz_container)
-  	AK.nordwestoben:setStyleSheet([[background-color: rgba(0,0,0,0%)]])
-
-   	AK.nordunten = Geyser.Label:new({
-        name = "nordunten",
-        x = x+width,
-				y = x,
-        width = width, height = width}, AK.kreuz_container)
-  	AK.nordunten:setStyleSheet([[background-color: rgba(0,0,0,0%)]])
-
-   	AK.norden = Geyser.Label:new({
-        name = "norden",
-        x = x+width,
-				y = x,
-        width = width, height = width}, AK.kreuz_container)
-  	AK.norden:setStyleSheet([[background-color: rgba(0,0,0,0%)]])
-
-   	AK.nordoben = Geyser.Label:new({
-        name = "nordoben",
-        x = x+width,
-				y = x,
-        width = width, height = width}, AK.kreuz_container)
-  	AK.nordoben:setStyleSheet([[background-color: rgba(0,0,0,0%)]])
-
-   	AK.nordostunten = Geyser.Label:new({
-        name = "nordostunten",
-        x = x+2*width,
-				y = x,
-        width = width, height = width}, AK.kreuz_container)
-  	AK.nordostunten:setStyleSheet([[background-color: rgba(0,0,0,0%)]])
-
-   	AK.nordosten = Geyser.Label:new({
-        name = "nordosten",
-        x = x+2*width,
-				y = x,
-        width = width, height = width}, AK.kreuz_container)
-  	AK.nordosten:setStyleSheet([[background-color: rgba(0,0,0,0%)]])
-
-   	AK.nordostoben = Geyser.Label:new({
-        name = "nordostoben",
-        x = x+2*width,
-				y = x,
-        width = width, height = width}, AK.kreuz_container)
-  	AK.nordostoben:setStyleSheet([[background-color: rgba(0,0,0,0%)]])
-
-   	AK.westunten = Geyser.Label:new({
-        name = "westunten",
-        x = x,
-				y = x+width,
-        width = width, height = width}, AK.kreuz_container)
-  	AK.westunten:setStyleSheet([[background-color: rgba(0,0,0,0%)]])
-
-   	AK.westen = Geyser.Label:new({
-        name = "westen",
-        x = x,
-				y = x+width,
-        width = width, height = width}, AK.kreuz_container)
-  	AK.westen:setStyleSheet([[background-color: rgba(0,0,0,0%)]])
-
-   	AK.westoben = Geyser.Label:new({
-        name = "westoben",
-        x = x,
-				y = x+width,
-        width = width, height = width}, AK.kreuz_container)
-  	AK.westoben:setStyleSheet([[background-color: rgba(0,0,0,0%)]])
-
-   	AK.unten = Geyser.Label:new({
-        name = "unten",
-        x = x+width,
-				y = x+width,
-        width = width, height = width}, AK.kreuz_container)
-  	AK.unten:setStyleSheet([[background-color: rgba(0,0,0,0%)]])
-
-   	AK.raus = Geyser.Label:new({
-        name = "raus",
-        x = x+width,
-				y = x+width,
-        width = width, height = width}, AK.kreuz_container)
-  	AK.raus:setStyleSheet([[background-color: rgba(0,0,0,0%)]])
-
-   	AK.oben = Geyser.Label:new({
-        name = "oben",
-        x = x+width,
-				y = x+width,
-        width = width, height = width}, AK.kreuz_container)
-  	AK.oben:setStyleSheet([[background-color: rgba(0,0,0,0%)]])
-
-   	AK.ostunten = Geyser.Label:new({
-        name = "ostunten",
-        x = x+2*width,
-				y = x+width,
-        width = width, height = width}, AK.kreuz_container)
-  	AK.ostunten:setStyleSheet([[background-color: rgba(0,0,0,0%)]])
-
-   	AK.osten = Geyser.Label:new({
-        name = "osten",
-        x = x+2*width,
-				y = x+width,
-        width = width, height = width}, AK.kreuz_container)
-  	AK.osten:setStyleSheet([[background-color: rgba(0,0,0,0%)]])
-
-   	AK.ostoben = Geyser.Label:new({
-        name = "ostoben",
-        x = x+2*width,
-				y = x+width,
-        width = width, height = width}, AK.kreuz_container)
-  	AK.ostoben:setStyleSheet([[background-color: rgba(0,0,0,0%)]])
-
-   	AK.suedwestunten = Geyser.Label:new({
-        name = "suedwestunten",
-        x = x,
-				y = x+2*width,
-        width = width, height = width}, AK.kreuz_container)
-  	AK.suedwestunten:setStyleSheet([[background-color: rgba(0,0,0,0%)]])
-
-   	AK.suedwesten = Geyser.Label:new({
-        name = "suedwesten",
-        x = x,
-				y = x+2*width,
-        width = width, height = width}, AK.kreuz_container)
-  	AK.suedwesten:setStyleSheet([[background-color: rgba(0,0,0,0%)]])
-
-   	AK.suedwestoben = Geyser.Label:new({
-        name = "suedwestoben",
-        x = x,
-				y = x+2*width,
-        width = width, height = width}, AK.kreuz_container)
-  	AK.suedwestoben:setStyleSheet([[background-color: rgba(0,0,0,0%)]])
-
-   	AK.suedunten = Geyser.Label:new({
-        name = "suedunten",
-        x = x+width,
-				y = x+2*width,
-        width = width, height = width}, AK.kreuz_container)
-  	AK.suedunten:setStyleSheet([[background-color: rgba(0,0,0,0%)]])
-
-   	AK.sueden = Geyser.Label:new({
-        name = "sueden",
-        x = x+width,
-				y = x+2*width,
-        width = width, height = width}, AK.kreuz_container)
-  	AK.sueden:setStyleSheet([[background-color: rgba(0,0,0,0%)]])
-
-   	AK.suedoben = Geyser.Label:new({
-        name = "suedoben",
-        x = x+width,
-				y = x+2*width,
-        width = width, height = width}, AK.kreuz_container)
-  	AK.suedoben:setStyleSheet([[background-color: rgba(0,0,0,0%)]])
-
-   	AK.suedostunten = Geyser.Label:new({
-        name = "suedostunten",
-        x = x+2*width,
-				y = x+2*width,
-        width = width, height = width}, AK.kreuz_container)
-  	AK.suedostunten:setStyleSheet([[background-color: rgba(0,0,0,0%)]])
-
-   	AK.suedosten = Geyser.Label:new({
-        name = "suedosten",
-        x = x+2*width,
-				y = x+2*width,
-        width = width, height = width}, AK.kreuz_container)
-  	AK.suedosten:setStyleSheet([[background-color: rgba(0,0,0,0%)]])
-
-   	AK.suedostoben = Geyser.Label:new({
-        name = "suedostoben",
-        x = x+2*width,
-				y = x+2*width,
-        width = width, height = width}, AK.kreuz_container)
-  	AK.suedostoben:setStyleSheet([[background-color: rgba(0,0,0,0%)]])
-
-		echo("\n\n\nAusgangskreuz aufgebaut\n\n\n")
-		AK.aufgebaut=true
-	end
+  if not AK.aufgebaut then
+    AK.kreuz_container =
+      Geyser.Container:new(
+        {
+          name = "kreuz_container",
+          x = MainGUI.y,
+          y = MainGUI.y,
+          width = -MainGUI.y,
+          height = -MainGUI.y,
+        }
+      )
+    -- label for the border
+    AK.akbgb =
+      Geyser.Label:new(
+        {name = "akbgb", x = 0, y = 0, width = -MainGUI.y, height = -MainGUI.y}, AK.kreuz_container
+      )
+    AK.akbgb:setStyleSheet(
+      [[border-width: 5px;border-style: solid;border-color: rgb(100,50,0);border-radius: 5px;]]
+    )
+    -- label for the image background
+    AK.akbgi =
+      Geyser.Label:new(
+        {name = "akbgi", x = 5, y = 5, width = -MainGUI.y - 10, height = -MainGUI.y - 10},
+        AK.kreuz_container
+      )
+    AK.akbgi:setTiledBackgroundImage(AK.directory .. "bg.gif")
+    local width = -MainGUI.y - 20
+    local x = 10
+    while (width % 3 &gt; 0) do
+      width = width - 2
+      x = x + 1
+    end
+    width = width / 3
+    AK.nordwestunten =
+      Geyser.Label:new(
+        {name = "nordwestunten", x = x, y = x, width = width, height = width}, AK.kreuz_container
+      )
+    AK.nordwestunten:setStyleSheet([[background-color: rgba(0,0,0,0%)]])
+    AK.nordwesten =
+      Geyser.Label:new(
+        {name = "nordwesten", x = x, y = x, width = width, height = width}, AK.kreuz_container
+      )
+    AK.nordwesten:setStyleSheet([[background-color: rgba(0,0,0,0%)]])
+    AK.nordwestoben =
+      Geyser.Label:new(
+        {name = "nordwestoben", x = x, y = x, width = width, height = width}, AK.kreuz_container
+      )
+    AK.nordwestoben:setStyleSheet([[background-color: rgba(0,0,0,0%)]])
+    AK.nordunten =
+      Geyser.Label:new(
+        {name = "nordunten", x = x + width, y = x, width = width, height = width},
+        AK.kreuz_container
+      )
+    AK.nordunten:setStyleSheet([[background-color: rgba(0,0,0,0%)]])
+    AK.norden =
+      Geyser.Label:new(
+        {name = "norden", x = x + width, y = x, width = width, height = width}, AK.kreuz_container
+      )
+    AK.norden:setStyleSheet([[background-color: rgba(0,0,0,0%)]])
+    AK.nordoben =
+      Geyser.Label:new(
+        {name = "nordoben", x = x + width, y = x, width = width, height = width}, AK.kreuz_container
+      )
+    AK.nordoben:setStyleSheet([[background-color: rgba(0,0,0,0%)]])
+    AK.nordostunten =
+      Geyser.Label:new(
+        {name = "nordostunten", x = x + 2 * width, y = x, width = width, height = width},
+        AK.kreuz_container
+      )
+    AK.nordostunten:setStyleSheet([[background-color: rgba(0,0,0,0%)]])
+    AK.nordosten =
+      Geyser.Label:new(
+        {name = "nordosten", x = x + 2 * width, y = x, width = width, height = width},
+        AK.kreuz_container
+      )
+    AK.nordosten:setStyleSheet([[background-color: rgba(0,0,0,0%)]])
+    AK.nordostoben =
+      Geyser.Label:new(
+        {name = "nordostoben", x = x + 2 * width, y = x, width = width, height = width},
+        AK.kreuz_container
+      )
+    AK.nordostoben:setStyleSheet([[background-color: rgba(0,0,0,0%)]])
+    AK.westunten =
+      Geyser.Label:new(
+        {name = "westunten", x = x, y = x + width, width = width, height = width},
+        AK.kreuz_container
+      )
+    AK.westunten:setStyleSheet([[background-color: rgba(0,0,0,0%)]])
+    AK.westen =
+      Geyser.Label:new(
+        {name = "westen", x = x, y = x + width, width = width, height = width}, AK.kreuz_container
+      )
+    AK.westen:setStyleSheet([[background-color: rgba(0,0,0,0%)]])
+    AK.westoben =
+      Geyser.Label:new(
+        {name = "westoben", x = x, y = x + width, width = width, height = width}, AK.kreuz_container
+      )
+    AK.westoben:setStyleSheet([[background-color: rgba(0,0,0,0%)]])
+    AK.unten =
+      Geyser.Label:new(
+        {name = "unten", x = x + width, y = x + width, width = width, height = width},
+        AK.kreuz_container
+      )
+    AK.unten:setStyleSheet([[background-color: rgba(0,0,0,0%)]])
+    AK.raus =
+      Geyser.Label:new(
+        {name = "raus", x = x + width, y = x + width, width = width, height = width},
+        AK.kreuz_container
+      )
+    AK.raus:setStyleSheet([[background-color: rgba(0,0,0,0%)]])
+    AK.oben =
+      Geyser.Label:new(
+        {name = "oben", x = x + width, y = x + width, width = width, height = width},
+        AK.kreuz_container
+      )
+    AK.oben:setStyleSheet([[background-color: rgba(0,0,0,0%)]])
+    AK.ostunten =
+      Geyser.Label:new(
+        {name = "ostunten", x = x + 2 * width, y = x + width, width = width, height = width},
+        AK.kreuz_container
+      )
+    AK.ostunten:setStyleSheet([[background-color: rgba(0,0,0,0%)]])
+    AK.osten =
+      Geyser.Label:new(
+        {name = "osten", x = x + 2 * width, y = x + width, width = width, height = width},
+        AK.kreuz_container
+      )
+    AK.osten:setStyleSheet([[background-color: rgba(0,0,0,0%)]])
+    AK.ostoben =
+      Geyser.Label:new(
+        {name = "ostoben", x = x + 2 * width, y = x + width, width = width, height = width},
+        AK.kreuz_container
+      )
+    AK.ostoben:setStyleSheet([[background-color: rgba(0,0,0,0%)]])
+    AK.suedwestunten =
+      Geyser.Label:new(
+        {name = "suedwestunten", x = x, y = x + 2 * width, width = width, height = width},
+        AK.kreuz_container
+      )
+    AK.suedwestunten:setStyleSheet([[background-color: rgba(0,0,0,0%)]])
+    AK.suedwesten =
+      Geyser.Label:new(
+        {name = "suedwesten", x = x, y = x + 2 * width, width = width, height = width},
+        AK.kreuz_container
+      )
+    AK.suedwesten:setStyleSheet([[background-color: rgba(0,0,0,0%)]])
+    AK.suedwestoben =
+      Geyser.Label:new(
+        {name = "suedwestoben", x = x, y = x + 2 * width, width = width, height = width},
+        AK.kreuz_container
+      )
+    AK.suedwestoben:setStyleSheet([[background-color: rgba(0,0,0,0%)]])
+    AK.suedunten =
+      Geyser.Label:new(
+        {name = "suedunten", x = x + width, y = x + 2 * width, width = width, height = width},
+        AK.kreuz_container
+      )
+    AK.suedunten:setStyleSheet([[background-color: rgba(0,0,0,0%)]])
+    AK.sueden =
+      Geyser.Label:new(
+        {name = "sueden", x = x + width, y = x + 2 * width, width = width, height = width},
+        AK.kreuz_container
+      )
+    AK.sueden:setStyleSheet([[background-color: rgba(0,0,0,0%)]])
+    AK.suedoben =
+      Geyser.Label:new(
+        {name = "suedoben", x = x + width, y = x + 2 * width, width = width, height = width},
+        AK.kreuz_container
+      )
+    AK.suedoben:setStyleSheet([[background-color: rgba(0,0,0,0%)]])
+    AK.suedostunten =
+      Geyser.Label:new(
+        {name = "suedostunten", x = x + 2 * width, y = x + 2 * width, width = width, height = width},
+        AK.kreuz_container
+      )
+    AK.suedostunten:setStyleSheet([[background-color: rgba(0,0,0,0%)]])
+    AK.suedosten =
+      Geyser.Label:new(
+        {name = "suedosten", x = x + 2 * width, y = x + 2 * width, width = width, height = width},
+        AK.kreuz_container
+      )
+    AK.suedosten:setStyleSheet([[background-color: rgba(0,0,0,0%)]])
+    AK.suedostoben =
+      Geyser.Label:new(
+        {name = "suedostoben", x = x + 2 * width, y = x + 2 * width, width = width, height = width},
+        AK.kreuz_container
+      )
+    AK.suedostoben:setStyleSheet([[background-color: rgba(0,0,0,0%)]])
+    echo("\n\n\nAusgangskreuz aufgebaut\n\n\n")
+    AK.aufgebaut = true
+  end
 end</script>
 				<eventHandlerList>
 					<string>MainGUI_setting_loaded</string>
@@ -2422,46 +2400,45 @@ end</script>
 -------------------------------------------------
 
 function update_kreuz()
-	local newdir={}
-	-- Pruefe, welche Ausgaenge wegkommen und welche hinzukommen
-	for _,dir in ipairs(gmcp.MG.room.info.exits) do
-		-- in AK.directions waren alle vorigen Ausgaenge.
-		-- falls eines der vorigen Ausgaenge wieder ein Ausgang
-		-- ist, dann brauchen wir nichts zu aendern. Deswegen
-		-- werden diese aus der Liste geloescht, so dass am Ende
-		-- AK.directions nur die Ausgaenge enthaelt, die es jetzt
-		-- nicht mehr gibt, also geloescht werden muessen.
-		-- Andererseits haben wir einen neuen Ausgang, den wir
-		-- hinzufuegen muessen, was in der zusaetzlichen Liste
-		-- newdir gespeichert wird.
-		if AK.directions[dir] then
-			AK.directions[dir]=nil
-		else
-			if AK.posdir[dir] then -- nur zulaessige Richtungen speichern
-				newdir[dir]=true
-			end
-		end
-	end
-
-	-- Alle Ausgaenge vom Vorraum, die es hier nicht mehr gibt,
-	-- muessen geloescht werden.
-	for dir,_ in pairs(AK.directions) do
-		AK[dir]:setBackgroundImage(AK.directory.."blank.png")
-	end
-
-	-- Ausgaenge die neu hinzu kommen muessen angezeigt werden.
-	for dir,_ in pairs(newdir) do
-		AK[dir]:setBackgroundImage(AK.directory..dir..".png")
-	end
-
-	-- schliesslich speichern wir nun in AK.directions alle Ausgaenge
-	-- diesen Raumes um es bei Raumaenderung wieder nuetzen zu koennen.
-	AK.directions={}
-	for _,dir in ipairs(gmcp.MG.room.info.exits) do
-		if AK.posdir[dir] then -- nur zulaessige Richtungen speichern
-			AK.directions[dir]=true
-		end
-	end
+  local newdir = {}
+  -- Pruefe, welche Ausgaenge wegkommen und welche hinzukommen
+  for _, dir in ipairs(gmcp.MG.room.info.exits) do
+    -- in AK.directions waren alle vorigen Ausgaenge.
+    -- falls eines der vorigen Ausgaenge wieder ein Ausgang
+    -- ist, dann brauchen wir nichts zu aendern. Deswegen
+    -- werden diese aus der Liste geloescht, so dass am Ende
+    -- AK.directions nur die Ausgaenge enthaelt, die es jetzt
+    -- nicht mehr gibt, also geloescht werden muessen.
+    -- Andererseits haben wir einen neuen Ausgang, den wir
+    -- hinzufuegen muessen, was in der zusaetzlichen Liste
+    -- newdir gespeichert wird.
+    if AK.directions[dir] then
+      AK.directions[dir] = nil
+    else
+      if AK.posdir[dir] then
+        -- nur zulaessige Richtungen speichern
+        newdir[dir] = true
+      end
+    end
+  end
+  -- Alle Ausgaenge vom Vorraum, die es hier nicht mehr gibt,
+  -- muessen geloescht werden.
+  for dir, _ in pairs(AK.directions) do
+    AK[dir]:setBackgroundImage(AK.directory .. "blank.png")
+  end
+  -- Ausgaenge die neu hinzu kommen muessen angezeigt werden.
+  for dir, _ in pairs(newdir) do
+    AK[dir]:setBackgroundImage(AK.directory .. dir .. ".png")
+  end
+  -- schliesslich speichern wir nun in AK.directions alle Ausgaenge
+  -- diesen Raumes um es bei Raumaenderung wieder nuetzen zu koennen.
+  AK.directions = {}
+  for _, dir in ipairs(gmcp.MG.room.info.exits) do
+    if AK.posdir[dir] then
+      -- nur zulaessige Richtungen speichern
+      AK.directions[dir] = true
+    end
+  end
 end</script>
 				<eventHandlerList>
 					<string>gmcp.MG.room.info</string>
@@ -2488,168 +2465,176 @@ end</script>
 -------------------------------------------------
 
 function init_klerus_addon()
-	if MainGUI.x&gt;0 then
-		MainGUI.x=0
-		MainGUI:save_setting()
-		iprint("Bitte das Profil neu starten!", "MainGUI-Addon")
-	else
+  if MainGUI.x &gt; 0 then
+    MainGUI.x = 0
+    MainGUI:save_setting()
+    iprint("Bitte das Profil neu starten!", "MainGUI-Addon")
+  else
     GuildGUI = {}
-    display("init klerus addon")
-  	GuildGUI.guild_container = Geyser.Container:new({name = "guild_container",
-    																								x=MainGUI.width,
-    																								y=MainGUI.y,
-    																								width = 100,
-    																								height=MainGUI.height})
-
+    GuildGUI.guild_container =
+      Geyser.Container:new(
+        {
+          name = "guild_container",
+          x = MainGUI.width,
+          y = MainGUI.y,
+          width = 100,
+          height = MainGUI.height,
+        }
+      )
     -- label for the border
-  	GuildGUI.klbgb = Geyser.Label:new({name="klbgb",
-																		x=0,
-																		y=0,
-																		width=100,
-																		height=MainGUI.height},
-																		GuildGUI.guild_container)
-  	GuildGUI.klbgb:setStyleSheet([[border-width: 5px;
-    						border-style: solid;
-    						border-color: rgb(100,50,0);
-    						border-radius: 5px;
-  						]])
-
-  	-- label for the image background
-  	GuildGUI.klbgi = Geyser.Label:new({name="klbgi",
-																		x=5,
-																		y=5,
-																		width=90,
-																		height=MainGUI.height-10},
-																		GuildGUI.guild_container)
-  	GuildGUI.klbgi:setTiledBackgroundImage(getMundronCoreDir().."Bilder/bg.gif")
-
-   	-- Auren-Label
-  	GuildGUI.heiligenschein = Geyser.Label:new({
-      name = "heiligenschein",
-     x = 15, y = 15,
-      width = 30, height = 20}, GuildGUI.guild_container)
+    GuildGUI.klbgb =
+      Geyser.Label:new(
+        {name = "klbgb", x = 0, y = 0, width = 100, height = MainGUI.height},
+        GuildGUI.guild_container
+      )
+    GuildGUI.klbgb:setStyleSheet(
+      [[border-width: 5px;border-style: solid;border-color: rgb(100,50,0);border-radius: 5px;]]
+    )
+    -- label for the image background
+    GuildGUI.klbgi =
+      Geyser.Label:new(
+        {name = "klbgi", x = 5, y = 5, width = 90, height = MainGUI.height - 10},
+        GuildGUI.guild_container
+      )
+    GuildGUI.klbgi:setTiledBackgroundImage(getMundronCoreDir() .. "Bilder/bg.gif")
+    -- Auren-Label
+    GuildGUI.heiligenschein =
+      Geyser.Label:new(
+        {name = "heiligenschein", x = 15, y = 15, width = 30, height = 20}, GuildGUI.guild_container
+      )
     GuildGUI.heiligenschein:echo("HS", "black")
-		GuildGUI.heiligenschein:setStyleSheet([[background-color: rgba(0,0,0,0%);qproperty-alignment: 'AlignCenter' ]])
-
-    GuildGUI.elementarsphaere = Geyser.Label:new({
-      name = "elementarsphaere",
-      x = 55, y = 15,
-      width = 30, height = 20}, GuildGUI.guild_container)
+    GuildGUI.heiligenschein:setStyleSheet(
+      [[background-color: rgba(0,0,0,0%);qproperty-alignment: 'AlignCenter' ]]
+    )
+    GuildGUI.elementarsphaere =
+      Geyser.Label:new(
+        {name = "elementarsphaere", x = 55, y = 15, width = 30, height = 20},
+        GuildGUI.guild_container
+      )
     GuildGUI.elementarsphaere:echo("EW", "black")
-   	GuildGUI.elementarsphaere:setStyleSheet([[background-color: rgba(0,0,0,0%);qproperty-alignment: 'AlignCenter' ]])
-
-    GuildGUI.schutzhand = Geyser.Label:new({
-      name = "schutzhand",
-     x = 15, y = 45,
-      width = 30, height = 20}, GuildGUI.guild_container)
+    GuildGUI.elementarsphaere:setStyleSheet(
+      [[background-color: rgba(0,0,0,0%);qproperty-alignment: 'AlignCenter' ]]
+    )
+    GuildGUI.schutzhand =
+      Geyser.Label:new(
+        {name = "schutzhand", x = 15, y = 45, width = 30, height = 20}, GuildGUI.guild_container
+      )
     GuildGUI.schutzhand:echo("SH", "black")
-  	GuildGUI.schutzhand:setStyleSheet([[background-color: rgba(0,0,0,0%);qproperty-alignment: 'AlignCenter' ]])
-
-  	GuildGUI.weihe = Geyser.Label:new({
-      name = "weihe",
-      x = 55, y = 45,
-      width = 30, height = 20}, GuildGUI.guild_container)
+    GuildGUI.schutzhand:setStyleSheet(
+      [[background-color: rgba(0,0,0,0%);qproperty-alignment: 'AlignCenter' ]]
+    )
+    GuildGUI.weihe =
+      Geyser.Label:new(
+        {name = "weihe", x = 55, y = 45, width = 30, height = 20}, GuildGUI.guild_container
+      )
     GuildGUI.weihe:echo("WW", "black")
-  	GuildGUI.weihe:setStyleSheet([[background-color: rgba(0,0,0,0%);qproperty-alignment: 'AlignCenter' ]])
-
-    GuildGUI.elementarschild = Geyser.Label:new({
-      name = "elementarschild",
-      x = 15, y = 75,
-      width = 30, height = 20}, GuildGUI.guild_container)
+    GuildGUI.weihe:setStyleSheet(
+      [[background-color: rgba(0,0,0,0%);qproperty-alignment: 'AlignCenter' ]]
+    )
+    GuildGUI.elementarschild =
+      Geyser.Label:new(
+        {name = "elementarschild", x = 15, y = 75, width = 30, height = 20},
+        GuildGUI.guild_container
+      )
     GuildGUI.elementarschild:echo("ES", "black")
-  	GuildGUI.elementarschild:setStyleSheet([[background-color: rgba(0,0,0,0%);qproperty-alignment: 'AlignCenter' ]])
-
-  	GuildGUI.messerkreis = Geyser.Label:new({
-      name = "messerkreis",
-      x = 55, y = 75,
-      width = 30, height = 20}, GuildGUI.guild_container)
+    GuildGUI.elementarschild:setStyleSheet(
+      [[background-color: rgba(0,0,0,0%);qproperty-alignment: 'AlignCenter' ]]
+    )
+    GuildGUI.messerkreis =
+      Geyser.Label:new(
+        {name = "messerkreis", x = 55, y = 75, width = 30, height = 20}, GuildGUI.guild_container
+      )
     GuildGUI.messerkreis:echo("MK", "black")
-  	GuildGUI.messerkreis:setStyleSheet([[background-color: rgba(0,0,0,0%);qproperty-alignment: 'AlignCenter' ]])
-
-  	GuildGUI.spaltung = Geyser.Label:new({
-      name = "spaltung",
-      x = 15, y = 105,
-      width = 30, height = 20}, GuildGUI.guild_container)
+    GuildGUI.messerkreis:setStyleSheet(
+      [[background-color: rgba(0,0,0,0%);qproperty-alignment: 'AlignCenter' ]]
+    )
+    GuildGUI.spaltung =
+      Geyser.Label:new(
+        {name = "spaltung", x = 15, y = 105, width = 30, height = 20}, GuildGUI.guild_container
+      )
     GuildGUI.spaltung:echo("AB", "black")
-  	GuildGUI.spaltung:setStyleSheet([[background-color: rgba(0,0,0,0%);qproperty-alignment: 'AlignCenter' ]])
-
-    GuildGUI.goettermacht = Geyser.Label:new({
-      name = "goettermacht",
-      x = 55, y = 105,
-      width = 30, height = 20}, GuildGUI.guild_container)
+    GuildGUI.spaltung:setStyleSheet(
+      [[background-color: rgba(0,0,0,0%);qproperty-alignment: 'AlignCenter' ]]
+    )
+    GuildGUI.goettermacht =
+      Geyser.Label:new(
+        {name = "goettermacht", x = 55, y = 105, width = 30, height = 20}, GuildGUI.guild_container
+      )
     GuildGUI.goettermacht:echo("GM", "black")
-		GuildGUI.goettermacht:setStyleSheet([[background-color: rgba(0,0,0,0%);qproperty-alignment: 'AlignCenter' ]])
-
-	end
+    GuildGUI.goettermacht:setStyleSheet(
+      [[background-color: rgba(0,0,0,0%);qproperty-alignment: 'AlignCenter' ]]
+    )
+  end
 end</script>
 				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">
 				<name>init_werwoelfe_addon</name>
 				<packageName></packageName>
-				<script>-------------------------------------------------
---         Put your Lua functions here.        --
+				<script>--         Put your Lua functions here.        --
 --                                             --
 -- Note that you can also use external Scripts --
 -------------------------------------------------
 
 function init_werwoelfe_addon()
-	if MainGUI.x&gt;0 then
-		MainGUI.x=0
-		MainGUI:save_setting()
-		MainGUI:info("Bitte das Profil neu starten!")
-	else
+  if MainGUI.x &gt; 0 then
+    MainGUI.x = 0
+    MainGUI:save_setting()
+    MainGUI:info("Bitte das Profil neu starten!")
+  else
     GuildGUI = {}
-  	GuildGUI.guild_container = Geyser.Container:new({name = "guild_container",
-    																								x=MainGUI.width,
-    																								y=MainGUI.y,
-    																								width = 100,
-    																								height=MainGUI.height})
-
+    GuildGUI.guild_container =
+      Geyser.Container:new(
+        {
+          name = "guild_container",
+          x = MainGUI.width,
+          y = MainGUI.y,
+          width = 100,
+          height = MainGUI.height,
+        }
+      )
     -- label for the border
-  	GuildGUI.klbgb = Geyser.Label:new({name="klbgb",
-																		x=0,
-																		y=0,
-																		width=100,
-																		height=MainGUI.height},
-																		GuildGUI.guild_container)
-  	GuildGUI.klbgb:setStyleSheet([[border-width: 5px;
-    						border-style: solid;
-    						border-color: rgb(100,50,0);
-    						border-radius: 5px;
-  						]])
-
-  	-- label for the image background
-  	GuildGUI.klbgi = Geyser.Label:new({name="klbgi",
-																		x=5,
-																		y=5,
-																		width=90,
-																		height=MainGUI.height-10},
-																		GuildGUI.guild_container)
-  	GuildGUI.klbgi:setTiledBackgroundImage(getMundronCoreDir().."Bilder/bg.gif")
-
-   	-- Auren-Label
-  	GuildGUI.form = Geyser.Label:new({
-      name = "form",
-     x = 15, y = 15,
-      width = 70, height = 20}, GuildGUI.guild_container)
+    GuildGUI.klbgb =
+      Geyser.Label:new(
+        {name = "klbgb", x = 0, y = 0, width = 100, height = MainGUI.height},
+        GuildGUI.guild_container
+      )
+    GuildGUI.klbgb:setStyleSheet(
+      [[border-width: 5px;border-style: solid;border-color: rgb(100,50,0);border-radius: 5px;]]
+    )
+    -- label for the image background
+    GuildGUI.klbgi =
+      Geyser.Label:new(
+        {name = "klbgi", x = 5, y = 5, width = 90, height = MainGUI.height - 10},
+        GuildGUI.guild_container
+      )
+    GuildGUI.klbgi:setTiledBackgroundImage(getMundronCoreDir() .. "Bilder/bg.gif")
+    -- Auren-Label
+    GuildGUI.form =
+      Geyser.Label:new(
+        {name = "form", x = 15, y = 15, width = 70, height = 20}, GuildGUI.guild_container
+      )
     GuildGUI.form:echo("Mensch (M)", "black")
-		GuildGUI.form:setStyleSheet([[background-color: rgba(0,0,0,0%);qproperty-alignment: 'AlignCenter' ]])
-
-    GuildGUI.rage = Geyser.Label:new({
-      name = "rage",
-     x = 15, y = 45,
-      width = 70, height = 20}, GuildGUI.guild_container)
+    GuildGUI.form:setStyleSheet(
+      [[background-color: rgba(0,0,0,0%);qproperty-alignment: 'AlignCenter' ]]
+    )
+    GuildGUI.rage =
+      Geyser.Label:new(
+        {name = "rage", x = 15, y = 45, width = 70, height = 20}, GuildGUI.guild_container
+      )
     GuildGUI.rage:echo("ruhig", "black")
-  	GuildGUI.rage:setStyleSheet([[background-color: rgba(0,0,0,0%);qproperty-alignment: 'AlignCenter' ]])
-
-    GuildGUI.begleiter = Geyser.Label:new({
-      name = "begleiter",
-      x = 15, y = 75,
-      width = 70, height = 20}, GuildGUI.guild_container)
+    GuildGUI.rage:setStyleSheet(
+      [[background-color: rgba(0,0,0,0%);qproperty-alignment: 'AlignCenter' ]]
+    )
+    GuildGUI.begleiter =
+      Geyser.Label:new(
+        {name = "begleiter", x = 15, y = 75, width = 70, height = 20}, GuildGUI.guild_container
+      )
     GuildGUI.begleiter:echo("Begleiter", "black")
-  	GuildGUI.begleiter:setStyleSheet([[background-color: rgba(0,0,0,0%);qproperty-alignment: 'AlignCenter' ]])
-	end
+    GuildGUI.begleiter:setStyleSheet(
+      [[background-color: rgba(0,0,0,0%);qproperty-alignment: 'AlignCenter' ]]
+    )
+  end
 end</script>
 				<eventHandlerList />
 			</Script>
@@ -2663,8 +2648,10 @@ end</script>
 -------------------------------------------------
 
 function update_klerus_spaltung()
-  if GuildGUI then
-    GuildGUI.spaltung:setStyleSheet([[background-color: rgba(0,0,0,0%);qproperty-alignment: 'AlignCenter' ]])
+  if GuildGUI and GuildGUI.spaltung then
+    GuildGUI.spaltung:setStyleSheet(
+      [[background-color: rgba(0,0,0,0%);qproperty-alignment: 'AlignCenter' ]]
+    )
   end
 end</script>
 				<eventHandlerList>
@@ -2685,12 +2672,7 @@ end</script>
 --                                             --
 -- Note that you can also use external Scripts --
 -------------------------------------------------
-
-HYDRA = HYDRA or {hydra=false,
-			time = 0,
-			MAX_TIME=2040,
-			NEST_TIME=90}
-</script>
+HYDRA = HYDRA or {hydra = false, time = 0, MAX_TIME = 2040, NEST_TIME = 90}</script>
 				<eventHandlerList>
 					<string>sysLoadEvent</string>
 				</eventHandlerList>
@@ -2698,47 +2680,53 @@ HYDRA = HYDRA or {hydra=false,
 			<Script isActive="yes" isFolder="no">
 				<name>functions</name>
 				<packageName></packageName>
-				<script>
-function HYDRA:init()
-	HYDRA.time=HYDRA.MAX_TIME+1
-	enableTimer("timer_for_hydra")
-	self:decrease_time()
+				<script>function HYDRA:init()
+  HYDRA.time = HYDRA.MAX_TIME + 1
+  enableTimer("timer_for_hydra")
+  self:decrease_time()
 end
 
 function HYDRA:close()
-	disableTimer("timer_for_hydra")
-	MainGUI.hydra:echo("")
+  disableTimer("timer_for_hydra")
+  MainGUI.hydra:echo("")
 end
 
 function HYDRA:decrease_time()
-	if HYDRA.time&gt;0 then
-  	HYDRA.time = HYDRA.time-1
-  	local timestr = HYDRA:give_time()
-  	if HYDRA.time &gt; HYDRA.MAX_TIME-HYDRA.NEST_TIME then
-  		MainGUI.hydra:echo("&lt;font color='black'&gt;Hydra (Nest): &lt;/font&gt;&lt;font color='white'&gt;&lt;b&gt;&lt;span style='background-color: #0000FF'&gt;"..timestr.."&lt;/span&gt;&lt;/b&gt;&lt;/font&gt;")
-		else
-  		MainGUI.hydra:echo("&lt;font color='black'&gt;Hydra (Tal): &lt;/font&gt;&lt;font color='white'&gt;&lt;b&gt;&lt;span style='background-color: #FF0000'&gt;"..timestr.."&lt;/span&gt;&lt;/b&gt;&lt;/font&gt;")
-  	end
-	else
-
-	end
+  if HYDRA.time &gt; 0 then
+    HYDRA.time = HYDRA.time - 1
+    local timestr = HYDRA:give_time()
+    if HYDRA.time &gt; HYDRA.MAX_TIME - HYDRA.NEST_TIME then
+      MainGUI.hydra:echo(
+        "&lt;font color='black'&gt;Hydra (Nest): &lt;/font&gt;&lt;font color='white'&gt;&lt;b&gt;&lt;span style='background-color: #0000FF'&gt;" ..
+        timestr ..
+        "&lt;/span&gt;&lt;/b&gt;&lt;/font&gt;"
+      )
+    else
+      MainGUI.hydra:echo(
+        "&lt;font color='black'&gt;Hydra (Tal): &lt;/font&gt;&lt;font color='white'&gt;&lt;b&gt;&lt;span style='background-color: #FF0000'&gt;" ..
+        timestr ..
+        "&lt;/span&gt;&lt;/b&gt;&lt;/font&gt;"
+      )
+    end
+  else
+  end
 end
 
 function HYDRA:give_time()
-	local min = math.floor(HYDRA.time/60)
-	local sec = HYDRA.time%60
-	local res=""
-	if min&lt;10 then
-		res="0"..min..":"
-	else
-		res=min..":"
-	end
-	if sec&lt;10 then
-		res=res.."0"..sec
-	else
-		res=res..sec
-	end
-	return res
+  local min = math.floor(HYDRA.time / 60)
+  local sec = HYDRA.time % 60
+  local res = ""
+  if min &lt; 10 then
+    res = "0" .. min .. ":"
+  else
+    res = min .. ":"
+  end
+  if sec &lt; 10 then
+    res = res .. "0" .. sec
+  else
+    res = res .. sec
+  end
+  return res
 end</script>
 				<eventHandlerList />
 			</Script>

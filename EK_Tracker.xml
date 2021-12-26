@@ -7,13 +7,13 @@
 			<script>--display(matches[2])
 local found_eks = tonumber(matches[2])
 --display(EK.current, found_eks, EK.saved, delta)
-local delta = found_eks-EK:count()
+local delta = found_eks - EK.known_kills - EK.unknown_kills
 if delta &lt; 0 then
-	GUI.ekanzahl:echo("EK-Anzahl: "..found_eks-delta.."("..delta..")", "black")
+  MainGUI.ekanzahl:echo("EK-Anzahl: " .. found_eks - delta .. "(" .. delta .. ")", "black")
 elseif delta == 0 then
-	GUI.ekanzahl:echo("EK-Anzahl: "..found_eks, "black")
+  MainGUI.ekanzahl:echo("EK-Anzahl: " .. found_eks, "black")
 else
-	GUI.ekanzahl:echo("EK-Anzahl: "..found_eks-delta.."(+"..delta..")", "black")
+  MainGUI.ekanzahl:echo("EK-Anzahl: " .. found_eks - delta .. "(+" .. delta .. ")", "black")
 end</script>
 			<triggerType>0</triggerType>
 			<conditonLineDelta>0</conditonLineDelta>
@@ -83,14 +83,13 @@ deleteLine()</script>
 		</Trigger>
 		<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 			<name>Auslesen Teil 1</name>
-			<script>if matches[2]=="ein" then
-	EK.player_hasnt = 1
+			<script>display(matches)
+if matches[2] == "ein" then
+  EK.config.competitor_hasnt = 1
 else
-	EK.player_hasnt = tonumber(matches[2])
+  EK.config.competitor_hasnt = tonumber(matches[2])
 end
-
-EK:save_plakettenabgleich(matches[4])
-</script>
+EK:save_plakettenabgleich(matches[4])</script>
 			<triggerType>0</triggerType>
 			<conditonLineDelta>0</conditonLineDelta>
 			<mStayOpen>0</mStayOpen>
@@ -110,14 +109,13 @@ EK:save_plakettenabgleich(matches[4])
 		</Trigger>
 		<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 			<name>Auslesen Teil 2</name>
-			<script>if matches[3]=="ein" then
-	EK.competitor_hasnt = 1
+			<script>display(matches)
+if matches[3] == "ein" then
+  EK.config.player_hasnt = 1
 else
-	EK.competitor_hasnt = tonumber(matches[3])
+  EK.config.player_hasnt = tonumber(matches[3])
 end
-
-EK:save_plakettenabgleich(matches[2])
-</script>
+EK:save_plakettenabgleich(matches[2])</script>
 			<triggerType>0</triggerType>
 			<conditonLineDelta>0</conditonLineDelta>
 			<mStayOpen>0</mStayOpen>
@@ -137,7 +135,14 @@ EK:save_plakettenabgleich(matches[2])
 		</Trigger>
 		<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 			<name>Einloggen</name>
-			<script>tempTimer(1, function() send("lies plakette") end)</script>
+			<script>if EK and EK.config.plaketten_lesen then
+  tempTimer(
+    1,
+    function()
+      send("lies plakette")
+    end
+  )
+end</script>
 			<triggerType>0</triggerType>
 			<conditonLineDelta>0</conditonLineDelta>
 			<mStayOpen>0</mStayOpen>
@@ -218,9 +223,15 @@ setTriggerStayOpen(trigger_name, TRIGGER[trigger_name].len)   -- this sets the n
 	</TriggerPackage>
 	<TimerPackage />
 	<AliasPackage>
-		<Alias isActive="yes" isFolder="no">
-			<name>hake EK ab</name>
-			<script>if #matches==2 then
+		<AliasGroup isActive="yes" isFolder="yes">
+			<name>EK-Haken bearbeiten</name>
+			<script></script>
+			<command></command>
+			<packageName></packageName>
+			<regex></regex>
+			<Alias isActive="yes" isFolder="no">
+				<name>hake EK ab</name>
+				<script>if #matches==2 then
 	EK:check(tonumber(matches[2]))
 elseif #matches==5 then
   EK:check(tonumber(matches[2]), matches[4], true)
@@ -231,35 +242,25 @@ else
     EK:check(tonumber(matches[2]), matches[4])
   end
 end</script>
-			<command></command>
-			<packageName></packageName>
-			<regex>^#EKcheck (\d+)(\s([^\s]+))?(\s-f)?$</regex>
-		</Alias>
-		<Alias isActive="yes" isFolder="no">
-			<name>entferne Haken am EK</name>
-			<script>EK:uncheck(tonumber(matches[2]))</script>
-			<command></command>
-			<packageName></packageName>
-			<regex>^#EKuncheck (\d+)$</regex>
-		</Alias>
-		<Alias isActive="yes" isFolder="no">
-			<name>zeige EK an</name>
-			<script>if #matches == 2 then
-  EK:find(tonumber(matches[2]))
-else
-  EK:find(tonumber(matches[2]), tonumber(matches[4]), matches[5])
-end</script>
-			<command></command>
-			<packageName></packageName>
-			<regex>^#EK (\d+)( bis (\d+) (\w+))?$</regex>
-		</Alias>
-		<Alias isActive="yes" isFolder="no">
-			<name>Pass Anzahl unbekannter EKs an</name>
-			<script>EK:unknown(tonumber(matches[2]))</script>
-			<command></command>
-			<packageName></packageName>
-			<regex>^#EKunknown (-?\d+)?$</regex>
-		</Alias>
+				<command></command>
+				<packageName></packageName>
+				<regex>^#EKcheck (\d+)(\s([^\s]+))?(\s-f)?$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>entferne Haken am EK</name>
+				<script>EK:uncheck(tonumber(matches[2]))</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^#EKuncheck (\d+)$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Pass Anzahl unbekannter EKs an</name>
+				<script>EK:unknown(tonumber(matches[2]))</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^#EKunknown (-?\d+)?$</regex>
+			</Alias>
+		</AliasGroup>
 		<AliasGroup isActive="yes" isFolder="yes">
 			<name>EK Infos anzeigen</name>
 			<script></script>
@@ -331,11 +332,22 @@ EK:find(prop)</script>
 				<regex>^#EKzwischen (\d\d\.\d\d\.\d\d) und (\d\d\.\d\d\.\d\d)$</regex>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
-				<name>Plaketteninfo zeigen</name>
-				<script>EK:show_friend(matches[2])</script>
+				<name>fehlende EKs</name>
+				<script>EK:missing()</script>
 				<command></command>
 				<packageName></packageName>
-				<regex>^#plakette (\w+)$</regex>
+				<regex>^#EKmiss$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>zeige EK an</name>
+				<script>if #matches == 2 then
+  EK:find(tonumber(matches[2]))
+else
+  EK:find(tonumber(matches[2]), tonumber(matches[4]), matches[5])
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^#EK (\d+)( bis (\d+) (\w+))?$</regex>
 			</Alias>
 		</AliasGroup>
 		<AliasGroup isActive="yes" isFolder="yes">
@@ -416,18 +428,44 @@ end</script>
 				<packageName></packageName>
 				<regex>^#EK (\d+) change (\w+):(.*)$</regex>
 			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>EK filtern und bearbeiten</name>
+				<script>display(matches)
+
+if matches[3]=="" then
+	EK:multichange(EK:find("name", matches[4]), matches[5], matches[6])
+else
+	EK:multichange(EK:find(matches[3], matches[4]), matches[5], matches[6])
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^#EKfilter ((\w+):)?([^:]*) change (\w+):(.*)$</regex>
+			</Alias>
 		</AliasGroup>
-		<Alias isActive="yes" isFolder="no">
-			<name>fehlende EKs</name>
-			<script>EK:missing(matches[3])</script>
+		<AliasGroup isActive="yes" isFolder="yes">
+			<name>Plakettenvergleich</name>
+			<script></script>
 			<command></command>
 			<packageName></packageName>
-			<regex>^#EKmiss(\s(\w+))?$</regex>
-		</Alias>
+			<regex></regex>
+			<Alias isActive="yes" isFolder="no">
+				<name>Plaketteninfo zeigen</name>
+				<script>EK:show_friend(matches[2])</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^#Plak (\w+)$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Plaketteneintrag löschen</name>
+				<script>EK:del_abgleich(tonumber(matches[2]))</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^#Plakdel (\d+)$</regex>
+			</Alias>
+		</AliasGroup>
 		<Alias isActive="yes" isFolder="no">
 			<name>Hilfe</name>
-			<script>display(matches)
-local verbose=false
+			<script>local verbose=false
 if #matches &gt; 1 then
   verbose =true
 end
@@ -492,11 +530,6 @@ if verbose then
   echo("    alle geholten EKs zwischen den Daten\n")
 end
 
-decho("&lt;255,255,0:0,0,0&gt;#plakette &lt;Konkurentenname&gt;\n")
-if verbose then
-  echo("    die letzten Eintraege des Plakettenvergleichs mit Konkurenten\n")
-end
-
 decho("&lt;255,255,0:0,0,0&gt;#EKadd &lt;Name&gt;|&lt;Ort&gt;|&lt;Region&gt;|&lt;Magier&gt;|&lt;Hinweis&gt;|&lt;Para&gt;\n")
 if verbose then
   echo("    fuege NPC hinzu. Felder zwischen | koennen frei bleiben, aber alle | muessen gesetzt werden.\n")
@@ -533,23 +566,20 @@ end
 decho("&lt;255,255,0:0,0,0&gt;#EKmiss\n")
 if verbose then
   echo("    zeigt die NPC-Eintraege, die noch offene EKs sind.\n")
+end
+
+decho("&lt;255,255,0:0,0,0&gt;#Plak &lt;Konkurentenname&gt;\n")
+if verbose then
+  echo("    die letzten Eintraege des Plakettenvergleichs mit Konkurenten\n")
+end
+
+decho("&lt;255,255,0:0,0,0&gt;#Plakdel &lt;Nummer&gt;\n")
+if verbose then
+  echo("    Loescht den Eintrag mit dieser Nummer\n")
 end</script>
 			<command></command>
 			<packageName></packageName>
 			<regex>^#EK( -v)?$</regex>
-		</Alias>
-		<Alias isActive="yes" isFolder="no">
-			<name>EK filtern und bearbeiten</name>
-			<script>display(matches)
-
-if matches[3]=="" then
-	EK:multichange(EK:find("name", matches[4]), matches[5], matches[6])
-else
-	EK:multichange(EK:find(matches[3], matches[4]), matches[5], matches[6])
-end</script>
-			<command></command>
-			<packageName></packageName>
-			<regex>^#EKfilter ((\w+):)?([^:]*) change (\w+):(.*)$</regex>
 		</Alias>
 	</AliasPackage>
 	<ActionPackage />
@@ -562,96 +592,92 @@ end</script>
 --                                             --
 -- Note that you can also use external scripts --
 -------------------------------------------------
-
-EK = EK or {
-  first=true,
-	player_hasnt = -1,
-	competitor_hasnt = -1,
-	attr = {
-    name="name",
-    ort="place",
-    region="region",
-    magier="creator",
-    hinweis="hint",
-    para="world",
-    ek="killpoint"
-  },
-  attr_name = {
-    name="Name",
-    place="Ort",
-    region="Region",
-    creator="Magier",
-    hint="Hinweis",
-    world="Para",
-    killpoint="EK"
-  }
-}</script>
+EK =
+  EK or
+  {
+    config =
+      {mud_name = "MorgenGrauen", plaketten_lesen = true, player_hasnt = -1, competitor_hasnt = -1},
+    npcs = {},
+    kills = {},
+    competitions = {},
+    known_kills = 0,
+    unknown_kills = 0,
+  }</script>
 			<eventHandlerList>
 				<string>sysLoadEvent</string>
 			</eventHandlerList>
 		</Script>
 		<Script isActive="yes" isFolder="no">
-			<name>load/save</name>
+			<name>load_EK</name>
 			<packageName></packageName>
-			<script>-------------------------------------------------
---         Put your Lua functions here.        --
---                                             --
--- Note that you can also use external scripts --
--------------------------------------------------
-function EK:get_attr(attr)
-	if attr=="name" then
-		return 1
-	elseif attr=="ort" then
-		return 2
-	elseif attr=="region" then
-		return 3
-	elseif attr=="magier" then
-		return 4
-	elseif attr=="hinweis" then
-		return 5
-	elseif attr=="para" then
-		return 6
-	end
+			<script>function load_EK()
+  EK:load()
 end
+
+-------------------------------------------------
 
 function EK:load()
-  if not (PLAYER.name == "ABCDEFGHKLM") then
-	   self:load_friends()
+  self.npcs = mload_jsonl(self.config.mud_name .. "_NPC_Liste")
+  self.kills = {}
+  self.max_id = -1
+  self.max_position = -1
+  for position, doc in pairs(self.npcs) do
+    doc.position = position
+    self.max_id = math.max(self.max_id, doc._id)
+    self.max_position = position
   end
+  display("loop done")
+  local kills = pload_jsonl("EK_Liste")
+  display("loaded " .. len(kills) .. " Kills")
+  self.known_kills = 0
+  self.unknown_kills = 0
+  for _, doc in pairs(kills) do
+    if not doc._id or doc._id &lt; 0 or doc.datum &lt; 0 then
+      self.unknown_kills = self.unknown_kills + 1
+    else
+      self.kills[doc._id] = doc.datum
+      self.known_kills = self.known_kills + 1
+    end
+  end
+  self.competitions = pload_jsonl("Plaketten")
+  iprint("NPC Liste und Kill Liste geladen", "EK-Tracker")
 end
 
-function EK:load_friends()
-	local lines
-	local temp
-	local fname
-	lines = pload_csv("Plaketten_Liste")
-  self.friends = {}
-  if lines then
-		for j, sline in ipairs(lines) do
-      temp = {}
-			fname = sline[1]
-			for i=2,#sline do
-				table.insert(temp, sline[i])
-			end
-			if self.friends[fname] then
-				table.insert(self.friends[fname], temp)
-			else
-				self.friends[fname] = {temp}
-			end
-		end
-	end
+registerAnonymousEventHandler("force_reload_EK_Tracker", "EK:load")
+
+function EK:save()
+  for _, npc in pairs(self.npcs) do
+    npc.position = nil
+  end
+  msave_jsonl(self.config.mud_name .. "_NPC_Liste", self.npcs)
+  for position, npc in pairs(self.npcs) do
+    npc.position = position
+  end
+  self:save_kills()
+  raiseGlobalEvent("force_reload_EK_Tracker")
 end
 
-function EK:save_friends()
-	local temp = {}
-	for k,v in pairs(self.friends) do
-		for j,vv in pairs(v) do
-			table.insert(temp, {k, unpack(vv)})
-		end
-	end
-	psave_csv("Plaketten_Liste", temp)
+function EK:save_plakette()
+  psave_jsonl("Plaketten", self.competitions)
+end
+
+function EK:save_kills()
+  local kills = {}
+  local date
+  for _, npc in pairs(self.npcs) do
+    date = self.kills[npc._id]
+    if date then
+      table.insert(kills, {_id = npc._id, name = npc.name, datum = date})
+    end
+  end
+  for i = 1, self.unknown_kills, 1 do
+    table.insert(kills, {})
+  end
+  psave_jsonl("EK_Liste", kills)
 end</script>
-			<eventHandlerList />
+			<eventHandlerList>
+				<string>sysLoadEvent</string>
+			</eventHandlerList>
 		</Script>
 		<Script isActive="yes" isFolder="no">
 			<name>EK-Listen handling</name>
@@ -660,35 +686,17 @@ end</script>
 --
 ------------------------------------------------------
 
-function EK:missing(name)
-  if not name or #name == 0 then
-    name=PLAYER.name
+function EK:missing()
+  local npcs = {}
+  local npc_cnt = 0
+  for _, npc in pairs(self.npcs) do
+    if not self.kills[npc._id] then
+      table.insert(npcs, npc)
+      npc_cnt = npc_cnt + 1
+    end
   end
-  local npcs = db:fetch_sql(
-    self.db.npc,
-      [[SELECT npc.position, npc.name, npc.place, npc.world, npc._row_id FROM npc
-      LEFT OUTER JOIN
-      (
-        SELECT kills.npc_row_id FROM kills
-        WHERE kills.killer_name=']]..name..[['
-      ) AS player_kills
-      ON npc._row_id=player_kills.npc_row_id
-      WHERE player_kills.npc_row_id IS NULL AND npc.killpoints = 'true']]
-  )
-  self:_print_npc_list(npcs, "place", false)
-  iprint({"Es sind ", {"&lt;255,255,0:0,0,0&gt;", len(npcs)}, " fehlende EKs eingetragen."}, "EK-Tracker")
-end
-
-------------------------------------------------------
---
-------------------------------------------------------
-
-function EK:count(name)
-  return db:aggregate(
-    EK.db.kills.killer_name,
-    "count",
-    db:eq(EK.db.kills.killer_name, name or PLAYER.name)
-  )
+  self:_print_npc_list(npcs, "ort", false)
+  iprint({"Es sind ", {"&lt;255,255,0:0,0,0&gt;", npc_cnt}, " fehlende EKs eingetragen."}, "EK-Tracker")
 end
 
 ------------------------------------------------------
@@ -702,44 +710,32 @@ function EK:find(pattern_dict, end_id, extra)
         eprint("Start ID muss kleiner sein als End ID.", "EK-Tracker")
         return
       end
-      self:_print_npc_list(
-        db:fetch(
-          self.db.npc,
-          db:AND(
-            db:gte(self.db.npc.position, pattern_dict),
-            db:lte(self.db.npc.position, end_id)
-    	    )
-        ), self.attr[extra]
-      )
-    else
-      self:_print_npc(
-        db:fetch(
-          self.db.npc,
-          db:eq(self.db.npc.position, pattern_dict)
-    	  )
-      )
-    end
-  else
-    if not pattern_dict[1] then
-      pattern_dict = {pattern_dict}
-    end
-    for _,prop_group in pairs(pattern_dict) do
-      for prop,_ in pairs(prop_group) do
-        if not self.attr_name[prop] and not self.attr[prop] and prop ~= "position" then
-          eprint({{prop, "y"}, " ist kein gueltiges Attribut eines NPCs."}, "EK-Tracker")
-          return
+      local npcs = {}
+      for _, npc in pairs(self.npcs) do
+        if pattern_dict &lt;= npc.position and npc.position &lt;= end_id then
+          table.insert(npcs, npc)
         end
       end
+      self:_print_npc_list(npcs, extra)
+    else
+      self:_print_npc(self.npcs[pattern_dict])
     end
-    local npcs = db:fetch(
-      self.db.npc,
-      self:_get_attr_query(pattern_dict),
-      {self.db.npc.position}
-  	)
-    self:_print_npc_list(
-      npcs
-    )
-    return #npcs
+  else
+    local npcs = {}
+    for _, npc in pairs(self.npcs) do
+      npc_condition = true
+      for attr, value in pairs(pattern_dict) do
+        if not substring(string.lower(npc[attr]), string.lower(value)) then
+          npc_condition = false
+          break
+        end
+      end
+      if npc_condition then
+        table.insert(npcs, npc)
+      end
+    end
+    self:_print_npc_list(npcs)
+    return npcs
   end
 end
 
@@ -747,49 +743,43 @@ end
 --
 ------------------------------------------------------
 
-function EK:check(id, date, overwrite)
-	local npc = db:fetch(
-    self.db.npc,
-    db:eq(self.db.npc.position, id)
-  )[1]
-  if not npc then
-    eprint({"Kein NPC mit der ID ", {id, "y"}, " gefunden."}, "EK-Tracker")
+function EK:check(nr, date, overwrite)
+  local npc = self.npcs[nr]
+  if npc == nil then
+    eprint({"Kein NPC mit der Nummer ", {id, "y"}, " gefunden."}, "EK-Tracker")
     return
   end
-  local kill_entry = self:_kill_entry(npc)
-  if kill_entry  then
+  local kill_date = self.kills[npc._id]
+  if kill_date then
     if overwrite then
       if date then
         local d, m, y = date:match("(%d+)\.(%d+)\.(%d+)")
-        kill_entry.date = os.time{year=2000+y, month=m, day=d}
+        self.kills[npc._id] = os.time({year = 2000 + y, month = m, day = d})
       else
-        kill_entry.date = os.time()
+        self.kills[npc._id] = os.time()
       end
-      db:update(EK.db.kills, kill_entry)
-      iprint({"EK mit der ID ", {id, "y"}, " hat Datumskorrektur erhalten."}, "EK-Tracker")
+      iprint({"EK mit der Nummer ", {nr, "y"}, " hat Datumskorrektur erhalten."}, "EK-Tracker")
     else
       wprint("EK bereits erworben! Zum Ueberschreiben -f benutzen.", "EK-Tracker")
     end
   else
     if date then
-      local d, m, y = date:match("(%d+)\.(%d+)\.(%d+)")
-      date = os.time{year=2000+y, month=m, day=d}
+      if string.lower(date) == "x" then
+        self.kills[npc._id] = 0
+      else
+        local d, m, y = date:match("(%d+)\.(%d+)\.(%d+)")
+        self.kills[npc._id] = os.time({year = 2000 + y, month = m, day = d})
+      end
     else
-      date = os.time()
+      self.kills[npc._id] = os.time()
     end
-    local success, msg = db:add(
-      EK.db.kills,
-      {killer_name=PLAYER.name, npc_row_id=npc["_row_id"], date=date}
-    )
-    if success then
-      iprint({"EK mit der ", {id, "y"}, " ist nun abgehakt."}, "EK-Tracker")
-      if gmcp.MG.char.base.wizlevel == 1 then
-  			send("lies plakette")
-  		else
-  			GUI.ekanzahl:echo("EK-Anzahl: "..self:count(), "black")
-  		end
+    self.known_kills = self.known_kills + 1
+    self:save_kills()
+    iprint({"EK mit der Nummer ", {nr, "y"}, " ist nun abgehakt."}, "EK-Tracker")
+    if EK.config.plaketten_lesen then
+      send("lies plakette")
     else
-      eprint("Fehler bei der Eintragung: "..msg, "EK-Tracker")
+      MainGUI.ekanzahl:echo("EK-Anzahl: " .. self:_kills(), "black")
     end
   end
 end
@@ -798,31 +788,26 @@ end
 --
 ------------------------------------------------------
 
-function EK:uncheck(id)
-	local npc = db:fetch(
-    EK.db.npc,
-    db:eq(EK.db.npc.position, id)
-  )[1]
-  if not npc then
-    eprint({"Kein NPC mit der ID ", {id, "y"}, " gefunden."}, "EK-Tracker")
+function EK:uncheck(nr)
+  local npc = self.npcs[nr]
+  if npc == nil then
+    eprint({"Kein NPC mit der Nummer ", {nr, "y"}, " gefunden."}, "EK-Tracker")
     return
   end
-  local kill_entry = db:fetch(
-    EK.db.kills,
-    db:query_by_example(EK.db.kills, {killer_name=PLAYER.name, npc_row_id=npc["_row_id"]})
-  )[1]
-  if kill_entry then
-    db:delete(EK.db.kills, kill_entry)
-    iprint({"Der EK mit der ID ", {id, "y"}, " ist nun nicht mehr abgehakt."}, "EK-Tracker")
+  if self.kills[npc._id] then
+    self.kills[npc._id] = nil
+    self.known_kills = self.known_kills - 1
+    self:save_kills()
+    iprint({"Der EK mit der Nummer ", {nr, "y"}, " ist nun nicht mehr abgehakt."}, "EK-Tracker")
   else
     wprint("Der EK wurde noch nicht erworben.", "EK-Tracker")
     return
   end
-	if gmcp.MG.char.base.wizlevel == 1 then
-		send("lies plakette")
-	else
-		GUI.ekanzahl:echo("EK-Anzahl: "..self:count(), "black")
-	end
+  if self.plaketten_lesen then
+    send("lies plakette")
+  else
+    MainGUI.ekanzahl:echo("EK-Anzahl: " .. self:_kills(), "black")
+  end
 end
 
 ------------------------------------------------------
@@ -830,38 +815,34 @@ end
 ------------------------------------------------------
 
 function EK:add(name, place, region, creator, hint, world, nonkillpoints)
-	if not name then
+  if not name then
     eprint("Der Eintrag muss wenigstens einen Namen haben.", "EK-Tracker")
   end
-  local next_position = db:aggregate(EK.db.npc.position, "max")+1
-  local doc = {name=name, position=next_position}
+  local doc = {name = name, _id = self.max_id + 1, position = self.max_position + 1}
   if place and #place &gt; 0 then
-    doc["place"] = place
+    doc["ort"] = place
   end
   if region and #region &gt; 0 then
     doc["region"] = region
   end
   if creator and #creator &gt; 0 then
-    doc["creator"] = creator
+    doc["magier"] = creator
   end
   if hint and #hint &gt; 0 then
-    doc["hint"] = hint
+    doc["hinweis"] = hint
   end
   if world and world &gt; 0 then
-    doc["world"] = world
-  end
-  if nonkillpoints then
-    doc["killpoints"] = "false"
+    doc["para"] = world
   else
-    doc["killpoints"] = "true"
+    doc["para"] = 0
   end
-  local success, msg = db:add(EK.db.npc, doc)
-  if success then
-    decho("\n\n&lt;0,255,0:0,0,0&gt;Neu eingetragener EK:\n")
-  	self:_print_npc(doc)
-  else
-    eprint("Fehler beim Speichern in der DB: "..msg, "EK-Tracker")
-  end
+  doc["ek"] = not nonkillpoints
+  table.insert(self.npcs, doc)
+  iprint({{"Neu eingetragener EK:", "y"}}, "EK-Tracker")
+  self:_print_npc(doc)
+  self.max_id = self.max_id + 1
+  self.max_position = self.max_position + 1
+  self:save()
 end
 
 ------------------------------------------------------
@@ -869,24 +850,26 @@ end
 ------------------------------------------------------
 
 function EK:find_attr(attr, sub)
-  local result=db:fetch_sql(
-    self.db.npc,
-    [[SELECT DISTINCT npc.]]..self.attr[attr]..[[ FROM npc
-    WHERE npc.]]..self.attr[attr]..[[ LIKE '%]]..sub:lower()..[[%']]
-  )
-  local keys = {}
-	for _,res in pairs(result) do
-		table.insert(keys, res[self.attr[attr]])
-	end
-	table.sort(keys)
-  if #keys == 0 then
-		iprint("Keine "..string.capitalize(attr).." gefunden.", "EK-Tracker")
-	else
-  	iprint({"Gefundene "..string.capitalize(attr)..":", "&lt;0,255,0:0,0,0&gt;"}, "EK-Tracker")
-  	for i,v in ipairs(keys) do
-  		echo(i..": "..v.."\n")
-  	end
-	end
+  local matches = {}
+  local _attr = string.lower(attr)
+  local _sub = string.lower(sub)
+  for _, npc in pairs(self.npcs) do
+    if npc[_attr] and substring(string.lower(npc[_attr]), _sub) then
+      matches[npc[_attr]] = true
+    end
+  end
+  if len(matches) == 0 then
+    iprint("Keine " .. string.capitalize(attr) .. " gefunden.", "EK-Tracker")
+  else
+    matches = table.keys(matches)
+    table.sort(matches)
+    iprint("Zum '" .. attr .. "' mit '" .. sub .. "' gefunden:", "EK-Tracker")
+    for i, v in ipairs(matches) do
+      decho("&lt;0,255,0:0,0,0&gt;" .. i .. ": ")
+      echo(v .. "\n")
+    end
+    echo("\n")
+  end
 end
 
 ------------------------------------------------------
@@ -894,60 +877,29 @@ end
 ------------------------------------------------------
 
 function EK:unknown(x)
-	local unknown = db:aggregate(
-    self.db.kills.npc_row_id,
-    "count",
-    db:AND(
-      db:eq(self.db.kills.killer_name, PLAYER.name),
-      db:lt(self.db.kills.npc_row_id, 0)
-    )
-  )
   if not x then
-    iprint({"Die Anzahl unbekannter EKs ist ", {unknown, "&lt;0,255,0:0,0,0&gt;"}, "."}, "EK-Tracker")
+    iprint(
+      {"Die Anzahl unbekannter EKs ist ", {self.unknown_kills, "&lt;0,255,0:0,0,0&gt;"}, "."},
+      "EK-Tracker"
+    )
     return
   end
-	local ausgabe = {
-    "Die Anzahl unbekannter EKs aendert sich von ",
-    {unknown, "&lt;0,255,0:0,0,0&gt;"},
-    " zu "}
-	local max_unknown_id = db:aggregate(self.db.kills.npc_row_id, "min")
-  if x &gt; 0 then
-    local new_unknowns = {}
-    for v=max_unknown_id-1,max_unknown_id-x,-1 do
-      table.insert(new_unknowns,
-        {killer_name=PLAYER.name, npc_row_id=v}
-      )
-    end
-    local success, msg = db:add(self.db.kills, unpack(new_unknowns))
-    if not success then
-      eprint("Fehler beim Aktualisieren der unbekannten EKs: "..msg, "EK-Tracker")
-      return
-    end
-  elseif x &lt; 0 then
-    db:delete(
-      self.db.kills,
-      db:AND(
-        db:eq(self.db.kills.killer_name, PLAYER.name),
-        db:lt(self.db.kills.npc_row_id, math.min(0, max_unknown_id-x))
-      )
-    )
-  end
-  unknown = db:aggregate(
-    self.db.kills.npc_row_id,
-    "count",
-    db:AND(
-      db:eq(self.db.kills.killer_name, PLAYER.name),
-      db:lt(self.db.kills.npc_row_id, 0)
-    )
-  )
-  table.insert(ausgabe, {known, "&lt;0,255,0:0,0,0&gt;"})
-	table.insert(ausgabe, ".")
+  local ausgabe =
+    {
+      "Die Anzahl unbekannter EKs aendert sich von ",
+      {self.unknown_kills, "&lt;0,255,0:0,0,0&gt;"},
+      " zu ",
+    }
+  self.unknown_kills = self.unknown_kills - x
+  table.insert(ausgabe, {self.unknown_kills, "&lt;0,255,0:0,0,0&gt;"})
+  table.insert(ausgabe, ".")
+  self:save_kills()
   iprint(ausgabe, "EK-Tracker")
-  if gmcp.MG.char.base.wizlevel == 1 then
-		send("lies plakette")
-	else
-		GUI.ekanzahl:echo("EK-Anzahl: "..self:count(), "black")
-	end
+  if self.config.plaketten_lesen then
+    send("lies plakette")
+  else
+    MainGUI.ekanzahl:echo("EK-Anzahl: " .. self:_kills(), "black")
+  end
 end
 
 ------------------------------------------------------
@@ -955,9 +907,9 @@ end
 ------------------------------------------------------
 
 function EK:zeige(von, bis)
-	if von then
+  if von then
     local d, m, y = von:match("(%d+)\.(%d+)\.(%d+)")
-    von = os.time{year=2000+y, month=m, day=d}
+    von = os.time({year = 2000 + y, month = m, day = d})
   else
     von = 0
   end
@@ -965,19 +917,18 @@ function EK:zeige(von, bis)
     -- we like to get all kill entries even
     -- for the chosen day. So, the upper limit
     -- has to be extended for a day
-    local d, m, y = von:match("(%d+)\.(%d+)\.(%d+)")
-    bis = os.time{year=y, month=m, day=d} + 24*60*60
+    local d, m, y = bis:match("(%d+)\.(%d+)\.(%d+)")
+    bis = os.time({year = 2000 + y, month = m, day = d}) + 24 * 60 * 60
   else
     bis = os.time()
   end
-  local npcs = db:fetch_sql(
-    self.db.npc,
-      [[SELECT npc.* FROM npc
-      JOIN kills
-      ON npc._row_id=kills.npc_row_id
-      WHERE kills.killer_name = "]]..PLAYER.name..[[" AND kills.date &gt;= ]]..von..[[ AND kills.date &lt;= ]]..bis..[[
-      ORDER BY npc.place, npc.position ASC]]
-  )
+  local npcs = {}
+  for _, npc in pairs(self.npcs) do
+    date = self.kills[npc._id]
+    if date and von &lt;= date and date &lt;= bis then
+      table.insert(npcs, npc)
+    end
+  end
   self:_print_npc_list(npcs)
   iprint({"Es wurden ", {len(npcs), "y"}, " NPCs gefunden."}, "EK-Tracker")
 end
@@ -986,121 +937,108 @@ end
 --
 ------------------------------------------------------
 
-function EK:delete(id)
-  if self.del_flag and self.del_flag.id == id then
-		db:delete(self.db.npc, self.del_flag.npc_query)
-    db:delete(self.db.kills, self.del_flag.kill_entry_query)
-		self.del_flag = nil
-    iprint("Der EK wurde geloescht.", "EK-Tracker")
-	else
-		local npc_query = db:eq(self.db.npc.position, id)
-    local npc = db:fetch(self.db.npc, npc_query)
-    if len(npc) == 0 then
-      iprint("Es wurde kein NPC mit der ID "..id.." gefunden.", "EK-Tracker")
-      return
-    elseif len(npc) &gt; 1 then
-      iprint("Datenbank korrupt! Die ID "..id.." ist mehrfach vergeben.", "EK-Tracker")
-      self:_print_npc(npc)
-    else
-      npc = npc[1]
-    end
-    iprint("Moechtest du folgenden EK aus der Liste loeschen? Falls ja, wiederhole den Befehl!", "EK-Tracker")
-		self:_print_npc(npc)
-    local kill_entry_query = db:eq(EK.db.kills.npc_row_id, npc["_row_id"])
-    local all_kill_entries = db:fetch(EK.db.kills, kill_entry_query)
-    if len(all_kill_entries) &gt; 0 then
-      local names = {}
-      for _,entry in pairs(all_kill_entries) do
-        table.insert(names, entry.killer_name)
+function EK:delete(nr)
+  if self.del_flag and self.del_flag.nr == nr then
+    table.remove(self.npcs, nr)
+    for pos, npc in ipairs(self.npcs) do
+      if pos &gt;= nr then
+        npc.position = pos
       end
-      iprint("Beachte, dass der NPC als EK fuer "..table.concat(names, ", ").." gespeichert wurde.", "EK-Tracker")
     end
-    self.del_flag = {id=id, npc_query=npc_query, kill_entry_query=kill_entry_query}
-	end
-end
-
-------------------------------------------------------
---
-------------------------------------------------------
-
-function EK:sort(old_id, new_id)
-	local npcs = db:fetch(
-    self.db.npc,
-    db:OR(
-      db:eq(self.db.npc.position, old_id),
-      db:eq(self.db.npc.position, new_id)
+    self.del_flag = nil
+    self:save()
+    iprint("Der EK wurde geloescht.", "EK-Tracker")
+  else
+    local npc = self.npcs[nr]
+    if not npc then
+      iprint("Es wurde kein NPC mit der Nummer " .. nr .. " gefunden.", "EK-Tracker")
+      return
+    end
+    iprint(
+      "Moechtest du folgenden EK aus der Liste loeschen? Falls ja, wiederhole den Befehl!",
+      "EK-Tracker"
     )
-  )
-  for _,npc in pairs(npcs) do
-    if npc.position == old_id then
-      npc.position = new_id
-    else
-      npc.position = old_id
-    end
-    db:update(self.db.npc, npc)
+    self:_print_npc(npc)
+    self.del_flag = {nr = nr}
   end
-  iprint("Die beiden Eintraege nach der Vertauschung: ", "EK-Tracker")
-  self:_print_npc_list(npcs)
 end
 
 ------------------------------------------------------
 --
 ------------------------------------------------------
 
-function EK:change(id, attr, content)
-  local position = tonumber(id)
-  if not position then
-    eprint({"Die Eingabe", {id, "y"}, "ist keine Zahl."}, "EK-Tracker")
+function EK:sort(old_nr, new_nr)
+  if old_nr &lt; 1 or old_nr &gt; len(self.npcs) or new_nr &lt; 1 or new_nr &gt; len(self.npcs) then
+    eprint("Unzulaessige Positionen " .. old_nr .. " oder " .. new_nr .. ".", "EK-Tracker")
     return
   end
-
-	if self.change_flag and self.change_flag.npc.position == position then
-    self.change_flag.npc[self.attr[attr]] = self.change_flag.change
-		db:update(self.db.npc, self.change_flag.npc)
-    echo("\nDas Attribut ")
-    decho("&lt;0,255,0:0,0,0&gt;"..string.capitalize(attr))
-    echo(" wurde zu \n")
-    decho("&lt;0,255,0:0,0,0&gt;"..content)
-    echo("\ngeaendert.\n\n")
-		self:_print_npc(self.change_flag.npc)
-    self.change_flag = nil
+  local temp = self.npcs[old_nr]
+  if old_nr &gt; new_nr then
+    for i = old_nr, new_nr + 1, -1 do
+      self.npcs[i] = self.npcs[i - 1]
+      self.npcs[i].position = i
+    end
   else
-    attr = string.lower(attr)
-  	if not self.attr[attr] then
-  		eprint({"Die Eingabe", {attr, "y"}, "ist kein gueltiges Attribut."}, "EK-Tracker")
-      return
-  	end
+    for i = old_nr, new_nr - 1, 1 do
+      self.npcs[i] = self.npcs[i + 1]
+      self.npcs[i].position = i
+    end
+  end
+  temp.position = new_nr
+  self.npcs[new_nr] = temp
+  self:save()
+  iprint(
+    "Der NPC an der Stelle " .. old_nr .. " wurde nun an die Stelle " .. new_nr .. " gesteckt.",
+    "EK-Tracker"
+  )
+end
+
+------------------------------------------------------
+--
+------------------------------------------------------
+
+function EK:change(nr, attr, content)
+  local position = tonumber(nr)
+  attr = string.lower(attr)
+  if not position then
+    eprint({"Die Eingabe", {nr, "y"}, "ist keine Zahl."}, "EK-Tracker")
+    return
+  end
+  if self.change_flag and self.change_flag.npc.position == position then
+    self.change_flag.npc[attr] = self.change_flag.change
+    echo("\nDas Attribut ")
+    decho("&lt;0,255,0:0,0,0&gt;" .. string.capitalize(attr))
+    echo(" wurde zu \n")
+    decho("&lt;0,255,0:0,0,0&gt;" .. content)
+    echo("\ngeaendert.\n\n")
+    self:_print_npc(self.change_flag.npc)
+    self.change_flag = nil
+    self:save()
+  else
     if attr == "para" then
       local num = tonumber(content)
       if num and num &gt; -1 then
         content = num
       else
-        eprint("Die Welt/Parallelwelt muss eine ganze Zahl groesser oder gleich 0 sein.", "EK-Tracker")
+        eprint(
+          "Die Welt/Parallelwelt muss eine ganze Zahl groesser oder gleich 0 sein.", "EK-Tracker"
+        )
       end
     end
-    local npc = db:fetch(
-      self.db.npc,
-      db:eq(self.db.npc.position, position)
-    )
-    if len(npc) == 0 then
+    local npc = self.npcs[nr]
+    if npc == nil then
       iprint({"Es konnte kein NPC mit der ID", {id, "y"}, "gefunden werden."}, "EK-Tracker")
       return
-    elseif len(npc) &gt; 1 then
-      eprint({"Datenbank ist korrupt! Mehrere NPCs mit der selben ID gefunden:"}, "EK-Tracker")
-      self:_print_npc(npc)
-      return
     end
-    npc = npc[1]
-
     echo("Willst du bei ...\n\n")
-		self:_print_npc(npc)
-		echo("\n... wirklich das Attribut ")
-    decho("&lt;0,255,0:0,0,0&gt;"..string.capitalize(attr))
+    self:_print_npc(npc)
+    echo("\n... wirklich das Attribut ")
+    decho("&lt;0,255,0:0,0,0&gt;" .. string.capitalize(attr))
     echo(" zu \n")
-    decho("&lt;0,255,0:0,0,0&gt;"..content)
+    decho("&lt;0,255,0:0,0,0&gt;" .. content)
     echo("\naendern? Falls ja, dann wiederhole den Befehl.\n\n")
-		self.change_flag = {npc=npc, change=content}
-	end
+    self.change_flag = {npc = npc, change = content}
+  end
 end
 
 ------------------------------------------------------
@@ -1108,56 +1046,58 @@ end
 ------------------------------------------------------
 
 function EK:multichange(ids, attr, content)
-	display(ids, attr, content)
-
-	if self.mchange_flag and self.mchange_flag.ids == ids then
-    for _,npc in pairs(self.mchange_flag.npcs) do
-      npc[self.attr[attr]] = self.mchange_flag.change
-      db:update(self.db.npc, npc)
+  attr = string.lower(attr)
+  if self.mchange_flag and self.mchange_flag.ids == ids then
+    for _, npc in pairs(self.mchange_flag.npcs) do
+      npc[attr] = self.mchange_flag.change
     end
     echo("\nDas Attribut ")
-    decho("&lt;0,255,0:0,0,0&gt;"..string.capitalize(attr))
+    decho("&lt;0,255,0:0,0,0&gt;" .. string.capitalize(attr))
     echo(" wurde zu \n")
-    decho("&lt;0,255,0:0,0,0&gt;"..content)
+    decho("&lt;0,255,0:0,0,0&gt;" .. content)
     echo("\ngeaendert:\n")
-    display("ok")
     self:_print_npc_list(self.mchange_flag.npcs, attr)
     self.mchange_flag = nil
-    display("nice")
+    self:save()
   else
-    attr = string.lower(attr)
-  	if not self.attr[attr] then
-      display(attr)
-  		eprint({"Die Eingabe", {attr, "y"}, "ist kein gueltiges Attribut."}, "EK-Tracker")
-      return
-  	end
     if attr == "para" then
       local num = tonumber(content)
       if num and num &gt; -1 then
         content = num
       else
-        eprint("Die Welt/Parallelwelt muss eine ganze Zahl groesser oder gleich 0 sein.", "EK-Tracker")
+        eprint(
+          "Die Welt/Parallelwelt muss eine ganze Zahl groesser oder gleich 0 sein.", "EK-Tracker"
+        )
       end
     end
-    local npcs = db:fetch(
-      self.db.npc,
-      self:_get_id_query(ids)
-    )
+    local id_list = {}
+    for von, bis in ids:gmatch("(%d+) bis (%d+)") do
+      for i = von, bis, 1 do
+        table.insert(id_list, i)
+      end
+    end
+    shorten_ids = ids:gsub("(%d+) bis (%d+)", "")
+    for id in shorten_ids:gmatch("%d+") do
+      table.insert(id_list, tonumber(id))
+    end
+    local npcs = {}
+    for _, id in pairs(id_list) do
+      table.insert(npcs, self.npcs[id])
+    end
     if len(npcs) == 0 then
       iprint({"Es konnte kein NPCs mit den IDs", {ids, "y"}, "gefunden werden."}, "EK-Tracker")
       return
     end
     echo("Willst du bei ...\n\n")
-		self:_print_npc_list(npcs, self.attr[attr])
-		echo("\n... wirklich das Attribut ")
-    decho("&lt;0,255,0:0,0,0&gt;"..string.capitalize(attr))
+    self:_print_npc_list(npcs, attr)
+    echo("\n... wirklich das Attribut ")
+    decho("&lt;0,255,0:0,0,0&gt;" .. string.capitalize(attr))
     echo(" zu \n")
-    decho("&lt;0,255,0:0,0,0&gt;"..content)
+    decho("&lt;0,255,0:0,0,0&gt;" .. content)
     echo("\naendern? Falls ja, dann wiederhole den Befehl.\n\n")
-		self.mchange_flag = {ids=ids, npcs = npcs, change=content}
+    self.mchange_flag = {ids = ids, npcs = npcs, change = content}
   end
-end
-</script>
+end</script>
 			<eventHandlerList />
 		</Script>
 		<Script isActive="yes" isFolder="no">
@@ -1167,42 +1107,33 @@ end
 --
 ------------------------------------------------------
 
-function EK:save_plakettenabgleich(name, second_try)
-  if self.player_hasnt &gt; -1 and self.competitor_hasnt &gt; -1 then
-  	name = name:lower()
-    --a = [[
-    if PLAYER.name ~= "Mundron" and not second_try then
-      tempTimer(3, function() EK:save_plakettenabgleich(name, true) end)
-      return
-    end
-    local success, msg = db:add(
-      self.db.competition,
+function EK:save_plakettenabgleich(name)
+  echo(
+    "\n\nCompetitor: " ..
+    name ..
+    " is missing " ..
+    self.config.player_hasnt ..
+    " and has " ..
+    self.config.competitor_hasnt ..
+    "\n\n"
+  )
+  if self.config.player_hasnt &gt; -1 and self.config.competitor_hasnt &gt; -1 then
+    name = name:lower()
+    table.insert(
+      self.competitions,
       {
-        player_name=PLAYER.name,
-        player_count=self:count(),
-        player_hasnt=self.player_hasnt,
-        date=os.time(),
-        competitor_name=name,
-        competitor_count=self:count()-self.competitor_hasnt+self.player_hasnt,
-        competitor_hasnt=self.competitor_hasnt
+        player_count = self:_kills(),
+        player_hasnt = self.config.player_hasnt,
+        date = os.time(),
+        competitor_name = name,
+        competitor_count = self:_kills() - self.config.competitor_hasnt + self.config.player_hasnt,
+        competitor_hasnt = self.config.competitor_hasnt,
       }
     )
-    if not success then
-      if second_try then
-        eprint("Fehler beim Speichern des Plakettenabgleichs: "..msg, "EK-Tracker")
-        self.player_hasnt = -1
-      	self.competitor_hasnt = -1
-    	else
-        wprint("Kurze Verzoegerung durch den Fehler: "..msg, "EK-Tracker")
-        tempTimer(3, function() EK:save_plakettenabgleich(name, true) end)
-      end
-      return
-    end
-    --]]
-  	self.player_hasnt = -1
-  	self.competitor_hasnt = -1
-  	self:show_friend(name)
-    --b = [[
+    self.config.player_hasnt = -1
+    self.config.competitor_hasnt = -1
+    psave_jsonl("Plaketten", self.competitions)
+    self:save_plakette()
     self:show_friend(name)
   end
 end
@@ -1211,344 +1142,107 @@ end
 --
 ------------------------------------------------------
 
-function EK:del_abgleich(id)
-	if self.pdel_flag.entry["_row_id"] == id then
-		db:delete(EK.db.competition, self.pdel_flag.entry)
+function EK:del_abgleich(nr)
+  if nr &lt; 1 or nr &gt; len(self.competitions) then
+    eprint("Ungueltige Nummer " .. nr .. ".", "EK-Tracker")
+    return
+  end
+  if self.pdel_flag and self.pdel_flag.nr == nr then
+    table.remove(self.competitions, nr)
     self.pdel_flag = nil
-	else
-    -- have to use db:fetch_sql because db:fetch doesn't work with _row_id
-    local entry = db:fetch_sql(self.db.competition,
-      [[ SELECT competition.* FROM competition WHERE competition._row_id = ]]..id
-    )
-    if len(entry) == 0 then
-      eprint({"Kein Plakettenvergleich mit der ID", {id, "y"}, "gefunden"}, "EK-Tracker")
-      return
-    end
-    iprint({"Willst du wirklich den Eintrag mit der ID", {id, "y"}, "loeschen?"}, "EK-Tracker")
-		self:show_friend(id)
-		iprint("Falls ja, dann wiederhole den Befehl.", "EK-Tracker")
-		self.pdel_flag = {entry=entry}
-	end
+    self:save_plakette()
+    iprint("Plakettenvergleichseintrag geloescht.", "EK-Tracker")
+  else
+    iprint({"Willst du wirklich den Eintrag mit der Nummer ", {nr, "y"}, "loeschen?"}, "EK-Tracker")
+    self:show_friend(nr)
+    iprint("Falls ja, dann wiederhole den Befehl.", "EK-Tracker")
+    self.pdel_flag = {nr = nr}
+  end
 end
 
 ------------------------------------------------------
 --
 ------------------------------------------------------
 
-function EK:show_friend(name_or_id)
+function EK:show_friend(arg)
   local entries = {}
-  local name = name_or_id
-  if type(name_or_id) == "number" then
-    entries = db:fetch_sql(self.db.competition,
-      [[ SELECT competition.*
-      FROM competition
-      WHERE competition._row_id = ]]..id)
+  local name = arg
+  if type(arg) == "number" then
+    if arg &lt; 1 or arg &gt; len(self.competitions) then
+      eprint("Ungueltige Nummer " .. nr .. ".", "EK-Tracker")
+      return
+    end
+    entries = {self.competitions[arg]}
+    entries[1]._row_id = arg
     if len(entries) &gt; 0 then
-      name = entries[1]["competitor_name"]
+      name = string.capitalize(entries[1]["competitor_name"])
     end
   else
-    entries = db:fetch_sql(self.db.competition,
-      [[ SELECT competition.*
-       FROM competition
-       WHERE competition.competitor_name = ']]..string.capitalize(name_or_id)..[['
-       LIMIT 3]])
+    arg = string.lower(arg)
+    local cnt = 3
+    local entry
+    for i = len(self.competitions), 1, -1 do
+      entry = self.competitions[i]
+      if entry.competitor_name == arg then
+        entry._row_id = i
+        table.insert(entries, 1, entry)
+        cnt = cnt - 1
+      end
+      if cnt == 0 then
+        break
+      end
+    end
   end
   if len(entries) == 0 then
     iprint("Es wurden keine Eintraege gefunden.", "EK-Tracker")
     return
   end
   echo("\n\n")
-	local tab = {}
-	table.insert(tab, norm_length({"ID:", "", "", "",
-																	"Deine EKs:",
-																	"EKs von "..name..":",
-																	"Dir fehlen:",
-																	name.." fehlen:"}, 1))
-
+  local tab = {}
+  table.insert(
+    tab,
+    norm_length(
+      {
+        "ID:",
+        "",
+        "",
+        "",
+        "Deine EKs:",
+        "EKs von " .. name .. ":",
+        "Dir fehlen:",
+        name .. " fehlen:",
+      },
+      1
+    )
+  )
   local previous_entry = {}
   local keys = {"player_count", "competitor_count", "player_hasnt", "competitor_hasnt"}
-  for _,entry in pairs(entries) do
+  for _, entry in pairs(entries) do
     local date = os.date("%d.%m.%y", entry["date"])
     local time = os.date("%H:%M", entry["date"])
     local values = {}
     local max_diff_len = 0
-    for _,key in pairs(keys) do
+    for _, key in pairs(keys) do
       table.insert(values, EK:_num_plus_diff(entry[key], previous_entry[key]))
       max_diff_len = math.max(max_diff_len, #values[#values][3])
     end
-    for i,v in pairs(values) do
+    for i, v in pairs(values) do
       local spaces = " "
-      for _=1,max_diff_len - #v[3],1 do
-        spaces = spaces.." "
+      for _ = 1, max_diff_len - #v[3], 1 do
+        spaces = spaces .. " "
       end
-      values[i] = v[1]..spaces..v[2]..v[3]
+      values[i] = v[1] .. spaces .. v[2] .. v[3]
     end
-  	table.insert(tab, norm_length({
-      entry["_row_id"].." ",
-  		date.." ",
-  		time.." ", "",
-  		unpack(values),
-    }, 1, 2))
+    table.insert(
+      tab,
+      norm_length({entry["_row_id"] .. " ", date .. " ", time .. " ", "", unpack(values)}, 1, 2)
+    )
     previous_entry = entry
   end
-	print_table(tab)
+  print_table(tab)
   echo("\n")
 end</script>
 			<eventHandlerList />
-		</Script>
-		<Script isActive="yes" isFolder="no">
-			<name>load_EK_database</name>
-			<packageName></packageName>
-			<script>------------------------------------------------------
---
-------------------------------------------------------
-
-function load_EK_database()
-  EK:load_friends()
-  if not EK.db then
-    iprint("try to connect to npc database.", "EK-Tracker")
-    EK.db, db_is_new = db:create("npc_list", {
-      npc = {
-        position=0,
-        name="",
-        place="",
-        region="",
-        creator="",
-        hint="",
-        world=0,
-        killpoints="true",
-        _index={"name", "position"},
-        _violations = "IGNORE"
-      },
-      kills = {
-        killer_name="",
-        npc_row_id=0,
-        date=0,
-        _index={"name"},
-        _violations = "IGNORE"
-      },
-      competition = {
-        player_name="",
-        competitor_name="",
-        date=0,
-        player_count=0,
-        player_hasnt=0,
-        competitor_count=0,
-        competitor_hasnt=0,
-        _index={"player_name", "competitor_name"}
-      }
-    }, true)
-    iprint("connected to npc database.", "EK-Tracker")
-    if db_is_new  then
-      iprint("database was newly created", "EK-Tracker")
-      if lfs.attributes(getMundronCoreDir().."EK_Liste.csv") then
-        wprint("Process to transfer old file to database started!", "EK-Tracker")
-        -- this function will be hopefully needed just once
-        -- no need to declare it permanently
-        function EK_transfer(transfer_npc_id, this_lines, names, unknowns)
-          iprint("EK data transfer part 1/"..(1+#names).." npc transfer at "..transfer_npc_id.."/"..(transfer_npc_id+#this_lines-1), "EK-Tracker")
-          npc = this_lines[1]
-          table.remove(this_lines, 1)
-          local npc_doc = {
-            position=transfer_npc_id,
-            name=npc[1],
-            place=npc[2],
-            region=npc[3],
-            creator=npc[4],
-            hint=npc[5],
-            world=npc[6]
-          }
-          tempTimer(0.1, function() db:add(EK.db.npc, npc_doc) end)
-          local kills = {}
-          for i,player_name in ipairs(names) do
-            date = npc[6+i]
-            if #date &gt; 0 then
-              if #date == 1 then
-                date=0
-              else
-                local d, m, y = date:match("(%d+).(%d+).(%d+)")
-                date = os.time({year=2000+y, month=m, day=d})
-              end
-              table.insert(kills, {
-                killer_name=player_name,
-                npc_row_id=transfer_npc_id,
-                date=date
-              })
-            end
-          end
-          if #kills &gt; 0 then
-            tempTimer(0.1, function() db:add(EK.db.kills, unpack(kills)) end)
-          end
-          if #this_lines &gt; 0 then
-            tempTimer(0.1, function() EK_transfer(transfer_npc_id+1, this_lines, names, unknowns) end)
-          else
-            EK_add_unknown_kills(1,1,names, unknowns)
-          end
-        end -- end of EK_transfer
-        function EK_add_unknown_kills(killer_id, unknown_id, names, unknowns)
-          if unknowns[killer_id] &gt; 0 then
-            iprint("EK data transfer part "..(1+killer_id).."/"..(1+#names).." add unknown kill of "..names[killer_id]..": "..unknown_id.."/"..unknowns[killer_id], "EK-Tracker")
-            local doc = {
-              killer_name=names[killer_id],
-              npc_row_id=-unknown_id
-            }
-            tempTimer(0.1, function() db:add(EK.db.kills, doc) end)
-          else
-            iprint("EK data transfer part "..(1+killer_id).."/"..(1+#names).." no unknown kills to add for "..names[killer_id], "EK-Tracker")
-          end
-
-          if unknown_id &lt; unknowns[killer_id] then
-            tempTimer(0.1, function() EK_add_unknown_kills(killer_id, unknown_id+1,names, unknowns) end)
-          else
-            if killer_id &lt; #names then
-              tempTimer(0.1, function() EK_add_unknown_kills(killer_id+1, 1, names, unknowns) end)
-            else
-              iprint("Write 'lua EK_competition_transfer()' in your console after your login to transfer the competition data into the database.", "EK-Tracker")
-            end
-          end
-        end -- end of EK_add_unknown_kills
-        local EK_Liste = mload_csv("EK_Liste")
-        local header = EK_Liste[1]
-        table.remove(EK_Liste, 1)
-
-        local names = {}
-        local unknowns = {}
-        for _,val in ipairs(header) do
-          if tonumber(val) then
-            table.insert(unknowns, tonumber(val))
-          else
-            table.insert(names, val)
-          end
-        end
-        EK_transfer(1, EK_Liste, names, unknowns)
-      else
-        wprint("No file found. New database was created!", "EK-Tracker")
-      end
-    end
-  end
-end
-
-------------------------------------------------------
---
-------------------------------------------------------
-
-function EK_competition_transfer()
-  function EK_comp_trans_iter(index, friend, comps)
-    local day, month, year, hour, min = comps[index][4]:match(
-      "(%d+).(%d+).(%d+) (%d+):(%d+)"
-    )
-    iprint("Push friend "..friend.." to database "..index.."/"..#comps, "EK-Tracker")
-    local player_count = tonumber(comps[index][1])
-    local competitor_hasnt = tonumber(comps[index][2])
-    local player_hasnt = tonumber(comps[index][3])
-    tempTimer(0.1, function()
-      db:add(EK.db.competition, {
-        player_name=PLAYER.name,
-        competitor_name=friend,
-        date=os.time({year=2000+year, month=month, day=day, hour=hour, min=min}),
-        player_count=player_count,
-        player_hasnt=player_hasnt,
-        competitor_count=player_count-competitor_hasnt+player_hasnt,
-        competitor_hasnt=competitor_hasnt,
-      }) end)
-    if index &lt; #comps then
-      tempTimer(0.1, function() EK_comp_trans_iter(index+1, friend, comps) end)
-    end
-  end
-  function EK_all_comp_trans_iter()
-    local cnt = 1
-    for friend,comps in pairs(EK.friends) do
-      tempTimer(cnt, function() EK_comp_trans_iter(1, friend, comps) end)
-    end
-  end
-  EK_all_comp_trans_iter()
-end
-
-function EK:export(filename)
-  local npcs = db:fetch(self.db.npc, nil, {self.db.npc.position})
-  local npc_table = {{
-    "_row_id",
-    "position",
-    "name",
-    "place",
-    "region",
-    "creator",
-    "world",
-    "killpoints",
-    "hint"
-  }}
-  local _row_id_to_position = {}
-  for _,npc in pairs(npcs) do
-    table.insert(npc_table, {
-      tostring(npc["_row_id"]),
-      tostring(npc["position"]),
-      npc["name"],
-      npc["place"],
-      npc["region"],
-      npc["creator"],
-      tostring(npc["world"]),
-      tostring(npc["killpoints"]),
-      npc["hint"]
-    })
-    _row_id_to_position[npc._row_id] = npc.position
-  end
-  msave_csv(filename.."_NPC", npc_table)
-  iprint("Export 1/3: NPCs exportiert.", "EK-Tracker")
-  local kills = db:fetch(self.db.kills, nil,
-    {self.db.kills.killer_name, self.db.kills.npc_row_id})
-  local kills_table = {{"killer_name", "position", "date"}}
-  for _,kill_entry in pairs(kills) do
-    local date = "unbekannt"
-    if kill_entry["date"] &gt; 0 then
-      date = os.date("%d.%m.%y", kill_entry["date"])
-    end
-    table.insert(kills_table, {
-      kill_entry["killer_name"],
-      tostring(_row_id_to_position[kill_entry["npc_row_id"]] or kill_entry["npc_row_id"]),
-      date
-    })
-  end
-  msave_csv(filename.."_Kills", kills_table)
-  iprint("Export 2/3: EK-Eintraege exportiert.", "EK-Tracker")
-  local comps = db:fetch(self.db.competition, nil, {self.db.competition.player_name})
-  local comp_table = {{
-    "player_name",
-    "competitor_name",
-    "date",
-    "player_count",
-    "player_hasnt",
-    "competitor_count",
-    "competitor_hasnt"
-  }}
-  for _,comp_entry in pairs(comps) do
-    date = os.date("%d.%m.%y ", comp_entry["date"])
-    table.insert(comp_table, {
-      comp_entry["player_name"],
-      comp_entry["competitor_name"],
-      date,
-      comp_entry["player_count"],
-      comp_entry["player_hasnt"],
-      comp_entry["competitor_count"],
-      comp_entry["competitor_hasnt"]
-    })
-  end
-  msave_csv(filename.."_Competition", comp_table)
-  iprint("Export 3/3: Plaketten-Vergleich exportiert.", "EK-Tracker")
-  iprint("Export abgeschlossen", "EK-Tracker")
-end
-
-------------------------------------------------------
---
-------------------------------------------------------
-
-function EK:import(filename)
-  local d, m, y = von:match("(%d+)\.(%d+)\.(%d+)")
-  von = os.time{year=2000+y, month=m, day=d}
-end
-</script>
-			<eventHandlerList>
-				<string>sysConnectionEvent</string>
-			</eventHandlerList>
 		</Script>
 		<Script isActive="yes" isFolder="no">
 			<name>helpers</name>
@@ -1557,98 +1251,8 @@ end
 --
 ------------------------------------------------------
 
-function EK:_get_attr_query(conditions)
-  local result = {}
-  for _,prop_group in pairs(conditions) do
-    local temp = {}
-    for prop,value in pairs(prop_group) do
-      if self.attr[prop] then
-        prop = self.attr[prop]
-      end
-      if type(value) == "number" then
-        table.insert(
-          temp,
-          db:eq(self.db.npc[prop], value)
-        )
-      else
-        table.insert(
-          temp,
-          db:like(self.db.npc[prop], "%"..value:lower().."%")
-        )
-      end
-    end
-    if len(temp) == 1 then
-      table.insert(result, temp[1])
-    else
-      table.insert(result, db:AND(unpack(temp)))
-    end
-  end
-  if len(result) == 1 then
-    return result[1]
-  else
-    local real_result = result[1]
-    table.remove(result, 1)
-    for _,query in pairs(result) do
-      real_result = db:OR(real_result, query)
-    end
-    return real_result
-  end
-end
-
-------------------------------------------------------
---
-------------------------------------------------------
-
-function EK:_get_id_query(id_string)
-  local result = {}
-  for von, bis in id_string:gmatch("(%d+) bis (%d+)") do
-    table.insert(result, {von=tonumber(von), bis=tonumber(bis)})
-  end
-  id_string = id_string:gsub("(%d+) bis (%d+)", "")
-  for id in id_string:gmatch("%d+") do
-    table.insert(result, tonumber(id))
-  end
-  if len(result) == 0 then
-    return nil
-  end
-  local queries = {}
-  for _,num in pairs(result) do
-    if type(num) == "number" then
-      table.insert(queries, db:eq(self.db.npc.position, num))
-    else
-      table.insert(queries, db:AND(
-        db:gte(self.db.npc.position, num.von),
-        db:lte(self.db.npc.position, num.bis)
-      ))
-    end
-  end
-  if len(queries) == 1 then
-    return queries[1]
-  end
-  local query_result = queries[1]
-  table.remove(queries, 1)
-  for _,q in pairs(queries) do
-    query_result = db:OR(query_result, q)
-  end
-  return query_result
-end
-
-------------------------------------------------------
---
-------------------------------------------------------
-
-function EK:_kill_entry(npc)
-  if not npc["_row_id"] then
-    return nil
-  end
-  local npc_row_id = npc["_row_id"]
-  return db:fetch(
-    EK.db.kills,
-    {
-      db:eq(EK.db.kills.killer_name, PLAYER.name),
-      db:eq(EK.db.kills.npc_row_id, npc_row_id)
-    }
-  )[1]
+function EK:_kills()
+  return self.known_kills + self.unknown_kills
 end
 
 ------------------------------------------------------
@@ -1666,57 +1270,58 @@ function EK:_print_npc(npc)
     return
   end
   if npc[1] then
-    for _,single_npc in ipairs(npc) do
+    for _, single_npc in ipairs(npc) do
       self:_print_npc(single_npc)
     end
     if len(npc) &gt; 1 then
-      iprint("Es wurden "..len(npc).." Einträge gefunden.", "EK-Tracker")
+      iprint("Es wurden " .. len(npc) .. " Einträge gefunden.", "EK-Tracker")
     end
     return
   end
   local ort = "Ort"
-  local world = tonumber(npc["world"]) or 0
-	ort = ort .."("..world.."):"
-	if world&gt;0 then
-	  ort = "&lt;255,255,0:0,0,0&gt;"..ort
+  local world = tonumber(npc["para"]) or 0
+  ort = ort .. "(" .. world .. "):"
+  if world &gt; 0 then
+    ort = "&lt;255,255,0:0,0,0&gt;" .. ort
   else
-	  ort = "&lt;0,255,0:0,0,0&gt;"..ort
+    ort = "&lt;0,255,0:0,0,0&gt;" .. ort
   end
-  local npc_table = {
+  local npc_table =
     {
-      "&lt;0,255,0:0,0,0&gt;ID:",
-      "&lt;0,255,0:0,0,0&gt;Name:",
-      ort,
-      "&lt;0,255,0:0,0,0&gt;Region:",
-      "&lt;0,255,0:0,0,0&gt;Magier:",
-    },
-    {
-      npc["position"] or "",
-      npc["name"] or "",
-      npc["place"] or "",
-      npc["region"] or "",
-      npc["creator"] or "",
+      {
+        "&lt;0,255,0:0,0,0&gt;Nr:",
+        "&lt;0,255,0:0,0,0&gt;Name:",
+        ort,
+        "&lt;0,255,0:0,0,0&gt;Region:",
+        "&lt;0,255,0:0,0,0&gt;Magier:",
+      },
+      {
+        npc["position"] or "",
+        npc["name"] or "",
+        npc["ort"] or "",
+        npc["region"] or "",
+        npc["magier"] or "",
+      },
     }
-  }
   table.insert(npc_table[1], "&lt;0,255,0:0,0,0&gt;Hinweis:")
-	local hintlines = break_lines(npc["hint"] or "")
+  local hintlines = break_lines(npc["hinweis"] or "")
   table.insert(npc_table[2], hintlines[1])
-  for i=2,len(hintlines) do
+  for i = 2, len(hintlines) do
     table.insert(npc_table[1], "")
     table.insert(npc_table[2], hintlines[i])
   end
-  if npc["killpoints"] then
+  if npc.ek then
     table.insert(npc_table[1], "&lt;0,255,0:0,0,0&gt;Geholt:")
-  	local kill_entry = self:_kill_entry(npc)
-    if len(kill_entry) &gt; 0 then
-      if kill_entry["date"] == 0 then
-      	table.insert(npc_table[2], "unbekannt")
-  	  else
-    		table.insert(npc_table[2], os.date("%d.%m.%y", kill_entry["date"]))
-  	  end
+    local date = self.kills[npc._id]
+    if date and date &gt; -1 then
+      if date == 0 then
+        table.insert(npc_table[2], "unbekannt")
+      else
+        table.insert(npc_table[2], os.date("%d.%m.%y", date))
+      end
     else
-  		table.insert(npc_table[2], "&lt;255,0,0:0,0,0&gt;Nein")
-  	end
+      table.insert(npc_table[2], "&lt;255,0,0:0,0,0&gt;Nein")
+    end
   else
     table.insert(npc_table[1], "&lt;255,255,0:0,0,0&gt;Kein EK")
     table.insert(npc_table[2], "")
@@ -1735,29 +1340,29 @@ function EK:_print_npc_list(npcs, prop, no_killer)
     return
   end
   local npc_table = {{}, {}, {}, {}}
-  prop = prop or "place"
-  for i,npc in ipairs(npcs) do
+  prop = prop or "ort"
+  for i, npc in ipairs(npcs) do
     local index = npc["position"]
-    if no_killer or not self:_kill_entry(npc) then
-      index = "&lt;0,255,0:0,0,0&gt;"..index
+    if no_killer or (self.kills[npc._id] and self.kills[npc._id] &gt; -1) then
+      index = "&lt;0,255,0:0,0,0&gt;" .. index
     else
-      index = "&lt;255,255,0:0,0,0&gt;"..index
+      index = "&lt;255,255,0:0,0,0&gt;" .. index
     end
-    local prop_title = self.attr_name[prop]
-    if prop == "place" then
-      prop_title = prop_title.."("..npc["world"].."):"
-      if npc["world"] &gt; 0 then
-        prop_title  = "&lt;255,200,0:0,0,0&gt;"..prop_title
+    local prop_title = string.capitalize(prop)
+    if prop == "ort" then
+      prop_title = prop_title .. "(" .. npc["para"] .. "):"
+      if npc["para"] &gt; 0 then
+        prop_title = "&lt;255,200,0:0,0,0&gt;" .. prop_title
       else
-        prop_title  = "&lt;0,255,0:0,0,0&gt;"..prop_title
+        prop_title = "&lt;0,255,0:0,0,0&gt;" .. prop_title
       end
     else
-      prop_title = "&lt;0,255,0:0,0,0&gt;"..prop_title
+      prop_title = "&lt;0,255,0:0,0,0&gt;" .. prop_title
     end
     table.insert(npc_table[1], index)
-    table.insert(npc_table[2], npc["name"]:sub(1,30))
+    table.insert(npc_table[2], npc["name"]:sub(1, 30))
     table.insert(npc_table[3], prop_title)
-    table.insert(npc_table[4], npc[prop]:sub(1,30))
+    table.insert(npc_table[4], npc[prop]:sub(1, 30))
   end
   echo("\n")
   print_table(norm_table(npc_table, -1, 1))
@@ -1768,19 +1373,35 @@ end
 ------------------------------------------------------
 
 function EK:_num_plus_diff(base, reference)
-	if type(reference) == "nil" then
+  if type(reference) == "nil" then
     return {tostring(base), "", ""}
-	end
+  end
   local difference = base - reference
-	local sign = "+"
+  local sign = "+"
   local diff_color = "&lt;0,255,0:0,0,0&gt;"
-	if difference&lt;0 then
-		sign = "" -- don't change to "-", because the negative value has already the sign
+  if difference &lt; 0 then
+    sign = ""
+    -- don't change to "-", because the negative value has already the sign
     diff_color = "&lt;255,255,0:0,0,0&gt;"
-	end
-  return {tostring(base), diff_color, "("..sign..difference..")"}
+  end
+  return {tostring(base), diff_color, "(" .. sign .. difference .. ")"}
 end</script>
 			<eventHandlerList />
+		</Script>
+		<Script isActive="yes" isFolder="no">
+			<name>no_badge_for_small_players</name>
+			<packageName></packageName>
+			<script>function no_badge_for_small_players()
+  -- nicht-Seher haben eh keine Plakette und damit muessen
+  -- Spielanfaenger erstmal sich nicht um diese
+  -- Einstellung kuemmern
+  if gmcp.MG.char.base.wizlevel == 0 then
+    EK.plakette_lesen = false
+  end
+end</script>
+			<eventHandlerList>
+				<string>gmcp.MG.char.base</string>
+			</eventHandlerList>
 		</Script>
 	</ScriptPackage>
 	<KeyPackage />

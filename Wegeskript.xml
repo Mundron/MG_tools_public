@@ -712,114 +712,159 @@ end</script>
 --                   Mundron                   --
 --                                             --
 -------------------------------------------------
-
 -- Basic variables
-PF = PF or {filename="Wege",
-			gagfilename="Wege_Gag",
-			aliasfilename="Wege_Alias",
-			pathes={},
-			titles={},
-			ids={},
-			trigger_ids={},
-			runned_path={},
-			alias_ids={},
-			key_ids={},
-			enterfrom="",
-			roomid="",
-			goback=false,
-			type=0,
-			loaded=false,
-			active=false,
-			cpforth={},
-			startid="",
-			endid="",
-			cpback={},
-			pathcounter=0,
-			super_safe=true}
-
+PF =
+  PF or
+  {
+    filename = "Wege",
+    gagfilename = "Wege_Gag",
+    aliasfilename = "Wege_Alias",
+    pathes = {},
+    titles = {},
+    ids = {},
+    trigger_ids = {},
+    runned_path = {},
+    alias_ids = {},
+    key_ids = {},
+    enterfrom = "",
+    roomid = "",
+    goback = false,
+    type = 0,
+    loaded = false,
+    active = false,
+    cpforth = {},
+    startid = "",
+    endid = "",
+    cpback = {},
+    pathcounter = 0,
+    super_safe = true,
+  }
 -- Table to translate the long exit name to the short version
-PF.shortendir = {norden="n",
-								nordosten="no",
-								osten="o",
-								suedosten="so",
-								sueden="s",
-								suedwesten="sw",
-								westen="w",
-								nordwesten="nw"}
-
+PF.shortendir =
+  {
+    norden = "n",
+    nordosten = "no",
+    osten = "o",
+    suedosten = "so",
+    sueden = "s",
+    suedwesten = "sw",
+    westen = "w",
+    nordwesten = "nw",
+  }
 -- Table to give the direction for the backwards path
-PF.oppositedirection={norden="sueden", n="s",
-											nordunten="nordoben",
-											nordoben="nordunten",
-											nordosten="suedwesten", no="sw",
-											nordostoben="suedwestunten",
-											nordostunten="suedwestoben",
-											osten="westen", o="w",
-											ostunten="westoben",
-											ostoben="westunten",
-											suedosten="nordwesten", so="nw",
-											suedostoben="nordwestunten",
-											suedostunten="nordwestoben",
-											sueden="norden", s="n",
-											suedunten="nordoben",
-											suedoben="nordunten",
-											suedwesten="nordosten", sw="no",
-											suedwestunten="nordostoben",
-											suedwestoben="nordostunten",
-											westen="osten", w="o",
-											westunten="ostoben",
-											westoben="ostunten",
-											nordwesten="suedosten", nw="so",
-											nordwestoben="suedostunten",
-											nordwestunten="suedostoben",
-											oben="unten", ob="unten",
-											unten="oben", u="oben"}
-
+PF.oppositedirection =
+  {
+    norden = "sueden",
+    n = "s",
+    nordunten = "nordoben",
+    nordoben = "nordunten",
+    nordosten = "suedwesten",
+    no = "sw",
+    nordostoben = "suedwestunten",
+    nordostunten = "suedwestoben",
+    osten = "westen",
+    o = "w",
+    ostunten = "westoben",
+    ostoben = "westunten",
+    suedosten = "nordwesten",
+    so = "nw",
+    suedostoben = "nordwestunten",
+    suedostunten = "nordwestoben",
+    sueden = "norden",
+    s = "n",
+    suedunten = "nordoben",
+    suedoben = "nordunten",
+    suedwesten = "nordosten",
+    sw = "no",
+    suedwestunten = "nordostoben",
+    suedwestoben = "nordostunten",
+    westen = "osten",
+    w = "o",
+    westunten = "ostoben",
+    westoben = "ostunten",
+    nordwesten = "suedosten",
+    nw = "so",
+    nordwestoben = "suedostunten",
+    nordwestunten = "suedostoben",
+    oben = "unten",
+    ob = "unten",
+    unten = "oben",
+    u = "oben",
+  }
 -- Table contains all directiosn which are aliased while recording a new path
-PF.aliaseddir =  {"n", "norden", "nordunten", "nordoben",
-									"no", "nordosten", "nordostunten", "nordostoben",
-									"o", "osten", "ostunten", "ostoben",
-									"so", "suedosten", "suedostunten", "suedostoben",
-									"s", "sueden", "suedunten", "suedoben",
-									"sw", "suedwesten", "suedwestunten", "suedwestoben",
-									"w", "westen", "westunten", "westoben",
-									"nw", "nordwesten", "nordwestunten", "nordwestoben",
-									"ob", "oben", "u","unten", "raus"}
-
-PF.dirtokey = {8,9,6,3,2,1,4,7}
-
+PF.aliaseddir =
+  {
+    "n",
+    "norden",
+    "nordunten",
+    "nordoben",
+    "no",
+    "nordosten",
+    "nordostunten",
+    "nordostoben",
+    "o",
+    "osten",
+    "ostunten",
+    "ostoben",
+    "so",
+    "suedosten",
+    "suedostunten",
+    "suedostoben",
+    "s",
+    "sueden",
+    "suedunten",
+    "suedoben",
+    "sw",
+    "suedwesten",
+    "suedwestunten",
+    "suedwestoben",
+    "w",
+    "westen",
+    "westunten",
+    "westoben",
+    "nw",
+    "nordwesten",
+    "nordwestunten",
+    "nordwestoben",
+    "ob",
+    "oben",
+    "u",
+    "unten",
+    "raus",
+  }
+PF.dirtokey = {8, 9, 6, 3, 2, 1, 4, 7}
 -- These texts can appear on the path and should be deleted.
 -- We do not need to see them.
-PF.deleteonpath =  {"&gt; ",
-										"Das ist noch nicht noetig!",
-										"Du bist nun im \"Ultrakurz\"modus.",
-										"Du bist nun im \"Lang\"modus.",
-										"Der Sandtiger sagt: ",
-										"WAS moechtest Du in den Tresor legen?",
-										"WAS moechtest Du fallenlassen?",
-										"Du kletterst ueber die Mauer.",
-										"Du verlierst fuer einen Moment die Orientierung.",
-										"Der Sandtiger erkennt Dich wieder und nickt Dir hoeflich zu.",
-										"Du oeffnest einen Tresor.",
-										"Du schliesst einen Tresor.",
-										"Wie bitte?",
-										"Du verlaesst das 'Blue Note'.",
-										"Du oeffnest die Schwingtuer.",
-										"und beamt dich weg.",
-										"Die Wunschfee ist jetzt richtig sauer auf dich. Sie schnippst mit dem Finger",
-										"Die Wunschfee sagt: Ich glaube du spinnst!",
-										"Du wuenschst dir hemmungslosen Sex von der Fee.",
-										"Du vermutest einen Knopf in der Wand und beschliesst kurzer Hand ihn zu",
-										"druecken.",
-										"Du versuchst, Dir einen weiteren Drops aus der Bonbonniere zu nehmen.",
-										"Allerdings scheint sie durch einen unsichtbaren Deckel verschlossen worden zu",
-										"sein. Du schaffst es jedenfalls nicht hineinzugreifen. Probier es doch einfach",
-										"spaeter wieder.",
-										"gleich in Deine Tasche steckst."}
-											</script>
-			<eventHandlerList>
-				<string>sysLoadEvent</string>
-			</eventHandlerList>
+PF.deleteonpath =
+  {
+    "&gt; ",
+    "Das ist noch nicht noetig!",
+    "Du bist nun im \"Ultrakurz\"modus.",
+    "Du bist nun im \"Lang\"modus.",
+    "Der Sandtiger sagt: ",
+    "WAS moechtest Du in den Tresor legen?",
+    "WAS moechtest Du fallenlassen?",
+    "Du kletterst ueber die Mauer.",
+    "Du verlierst fuer einen Moment die Orientierung.",
+    "Der Sandtiger erkennt Dich wieder und nickt Dir hoeflich zu.",
+    "Du oeffnest einen Tresor.",
+    "Du schliesst einen Tresor.",
+    "Wie bitte?",
+    "Du verlaesst das 'Blue Note'.",
+    "Du oeffnest die Schwingtuer.",
+    "und beamt dich weg.",
+    "Die Wunschfee ist jetzt richtig sauer auf dich. Sie schnippst mit dem Finger",
+    "Die Wunschfee sagt: Ich glaube du spinnst!",
+    "Du wuenschst dir hemmungslosen Sex von der Fee.",
+    "Du vermutest einen Knopf in der Wand und beschliesst kurzer Hand ihn zu",
+    "druecken.",
+    "Du versuchst, Dir einen weiteren Drops aus der Bonbonniere zu nehmen.",
+    "Allerdings scheint sie durch einen unsichtbaren Deckel verschlossen worden zu",
+    "sein. Du schaffst es jedenfalls nicht hineinzugreifen. Probier es doch einfach",
+    "spaeter wieder.",
+    "gleich in Deine Tasche steckst.",
+  }</script>
+			<eventHandlerList />
 		</Script>
 		<Script isActive="yes" isFolder="no">
 			<name>script handling</name>
@@ -838,160 +883,171 @@ PF.deleteonpath =  {"&gt; ",
 --  PF:clear_forth(num)
 --  PF:clear_back(num)
 --  PF:move_forth(dir)
---	PF:show_path(path)
+--  PF:show_path(path)
 --  PF:rename_path(oldname, newname)
 --  PF:show_ids(path)
 --  PF:delete_id(path,num)
--- 	PF:add_id(path)
+--  PF:add_id(path)
 --  PF:show_pathes_here()
---	PF:list_pathes(startletter)
---	PF:search_in_title(title)
+--  PF:list_pathes(startletter)
+--  PF:search_in_title(title)
 --  PF:retitle_path(path, title)
 --  PF:delete_path(path)
---	PF:show_gag()
---	PF:add_gag(subtext)
+--  PF:show_gag()
+--  PF:add_gag(subtext)
 --  PF:delete_gag(number)
---	PF:show_aliases()
---	PF:add_alias(subtext)
+--  PF:show_aliases()
+--  PF:add_alias(subtext)
 --  PF:delete_alias(number)
---	PF:help(command)
+--  PF:help(command)
 --
 -------------------------------------------------
 
 function PF:init()
-	self.enterfrom=""
-	self.cpforth={}
-	self.cpback={}
-	self.goback=false -- wir starten mit dem Hinweg
-	self.startid=gmcp.MG.room.info.id
-	self:kill_alias()
-	self:create_alias()
-	self:kill_keys()
-	self:create_keys()
-	iprint("Wegaufzeichnung Typ "..type.." gestartet.", "Wegeskript")
+  self.enterfrom = ""
+  self.cpforth = {}
+  self.cpback = {}
+  self.goback = false
+  -- wir starten mit dem Hinweg
+  self.startid = gmcp.MG.room.info.id
+  self:kill_alias()
+  self:create_alias()
+  self:kill_keys()
+  self:create_keys()
+  iprint("Wegaufzeichnung Typ gestartet.", "Wegeskript")
 end
 
 function PF:stop()
-	self:kill_alias()
-	self:kill_keys()
-	iprint("Wegaufzeichnung angehalten.", "Wegeskript")
+  self:kill_alias()
+  self:kill_keys()
+  iprint("Wegaufzeichnung angehalten.", "Wegeskript")
 end
 
 function PF:continue()
-	self:create_keys()
-	self:create_alias()
-	iprint("Wegaufzeichnung fortgesetzt.", "Wegeskript")
+  self:create_keys()
+  self:create_alias()
+  iprint("Wegaufzeichnung fortgesetzt.", "Wegeskript")
 end
 
 function PF:set_goal()
-	self.endid = gmcp.MG.room.info.id
-	self.goback=true
-	iprint({"Die Wegaufzeichnung wurde zu diesem Punkt gefuehrt. Anschliessen den Weg zuruecklaufen. Sonderbefehle jetzt weiter mit ",  {"y", "#vor"}, " eingeben!"}, "Wegeskript")
+  self.endid = gmcp.MG.room.info.id
+  self.goback = true
+  iprint(
+    {
+      "Die Wegaufzeichnung wurde zu diesem Punkt gefuehrt. Anschliessen den Weg zuruecklaufen. Sonderbefehle jetzt weiter mit ",
+      {"y", "#vor"},
+      " eingeben!",
+    },
+    "Wegeskript"
+  )
 end
 
 function PF:add_forth(dir)
-	table.insert(self.cpforth,dir)
-	self.endid = gmcp.MG.room.info.id
+  table.insert(self.cpforth, dir)
+  self.endid = gmcp.MG.room.info.id
 end
 
 function PF:add_back(dir)
-	table.insert(self.cpback, dir)
+  table.insert(self.cpback, dir)
 end
 
 function PF:show_forth(num)
-	if num&lt;1 or num&gt;#self.cpforth then
-		num=#self.cpforth
-	end
-	echo("\n\nDie letzten "..num.." Richtungen wurden vorwaerts gespeichert:\n\n")
-	for i=#self.cpforth-num+1,#self.cpforth,1 do
-		echo(self.cpforth[i].."\n")
-	end
-	echo("\n\n\n")
+  if num &lt; 1 or num &gt; #self.cpforth then
+    num = #self.cpforth
+  end
+  echo("\n\nDie letzten " .. num .. " Richtungen wurden vorwaerts gespeichert:\n\n")
+  for i = #self.cpforth - num + 1, #self.cpforth, 1 do
+    echo(self.cpforth[i] .. "\n")
+  end
+  echo("\n\n\n")
 end
 
 function PF:show_back(num)
-	if num&lt;1 or num&gt;#self.cpback then
-		num=#self.cpback
-	end
-	echo("\n\nDie letzten "..num.." Richtungen wurden rueckwaerts gespeichert:\n\n")
-	for i=1,num,1 do
-		if type(self.cpback[i])=="table" then
-			for j=1,#self.cpback[i],1 do
-				echo(self.cpback[i][j].."\n")
-			end
-		else
-			echo(self.cpback[i].."\n")
-		end
-	end
-	echo("\n\n\n")
+  if num &lt; 1 or num &gt; #self.cpback then
+    num = #self.cpback
+  end
+  echo("\n\nDie letzten " .. num .. " Richtungen wurden rueckwaerts gespeichert:\n\n")
+  for i = 1, num, 1 do
+    if type(self.cpback[i]) == "table" then
+      for j = 1, #self.cpback[i], 1 do
+        echo(self.cpback[i][j] .. "\n")
+      end
+    else
+      echo(self.cpback[i] .. "\n")
+    end
+  end
+  echo("\n\n\n")
 end
 
 function PF:clear_last(num)
   if self.goback then
-		self:clear_back(num)
-	else
-		self:clear_forth(num)
-	end 
+    self:clear_back(num)
+  else
+    self:clear_forth(num)
+  end
 end
 
 function PF:clear_forth(num)
-	-- remove num times the last element
-	if num&gt;0 then
-		if num&gt;#self.cpforth then
-			self.cpforth={}
-			self:info("In der Wegaufzeichnung wurde der Vorwaerts-Weg komplett geloescht.")
-		else
-			for i=1,num,1 do
-				table.remove(self.cpforth,#self.cpforth)
-			end
-			self:info("In der Wegaufzeichnung wurden vorwaerts die letzten "..num.." Eingaben geloescht")
-		end
-	else
-		eprint("Wegeskript", "Es koennen nicht die letzten "..num.." Eingaben geloescht werden")
-	end
+  -- remove num times the last element
+  if num &gt; 0 then
+    if num &gt; #self.cpforth then
+      self.cpforth = {}
+      self:info("In der Wegaufzeichnung wurde der Vorwaerts-Weg komplett geloescht.")
+    else
+      for i = 1, num, 1 do
+        table.remove(self.cpforth, #self.cpforth)
+      end
+      self:info(
+        "In der Wegaufzeichnung wurden vorwaerts die letzten " .. num .. " Eingaben geloescht"
+      )
+    end
+  else
+    eprint("Wegeskript", "Es koennen nicht die letzten " .. num .. " Eingaben geloescht werden")
+  end
 end
 
 function PF:clear_back(num)
-	-- remove num times the last element
-	if num&gt;0 then
-		if num&gt;#self.cpback then
-			self.cpback={}
-			self:info("In der Wegaufzeichnung wurde der Rueckwaerts-Weg komplett geloescht.")
-		else
-			for i=1,num,1 do
-				table.remove(self.cpback,#self.cpback)
-			end
-			self:info("In der Wegaufzeichnung wurden vorwaerts die letzten "..num.." Eingaben geloescht")
-		end
-	else
-		eprint("Wegeskript", "Es koennen nicht die letzten "..num.." Eingaben geloescht werden")
-	end
+  -- remove num times the last element
+  if num &gt; 0 then
+    if num &gt; #self.cpback then
+      self.cpback = {}
+      self:info("In der Wegaufzeichnung wurde der Rueckwaerts-Weg komplett geloescht.")
+    else
+      for i = 1, num, 1 do
+        table.remove(self.cpback, #self.cpback)
+      end
+      self:info(
+        "In der Wegaufzeichnung wurden vorwaerts die letzten " .. num .. " Eingaben geloescht"
+      )
+    end
+  else
+    eprint("Wegeskript", "Es koennen nicht die letzten " .. num .. " Eingaben geloescht werden")
+  end
 end
 
 function PF:move_forth(dir)
-	if self.goback then
-		self:add_back(dir)
-	else
-		self:add_forth(dir)
-	end
-	send(dir,false)
+  if self.goback then
+    self:add_back(dir)
+  else
+    self:add_forth(dir)
+  end
+  send(dir, false)
 end
 
-
 function PF:show_path(path)
-	if self.pathes[path] then
-		self:info("Der Hinweg von '"..path.."' ist:")
-		for key,value in pairs(self.pathes[path]) do
-			echo(key..": "..value.."\n")
-		end
-		self:info("Der Rueckweg von '"..path.."' ist:")
-		for key,value in pairs(self.pathes[path.."_z"]) do
-			echo("-"..key..": "..value.."\n")
-		end
-	else
-		eprint("Der Weg '"..path.."' existiert nicht.", "Wegeskript")
-	end
-	echo("\n\n\n")
+  if self.pathes[path] then
+    self:info("Der Hinweg von '" .. path .. "' ist:")
+    for key, value in pairs(self.pathes[path]) do
+      echo(key .. ": " .. value .. "\n")
+    end
+    self:info("Der Rueckweg von '" .. path .. "' ist:")
+    for key, value in pairs(self.pathes[path .. "_z"]) do
+      echo("-" .. key .. ": " .. value .. "\n")
+    end
+  else
+    eprint("Der Weg '" .. path .. "' existiert nicht.", "Wegeskript")
+  end
+  echo("\n\n\n")
 end
 
 function PF:fix_path_add(path, nr, new_line)
@@ -1005,7 +1061,7 @@ function PF:fix_path_add(path, nr, new_line)
     table.insert(self.pathes[path], nr, new_line)
     self:save()
   else
-    eprint("Den Weg '"..path.."' gibt es nicht.", "Wegeskript")
+    eprint("Den Weg '" .. path .. "' gibt es nicht.", "Wegeskript")
   end
 end
 
@@ -1014,8 +1070,8 @@ function PF:fix_path_delete(path, nr)
     table.remove(self.pathes[path], nr)
     self:save()
   else
-    eprint("Den Weg '"..path.."' gibt es nicht.", "Wegeskript")
-  end  
+    eprint("Den Weg '" .. path .. "' gibt es nicht.", "Wegeskript")
+  end
 end
 
 function PF:fix_path_replace(path, nr, new_line)
@@ -1028,245 +1084,245 @@ function PF:fix_path_replace(path, nr, new_line)
         self.pathes[path][nr] = new_line
         self:save()
       else
-        eprint("So viele Zeilen hat der Weg '"..path.."' nicht", "Wegeskript")
+        eprint("So viele Zeilen hat der Weg '" .. path .. "' nicht", "Wegeskript")
       end
     else
-      eprint("Den Weg '"..path.."' gibt es nicht.", "Wegeskript")
+      eprint("Den Weg '" .. path .. "' gibt es nicht.", "Wegeskript")
     end
   end
   if nr &lt; 0 then
-    if self.pathes[path.."_z"] then
-      if nr &gt; -#self.pathes[path.."_z"] then
-        self.pathes[path.."_z"][-nr] = new_line
+    if self.pathes[path .. "_z"] then
+      if nr &gt; -#self.pathes[path .. "_z"] then
+        self.pathes[path .. "_z"][-nr] = new_line
         self:save()
       else
-        eprint("So viele Zeilen hat der Rueckweg von '"..path.."' nicht.", "wegeskript")
+        eprint("So viele Zeilen hat der Rueckweg von '" .. path .. "' nicht.", "wegeskript")
       end
     else
-      eprint("Den Weg '"..path.."' gibt es nicht.", "Wegeskript")
+      eprint("Den Weg '" .. path .. "' gibt es nicht.", "Wegeskript")
     end
   end
 end
 
 function PF:rename_path(oldname, newname)
-	self:load()
-  self.pathes[newname]=self.pathes[oldname]
-	self.pathes[oldname]=nil
-	self.titles[newname]=self.titles[oldname]
-	self.titles[oldname]=nil
-	for key,_ in pairs(self.ids) do
-		if self.ids[key]==oldname then
-			self.ids[key]=newname
-		end
-	end
-	self:save()
-	self:info("Der Weg '"..oldname.."' wurde nun in '"..newname.."' umbenannt.")
+  self:load()
+  self.pathes[newname] = self.pathes[oldname]
+  self.pathes[oldname] = nil
+  self.titles[newname] = self.titles[oldname]
+  self.titles[oldname] = nil
+  for key, _ in pairs(self.ids) do
+    if self.ids[key] == oldname then
+      self.ids[key] = newname
+    end
+  end
+  self:save()
+  self:info("Der Weg '" .. oldname .. "' wurde nun in '" .. newname .. "' umbenannt.")
 end
 
 function PF:show_ids(path)
-	local i=1
-	if self.pathes[path] then
-  	self:info("Der Weg '"..path.."' hat folgende Raum-IDs gespeichert.")
-   	for key,value in pairs(self.ids) do
-   		if self.ids[key]==path then
-  			echo("ID Nr. "..i..": ")
-				display(key)
-				echo("\n")
-  			i=i+1
-  		end
-   	end
-		echo("\n\n\n")
-	else
-		eprint("Wegeskript", "Der Weg  '"..path.."' existiert nicht!")
-	end
+  local i = 1
+  if self.pathes[path] then
+    self:info("Der Weg '" .. path .. "' hat folgende Raum-IDs gespeichert.")
+    for key, value in pairs(self.ids) do
+      if self.ids[key] == path then
+        echo("ID Nr. " .. i .. ": ")
+        display(key)
+        echo("\n")
+        i = i + 1
+      end
+    end
+    echo("\n\n\n")
+  else
+    eprint("Wegeskript", "Der Weg  '" .. path .. "' existiert nicht!")
+  end
 end
 
-function PF:delete_id(path,num)
+function PF:delete_id(path, num)
   self:load()
-	if self.pathes[path] then
-  	local i=1
-  	for key,value in pairs(self.ids) do
-   		if self.ids[key]==path then
-  			if i==num then
-					self.ids[key]=nil
-		      self:save()
-  				echo("ID '"..key.."' zum Weg '"..path.."' wurde geloescht.")
-  				break
-  			else
-  				i=i+1
-  			end
-  		end
-   	end
-  	echo("\n\n\n")
-	else
-		eprint("Wegeskript", "Der Weg '"..path.."' existiert nicht!")
-	end
+  if self.pathes[path] then
+    local i = 1
+    for key, value in pairs(self.ids) do
+      if self.ids[key] == path then
+        if i == num then
+          self.ids[key] = nil
+          self:save()
+          echo("ID '" .. key .. "' zum Weg '" .. path .. "' wurde geloescht.")
+          break
+        else
+          i = i + 1
+        end
+      end
+    end
+    echo("\n\n\n")
+  else
+    eprint("Wegeskript", "Der Weg '" .. path .. "' existiert nicht!")
+  end
 end
 
 function PF:add_id(path)
   self:load()
-	if self.pathes[path] then
-		self.ids[gmcp.MG.room.info.id]=path
-		self:save()
-		self:info("Die ID '"..gmcp.MG.room.info.id.."' wurde dem Weg '"..path.."' zugewiesen.")
-	else
-		eprint("Wegeskript", "Der Weg '"..path.."' existiert nicht.")
-	end
+  if self.pathes[path] then
+    self.ids[gmcp.MG.room.info.id] = path
+    self:save()
+    self:info("Die ID '" .. gmcp.MG.room.info.id .. "' wurde dem Weg '" .. path .. "' zugewiesen.")
+  else
+    eprint("Wegeskript", "Der Weg '" .. path .. "' existiert nicht.")
+  end
 end
 
 function PF:list_pathes(startletter)
-	self:info("Folgende Wege beginnen mit '"..startletter.."'.")
-	for key,value in pairs(self.titles) do
-		if key:sub(1,1)==startletter then
-			echo("Weg '"..key.."' mit dem Titel '"..value.."'.\n")
-		end
-	end
-	echo("\n\n\n")
+  self:info("Folgende Wege beginnen mit '" .. startletter .. "'.")
+  for key, value in pairs(self.titles) do
+    if key:sub(1, 1) == startletter then
+      echo("Weg '" .. key .. "' mit dem Titel '" .. value .. "'.\n")
+    end
+  end
+  echo("\n\n\n")
 end
 
 function PF:search_in_title(substring)
-	self:info("Bei folgenden Wege beinhaltet der Titel  '"..substring.."'.")
-	for key,value in pairs(self.titles) do
-		if value:lower():find(substring:lower()) then
-			echo("Weg '"..key.."' mit dem Titel '"..value.."'.\n")
-		end
-	end
-	echo("\n\n\n")
+  self:info("Bei folgenden Wege beinhaltet der Titel  '" .. substring .. "'.")
+  for key, value in pairs(self.titles) do
+    if value:lower():find(substring:lower()) then
+      echo("Weg '" .. key .. "' mit dem Titel '" .. value .. "'.\n")
+    end
+  end
+  echo("\n\n\n")
 end
 
 function PF:show_pathes_here()
-	if self.ids[gmcp.MG.room.info.id] then
-		self:info("Der Weg '"..self.ids[gmcp.MG.room.info.id].."' endet hier.")
-	else
-		self:info("Hier endet kein Weg.")
-	end
+  if self.ids[gmcp.MG.room.info.id] then
+    self:info("Der Weg '" .. self.ids[gmcp.MG.room.info.id] .. "' endet hier.")
+  else
+    self:info("Hier endet kein Weg.")
+  end
 end
 
-
 function PF:retitle_path(path, title)
-	if self.pathes[path] then
-		if self.titles[path] then
+  if self.pathes[path] then
+    if self.titles[path] then
       self:load()
     end
-    self.titles[path]=title
+    self.titles[path] = title
     self:save()
-		if title then
-			self:info("Der Weg '"..path.."' hat nun den Titel '"..title.."' erhalten.")
-		end
-	else
-		eprint("Wegeskript", "Ein Weg mit dem Namen '"..path.."' existiert nicht.")
-	end
+    if title then
+      self:info("Der Weg '" .. path .. "' hat nun den Titel '" .. title .. "' erhalten.")
+    end
+  else
+    eprint("Wegeskript", "Ein Weg mit dem Namen '" .. path .. "' existiert nicht.")
+  end
 end
 
 function PF:delete_path(path)
-	if self.pathes[path] then
-		self:retitle_path(path,nil)
-    self:info("Der Weg '"..path.."' wurde geloescht.")
-	else
-		eprint("Wegeskript", "Ein Weg mit dem Namen "..path.." existiert nicht.")
-	end
+  if self.pathes[path] then
+    self:retitle_path(path, nil)
+    self:info("Der Weg '" .. path .. "' wurde geloescht.")
+  else
+    eprint("Wegeskript", "Ein Weg mit dem Namen " .. path .. " existiert nicht.")
+  end
 end
 
-
 function PF:show_gag()
-	self:info("Alle Zeilen, die die folgende Zeilen beinhalten, werden beim Laufen geloescht:")
-  for i=1,#PF.deleteonpath,1 do
-  	decho("&lt;250,250,0:0,0,0&gt;"..i..": ")
-		echo(PF.deleteonpath[i].."\n")
-	end
+  self:info("Alle Zeilen, die die folgende Zeilen beinhalten, werden beim Laufen geloescht:")
+  for i = 1, #PF.deleteonpath, 1 do
+    decho("&lt;250,250,0:0,0,0&gt;" .. i .. ": ")
+    echo(PF.deleteonpath[i] .. "\n")
+  end
 end
 
 function PF:add_gag(subtext)
   self.deleteonpath = mload_tlines(self.gagfilename)
   table.insert(self.deleteonpath, subtext)
   msave_tlines(self.gagfilename, self.deleteonpath)
-  iprint("Der Gag '"..subtext.."' wurde hinzugefuegt.", "Wegeskript")
+  iprint("Der Gag '" .. subtext .. "' wurde hinzugefuegt.", "Wegeskript")
 end
 
 function PF:delete_gag(number)
-	if number&lt;1 or number&gt;#self.deleteonpath then
-		eprint("Wegeskript", "Ein Gag mit der Nummer "..number.." existiert nicht.")
-	else
+  if number &lt; 1 or number &gt; #self.deleteonpath then
+    eprint("Wegeskript", "Ein Gag mit der Nummer " .. number .. " existiert nicht.")
+  else
     self.deleteonpath = mload_tlines(self.gagfilename)
     table.remove(self.deleteonpath, number)
     msave_tlines(self.gagfilename, self.deleteonpath)
-	end
+  end
 end
 
 function PF:show_aliases()
-	self:info("Alle Richtungen, die automatisch bei der Wegaufzeichnung erkannt werden:")
+  self:info("Alle Richtungen, die automatisch bei der Wegaufzeichnung erkannt werden:")
   local Zusammenfassung
-
-  for i=1,8,1 do
-  	decho("&lt;250,250,0:0,0,0&gt;"..((i-1)*4+1).."-"..(i*4)..": ")
-		Zusammenfassung=""
-  	for j=1,4,1 do
-  		Zusammenfassung = Zusammenfassung..PF.aliaseddir[(i-1)*4+j]..", "
-  	end
-  	Zusammenfassung=Zusammenfassung:sub(1,-3).."\n\n"
-  	decho(Zusammenfassung)
+  for i = 1, 8, 1 do
+    decho("&lt;250,250,0:0,0,0&gt;" .. ((i - 1) * 4 + 1) .. "-" .. (i * 4) .. ": ")
+    Zusammenfassung = ""
+    for j = 1, 4, 1 do
+      Zusammenfassung = Zusammenfassung .. PF.aliaseddir[(i - 1) * 4 + j] .. ", "
+    end
+    Zusammenfassung = Zusammenfassung:sub(1, -3) .. "\n\n"
+    decho(Zusammenfassung)
   end
-
-	for i=0,1,1 do
-	  decho("&lt;250,250,0:0,0,0&gt;"..(33+2*i).."+"..(34+2*i)..": ")
-		echo(PF.aliaseddir[33+2*i]..", "..PF.aliaseddir[34+2*i].."\n\n")
-	end
-
-  for i=37,#PF.aliaseddir,1 do
-  	decho("&lt;250,250,0:0,0,0&gt;"..i..": ")
-		echo(PF.aliaseddir[i].."\n\n")
+  for i = 0, 1, 1 do
+    decho("&lt;250,250,0:0,0,0&gt;" .. (33 + 2 * i) .. "+" .. (34 + 2 * i) .. ": ")
+    echo(PF.aliaseddir[33 + 2 * i] .. ", " .. PF.aliaseddir[34 + 2 * i] .. "\n\n")
+  end
+  for i = 37, #PF.aliaseddir, 1 do
+    decho("&lt;250,250,0:0,0,0&gt;" .. i .. ": ")
+    echo(PF.aliaseddir[i] .. "\n\n")
   end
 end
 
 function PF:add_alias(subtext)
-	if #subtext:gsub("%a+", "")&gt;0 then
-		eprint("Wegeskript", {"Eine Richtung darf nur aus einem Wort bestehen. Fuer Bewegungsaktionen aus mehr als einem Wort muss man den Befehl ", "&lt;250,250,0:0,0,0&gt;\#vor", " nutzen."})
-	else
-		-- zuerst testen ob die Richtung nicht bereits in der Liste ist.
-		local aliasexists = false
-		for _,v in pairs(self.aliaseddir) do
-			aliasexists = aliasexists or (v==subtext)
-		end
-		if aliasexists then
-			eprint("Wegeskript", "Die Richtung "..subtext.." steht bereits in der Liste!")
-		else
+  if #subtext:gsub("%a+", "") &gt; 0 then
+    eprint(
+      "Wegeskript",
+      {
+        "Eine Richtung darf nur aus einem Wort bestehen. Fuer Bewegungsaktionen aus mehr als einem Wort muss man den Befehl ",
+        "&lt;250,250,0:0,0,0&gt;\#vor",
+        " nutzen.",
+      }
+    )
+  else
+    -- zuerst testen ob die Richtung nicht bereits in der Liste ist.
+    local aliasexists = false
+    for _, v in pairs(self.aliaseddir) do
+      aliasexists = aliasexists or (v == subtext)
+    end
+    if aliasexists then
+      eprint("Wegeskript", "Die Richtung " .. subtext .. " steht bereits in der Liste!")
+    else
       table.insert(self.aliaseddir, subtext)
       self:save_lines(self.aliasfilename, self.aliaseddir)
-      self:info("Die Richtung '"..subtext.."' wurde hinzugefuegt.")
-		end
-	end
+      self:info("Die Richtung '" .. subtext .. "' wurde hinzugefuegt.")
+    end
+  end
 end
 
 function PF:delete_alias(number)
-	if number&lt;1 or number&gt;#self.aliaseddir then
-		eprint("Wegeskript", "Eine Richtung mit der Nummer "..number.." existiert nicht.")
-	elseif number &lt; 38 then
-		eprint("Wegeskript", "Die Standard-Richtungen koennen nicht geloescht werden.")
-	else
-		local todel = self.aliaseddir[number]
+  if number &lt; 1 or number &gt; #self.aliaseddir then
+    eprint("Wegeskript", "Eine Richtung mit der Nummer " .. number .. " existiert nicht.")
+  elseif number &lt; 38 then
+    eprint("Wegeskript", "Die Standard-Richtungen koennen nicht geloescht werden.")
+  else
+    local todel = self.aliaseddir[number]
     table.remove(self.aliaseddir, number)
-	  self:save_lines(self.aliasfilename, self.aliaseddir)
-		self:info("Die Richtung '"..todel.."' wurde geloescht.")
-	end
+    self:save_lines(self.aliasfilename, self.aliaseddir)
+    self:info("Die Richtung '" .. todel .. "' wurde geloescht.")
+  end
 end
 
-
-
 function PF:help()
-		self:info("Der Wegeskript hat folgende Befehle:")
-		echo("PF:init()\nPF:stop()\nPF:continue()\n")
-		echo("PF:load()\nPF:save()\n")
-		echo("PF:save_path(name,startpoint,backwards,title)\n")
-		echo("PF:save_onedirection(name,startpoint,backwards,title)\n")
-		echo("PF:show_forth(num)\nPF:show_back(num)\n")
-		echo("PF:clear_forth(num)\nPF:clear_back(num)\n")
-		echo("PF:move_forth(dir)\n")
-		echo("PF:goto(goal)\nPF:jump(goal)\nPF:run(start,goal)\n")
-		echo("PF:rename_path(oldname, newname)\nPF:show_ids(path)\n")
-		echo("PF:delete_id(path,num)\nPF:add_id(path)\n")
-		echo("PF:show_pathes_here()\nPF:list_pathes(startletter)\n")
-		echo("PF:search_in_title(title)\nPF:retitle_path(path, title)\n")
-		echo("PF:delete_path(path)\nPF:help()")
+  self:info("Der Wegeskript hat folgende Befehle:")
+  echo("PF:init()\nPF:stop()\nPF:continue()\n")
+  echo("PF:load()\nPF:save()\n")
+  echo("PF:save_path(name,startpoint,backwards,title)\n")
+  echo("PF:save_onedirection(name,startpoint,backwards,title)\n")
+  echo("PF:show_forth(num)\nPF:show_back(num)\n")
+  echo("PF:clear_forth(num)\nPF:clear_back(num)\n")
+  echo("PF:move_forth(dir)\n")
+  echo("PF:goto(goal)\nPF:jump(goal)\nPF:run(start,goal)\n")
+  echo("PF:rename_path(oldname, newname)\nPF:show_ids(path)\n")
+  echo("PF:delete_id(path,num)\nPF:add_id(path)\n")
+  echo("PF:show_pathes_here()\nPF:list_pathes(startletter)\n")
+  echo("PF:search_in_title(title)\nPF:retitle_path(path, title)\n")
+  echo("PF:delete_path(path)\nPF:help()")
 end</script>
 			<eventHandlerList />
 		</Script>
@@ -1278,68 +1334,67 @@ end</script>
 --                                             --
 -- Note that you can also use external Scripts --
 -------------------------------------------------
-
 function PF:goto(goal, pseudo)
-	local id = gmcp.MG.room.info.id
+  local id = gmcp.MG.room.info.id
 
   PF.last_goal = goal
 
-	if pseudo then
+  if pseudo then
     PF:jump(self.ids[id].."_z", false)
   elseif self.ids[id] then
-		PF:run(self.ids[id], goal)
-	else
-		eprint("Wegeskript", "Dieser Raum ist kein Startpunkt!")
-	end
+    PF:run(self.ids[id], goal)
+  else
+    eprint("Wegeskript", "Dieser Raum ist kein Startpunkt!")
+  end
 end
 
 function PF:jump(path,stacked)
-	local kommandos={}
+  local kommandos={}
 
-	if self.pathes[path] then
-  	for k,v in ipairs(self.pathes[path]) do
-    	kommandos[#kommandos+1] = v
+  if self.pathes[path] then
+    for k,v in ipairs(self.pathes[path]) do
+      kommandos[#kommandos+1] = v
     end
-		if not stacked then
-			send("ultrakurz", false)
-  		self.start_trigger()
-  		self:workoff(kommandos)
-			send("lang", false)
-			send("schau", false)
-			tempTimer(2, function() PF:kill_trigger() end)
-		else
-	  	self:workoff(kommandos)
-		end
-	else
-		eprint("Der Weg '"..path.."' existiert nicht!", "Wegeskript")
-	end
+    if not stacked then
+      send("ultrakurz", false)
+      self.start_trigger()
+      self:workoff(kommandos)
+      send("lang", false)
+      send("schau", false)
+      tempTimer(2, function() PF:kill_trigger() end)
+    else
+      self:workoff(kommandos)
+    end
+  else
+    eprint("Der Weg '"..path.."' existiert nicht!", "Wegeskript")
+  end
 end
 
 
 function PF:run(start,goal)
-	local kommandos = {}
-	self:info({"Der Wegeskript ist von ", "&lt;200,200,10:0,0,0&gt;"..start, " nach ", "&lt;200,200,10:0,0,0&gt;"..goal, " gelaufen."})
-	self.runned_path={"#go "..start.." "..goal}
-	if self.pathes[goal] then
-		if self.pathes[start] then
-  		for k,v in ipairs(self.pathes[start.."_z"]) do
-  			kommandos[#kommandos+1] = v
-  		end
-  		for k,v in ipairs(self.pathes[goal]) do
-  			kommandos[#kommandos+1] = v
-  		end
-			send("ultrakurz", false)
-  		self.start_trigger()
-			self:workoff(kommandos)
-			send("lang", false)
-			send("schau", false)
-			tempTimer(2, function() PF:kill_trigger() end)
-		else
-			eprint("Wegeskript", "Der Weg '"..start.."' existiert nicht!")
-		end
-	else
-		eprint("Wegeskript", "Der Weg '"..goal.."' existiert nicht!")
-	end
+  local kommandos = {}
+  self:info({"Der Wegeskript ist von ", "&lt;200,200,10:0,0,0&gt;"..start, " nach ", "&lt;200,200,10:0,0,0&gt;"..goal, " gelaufen."})
+  self.runned_path={"#go "..start.." "..goal}
+  if self.pathes[goal] then
+    if self.pathes[start] then
+      for k,v in ipairs(self.pathes[start.."_z"]) do
+        kommandos[#kommandos+1] = v
+      end
+      for k,v in ipairs(self.pathes[goal]) do
+        kommandos[#kommandos+1] = v
+      end
+      send("ultrakurz", false)
+      self.start_trigger()
+    self:workoff(kommandos)
+      send("lang", false)
+      send("schau", false)
+      tempTimer(2, function() PF:kill_trigger() end)
+    else
+      eprint("Wegeskript", "Der Weg '"..start.."' existiert nicht!")
+    end
+  else
+    eprint("Wegeskript", "Der Weg '"..goal.."' existiert nicht!")
+  end
 end</script>
 			<eventHandlerList />
 		</Script>
@@ -1358,212 +1413,254 @@ end</script>
 				<packageName></packageName>
 				<script>function PF:dopath(wegestring)
   if not type(wegestring) == "string" then
-        wegestring = ""
-    end
-    for w in string.gmatch(wegestring, "%a+") do
-      send(w, false)
-    end
+    wegestring = ""
+  end
+  for w in string.gmatch(wegestring, "%a+") do
+    send(w, false)
+  end
 end
 
 function PF:workoff(kommandos)
- 	if type(kommandos) == "table" then
+  if type(kommandos) == "table" then
     kommando = kommandos[1]
     kommandos = {unpack(kommandos, 2)}
     do_recursion = true
     if not (type(kommando) == "string") then
-      eprint("Eingabe hat falschen Typ. Erwarte string statt "..type(v), "Wegeskript")
+      eprint("Eingabe hat falschen Typ. Erwarte string statt " .. type(v), "Wegeskript")
       return
     end
     -- Wenn "#dopath" oder "#go", dann das Ali ausführen
-    self.runned_path[#self.runned_path+1]= kommando
-		
+    self.runned_path[#self.runned_path + 1] = kommando
     if beginswith(kommando, "#dopath") then
-			self:dopath(kommando:gsub("#dopath ", ""))
-		elseif beginswith(kommando, "#go") then
-			self.runned_path[#self.runned_path]="Beginn von: "..self.runned_path[#self.runned_path]
-			self:jump(kommando:gsub("#go ", ""), true)
-			self.runned_path[#self.runned_path+1]= "Ende von: "..kommando
+      self:dopath(kommando:gsub("#dopath ", ""))
+    elseif beginswith(kommando, "#go") then
+      self.runned_path[#self.runned_path] = "Beginn von: " .. self.runned_path[#self.runned_path]
+      self:jump(kommando:gsub("#go ", ""), true)
+      self.runned_path[#self.runned_path + 1] = "Ende von: " .. kommando
     elseif beginswith(kommando, "#wait") then
       if #kommandos &gt; 0 then
-        parameter,_ = kommando:gsub("#wait ", "")
-        iprint("Warte fuer "..tonumber(parameter).." Sekunden", "Wegeskript")
-        tempTimer(tonumber(parameter), function() PF:workoff(kommandos) end)
+        parameter, _ = kommando:gsub("#wait ", "")
+        iprint("Warte fuer " .. tonumber(parameter) .. " Sekunden", "Wegeskript")
+        tempTimer(
+          tonumber(parameter),
+          function()
+            PF:workoff(kommandos)
+          end
+        )
         do_recursion = false
       end
       --os.execute(v:gsub("#wait", "sleep"))
     else
       -- sonst ohne Ali Ersetzung senden (erst mal keine weiteren Ersetzungen
       -- vorgesehen.
-			send(kommando, false)
+      send(kommando, false)
     end
     if do_recursion and #kommandos &gt; 0 then
       self:workoff(kommandos)
     end
-	else
-		eprint("Wegeskript", "Eingabe zum Abarbeiten war kein Array!")
-	end
+  else
+    eprint("Wegeskript", "Eingabe zum Abarbeiten war kein Array!")
+  end
 end
 
 function PF:create_alias()
-	self:kill_alias()
-	for _,v in pairs(self.aliaseddir) do
-		table.insert(self.alias_ids, tempAlias("^"..v.."$", [[ PF:raiseEvent("]]..v..[[", true)]]))
-	end
+  self:kill_alias()
+  for _, v in pairs(self.aliaseddir) do
+    table.insert(
+      self.alias_ids, tempAlias("^" .. v .. "$", [[ PF:raiseEvent("]] .. v .. [[", true)]])
+    )
+  end
 end
 
 function PF:kill_alias()
-	for _,v in pairs(self.alias_ids) do
-		killAlias(v)
-	end
-	self.alias_ids={}
+  for _, v in pairs(self.alias_ids) do
+    killAlias(v)
+  end
+  self.alias_ids = {}
 end
 
 function PF:create_keys()
-	self:kill_keys()
-	-- Himmelsrichtungen inklusive Steigung
-	for i=1,8,1 do
-		table.insert(self.key_ids, tempKey(mudlet.keymodifier.Keypad, mudlet.key[tostring(self.dirtokey[i])], [[ PF:raiseEvent("]]..self.aliaseddir[(i-1)*4+2]..[[", false)]]))
-		table.insert(self.key_ids, tempKey(mudlet.keymodifier.Keypad+mudlet.keymodifier.Control, mudlet.key[tostring(self.dirtokey[i])], [[ PF:raiseEvent("]]..self.aliaseddir[(i-1)*4+3]..[[", false)]]))
-		table.insert(self.key_ids, tempKey(mudlet.keymodifier.Keypad+mudlet.keymodifier.Alt, mudlet.key[tostring(self.dirtokey[i])], [[ PF:raiseEvent("]]..self.aliaseddir[i*4]..[[", false)]]))
-	end
-	-- oben
-	table.insert(self.key_ids, tempKey(mudlet.keymodifier.Keypad, mudlet.key.Minus, [[ PF:raiseEvent("oben", false)]]))
-	-- unten
-	table.insert(self.key_ids, tempKey(mudlet.keymodifier.Keypad, mudlet.key.Plus, [[ PF:raiseEvent("unten", false)]]))
-	-- raus
-	table.insert(self.key_ids, tempKey(mudlet.keymodifier.Keypad, mudlet.key.Asterisk, [[ PF:raiseEvent("raus", false)]]))
+  self:kill_keys()
+  -- Himmelsrichtungen inklusive Steigung
+  for i = 1, 8, 1 do
+    table.insert(
+      self.key_ids,
+      tempKey(
+        mudlet.keymodifier.Keypad,
+        mudlet.key[tostring(self.dirtokey[i])],
+        [[ PF:raiseEvent("]] .. self.aliaseddir[(i - 1) * 4 + 2] .. [[", false)]]
+      )
+    )
+    table.insert(
+      self.key_ids,
+      tempKey(
+        mudlet.keymodifier.Keypad + mudlet.keymodifier.Control,
+        mudlet.key[tostring(self.dirtokey[i])],
+        [[ PF:raiseEvent("]] .. self.aliaseddir[(i - 1) * 4 + 3] .. [[", false)]]
+      )
+    )
+    table.insert(
+      self.key_ids,
+      tempKey(
+        mudlet.keymodifier.Keypad + mudlet.keymodifier.Alt,
+        mudlet.key[tostring(self.dirtokey[i])],
+        [[ PF:raiseEvent("]] .. self.aliaseddir[i * 4] .. [[", false)]]
+      )
+    )
+  end
+  -- oben
+  table.insert(
+    self.key_ids,
+    tempKey(mudlet.keymodifier.Keypad, mudlet.key.Minus, [[ PF:raiseEvent("oben", false)]])
+  )
+  -- unten
+  table.insert(
+    self.key_ids,
+    tempKey(mudlet.keymodifier.Keypad, mudlet.key.Plus, [[ PF:raiseEvent("unten", false)]])
+  )
+  -- raus
+  table.insert(
+    self.key_ids,
+    tempKey(mudlet.keymodifier.Keypad, mudlet.key.Asterisk, [[ PF:raiseEvent("raus", false)]])
+  )
 end
 
 function PF:kill_keys()
-	for _,v in pairs(self.key_ids) do
-		killKey(v)
-	end
-	self.key_ids={}
+  for _, v in pairs(self.key_ids) do
+    killKey(v)
+  end
+  self.key_ids = {}
 end
 
 function PF:raiseEvent(dir, go)
-	local room=gmcp.MG.room.info
-	self.enterfrom = dir
+  local room = gmcp.MG.room.info
+  self.enterfrom = dir
   raiseEvent("movedirection", room, dir)
-	if go then
-		PF:move_forth(dir)
-	else
-		if self.goback then
-			self:add_back(dir)
-		else
-			self:add_forth(dir)
-		end
-	end
+  if go then
+    PF:move_forth(dir)
+  else
+    if self.goback then
+      self:add_back(dir)
+    else
+      self:add_forth(dir)
+    end
+  end
 end
 
 function PF:start_trigger()
-	for _,v in pairs(PF.deleteonpath) do
-		PF.trigger_ids[#PF.trigger_ids+1]=tempTrigger(v, function() selectCurrentLine() deleteLine() end)
-	end
+  for _, v in pairs(PF.deleteonpath) do
+    PF.trigger_ids[#PF.trigger_ids + 1] =
+      tempTrigger(
+        v,
+        function()
+          selectCurrentLine()
+          deleteLine()
+        end
+      )
+  end
 end
 
 function PF:kill_trigger()
-	for _,v in pairs(PF.trigger_ids) do
-		killTrigger(v)
- 	end
-	self.trigger_ids={}
+  for _, v in pairs(PF.trigger_ids) do
+    killTrigger(v)
+  end
+  self.trigger_ids = {}
 end
 
 function PF:merge(commands)
-	local result={}
-	for key,value in pairs(commands) do
-		if type(value)=="table" then
-			for kkey,vvalue in pairs(value) do
-				table.insert(result,vvalue)
-			end
-		else
-			table.insert(result,value)
-		end
-	end
-	return result
+  local result = {}
+  for key, value in pairs(commands) do
+    if type(value) == "table" then
+      for kkey, vvalue in pairs(value) do
+        table.insert(result, vvalue)
+      end
+    else
+      table.insert(result, value)
+    end
+  end
+  return result
 end
 
 function PF:simplifypath(commands)
-	-- we shorten the main directions
-	for i = 1, #commands, 1 do
-		if self.shortendir[commands[i]] then
-			commands[i]=self.shortendir[commands[i]]
-		end
-	end
-	for i = 1, #commands - 1, 1 do
-		while self.oppositedirection[commands[i]] == commands[i+1] do
-    	table.remove(commands, i + 1)
+  -- we shorten the main directions
+  for i = 1, #commands, 1 do
+    if self.shortendir[commands[i]] then
+      commands[i] = self.shortendir[commands[i]]
+    end
+  end
+  for i = 1, #commands - 1, 1 do
+    while self.oppositedirection[commands[i]] == commands[i + 1] do
+      table.remove(commands, i + 1)
       table.remove(commands, i)
       if i &gt; 0 then
-      	i = i - 1
-    	end
-  	end
-	end
-	return commands
+        i = i - 1
+      end
+    end
+  end
+  return commands
 end
 
 function PF:groupdirections(commands)
-	local numstr = 0
- 	local result = {}
-	if #commands == 1 then
-		result=commands
-	elseif #commands&gt;2 then
-    _,numstr = commands[1]:gsub("%S+", "")
-  	if numstr==1 then
-      result[1] = "#dopath "..commands[1]
+  local numstr = 0
+  local result = {}
+  if #commands == 1 then
+    result = commands
+  elseif #commands &gt; 2 then
+    _, numstr = commands[1]:gsub("%S+", "")
+    if numstr == 1 then
+      result[1] = "#dopath " .. commands[1]
     else
       result[1] = commands[1]
     end
-  	for i = 2, #commands, 1 do
-  		_,numstr = commands[i]:gsub("%S+", "")
-  		if numstr==1 then
-  			if string.len(result[#result]) &gt; 7 then
+    for i = 2, #commands, 1 do
+      _, numstr = commands[i]:gsub("%S+", "")
+      if numstr == 1 then
+        if string.len(result[#result]) &gt; 7 then
           if (string.sub(result[#result], 1, 8) == "#dopath ") then
-            result[#result] = result[#result].." "..commands[i]
+            result[#result] = result[#result] .. " " .. commands[i]
           else
-            table.insert(result, "#dopath "..commands[i])
+            table.insert(result, "#dopath " .. commands[i])
           end
         else
-          table.insert(result, "#dopath "..commands[i])
+          table.insert(result, "#dopath " .. commands[i])
         end
       else
         table.insert(result, commands[i])
       end
     end
-	end
-	return result
+  end
+  return result
 end
 
-
 function PF:warning(text)
-	self:send_message("\n\n\n&lt;255,255,0:0,0,0&gt;WARNUNG (Wegeskript): ", text)
-	echo("\n\n\n")
+  self:send_message("\n\n\n&lt;255,255,0:0,0,0&gt;WARNUNG (Wegeskript): ", text)
+  echo("\n\n\n")
 end
 
 function PF:error(text)
-	self:send_message("\n\n\n&lt;255,155,0:0,0,0&gt;FEHLER (Wegeskript): ", text)
-	echo("\n\n\n")
+  self:send_message("\n\n\n&lt;255,155,0:0,0,0&gt;FEHLER (Wegeskript): ", text)
+  echo("\n\n\n")
 end
 
 function PF:info(text)
-	self:send_message("\n\n\n&lt;120,170,255:0,0,0&gt;INFO (Wegeskript): ", text)
-	echo("\n\n\n")
+  self:send_message("\n\n\n&lt;120,170,255:0,0,0&gt;INFO (Wegeskript): ", text)
+  echo("\n\n\n")
 end
 
 function PF:shortinfo(text)
-	self:send_message("\n&lt;120,170,255:0,0,0&gt;INFO (Wegeskript): ", text)
-	echo("\n")
+  self:send_message("\n&lt;120,170,255:0,0,0&gt;INFO (Wegeskript): ", text)
+  echo("\n")
 end
 
 function PF:send_message(pre, text)
-	decho(pre)
-	if type(text)=="table" then
-  	for _,v in pairs(text) do
-  		decho(v)
-  	end
-	else
-		decho(text)
-	end
+  decho(pre)
+  if type(text) == "table" then
+    for _, v in pairs(text) do
+      decho(v)
+    end
+  else
+    decho(text)
+  end
 end</script>
 				<eventHandlerList />
 			</Script>
@@ -1577,88 +1674,100 @@ end</script>
 -------------------------------------------------
 
 function PF:load()
-	-- lade die Gags zur saubere Laufen
-	local gags = mload_tlines(self.gagfilename)
-	if gags == nil then
-		msave_tlines(self.gagfilename, self.deleteonpath)
-		self:info("Nichts zum Gaggen gefunden. Neue Datei mit ein Paar persoenlichen Gags erstellt.")
-	else
-		self.deleteonpath = gags
-	end
-	-- lade die zusaetzlichen Bewegungsrichtungen, die aliased werden sollen
-	local aliased = mload_tlines(self.aliasfilename)
-	if aliased == nil then
-		msave_tlines(self.aliasfilename, self.aliaseddir)
-	else
-		-- damit Aliase nicht gedoppelt werden, werden aus der Datei nur die Neuen geladen
-		local aliasexists = false
-		for i=1,#aliased,1 do
-			for j=1,#self.aliaseddir,1 do
-				aliasexists = aliasexists or (aliased[i]==self.aliaseddir[j])
-			end
-			if not aliasexists then
-				table.insert(self.aliaseddir, aliased[j])
-			end
-		end
-	end
-	local weglinien = mload_tlines(self.filename)
-	self.titles = {}
+  -- lade die Gags zur saubere Laufen
+  local gags = mload_tlines(self.gagfilename)
+  if gags == nil then
+    msave_tlines(self.gagfilename, self.deleteonpath)
+    self:info("Nichts zum Gaggen gefunden. Neue Datei mit ein Paar persoenlichen Gags erstellt.")
+  else
+    self.deleteonpath = gags
+  end
+  -- lade die zusaetzlichen Bewegungsrichtungen, die aliased werden sollen
+  local aliased = mload_tlines(self.aliasfilename)
+  if aliased == nil then
+    msave_tlines(self.aliasfilename, self.aliaseddir)
+  else
+    -- damit Aliase nicht gedoppelt werden, werden aus der Datei nur die Neuen geladen
+    local aliasexists = false
+    for i = 1, #aliased, 1 do
+      for j = 1, #self.aliaseddir, 1 do
+        aliasexists = aliasexists or (aliased[i] == self.aliaseddir[j])
+      end
+      if not aliasexists then
+        table.insert(self.aliaseddir, aliased[j])
+      end
+    end
+  end
+  local weglinien = mload_tlines(self.filename)
+  self.titles = {}
   self.pathes = {}
   self.ids = {}
-  self.pathcounter=0
+  self.pathcounter = 0
   if weglinien then
-		if #weglinien&gt;1 then
+    if #weglinien &gt; 1 then
       local i = 1
       local titeltemp = ""
       local keytemp = ""
       while i &lt; #weglinien + 1 do
-				if #weglinien-i&lt;7 then
-  				eprint("Wegeskript", "In der Wege-Datei liegt ein Fehler vor!")
-  				break
-  			else
-					self.pathcounter = self.pathcounter+1
-          i = i + 1 -- Dekozeile ueber Titel ueberspringen
+        if #weglinien - i &lt; 7 then
+          eprint("Wegeskript", "In der Wege-Datei liegt ein Fehler vor!")
+          break
+        else
+          self.pathcounter = self.pathcounter + 1
+          i = i + 1
+          -- Dekozeile ueber Titel ueberspringen
           titeltemp = weglinien[i]
-          i = i + 2 -- Dekozeile unter Titel ueberspringen
-          keytemp = weglinien[i] -- Pfadname!
-      		i=i+1
-      		self.titles[keytemp] = titeltemp
-					while not (weglinien[i] == "begin") do
-      			self.ids[weglinien[i]]=keytemp -- hier ist ID der Key und der Pfadname der Value
-          	i = i+1
-      		end
-      		i = i + 1 -- Begin-Marker ueberspringen
+          i = i + 2
+          -- Dekozeile unter Titel ueberspringen
+          keytemp = weglinien[i]
+          -- Pfadname!
+          i = i + 1
+          self.titles[keytemp] = titeltemp
+          while not (weglinien[i] == "begin") do
+            self.ids[weglinien[i]] = keytemp
+            -- hier ist ID der Key und der Pfadname der Value
+            i = i + 1
+          end
+          i = i + 1
+          -- Begin-Marker ueberspringen
           self.pathes[keytemp] = {}
           while not (weglinien[i] == "end") do
             self.pathes[keytemp][#self.pathes[keytemp] + 1] = weglinien[i]
             i = i + 1
           end
-          i = i + 1 -- End-Marker ueberspringen
-  			end
+          i = i + 1
+          -- End-Marker ueberspringen
+        end
       end
-		end
-  	self:info("Alle "..self.pathcounter.." Wege geladen!")
-	else
-		msave_tlines(self.filename, {""})
-		self:warning("Die Datei fuer die Wege '"..self.filename..".txt' existiert nicht.\n Eine leere Datei zum Speichern der Wege wurde erstellt.")
-	end
+    end
+    self:info("Alle " .. self.pathcounter .. " Wege geladen!")
+  else
+    msave_tlines(self.filename, {""})
+    self:warning(
+      "Die Datei fuer die Wege '" ..
+      self.filename ..
+      ".txt' existiert nicht.\n Eine leere Datei zum Speichern der Wege wurde erstellt."
+    )
+  end
 end
 
 function PF:test_backup()
-	local last_backup = mload_tlines("pathscript_backup_date")
-	local to_backup=true
-	if last_backup then
-		to_backup=(tonumber(os.date("%y"))&gt;tonumber(last_backup[1]))
-		to_backup=(to_backup or tonumber(os.date("%m"))&gt;tonumber(last_backup[2]))
-	end
-	echo("\nOk, ausgewertet\n")
-	if to_backup then
-		msave_tlines(self.filename.."_backup_"..os.date("%y")..os.date("%m"),self:load_lines(self.filename))
-		msave_tlines("pathscript_backup_date", {os.date("%y"),os.date("%m")})
-		self:info("Ein Backup der Wege-Datei wurde erstellt.")
-	else
-		self:info(os.date("Das letzte Backup der Wege ist vom %B %Y"))
-	end
+  local last_backup = mload_tlines("pathscript_backup_date")
+  local to_backup = true
+  if last_backup then
+    to_backup = (tonumber(os.date("%y")) &gt; tonumber(last_backup[1]))
+    to_backup = (to_backup or tonumber(os.date("%m")) &gt; tonumber(last_backup[2]))
+  end
+  echo("\nOk, ausgewertet\n")
+  if to_backup then
+    msave_tlines(
+      self.filename .. "_backup_" .. os.date("%y") .. os.date("%m"), mload_tlines(self.filename)
+    )
+    msave_tlines("pathscript_backup_date", {os.date("%y"), os.date("%m")})
+    self:info("Ein Backup der Wege-Datei wurde erstellt.")
+  else
+    self:info(os.date("Das letzte Backup der Wege ist vom %B %Y"))
+  end
 end
 
 -------------------------------------------------
@@ -1668,15 +1777,15 @@ end
 function PF:save()
   -- zuerst werden die Keys alphanumerisch sortiert
   local idinverse = {}
-	-- Tausche Key und Value beim wegeid
-	for key,value in pairs(self.ids) do
-		if idinverse[value] then
-			idinverse[value][#idinverse[value]+1]=key
-		else
-			idinverse[value]={key}
-		end
-	end
-	local sortkeys = {}
+  -- Tausche Key und Value beim wegeid
+  for key, value in pairs(self.ids) do
+    if idinverse[value] then
+      idinverse[value][#idinverse[value] + 1] = key
+    else
+      idinverse[value] = {key}
+    end
+  end
+  local sortkeys = {}
   local endindex = 0
   local eing = false
   for key, value in pairs(self.pathes) do
@@ -1701,30 +1810,29 @@ function PF:save()
     end
     endindex = endindex + 1
   end
-  local temp={}
-
-	for i = 1, endindex, 1 do
+  local temp = {}
+  for i = 1, endindex, 1 do
     if self.titles[sortkeys[i]] then
-      table.insert(temp,"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
-      table.insert(temp,self.titles[sortkeys[i]])
-      table.insert(temp,"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
-      table.insert(temp,sortkeys[i])
+      table.insert(temp, "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
+      table.insert(temp, self.titles[sortkeys[i]])
+      table.insert(temp, "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
+      table.insert(temp, sortkeys[i])
       if idinverse[sortkeys[i]] then
-				for j=1,#idinverse[sortkeys[i]],1 do
-					table.insert(temp,idinverse[sortkeys[i]][j])
-				end
-			else
-				table.insert(temp,"\n")
-			end
-			table.insert(temp,"begin")
-      for key, value in pairs(self.pathes[sortkeys[i]]) do
-        table.insert(temp,value)
+        for j = 1, #idinverse[sortkeys[i]], 1 do
+          table.insert(temp, idinverse[sortkeys[i]][j])
+        end
+      else
+        table.insert(temp, "\n")
       end
-      table.insert(temp,"end")
+      table.insert(temp, "begin")
+      for key, value in pairs(self.pathes[sortkeys[i]]) do
+        table.insert(temp, value)
+      end
+      table.insert(temp, "end")
     end
   end
   msave_tlines(self.filename, temp)
-	return endindex
+  return endindex
 end
 
 -------------------------------------------------
@@ -1735,60 +1843,57 @@ function PF:save_path(name, startpoint, backwards, title)
   -- Name Wegpunkt Ruecklaufig Titel
   if self.titles[name] then
     -- Faengt das ueberschreiben bereits existenter Wegpunkte ab
-    eprint("Wegeskript", "Ein Weg mit dem Namen '"..name.."' existiert mit dem  Titel:\n" .. self.titles[name])
-	elseif (backwards and self.ids[self.startid]) then
-		eprint("Wegeskript", "Der Pfad "..self.ids[self.startid].." endet bereits dort")
-	elseif self.ids[self.endid] then
-		eprint("Wegeskript", "Der Pfad "..self.ids[self.endid].." endet bereits dort")
-	else
-		-- Alles in Ordnung, Speicherung beginnt...
-		--self:shortinfo("Wegaufzeichnung beginnt die Speicherung.")
-		self:stop()
-
-		self.cpforth=self:simplifypath(self.cpforth)
-		self.cpforth = self:groupdirections(self.cpforth)
-
-		self.cpback=self:merge(self.cpback)
-		self.cpback=self:simplifypath(self.cpback)
-   	self.cpback = self:groupdirections(self.cpback)
-
-		--self:shortinfo("Die Wege sollten nun etwas vereinfacht worden sein. Die Aufzeichnung enthaelt nun:")
-		--display(PF.cpforth)
-		--display(PF.cpback)
-
-		if backwards then
+    eprint(
+      "Wegeskript",
+      "Ein Weg mit dem Namen '" .. name .. "' existiert mit dem  Titel:\n" .. self.titles[name]
+    )
+  elseif (backwards and self.ids[self.startid]) then
+    eprint("Wegeskript", "Der Pfad " .. self.ids[self.startid] .. " endet bereits dort")
+  elseif self.ids[self.endid] then
+    eprint("Wegeskript", "Der Pfad " .. self.ids[self.endid] .. " endet bereits dort")
+  else
+    -- Alles in Ordnung, Speicherung beginnt...
+    --self:shortinfo("Wegaufzeichnung beginnt die Speicherung.")
+    self:stop()
+    self.cpforth = self:simplifypath(self.cpforth)
+    self.cpforth = self:groupdirections(self.cpforth)
+    self.cpback = self:merge(self.cpback)
+    self.cpback = self:simplifypath(self.cpback)
+    self.cpback = self:groupdirections(self.cpback)
+    --self:shortinfo("Die Wege sollten nun etwas vereinfacht worden sein. Die Aufzeichnung enthaelt nun:")
+    --display(PF.cpforth)
+    --display(PF.cpback)
+    if backwards then
       if #startpoint &gt; 0 then
         self.pathes[name] = {"#go " .. startpoint, unpack(self.cpback)}
-				table.insert(self.cpforth,"#go " .. startpoint .. "_z")
+        table.insert(self.cpforth, "#go " .. startpoint .. "_z")
         self.pathes[name .. "_z"] = self.cpforth
       else
         self.pathes[name] = self.cpback
         self.pathes[name .. "_z"] = self.cpforth
       end
-			self.ids[self.startid]=name
+      self.ids[self.startid] = name
     else
-		  if #startpoint &gt; 0 then
+      if #startpoint &gt; 0 then
         self.pathes[name] = {"#go " .. startpoint, unpack(self.cpforth)}
-				table.insert(self.cpback,"#go " .. startpoint .. "_z")
+        table.insert(self.cpback, "#go " .. startpoint .. "_z")
         self.pathes[name .. "_z"] = self.cpback
       else
-		    self.pathes[name] = self.cpforth
+        self.pathes[name] = self.cpforth
         self.pathes[name .. "_z"] = self.cpback
       end
-			self.ids[self.endid]=name
+      self.ids[self.endid] = name
     end
-
-		self:shortinfo("Der Weg und die Raum-ID sind nun hinzugefuegt.")
-
+    self:shortinfo("Der Weg und die Raum-ID sind nun hinzugefuegt.")
     -- Falls Titel angegeben wird, dann wird der neue
     -- Weg dauerhaft gespeichert
     if #title &gt; 0 then
       self.titles[name] = "~~~~~~~   " .. title
       self.titles[name .. "_z"] = "~~~~~~~   " .. title .. " (Rueckweg)"
-      self:info("Der neue Weg '"..name.."' wurde dauerhaft gespeichert.")
-			self:save()
+      self:info("Der neue Weg '" .. name .. "' wurde dauerhaft gespeichert.")
+      self:save()
     else
-      self:info("Weg '"..name.."' wurde nur temporaer gespeichert.")
+      self:info("Weg '" .. name .. "' wurde nur temporaer gespeichert.")
     end
   end
 end
@@ -1797,60 +1902,57 @@ function PF:save_onedirection(name, point, backwards, title)
   -- Name Wegpunkt Ruecklaufig Titel
   if self.titles[name] then
     -- Faengt das ueberschreiben bereits existenter Wegpunkte ab
-    eprint("Wegeskript", "Ein Weg mit dem Namen '"..name.."' existiert mit dem  Titel:\n" .. self.titles[name])
-	elseif (backwards and self.ids[self.startid]) then
-		eprint("Wegeskript", "Der Pfad "..self.ids[self.startid].." endet bereits dort")
-	elseif self.ids[self.endid] then
-		eprint("Wegeskript", "Der Pfad "..self.ids[self.endid].." endet bereits dort")
-	else
-		-- Alles in Ordnung, Speicherung beginnt...
-		self:stop()
-
-   	self:simplifypath(self.cpforth)
-		self.cpforth = self:groupdirections(self.cpforth)
-
-		if backwards then
-  		local temp={}
-
-  		for i=1,#self.cpforth,1 do
-  			temp[i]=self.cpforth[#self.cpforth-i+1]
-  		end
-  		self.cpback=temp
-		end
-
+    eprint(
+      "Wegeskript",
+      "Ein Weg mit dem Namen '" .. name .. "' existiert mit dem  Titel:\n" .. self.titles[name]
+    )
+  elseif (backwards and self.ids[self.startid]) then
+    eprint("Wegeskript", "Der Pfad " .. self.ids[self.startid] .. " endet bereits dort")
+  elseif self.ids[self.endid] then
+    eprint("Wegeskript", "Der Pfad " .. self.ids[self.endid] .. " endet bereits dort")
+  else
+    -- Alles in Ordnung, Speicherung beginnt...
+    self:stop()
+    self:simplifypath(self.cpforth)
+    self.cpforth = self:groupdirections(self.cpforth)
+    if backwards then
+      local temp = {}
+      for i = 1, #self.cpforth, 1 do
+        temp[i] = self.cpforth[#self.cpforth - i + 1]
+      end
+      self.cpback = temp
+    end
     if backwards then
       if #point &gt; 0 then
-				table.insert(self.cpforth, "#go " .. startpoint .. "_z")
+        table.insert(self.cpforth, "#go " .. startpoint .. "_z")
         self.pathes[name .. "_z"] = self.cpforth
       else
         self.pathes[name .. "_z"] = self.cpforth
       end
-			self.ids[self.startid]=name
+      self.ids[self.startid] = name
     else
       if #point &gt; 0 then
         self.pathes[name] = {"#go " .. startpoint, unpack(self.cpforth)}
       else
         self.pathes[name] = self.cpforth
       end
-			self.ids[self.endid]=name
+      self.ids[self.endid] = name
     end
     -- Falls Titel angegeben wird, dann wird der neue
     -- Weg dauerhaft gespeichert
     if #title &gt; 0 then
       self.titles[name] = "~~~~~~~   " .. title
       self.titles[name .. "_z"] = "~~~~~~~   " .. title .. " (Rueckweg)"
-      self:info("Der neue Weg '"..name.."' wurde dauerhaft gespeichert.")
-			if self.super_safe then
-				self:save()
-			end
+      self:info("Der neue Weg '" .. name .. "' wurde dauerhaft gespeichert.")
+      if self.super_safe then
+        self:save()
+      end
     else
-      self:info("Der Weg '"..name.."' wurde nur temporaer gespeichert.")
+      self:info("Der Weg '" .. name .. "' wurde nur temporaer gespeichert.")
     end
   end
 end</script>
-				<eventHandlerList>
-					<string>sysLoadEvent</string>
-				</eventHandlerList>
+				<eventHandlerList />
 			</Script>
 		</ScriptGroup>
 		<ScriptGroup isActive="yes" isFolder="yes">
@@ -1873,11 +1975,11 @@ end</script>
 -------------------------------------------------
 
 function load_pathes_at_begin()
-	if not PF.loaded then
-		PF:load()
-		PF:test_backup()
-		PF.loaded=true
-	end
+  if not PF.loaded then
+    PF:load()
+    PF:test_backup()
+    PF.loaded = true
+  end
 end</script>
 				<eventHandlerList>
 					<string>sysLoadEvent</string>
@@ -1893,22 +1995,22 @@ end</script>
 -------------------------------------------------
 
 function update_PF_when_room_changes()
-	if PF.active then
-		display(PF.enterfrom)
-	 	if type(PF.enterfrom)=="string" and #PF.enterfrom &gt; 0 then
-			-- we have to save the input to create a new path!
-  		PF:add_forth(PF.enterfrom)
-  		PF.endid=gmcp.MG.room.info.id
-  		if PF.oppositedirection[PF.enterfrom] then
-  			PF:add_back(PF.oppositedirection[PF.enterfrom])
-  		else
-  			PF:warning("Rueckweg nachtragen!")
-  		end
-  		PF.enterfrom=""
-		else
-			PF.endid=gmcp.MG.room.info.id
-		end
-	end
+  if PF.active then
+    display(PF.enterfrom)
+    if type(PF.enterfrom) == "string" and #PF.enterfrom &gt; 0 then
+      -- we have to save the input to create a new path!
+      PF:add_forth(PF.enterfrom)
+      PF.endid = gmcp.MG.room.info.id
+      if PF.oppositedirection[PF.enterfrom] then
+        PF:add_back(PF.oppositedirection[PF.enterfrom])
+      else
+        PF:warning("Rueckweg nachtragen!")
+      end
+      PF.enterfrom = ""
+    else
+      PF.endid = gmcp.MG.room.info.id
+    end
+  end
 end</script>
 				<eventHandlerList>
 					<string>gmcp.MG.room</string>
