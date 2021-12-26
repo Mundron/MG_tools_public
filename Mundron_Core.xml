@@ -1,0 +1,644 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE MudletPackage>
+<MudletPackage version="1.001">
+	<TriggerPackage />
+	<TimerPackage />
+	<AliasPackage />
+	<ActionPackage />
+	<ScriptPackage>
+		<Script isActive="yes" isFolder="no">
+			<name>initGMCP</name>
+			<packageName></packageName>
+			<script>-------------------------------------------------
+--   Sagt gmcp, dass er alle Daten senden soll --
+-------------------------------------------------
+
+function initGMCP() 
+    if not gmpc_is_initialized then
+      sendGMCP( [[Core.Supports.Set [ "MG.char 1", "MG.room 1", "comm.channel 1" ] ]])
+      deleteOldProfiles(7)
+      gmcp_is_initialized = true
+    end
+end</script>
+			<eventHandlerList>
+				<string>gmcp.Char</string>
+			</eventHandlerList>
+		</Script>
+		<Script isActive="yes" isFolder="no">
+			<name>helpers</name>
+			<packageName></packageName>
+			<script>-------------------------------------------------
+--         Put your Lua functions here.        --
+--                                             --
+-- Note that you can also use external scripts --
+-------------------------------------------------
+
+function getMundronCoreDir()
+  -- getModulePath("Mundron_Core") liefert den 
+  -- ganzen Pfad zum Modul. Diese Funktion soll
+  -- aber nur das Verzeichnis wiedergeben in der 
+  -- sich das Modul befindet.
+  local path_table = string.split(getModulePath("Mundron_Core"), "/")
+  return table.concat(path_table, "/", 1, #path_table-1).."/"
+end
+
+function len(obj)
+  if type(obj)=="string" then
+    return #obj
+  elseif type(obj)=="table" then
+    local result = 0
+    for _,_ in pairs(obj) do
+      result = result+1
+    end
+    return result
+  else
+    return 0
+  end
+end
+
+function table.contains(table, element)
+  for _, value in pairs(table) do
+    if value == element then
+      return true
+    end
+  end
+  return false
+end
+
+function break_lines(text, length)
+  length = length or 59
+  local result={""}
+  local index=1
+  for s in text:gmatch("[^%s]+") do
+    if len(result[index]..s)&lt;length then
+      if len(result[index])&gt;0 then
+        result[index] = result[index].." "..s
+      else
+        result[index] = s
+      end
+    else
+      index = index + 1
+      table.insert(result, s)
+    end
+  end
+  return result
+end
+
+function structure(dict)
+  if type(dict)=="table" then
+    echo("\n\n{")
+    for k,v in pairs(dict) do
+      echo(k..": "..type(v).."\n")
+    end
+    echo("}\n\n")
+  else
+    display(dict)
+  end
+end
+
+function substring(text, subtext)
+  return string.match(text, subtext)
+end
+
+function beginswith(text, subtext)
+  --display("beginswith('"..text.."', '"..subtext.."')")
+  --display(#subtext)
+  --display(text:sub(1,#subtext))
+  --display(text:sub(1,#subtext) == subtext)
+  return text:sub(1,#subtext) == subtext
+end</script>
+			<eventHandlerList>
+				<string>sysLoadEvent</string>
+			</eventHandlerList>
+		</Script>
+		<Script isActive="yes" isFolder="no">
+			<name>load and save functions</name>
+			<packageName></packageName>
+			<script>-------------------------------------------------
+--         Put your Lua functions here.        --
+--                                             --
+-- Note that you can also use external scripts --
+-------------------------------------------------
+
+function mload_csv(filename)
+	-- this function loads a csv file from the modules folder
+	return load_csv(getMundronCoreDir()..filename..".csv")
+end
+
+function pload_csv(filename, fls)
+	-- this function loads a csv file from the profiles folder
+	return load_csv(getMudletHomeDir().."/"..filename..".csv", fls)
+end
+
+function mload_tlines(filename)
+	-- this function loads a text file from the modules folder
+	return load_tlines(getMundronCoreDir()..filename..".txt")
+end
+
+function pload_tlines(filename)
+	-- this function loads a text file from the profiles folder
+	return load_tlines(getMudletHomeDir().."/"..filename..".txt")
+end
+
+function msave_csv(filename, lines)
+	-- this function saves a csv file from the modules folder
+	--
+	-- the name of the modul Mundron_Core is Mundron_Core.xml
+	-- hence, getModuleDir("Mundron_Core") will yield the path with the moduls name
+	-- without the last 17 charater, we get just the folder!
+	return save_csv(getMundronCoreDir()..filename..".csv", lines)
+end
+
+function psave_csv(filename, lines, setting)
+	-- this function saves a text file from the profiles folder
+	-- 
+	return save_csv(getMudletHomeDir().."/"..filename..".csv", lines, setting)
+end
+
+function msave_tlines(filename, lines)
+	-- this function saves a text file from the modules folder
+	--
+	-- the name of the modul Mundron_Core is Mundron_Core.xml
+	-- hence, getModuleDir("Mundron_Core") will yield the path with the moduls name
+	-- without the last 17 charater, we get just the folder!
+	return save_tlines(getMundronCoreDir()..filename..".txt", lines)
+end
+
+function psave_tlines(filename, lines)
+	-- this function saves a csv file from the profiles folder
+	-- 
+	return save_tlines(getMudletHomeDir().."/"..filename..".txt", lines)
+end
+
+function load_csv(path, fls)
+	if path == nil then
+  	eprint("No filename given to load!")
+  	return
+  end
+  if file_exists(path) then
+  	local result = {}
+    for line in io.lines(path) do
+      table.insert(result, string.split(line, ";"))
+    end
+    if fls then
+      header = result[1]
+      table.remove(result, 1)
+      return header, result
+    else
+      return result
+    end
+	else
+		eprint("Keine Datei zum Laden gefunden")
+    return nil
+	end
+end
+
+function load_tlines(path)
+	if path == nil then
+  	eprint("No filename given to load!")
+  	return
+  end
+	if file_exists(path) then
+  	local lines = {}
+  	for sline in io.lines(path) do
+      sline = sline:gsub("\r", "")
+  		table.insert(lines, sline)
+    end
+  	return lines
+	else
+		eprint("Keine Datei zum Laden gefunden")
+    return nil
+	end
+end
+
+function save_csv(path,lines,setting)
+	-- delimiter is ; because , are used in descriptions
+	if #lines == 0 and file_exists(path) then
+		eprint("Versuch die Datei '"..path.."' leer zu ueberschreiben verhindert!")
+		return
+	end
+	local f = io.open(path, "w+")
+	local temp
+	if setting then
+		if type(setting)=='table' then
+			f:write(table.concat(setting, ";"), "\n")
+		else
+			f:write(setting, "\n")
+		end
+	end
+	for k,v in ipairs(lines) do
+  	if type(v)=='table' then
+			f:write(table.concat(v, ";").."\n")
+		else
+			f:write(v, "\n")
+		end
+  end
+  f:close()
+end
+
+function save_tlines(path,lines)
+	if #lines == 0 and file_exists(path) then
+		eprint("Versuch die Datei '"..path.."' leer zu ueberschreiben verhindert!")
+		return
+	end
+	local f = io.open(path, "w+")
+	for i,v in ipairs(lines) do
+  	f:write(v, "\n")
+  end
+  f:close()
+end
+
+function file_exists(path)
+  local f = io.open(path, "rb")
+  if f then
+    f:close()
+  end
+  return f ~= nil
+end</script>
+			<eventHandlerList>
+				<string>sysLoadEvent</string>
+			</eventHandlerList>
+		</Script>
+		<Script isActive="yes" isFolder="no">
+			<name>color_communication</name>
+			<packageName></packageName>
+			<script>function color_communication()
+  fg(farben.vg.ebenen)
+  bg(farben.hg.ebenen)
+  echo(gmcp.comm.channel.msg)
+  resetFormat()
+end</script>
+			<eventHandlerList>
+				<string>gmcp.comm.channel</string>
+			</eventHandlerList>
+		</Script>
+		<Script isActive="yes" isFolder="no">
+			<name>colored echo / print</name>
+			<packageName></packageName>
+			<script>-------------------------------------------------
+--         Here are three colored echos        --
+--                                             --
+-------------------------------------------------
+
+function wprint(text, reference)
+	reference = reference or ""
+	if #reference &gt; 0 then
+		reference = " ("..reference..")"
+	end
+	echo("\n\n")
+  reference = "WARNUNG"..reference..": "
+  print(text, {reference, "&lt;255,255,0:0,0,0&gt;"})
+	echo("\n")
+end
+
+function eprint(text, reference)
+	reference = reference or ""
+	if #reference &gt; 0 then
+		reference = " ("..reference..")"
+	end
+	echo("\n\n")
+	reference = "FEHLER"..reference..": "
+	print(text, {reference, "&lt;255,155,0:0,0,0&gt;"})
+	echo("\n")
+end
+
+function iprint(text, reference)
+	reference = reference or ""
+	if #reference &gt; 0 then
+		reference = " ("..reference..")"
+	end
+	echo("\n\n")
+	reference = "INFO"..reference..": "
+	print(text, {reference, "&lt;120,170,255:0,0,0&gt;"})
+	echo("\n")
+end
+
+_text_farben = {r="&lt;255,0,0:0,0,0&gt;", 
+							g="&lt;0,255,0:0,0,0&gt;", 
+							b="&lt;0,0,255:0,0,0&gt;",
+							y="&lt;255,255,0:0,0,0&gt;",
+							c="&lt;0,255,255:0,0,0&gt;",
+							m="&lt;255,0,255:0,0,0&gt;"}
+
+function print(text, pre)
+  if type(pre)=="string" then
+    pre = {pre, nil}
+  end
+	if type(text)=="string" then
+		_print_with_breaks({{text, nil}}, pre)
+	elseif type(text)=="table" then
+		new_text = {}
+    for _,t in pairs(text) do
+			if type(t)=="string" then
+				table.insert(new_text, {t, nil})
+			elseif type(t)=="table" then
+				table.insert(new_text, t)
+			end
+		end
+    _print_with_breaks(new_text, pre)
+	end
+end
+
+function _print_with_breaks(text, pre)
+  pre = pre or {"", nil}
+  if pre[2] then
+    decho(pre[2]..pre[1])
+  else
+    echo(pre[1])
+  end
+  local pseudo_pre = ""
+  for i=1,len(pre[1]),1 do
+    pseudo_pre = pseudo_pre.." "
+  end
+  local line_size = len(pre[1])
+  for _,text_part in pairs(text) do
+    woerter = text_part[1]
+    farbe = text_part[2]
+    if farbe and len(farbe) == 1 then
+      farbe = _text_farben[farbe]
+    end
+    for _,word in pairs(string.split(woerter)) do
+      if #word &lt; 79 - line_size - 1 then
+        if farbe then
+          decho(farbe..word.." ")
+        else
+          echo(word.." ")
+        end
+        line_size = line_size + #word+1
+      else
+        if farbe then
+          decho("\n"..pseudo_pre..farbe..word.." ")
+        else
+          echo("\n"..pseudo_pre..word.." ")
+        end
+        line_size = #pre+#word+1
+      end
+    end
+  end
+  echo("\n")
+end
+
+function print_table(tab)
+	local temp = {}
+	for i=1,#tab do
+		for j=1,#tab[i] do
+			if temp[j] then
+				table.insert(temp[j], tab[i][j])
+			else
+				temp[j] = {tab[i][j]}
+			end
+		end
+	end
+	for i=1,#temp do
+		for j=1,#temp[i] do
+			decho(temp[i][j])
+		end
+		echo("\n")
+	end
+end</script>
+			<eventHandlerList>
+				<string>sysLoadEvent</string>
+			</eventHandlerList>
+		</Script>
+		<Script isActive="yes" isFolder="no">
+			<name>formatting text</name>
+			<packageName></packageName>
+			<script>-------------------------------------------------
+--         Put your Lua functions here.        --
+--                                             --
+-- Note that you can also use external scripts --
+-------------------------------------------------
+
+function norm_length(strings, orientation, extra)
+	local max_len = 0
+	if type(orientation)=="number" then
+		if (not(orientation==-1)) and (not(orientation==1)) then
+			eprint("Fehler bei der Formatierung: Orientierung muss -1 (rechtsbuendig) oder 1 (linksbuendig) sein.")
+			return
+		end
+	else
+		orientation=-1
+	end
+	local len=0
+	for i,v in ipairs(strings) do
+		if type(v)=="number" then
+			v = tostring(v)
+			strings[i] = v
+		end
+		len = #v
+		for m in v:gmatch("&lt;%d+,%d+,%d+:%d+,%d+,%d+&gt;") do
+			len = len - #m
+		end
+		if len&gt;max_len then
+			max_len = len
+		end
+	end
+	extra = extra or 0
+	local temp
+	for i=1,#strings do
+		temp = ""
+		len = #strings[i]
+		for m in strings[i]:gmatch("&lt;%d+,%d+,%d+:%d+,%d+,%d+&gt;") do
+			len = len - #m
+		end
+		for i=1,max_len-len+extra do
+			temp = temp.." "
+		end
+		if orientation == -1 then
+			strings[i] = strings[i]..temp
+		else
+			strings[i] = temp..strings[i]
+		end
+	end
+	return strings
+end
+
+function string.capitalize(string)
+  return string:sub(1,1):upper()..string:sub(2)
+end
+
+function norm_table(tab, orientations, extras)
+  if type(orientations)=="nil" then
+    orientation={}
+    for i=1,len(tab) do
+      table.insert(orientation, -1)
+    end
+  elseif type(orientations)=="number" then
+    local orient = orientations
+    orientations={}
+    for i=1,len(tab) do
+      table.insert(orientations, orient)
+    end
+  end
+  if type(extras)=="nil" then
+    extras={}
+    for i=1,len(tab) do
+      table.insert(extras, 0)
+    end
+  elseif type(extras)=="number" then
+    local extra = extras
+    extras={}
+    for i=1,len(tab) do
+      table.insert(extras, extra)
+    end
+  end
+  for i=1,len(tab) do
+    tab[i] = norm_length(tab[i], orientations[i], extras[i])
+  end
+  return tab
+end</script>
+			<eventHandlerList>
+				<string>sysLoadEvent</string>
+			</eventHandlerList>
+		</Script>
+		<Script isActive="yes" isFolder="no">
+			<name>db:create</name>
+			<packageName></packageName>
+			<script>require "lfs"
+
+-- if host_db is set true, the database will be created
+-- in a subfolder named by the host in the module directory
+function db:create(db_name, sheets, host_db)
+  if not db.__env or (db.__env and db.__env == 'SQLite3 environment (closed)') then
+    db.__env = luasql.sqlite3()
+  end
+
+  db_name = db:safe_name(db_name)
+
+  local db_path, db_dir
+  if host_db then
+    local host, _ = getConnectionInfo()
+    db_dir = getMundronCoreDir()..host
+    if not lfs.attributes(db_dir) then
+      lfs.mkdir(db_dir)
+    end
+    db_path = db_dir.."/Database_"..db_name..".db"
+  else
+    db_dir = getMudletHomeDir()
+    db_path = db_dir.."/Database_"..db_name..".db"
+  end
+  
+  db_already_exists,_ = lfs.attributes(db_path)
+  
+  if not db.__conn[db_name] or (db.__conn[db_name] and db.__conn[db_name] == 'SQLite3 connection (closed)') or (not io.exists(getMudletHomeDir() .. "/Database_" .. db_name .. ".db")) then
+    db.__conn[db_name] = db.__env:connect(db_path)
+    db.__conn[db_name]:setautocommit(false)
+    db.__autocommit[db_name] = true
+  end
+
+  db.__schema[db_name] = {}
+
+  -- We need to separate the actual column configuration from the meta-configuration of the desired
+  -- sheet. {sheet={"column"}} verses {sheet={"column"}, _index={"column"}}. In the former we are
+  -- creating a database with a single field; in the latter we are also adding an index on that
+  -- field. The db package reserves any key that begins with an underscore to be special and syntax
+  -- for its own use.
+  for s_name, sht in pairs(sheets) do
+    options = {}
+
+    if sht[1] ~= nil then
+      -- in case the sheet was provided in the sheet = {"column1", "column2"} format:
+      local t = {}               --   assume field types are text, and should default to ""
+      for k, v in pairs(sht) do
+        t[v] = ""
+      end
+      sht = t
+    else -- sheet provided in the sheet = {"column1" = default} format
+      local opts = {}
+      for k, v in pairs(sht) do
+        if string.starts(k, "_") then
+          options[k] = v
+          opts[#opts + 1] = k
+        end
+      end
+      for _, v in ipairs(opts) do
+        sht[v] = nil
+      end
+    end
+
+    if not options._violations then
+      options._violations = "FAIL"
+    end
+
+    db.__schema[db_name][s_name] = { columns = sht, options = options }
+    db:_migrate(db_name, s_name)
+  end
+  return db:get_database(db_name), not db_already_exists
+end
+
+-- 
+function db:fetch_sql(sheet, sql)
+  local db_name = sheet._db_name
+  local conn = db.__conn[db_name]
+
+  db:echo_sql(sql)
+  local cur = conn:execute(sql)
+
+  -- if we had a syntax error in our SQL, cur will be nil
+  if cur and cur ~= 0 then
+    --display("cor is not nil or 0")
+    local results = {}
+    local row = cur:fetch({}, "a")
+
+    while row do
+      results[#results + 1] = db:_coerce_sheet(sheet, row)
+      --results[#results + 1] = row
+      row = cur:fetch({}, "a")
+    end
+    cur:close()
+    return results
+  else
+    return nil
+  end
+end</script>
+			<eventHandlerList>
+				<string>sysLoadEvent</string>
+			</eventHandlerList>
+		</Script>
+		<Script isActive="yes" isFolder="no">
+			<name>Trigger-Helper</name>
+			<packageName></packageName>
+			<script>TRIGGER = TRIGGER or {}</script>
+			<eventHandlerList>
+				<string>sysLoadEvent</string>
+			</eventHandlerList>
+		</Script>
+		<Script isActive="yes" isFolder="no">
+			<name>Database Master</name>
+			<packageName></packageName>
+			<script>db_master = db_master or {
+  _is_master=true,
+  _MUD_host="",
+  _master_event_handler_ids = {}
+}
+
+db_master._MUD_host, _ = getConnectionInfo()
+
+function db_master:add(sheet, query)
+  if self._is_master then
+    db:add(sheet, query)
+  else
+    raiseGlobalEvent(self._MUD_host.."_db:add", sheet, query)
+  end
+end
+
+function db_master:become_slave(event, arg, profile)
+  self._is_master = false
+  killAnonymousEventHandler(self._MUD_host.."_db:add")
+end
+
+registerAnonymousEventHandler(db_master._MUD_host.."_new_db_master", "db_master:become_slave")
+
+function db_master:become_master(event, arg, profile)
+  
+end</script>
+			<eventHandlerList>
+				<string>sysLoadEvent</string>
+			</eventHandlerList>
+		</Script>
+	</ScriptPackage>
+	<KeyPackage />
+	<HelpPackage>
+		<helpURL></helpURL>
+	</HelpPackage>
+</MudletPackage>
