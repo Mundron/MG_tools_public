@@ -113,14 +113,14 @@ PF:dopath(matches[2])</script>
 			<regex></regex>
 			<Alias isActive="yes" isFolder="no">
 				<name>Wegaufzeichnung</name>
-				<script>if matches[2]=="start" then
-	PF:init()
-elseif matches[2]=="stop" then
-	PF:stop()
-elseif matches[2]=="weiter" then
-	PF:continue()
+				<script>if matches[2] == "start" then
+  PF:init()
+elseif matches[2] == "stop" then
+  PF:stop()
+elseif matches[2] == "weiter" then
+  PF:continue()
 else
-	PF:set_goal()
+  PF:set_goal()
 end</script>
 				<command></command>
 				<packageName></packageName>
@@ -452,44 +452,45 @@ PF:info({"Die Richtungen werden in ", "&lt;255,255,0:0,0,0&gt;"..PF.aliasfilenam
 			<regex></regex>
 			<Alias isActive="yes" isFolder="no">
 				<name>Hilfe - Syntax</name>
-				<script>local help ={	"&lt;150,150,255:0,0,0&gt;Funktionen fuer den Wegeskript:",
-							"\n&lt;55,255,55:0,0,0&gt;Fuers Laufen:",
-							"&lt;255,255,0:0,0,0&gt;#go &lt;Start&gt;? &lt;Ziel&gt;",
-							"&lt;255,255,0:0,0,0&gt;#jp &lt;Pfad&gt;",
-							"&lt;255,255,0:0,0,0&gt;#dopath &lt;List of Steps&gt;",
-							"\n&lt;55,255,55:0,0,0&gt;Zum Knoten erstellen:",
-							"&lt;255,255,0:0,0,0&gt;#wa start|stop|weiter|ziel",
-							"&lt;255,255,0:0,0,0&gt;#zeigewa &lt;Anzahl letzter Schritte&gt;",
-							"&lt;255,255,0:0,0,0&gt;#vor &lt;Schritt&gt;",
-							"&lt;255,255,0:0,0,0&gt;#lvor &lt;Anzahl zu Loeschen&gt;",
-							"&lt;255,255,0:0,0,0&gt;#zurueck &lt;Schritt&gt;",
-							"&lt;255,255,0:0,0,0&gt;#lzurueck &lt;Anzahl zu Loeschen&gt;",
-							"&lt;255,255,0:0,0,0&gt;#sweg &lt;Name&gt; &lt;Startpunkt&gt;-z:&lt;Titel&gt;",
-							"&lt;255,255,0:0,0,0&gt;#sebs &lt;Name&gt; &lt;Startpunkt&gt;-z:&lt;Titel&gt;",
-							"\n&lt;55,255,55:0,0,0&gt;Zum Verwalten von Gags und Aliase:",
-							"&lt;255,255,0:0,0,0&gt;#zeigegag",
-							"&lt;255,255,0:0,0,0&gt;#addgag &lt;subtext&gt;",
-							"&lt;255,255,0:0,0,0&gt;#delgag &lt;number&gt;",
-							"&lt;255,255,0:0,0,0&gt;#zeigedir",
-							"&lt;255,255,0:0,0,0&gt;#adddir &lt;text&gt;",
-							"&lt;255,255,0:0,0,0&gt;#deldir &lt;number&gt;",
-							"\n&lt;55,255,55:0,0,0&gt;Zum Suchen und Anzeigen:",
-							"&lt;255,255,0:0,0,0&gt;#finde &lt;Stichwort&gt;",
-							"&lt;255,255,0:0,0,0&gt;#zeigeweg &lt;Pfadname&gt;",
-							"&lt;255,255,0:0,0,0&gt;#zeigeids &lt;Pfadname&gt;",
-							"&lt;255,255,0:0,0,0&gt;#runned",
-							"\n&lt;55,255,55:0,0,0&gt;Zum Aendern/Loeschen von vorhandenen Pfaden:",
-							"&lt;255,255,0:0,0,0&gt;#loesche &lt;Name&gt;",
-							"&lt;255,255,0:0,0,0&gt;#rename &lt;Alter Name&gt; &lt;Neuer Name&gt;",
-							"&lt;255,255,0:0,0,0&gt;#lid &lt;Namen&gt; &lt;Nummer&gt;",
-							"&lt;255,255,0:0,0,0&gt;#aid &lt;Name&gt;",
-							"&lt;255,255,0:0,0,0&gt;#retitle &lt;Name&gt; &lt;Neuer Titel&gt;",
-							"\n&lt;150,150,255:0,0,0&gt;Fuer detailiertere Hilfe zu den Funktionen einfach \"hilfe WS &lt;Funktionsname&gt;\" eingeben.\nz.B. \"hilfe WS #go\""
-						}
-
+				<script>local help =
+  {
+    "&lt;150,150,255:0,0,0&gt;Funktionen fuer den Wegeskript:",
+    "\n&lt;55,255,55:0,0,0&gt;Fuers Laufen:",
+    "&lt;255,255,0:0,0,0&gt;#go &lt;Start&gt;? &lt;Ziel&gt;",
+    "&lt;255,255,0:0,0,0&gt;#jp &lt;Pfad&gt;",
+    "&lt;255,255,0:0,0,0&gt;#dopath &lt;List of Steps&gt;",
+    "\n&lt;55,255,55:0,0,0&gt;Zum Knoten erstellen:",
+    "&lt;255,255,0:0,0,0&gt;#wa start|stop|weiter|ziel",
+    "&lt;255,255,0:0,0,0&gt;#zeigewa &lt;Anzahl letzter Schritte&gt;",
+    "&lt;255,255,0:0,0,0&gt;#vor &lt;Schritt&gt;",
+    "&lt;255,255,0:0,0,0&gt;#lvor &lt;Anzahl zu Loeschen&gt;",
+    "&lt;255,255,0:0,0,0&gt;#zurueck &lt;Schritt&gt;",
+    "&lt;255,255,0:0,0,0&gt;#lzurueck &lt;Anzahl zu Loeschen&gt;",
+    "&lt;255,255,0:0,0,0&gt;#sweg &lt;Name&gt; &lt;Startpunkt&gt;-z:&lt;Titel&gt;",
+    "&lt;255,255,0:0,0,0&gt;#sebs &lt;Name&gt; &lt;Startpunkt&gt;-z:&lt;Titel&gt;",
+    "\n&lt;55,255,55:0,0,0&gt;Zum Verwalten von Gags und Aliase:",
+    "&lt;255,255,0:0,0,0&gt;#zeigegag",
+    "&lt;255,255,0:0,0,0&gt;#addgag &lt;subtext&gt;",
+    "&lt;255,255,0:0,0,0&gt;#delgag &lt;number&gt;",
+    "&lt;255,255,0:0,0,0&gt;#zeigedir",
+    "&lt;255,255,0:0,0,0&gt;#adddir &lt;text&gt;",
+    "&lt;255,255,0:0,0,0&gt;#deldir &lt;number&gt;",
+    "\n&lt;55,255,55:0,0,0&gt;Zum Suchen und Anzeigen:",
+    "&lt;255,255,0:0,0,0&gt;#finde &lt;Stichwort&gt;",
+    "&lt;255,255,0:0,0,0&gt;#zeigeweg &lt;Pfadname&gt;",
+    "&lt;255,255,0:0,0,0&gt;#zeigeids &lt;Pfadname&gt;",
+    "&lt;255,255,0:0,0,0&gt;#runned",
+    "\n&lt;55,255,55:0,0,0&gt;Zum Aendern/Loeschen von vorhandenen Pfaden:",
+    "&lt;255,255,0:0,0,0&gt;#loesche &lt;Name&gt;",
+    "&lt;255,255,0:0,0,0&gt;#rename &lt;Alter Name&gt; &lt;Neuer Name&gt;",
+    "&lt;255,255,0:0,0,0&gt;#lid &lt;Namen&gt; &lt;Nummer&gt;",
+    "&lt;255,255,0:0,0,0&gt;#aid &lt;Name&gt;",
+    "&lt;255,255,0:0,0,0&gt;#retitle &lt;Name&gt; &lt;Neuer Titel&gt;",
+    "\n&lt;150,150,255:0,0,0&gt;Fuer detailiertere Hilfe zu den Funktionen einfach \"hilfe WS &lt;Funktionsname&gt;\" eingeben.\nz.B. \"hilfe WS #go\"",
+  }
 echo("\n\n")
-for i=1,#help,1 do
-	decho(help[i].."\n")
+for i = 1, #help, 1 do
+  decho(help[i] .. "\n")
 end</script>
 				<command></command>
 				<packageName></packageName>
@@ -498,194 +499,246 @@ end</script>
 			<Alias isActive="yes" isFolder="no">
 				<name>Hilfe (detailiert)</name>
 				<script>-- matches[4] hat das Suchwort
-
 local helpdetail = {}
-
-helpdetail["#go"]= {"Man kann den Befehl benutzen indem man nur den Zielknoten dahinter schreibt",
-										"oder man gibt Startknoten und Zielknoten an.\n",
-										"Wenn man nur das Ziel eingibt, zum Beispiel \"#go sandtiger\", dann ",
-										"prueft das Skript ob man sich in einem Knoten befindet und bringt",
-										"dich dann zum Knoten sandtiger.\n",
-										"Ist man im Spiel erblindet, dann erhaelt man nicht vom Server die noetigen",
-										"Daten, damit das Skript erkennt ob man an einem Knoten steht.",
-										"Ist man sich aber sicher, dass man es tut, kann man dennoch das Skript",
-										"zwingen 'blind' zum Laufen indem man Start- und Zielknoten eingibt.\n",
-										"Zum Beispiel '#go sandtiger abenteurergilde'. Dann arbeitet das Skript",
-										"stur den Weg von sandtiger zur abenteurergilde ab."}
-
-helpdetail["#jp"]= {"Es ist auch moeglich 'Einbahnwege' zu speichern. Also Wege, die man",
-										"entlanglaeuft, aber wozu es keinen Rueckweg gibt, weil man es nicht benoetigt.",
-										"Dies kann man mit diesem Befehl entlanglaufen, denn hiermit wird kein",
-										"Knoten als Startort benoetigt um zum Ziel zu laufen."}
-
-helpdetail["#dopath"] =  {"Ein Relikt aus TF, welches aber intern im Skript auch noch genutzt wird.",
-													"Als Argument gibt man eine Folge von Richtungen ein, die dann abgelaufen werden.",
-													"Wichtig ist natuerlich, dass die Richtung aus einem Wort bestehen muss.\n",
-													"Beispiel: '#dopath n o o n no w'",
-													"Damit laeuft man nach Norden, dann zweimal nach Osten, gefolgt von Norden",
-													"biegt nach Nordosten ab und endet mit einem Schritt nach Westen. Tada~"}
-
-helpdetail["#wa"] =  {"Damit steuern wir die Wegaufzeichnung (ab v1.2) um neue Wege hinzuzufuegen.\n",
-											"Zum Starten der Aufzeichnung: #wa start",
-                      "Um Zielpunkt zu markieren: #wa ziel",
-											"Zum Stoppen der Aufzeichnung: #wa stop",
-											"Zum Fortsetzen der Aufzeichnung: #wa weiter"}
-
-helpdetail["#zeigewa"] = {"Man kann auch den Zwischenstand der Wegaufzeichnung abfragen.",
-													"Mit '#zeigewa &lt;Anzahl&gt;' werden die letzten &lt;Anzahl&gt; viele Schritte",
-													"angezeigt. Eine Sonderheit ist natuerlich '#zeigewa 0' bei der",
-													"die gesamte Aufzeichnung angezeigt wird."}
-
-helpdetail["#vor"] = {"Wenn man nun keine Standard-Richtung (siehe 'hilfe WS Richtungen') gehen",
-											"moechte, vor allem wenn es eine Aktion ist, die aus mehr als einem Wort besteht,",
-											"dann kann man dies hiermit machen. Wenn man es als Argument eingibt, dann wird",
-											"diese Richtung/Bewegung/Aktion fuer die Aufzeichnung gespeichert UND gleichzeitig",
-											"auch auszugefuehrt. Zum Beispiel '#vor oeffne tuer' speichert die Aktion",
-											"'oeffne tuer' fuer die Aufzeichnung und fuehrt diesen auch aus."}
-
-helpdetail["Richtungen"] = {"Fuer die Wegaufzeichnung wird die Eingabe der unten aufgelisteten Richtungen automatisch",
-														"erkannt. Alle anderen Richtungen/Aktionen, insbesondere Aktion die aus mehr als",
-														"einem Wort bestehen, muss der Befehl #vor benutzt werden, damit die Aufzeichnung",
-														"dies auch erfasst. Die eingetragenen Richtungen, die automatisch erkannt werden, sind:\n"}
-
+helpdetail["#go"] =
+  {
+    "Man kann den Befehl benutzen indem man nur den Zielknoten dahinter schreibt",
+    "oder man gibt Startknoten und Zielknoten an.\n",
+    "Wenn man nur das Ziel eingibt, zum Beispiel \"#go sandtiger\", dann ",
+    "prueft das Skript ob man sich in einem Knoten befindet und bringt",
+    "dich dann zum Knoten sandtiger.\n",
+    "Ist man im Spiel erblindet, dann erhaelt man nicht vom Server die noetigen",
+    "Daten, damit das Skript erkennt ob man an einem Knoten steht.",
+    "Ist man sich aber sicher, dass man es tut, kann man dennoch das Skript",
+    "zwingen 'blind' zum Laufen indem man Start- und Zielknoten eingibt.\n",
+    "Zum Beispiel '#go sandtiger abenteurergilde'. Dann arbeitet das Skript",
+    "stur den Weg von sandtiger zur abenteurergilde ab.",
+  }
+helpdetail["#jp"] =
+  {
+    "Es ist auch moeglich 'Einbahnwege' zu speichern. Also Wege, die man",
+    "entlanglaeuft, aber wozu es keinen Rueckweg gibt, weil man es nicht benoetigt.",
+    "Dies kann man mit diesem Befehl entlanglaufen, denn hiermit wird kein",
+    "Knoten als Startort benoetigt um zum Ziel zu laufen.",
+  }
+helpdetail["#dopath"] =
+  {
+    "Ein Relikt aus TF, welches aber intern im Skript auch noch genutzt wird.",
+    "Als Argument gibt man eine Folge von Richtungen ein, die dann abgelaufen werden.",
+    "Wichtig ist natuerlich, dass die Richtung aus einem Wort bestehen muss.\n",
+    "Beispiel: '#dopath n o o n no w'",
+    "Damit laeuft man nach Norden, dann zweimal nach Osten, gefolgt von Norden",
+    "biegt nach Nordosten ab und endet mit einem Schritt nach Westen. Tada~",
+  }
+helpdetail["#wa"] =
+  {
+    "Damit steuern wir die Wegaufzeichnung (ab v1.2) um neue Wege hinzuzufuegen.\n",
+    "Zum Starten der Aufzeichnung: #wa start",
+    "Um Zielpunkt zu markieren: #wa ziel",
+    "Zum Stoppen der Aufzeichnung: #wa stop",
+    "Zum Fortsetzen der Aufzeichnung: #wa weiter",
+  }
+helpdetail["#zeigewa"] =
+  {
+    "Man kann auch den Zwischenstand der Wegaufzeichnung abfragen.",
+    "Mit '#zeigewa &lt;Anzahl&gt;' werden die letzten &lt;Anzahl&gt; viele Schritte",
+    "angezeigt. Eine Sonderheit ist natuerlich '#zeigewa 0' bei der",
+    "die gesamte Aufzeichnung angezeigt wird.",
+  }
+helpdetail["#vor"] =
+  {
+    "Wenn man nun keine Standard-Richtung (siehe 'hilfe WS Richtungen') gehen",
+    "moechte, vor allem wenn es eine Aktion ist, die aus mehr als einem Wort besteht,",
+    "dann kann man dies hiermit machen. Wenn man es als Argument eingibt, dann wird",
+    "diese Richtung/Bewegung/Aktion fuer die Aufzeichnung gespeichert UND gleichzeitig",
+    "auch auszugefuehrt. Zum Beispiel '#vor oeffne tuer' speichert die Aktion",
+    "'oeffne tuer' fuer die Aufzeichnung und fuehrt diesen auch aus.",
+  }
+helpdetail["Richtungen"] =
+  {
+    "Fuer die Wegaufzeichnung wird die Eingabe der unten aufgelisteten Richtungen automatisch",
+    "erkannt. Alle anderen Richtungen/Aktionen, insbesondere Aktion die aus mehr als",
+    "einem Wort bestehen, muss der Befehl #vor benutzt werden, damit die Aufzeichnung",
+    "dies auch erfasst. Die eingetragenen Richtungen, die automatisch erkannt werden, sind:\n",
+  }
 local Zusammenfassung
-
-for i=1,8,1 do
-	Zusammenfassung=""
-	for j=1,4,1 do
-		Zusammenfassung = Zusammenfassung..PF.aliaseddir[(i-1)*4+j]..", "
-	end
-	Zusammenfassung=Zusammenfassung:sub(1,-3).."\n"
-	table.insert(helpdetail["Richtungen"], Zusammenfassung)
+for i = 1, 8, 1 do
+  Zusammenfassung = ""
+  for j = 1, 4, 1 do
+    Zusammenfassung = Zusammenfassung .. PF.aliaseddir[(i - 1) * 4 + j] .. ", "
+  end
+  Zusammenfassung = Zusammenfassung:sub(1, -3) .. "\n"
+  table.insert(helpdetail["Richtungen"], Zusammenfassung)
 end
-
-table.insert(helpdetail["Richtungen"], PF.aliaseddir[33]..", "..PF.aliaseddir[34].."\n")
-table.insert(helpdetail["Richtungen"], PF.aliaseddir[35]..", "..PF.aliaseddir[36].."\n")
-
-for i=37,#PF.aliaseddir,1 do
-	table.insert(helpdetail["Richtungen"], PF.aliaseddir[i].."\n")
+table.insert(helpdetail["Richtungen"], PF.aliaseddir[33] .. ", " .. PF.aliaseddir[34] .. "\n")
+table.insert(helpdetail["Richtungen"], PF.aliaseddir[35] .. ", " .. PF.aliaseddir[36] .. "\n")
+for i = 37, #PF.aliaseddir, 1 do
+  table.insert(helpdetail["Richtungen"], PF.aliaseddir[i] .. "\n")
 end
-
-helpdetail["#lvor"] =  {"Hiermit kann man eine fuer die Aufzeichnung gespeicherte Aktion fuer den",
-												"Vorwaertsweg wieder loeschen. Mit dem Argument kann man sogar angeben wie",
-												"viele der letzten Eingaben geloescht werden sollen.",
-												"Zum Beispiel '#lvor 3' loescht die letzten 3 Aktionen zur Vorwaertsbewegung."}
-
-helpdetail["#zurueck"] = {"Wenn man fuer den Rueckweg eine besondere Aktion benoetigt, kann man es an",
-													"der Stelle speichern. Vergleiche mit 'hilfe WS #vor'."}
-
-helpdetail["#lzurueck"] = {"Wie auch '#lvor' werden Eingaben geloescht, nur fuer den Rueckweg statt Vorweg."}
-
-helpdetail["#sweg"] = {"Damit speichern wir nun den aufgezeichneten Weg. Dabei gibt es einige Moeglichkeiten.\n",
-												"1. Der Weg startet von einem Knoten oder vom Zentrum (siehe 'hilfe WS Zentrum').",
-												"2. Der Weg endet in einem Knoten oder Zentrum",
-												"3. Der Weg soll dauerhaft oder temporaer gespeichert werden.\n",
-												"Natuerlich sind 1. und 2. exklusiv. Entweder startet man bei einem Knoten/Zentrum",
-												"oder man endet in einem Knoten/Zentrum. Gleichzeitig wuerde es auch keinen Sinn",
-												"ergeben. :-)\n",
-												"Beispiele:\n",
-												"a) Die Aufzeichnung startet im Zentrum und soll den Titel 'Am Sandtiger' haben.",
-												"Der Knotenname soll dabei 'st' sein. Dann lautet der Befehl:",
-												"#sweg st:Am Sandtiger\n",
-												"b) Die Aufzeichnung startet am Knoten 'haus', soll den Titel 'Friedhof von Port Vain' und",
-												"den Knotennamen 'fr' haben. Dann lautet der Befehl:",
-												"#sweg fr haus:Friedhof von Port Vain\n",
-												"c) Die Aufzeichnung startet am Knoten 'haus', soll aber nur temporaer gespeichert werden,",
-												"also bis der Client geschlossen wird und den Knotennamen 'ag' haben. In dem Fall",
-												"brauchen wir keinen Titel und muessen ihn sogar weglassen! Der Befehl lautet:",
-												"#sweg ag st\n",
-												"Beschliessen wir, dass wir den Weg doch dauerhaft speichern wollen, so ist dies moeglich",
-												"indem wir mit '#retitel' dem Knoten einen Titel hinzufuegen.\n",
-												"d) Wollen wir die Aufzeichnung so speichern, dass der Weg an einem Knoten oder Zentrum",
-												"endet, egal ob wir den Weg temporaer oder dauerhaft speichern wollen, so ist der Unterschied,",
-												"dass wir noch '-z' an die richtige Stelle hinzufuegen wollen. Und zwar muss es vor dem",
-												"Doppelpunkt stehen, welches den Titel einleitet oder falls der Titel weggelassen wird,",
-												"dann ganz am Ende. Beispiele:\n",
-												"#sweg ag haus-z",
-												"#sweg ag haus-z:In der Abenteurergilde",
-												"#sweg st-z",
-												"#sweg st-z:Am Sandtiger\n",
-												"Wichtig ist, dass fuer dem '-z' KEIN Leerzeichen steht!"}
-
-helpdetail["Zentrum"] = {"Hier bin ich so frei und verweise auf die ReadMe-Datei, die auf github auch einzusehen ist."}
-
-helpdetail["#sebs"] = {"Eigentlich fast das selbe, wie '#sweg', nur dass hiermit einzelne Wege ohne die Rueckrichtung",
-												"gespeichert wird. Die Syntax und Moeglichkeiten mit dem Argument ist identisch zu '#sweg'."}
-
-helpdetail["#finde"]= {"Knotennamen sollten kurz sein, damit man schnell reisen kann. Doch wer kann sich einen",
-												"Knotennamen merken, wenn man ihn erst in einem jahr wieder braucht? Ich zumindest nicht!",
-												"Und dazu hilft uns auch die Eingabe von sinnvollen Titeln beim Speichern. Dort sollte zwar",
-												"kein Roman stehen, aber wichtige und praegnante Stichworte, denn mit dieser Funktion werden",
-												"alle Titel nach einem Stichwort abgesucht und die Knotennamen mit ihren Titeln aufgelistet.",
-												"Dann kann man sich den richtigen Knoten raussuchen und fertig.\n",
-												"Merkt man, dass vielleicht der Titel zu wenige Stichworte/Informationen erhaelt, so sollte",
-												"man diesen mit '#retitel' aendern...\n",
-												"Beispiel: #finde Drakonier",
-												"Sucht alle Titel, die das Wort 'Drakonier' enthalten."}
-
-helpdetail["#zeigeweg"] = {"Mit dem Argument als Knotennamen wird angezeigt, welcher Weg hin und zurueck gespeichert",
-														"wurde. Zum Beispiel '#zeigeweg haus' zeigt den Weg vom Zentrum zum Knoten 'haus' und zurueck"}
-
-helpdetail["#zeigeids"] = {"Wenn man wissen moechte, welche Raum-IDs zu einem Knoten gespeichert wurden, dann man dies tun.",
-													"Zum Beispiel '#zeigeids haus' zeigt die Liste der IDs, die mit dem Knoten 'haus' identifiziert",
-													"werden. In der Regel speichert man nur eine Raum-ID pro Knoten. Eine taktische Ausnahme ist,",
-													"wenn man die Portale als Zentrum waehlt. Siehe dazu die ReadMe-Datei auf github."}
-
-helpdetail["#runned"] = {"Dies zeigt an, welchen Weg man zuletzt mit dem Wegeskript entlanggelaufen ist. Dies kann man",
-													"nutzen um zu pruefen ob am Weg etwas falsch gespeichert wurde oder eine unerwartete Aktion auf",
-													"dem Weg dafuer sorgte, dass man nicht da gelandet ist, wo man es erwartet..."}
-
-helpdetail["#loesche"] = {"Wie der Name suggeriert wird damit ein Knoten geloescht. Ueberlegt man es sich anders,",
-													"dann fuege man mit '#retitel' noch ein Titel zum Knoten hinzu und der Knoten ist gerettet.",
-													"Wenn man aber wirklich sehr sicher ist, kann man den Befehl wiederholen und damit wird",
-													"der Knoten sofort entgueltig geloescht.\n",
-													"Beispiel: #loesche st",
-													"Loescht den Knoten mit dem Namen 'st'"}
-
-helpdetail["#rename"] = {"Dieser Befehl erlaubt es den Knotennamen zu aendern. Zum Beispiel wenn der ungluecklich",
-													"gewaehlt wurde oder fuer einen anderen Knoten besser geeignet ist.\n",
-													"Beispiel: #rename st sandtiger",
-													"Aendern den Knoten 'st' zu 'sandtiger'"}
-
-helpdetail["#lid"] = {"Loescht eine ID eines Knotens. Die Nummer erhaelt man mit dem Befehl '#zeigeids'.\n",
-											"Beispiel: #lid st 5",
-											"Loescht die 5. ID des Knotens 'st'."}
-
-helpdetail["#aid"] = {"Fuegt die ID des aktuellen Raumes zu dem Knoten hinzu.\n",
-											"Beispiel: #aid haus",
-											"Fuegt die ID des aktuellen Raumes zum Knoten 'haus' hinzu."}
-
-helpdetail["#retitel"] = {"Dies aendert den Titel eines Knotens oder fuegt ihn hinzu, wenn es keinen hat.\n",
-													"Beispiel: #retitel haus Dies ist mein Seherhaus, worauf ich stolz bin!",
-													"Fuegt den Titel 'Dies ist mein Seherhaus, worauf ich stolz bin!' dem Knoten 'haus' hinzu."}
-
-helpdetail["#zeigegags"] = {"Beim Laufen im Ultakurz-Modus gibt es immernoch Raummeldungen, die angezeigt werden.",
-														"Enthaelt dieser eines der Texte, die durch diesen Befehl aufgelistet werden, so wird diese",
-														"Zeile beim Laufen mit dem Skript geloescht fuer eine schoenere Uebersicht."}
-
-helpdetail["addgag &lt;text&gt;"] = {"Fuegt einen weiteren Text hinzu, der beim Rennen mit dem Skript geloescht werden soll."}
-
-helpdetail["delgag &lt;number&gt;"] = {"Loescht wieder einen Gag. Als Argument muss die Nummer angegeben werden, welches bei",
-																	"\#zeigegags angegeben wird."}
-
-helpdetail["#zeigedir"] = {"Diese Richtungen werden bei der Wegaufzeichnung automatisch erkannt.",
-														"Alle anderen Bewegungsaktionen muessen mit \#vor ausgefuehrt werden.",
-														"Jedoch kann die Liste mit \#adddir erweitert werden!"}
-
-helpdetail["adddir &lt;text&gt;"] = {"Fuegt eine weitere Richtung hinzu, die ohne \#vor bei der Wegaufzeichnung automatisch",
-																"erkannt wird. Jedoch muss die Richtung oder Aktion aus nur einem Wort bestehen!"}
-
-helpdetail["deldir &lt;number&gt;"] = {"Loescht wieder eine Richtung von \#zeigedir. Als Argument muss die Nummer angegeben werden,",
-																	" welches bei \#zeigedir angegeben wird.",
-																	"Das Loeschen von den Standard-Richtungen (1-37)ist allerdings nicht moeglich."}
-
+helpdetail["#lvor"] =
+  {
+    "Hiermit kann man eine fuer die Aufzeichnung gespeicherte Aktion fuer den",
+    "Vorwaertsweg wieder loeschen. Mit dem Argument kann man sogar angeben wie",
+    "viele der letzten Eingaben geloescht werden sollen.",
+    "Zum Beispiel '#lvor 3' loescht die letzten 3 Aktionen zur Vorwaertsbewegung.",
+  }
+helpdetail["#zurueck"] =
+  {
+    "Wenn man fuer den Rueckweg eine besondere Aktion benoetigt, kann man es an",
+    "der Stelle speichern. Vergleiche mit 'hilfe WS #vor'.",
+  }
+helpdetail["#lzurueck"] =
+  {"Wie auch '#lvor' werden Eingaben geloescht, nur fuer den Rueckweg statt Vorweg."}
+helpdetail["#sweg"] =
+  {
+    "Damit speichern wir nun den aufgezeichneten Weg. Dabei gibt es einige Moeglichkeiten.\n",
+    "1. Der Weg startet von einem Knoten oder vom Zentrum (siehe 'hilfe WS Zentrum').",
+    "2. Der Weg endet in einem Knoten oder Zentrum",
+    "3. Der Weg soll dauerhaft oder temporaer gespeichert werden.\n",
+    "Natuerlich sind 1. und 2. exklusiv. Entweder startet man bei einem Knoten/Zentrum",
+    "oder man endet in einem Knoten/Zentrum. Gleichzeitig wuerde es auch keinen Sinn",
+    "ergeben. :-)\n",
+    "Beispiele:\n",
+    "a) Die Aufzeichnung startet im Zentrum und soll den Titel 'Am Sandtiger' haben.",
+    "Der Knotenname soll dabei 'st' sein. Dann lautet der Befehl:",
+    "#sweg st:Am Sandtiger\n",
+    "b) Die Aufzeichnung startet am Knoten 'haus', soll den Titel 'Friedhof von Port Vain' und",
+    "den Knotennamen 'fr' haben. Dann lautet der Befehl:",
+    "#sweg fr haus:Friedhof von Port Vain\n",
+    "c) Die Aufzeichnung startet am Knoten 'haus', soll aber nur temporaer gespeichert werden,",
+    "also bis der Client geschlossen wird und den Knotennamen 'ag' haben. In dem Fall",
+    "brauchen wir keinen Titel und muessen ihn sogar weglassen! Der Befehl lautet:",
+    "#sweg ag st\n",
+    "Beschliessen wir, dass wir den Weg doch dauerhaft speichern wollen, so ist dies moeglich",
+    "indem wir mit '#retitel' dem Knoten einen Titel hinzufuegen.\n",
+    "d) Wollen wir die Aufzeichnung so speichern, dass der Weg an einem Knoten oder Zentrum",
+    "endet, egal ob wir den Weg temporaer oder dauerhaft speichern wollen, so ist der Unterschied,",
+    "dass wir noch '-z' an die richtige Stelle hinzufuegen wollen. Und zwar muss es vor dem",
+    "Doppelpunkt stehen, welches den Titel einleitet oder falls der Titel weggelassen wird,",
+    "dann ganz am Ende. Beispiele:\n",
+    "#sweg ag haus-z",
+    "#sweg ag haus-z:In der Abenteurergilde",
+    "#sweg st-z",
+    "#sweg st-z:Am Sandtiger\n",
+    "Wichtig ist, dass fuer dem '-z' KEIN Leerzeichen steht!",
+  }
+helpdetail["Zentrum"] =
+  {"Hier bin ich so frei und verweise auf die ReadMe-Datei, die auf github auch einzusehen ist."}
+helpdetail["#sebs"] =
+  {
+    "Eigentlich fast das selbe, wie '#sweg', nur dass hiermit einzelne Wege ohne die Rueckrichtung",
+    "gespeichert wird. Die Syntax und Moeglichkeiten mit dem Argument ist identisch zu '#sweg'.",
+  }
+helpdetail["#finde"] =
+  {
+    "Knotennamen sollten kurz sein, damit man schnell reisen kann. Doch wer kann sich einen",
+    "Knotennamen merken, wenn man ihn erst in einem jahr wieder braucht? Ich zumindest nicht!",
+    "Und dazu hilft uns auch die Eingabe von sinnvollen Titeln beim Speichern. Dort sollte zwar",
+    "kein Roman stehen, aber wichtige und praegnante Stichworte, denn mit dieser Funktion werden",
+    "alle Titel nach einem Stichwort abgesucht und die Knotennamen mit ihren Titeln aufgelistet.",
+    "Dann kann man sich den richtigen Knoten raussuchen und fertig.\n",
+    "Merkt man, dass vielleicht der Titel zu wenige Stichworte/Informationen erhaelt, so sollte",
+    "man diesen mit '#retitel' aendern...\n",
+    "Beispiel: #finde Drakonier",
+    "Sucht alle Titel, die das Wort 'Drakonier' enthalten.",
+  }
+helpdetail["#zeigeweg"] =
+  {
+    "Mit dem Argument als Knotennamen wird angezeigt, welcher Weg hin und zurueck gespeichert",
+    "wurde. Zum Beispiel '#zeigeweg haus' zeigt den Weg vom Zentrum zum Knoten 'haus' und zurueck",
+  }
+helpdetail["#zeigeids"] =
+  {
+    "Wenn man wissen moechte, welche Raum-IDs zu einem Knoten gespeichert wurden, dann man dies tun.",
+    "Zum Beispiel '#zeigeids haus' zeigt die Liste der IDs, die mit dem Knoten 'haus' identifiziert",
+    "werden. In der Regel speichert man nur eine Raum-ID pro Knoten. Eine taktische Ausnahme ist,",
+    "wenn man die Portale als Zentrum waehlt. Siehe dazu die ReadMe-Datei auf github.",
+  }
+helpdetail["#runned"] =
+  {
+    "Dies zeigt an, welchen Weg man zuletzt mit dem Wegeskript entlanggelaufen ist. Dies kann man",
+    "nutzen um zu pruefen ob am Weg etwas falsch gespeichert wurde oder eine unerwartete Aktion auf",
+    "dem Weg dafuer sorgte, dass man nicht da gelandet ist, wo man es erwartet...",
+  }
+helpdetail["#loesche"] =
+  {
+    "Wie der Name suggeriert wird damit ein Knoten geloescht. Ueberlegt man es sich anders,",
+    "dann fuege man mit '#retitel' noch ein Titel zum Knoten hinzu und der Knoten ist gerettet.",
+    "Wenn man aber wirklich sehr sicher ist, kann man den Befehl wiederholen und damit wird",
+    "der Knoten sofort entgueltig geloescht.\n",
+    "Beispiel: #loesche st",
+    "Loescht den Knoten mit dem Namen 'st'",
+  }
+helpdetail["#rename"] =
+  {
+    "Dieser Befehl erlaubt es den Knotennamen zu aendern. Zum Beispiel wenn der ungluecklich",
+    "gewaehlt wurde oder fuer einen anderen Knoten besser geeignet ist.\n",
+    "Beispiel: #rename st sandtiger",
+    "Aendern den Knoten 'st' zu 'sandtiger'",
+  }
+helpdetail["#lid"] =
+  {
+    "Loescht eine ID eines Knotens. Die Nummer erhaelt man mit dem Befehl '#zeigeids'.\n",
+    "Beispiel: #lid st 5",
+    "Loescht die 5. ID des Knotens 'st'.",
+  }
+helpdetail["#aid"] =
+  {
+    "Fuegt die ID des aktuellen Raumes zu dem Knoten hinzu.\n",
+    "Beispiel: #aid haus",
+    "Fuegt die ID des aktuellen Raumes zum Knoten 'haus' hinzu.",
+  }
+helpdetail["#retitel"] =
+  {
+    "Dies aendert den Titel eines Knotens oder fuegt ihn hinzu, wenn es keinen hat.\n",
+    "Beispiel: #retitel haus Dies ist mein Seherhaus, worauf ich stolz bin!",
+    "Fuegt den Titel 'Dies ist mein Seherhaus, worauf ich stolz bin!' dem Knoten 'haus' hinzu.",
+  }
+helpdetail["#zeigegags"] =
+  {
+    "Beim Laufen im Ultakurz-Modus gibt es immernoch Raummeldungen, die angezeigt werden.",
+    "Enthaelt dieser eines der Texte, die durch diesen Befehl aufgelistet werden, so wird diese",
+    "Zeile beim Laufen mit dem Skript geloescht fuer eine schoenere Uebersicht.",
+  }
+helpdetail["addgag &lt;text&gt;"] =
+  {"Fuegt einen weiteren Text hinzu, der beim Rennen mit dem Skript geloescht werden soll."}
+helpdetail["delgag &lt;number&gt;"] =
+  {
+    "Loescht wieder einen Gag. Als Argument muss die Nummer angegeben werden, welches bei",
+    "\#zeigegags angegeben wird.",
+  }
+helpdetail["#zeigedir"] =
+  {
+    "Diese Richtungen werden bei der Wegaufzeichnung automatisch erkannt.",
+    "Alle anderen Bewegungsaktionen muessen mit \#vor ausgefuehrt werden.",
+    "Jedoch kann die Liste mit \#adddir erweitert werden!",
+  }
+helpdetail["adddir &lt;text&gt;"] =
+  {
+    "Fuegt eine weitere Richtung hinzu, die ohne \#vor bei der Wegaufzeichnung automatisch",
+    "erkannt wird. Jedoch muss die Richtung oder Aktion aus nur einem Wort bestehen!",
+  }
+helpdetail["deldir &lt;number&gt;"] =
+  {
+    "Loescht wieder eine Richtung von \#zeigedir. Als Argument muss die Nummer angegeben werden,",
+    " welches bei \#zeigedir angegeben wird.",
+    "Das Loeschen von den Standard-Richtungen (1-37)ist allerdings nicht moeglich.",
+  }
 if helpdetail[matches[4]] then
-	decho("&lt;255,255,0:0,0,0&gt;Hilfe zum Wegeskript-Befehl/Stichwort &lt;55,255,55:0,0,0&gt;'"..matches[4].."':\n\n")
-	for _,v in pairs(helpdetail[matches[4]]) do
-		decho(v.."\n")
-	end
+  decho(
+    "&lt;255,255,0:0,0,0&gt;Hilfe zum Wegeskript-Befehl/Stichwort &lt;55,255,55:0,0,0&gt;'" ..
+    matches[4] ..
+    "':\n\n"
+  )
+  for _, v in pairs(helpdetail[matches[4]]) do
+    decho(v .. "\n")
+  end
 else
-	decho("&lt;255,255,0:0,0,0&gt;Zum Befehl &lt;55,255,55:0,0,0&gt;'"..matches[4].."'&lt;255,255,0:0,0,0&gt; gibt es keine Hilfe.\n")
+  decho(
+    "&lt;255,255,0:0,0,0&gt;Zum Befehl &lt;55,255,55:0,0,0&gt;'" ..
+    matches[4] ..
+    "'&lt;255,255,0:0,0,0&gt; gibt es keine Hilfe.\n"
+  )
 end</script>
 				<command></command>
 				<packageName></packageName>
@@ -1431,13 +1484,13 @@ function PF:workoff(kommandos)
     end
     -- Wenn "#dopath" oder "#go", dann das Ali ausführen
     self.runned_path[#self.runned_path + 1] = kommando
-    if beginswith(kommando, "#dopath") then
+    if string.startswith(kommando, "#dopath") then
       self:dopath(kommando:gsub("#dopath ", ""))
-    elseif beginswith(kommando, "#go") then
+    elseif string.startswith(kommando, "#go") then
       self.runned_path[#self.runned_path] = "Beginn von: " .. self.runned_path[#self.runned_path]
       self:jump(kommando:gsub("#go ", ""), true)
       self.runned_path[#self.runned_path + 1] = "Ende von: " .. kommando
-    elseif beginswith(kommando, "#wait") then
+    elseif string.startswith(kommando, "#wait") then
       if #kommandos &gt; 0 then
         parameter, _ = kommando:gsub("#wait ", "")
         iprint("Warte fuer " .. tonumber(parameter) .. " Sekunden", "Wegeskript")

@@ -169,12 +169,12 @@ if EK and EK.config.plaketten_lesen then
 end
 if SE and SE.kampfmodus == "solo" then
   send("lege alles aus leiche in paket in mir")
+  send("lege alles aus haufen in paket in mir")
   send("lege alles im raum in paket in mir")
 elseif SE and SE.kampfmodus == "zaub" then
-  send("lege flaeschchen in leiche in paket in mir")
-  send("lege flaeschchen in paket in mir")
-  send("lege phiolen in leiche in paket in mir")
-  send("lege phiolen in paket in mir")
+  send("lege komponenten aus leiche in paket in mir")
+  send("lege komponenten aus haufen in paket in mir")
+  send("lege komponenten in paket in mir")
 end</script>
 				<triggerType>0</triggerType>
 				<conditonLineDelta>0</conditonLineDelta>
@@ -232,12 +232,12 @@ if EK and EK.config.plaketten_lesen then
 end
 if SE and SE.kampfmodus == "solo" then
   send("lege alles aus leiche in paket in mir")
+  send("lege alles aus haufen in paket in mir")
   send("lege alles im raum in paket in mir")
 elseif SE and SE.kampfmodus == "zaub" then
-  send("lege flaeschchen in leiche in paket in mir")
-  send("lege flaeschchen in paket in mir")
-  send("lege phiolen in leiche in paket in mir")
-  send("lege phiolen in paket in mir")
+  send("lege komponenten aus leiche in paket in mir")
+  send("lege komponenten aus haufen in paket in mir")
+  send("lege komponenten in paket in mir")
 end</script>
 				<triggerType>0</triggerType>
 				<conditonLineDelta>0</conditonLineDelta>
@@ -1607,7 +1607,7 @@ end</script>
         {name = "bgi", x = 5, y = 5, width = MainGUI.width - 10, height = MainGUI.height - 10},
         MainGUI.statuszeile
       )
-    MainGUI.bgi:setTiledBackgroundImage(getMundronCoreDir() .. "Bilder/bg.gif")
+    MainGUI.bgi:setTiledBackgroundImage(getMundronCoreDir("Bilder/bg.gif"))
     -- Zeile 1
     MainGUI.spieler =
       Geyser.Label:new(
@@ -1877,11 +1877,12 @@ end</script>
 </script>
 				<eventHandlerList />
 				<Script isActive="yes" isFolder="no">
-					<name>update_base</name>
+					<name>main_gui_update_base</name>
 					<packageName></packageName>
-					<script>--- Basisdaten erzeugen. Sowohl Name/Level von der MainGUI als auch Wege
+					<script>
+--- Basisdaten erzeugen. Sowohl Name/Level von der MainGUI als auch Wege
 
-function update_base()
+function main_gui_update_base()
   if gmcp.MG.char.base then
     PLAYER.name = gmcp.MG.char.base.name
     PLAYER.stufe = gmcp.MG.char.info.level
@@ -1921,9 +1922,9 @@ end</script>
 					</eventHandlerList>
 				</Script>
 				<Script isActive="yes" isFolder="no">
-					<name>update_vitals</name>
+					<name>main_gui_update_vitals</name>
 					<packageName></packageName>
-					<script>function update_vitals()
+					<script>function main_gui_update_vitals()
   -- GMCP Vitaldaten merken
   if gmcp.MG.char.vitals and gmcp.MG.char.maxvitals then
     PLAYER.lp_max = gmcp.MG.char.maxvitals.max_hp
@@ -1997,9 +1998,9 @@ end</script>
 					</eventHandlerList>
 				</Script>
 				<Script isActive="yes" isFolder="no">
-					<name>update_poison</name>
+					<name>main_gui_update_poison</name>
 					<packageName></packageName>
-					<script>function update_poison()
+					<script>function main_gui_update_poison()
   PLAYER.gift = gmcp.MG.char.vitals.poison
   local zeile = ""
   -- vergiftet?
@@ -2023,9 +2024,9 @@ end</script>
 					</eventHandlerList>
 				</Script>
 				<Script isActive="yes" isFolder="no">
-					<name>update_wimpy</name>
+					<name>main_gui_update_wimpy</name>
 					<packageName></packageName>
-					<script>function update_wimpy()
+					<script>function main_gui_update_wimpy()
   PLAYER.vorsicht = gmcp.MG.char.wimpy.wimpy
   PLAYER.fluchtrichtung = gmcp.MG.char.wimpy.wimpy_dir
   if gmcp.MG.char.wimpy.wimpy &gt; 0 then
@@ -2050,39 +2051,36 @@ end</script>
 					</eventHandlerList>
 				</Script>
 				<Script isActive="yes" isFolder="no">
-					<name>update_room</name>
+					<name>main_gui_update_room</name>
 					<packageName></packageName>
-					<script>function update_room()
-  PLAYER.raum_kurz = gmcp.MG.room.info.short
-  PLAYER.raum_region = gmcp.MG.room.info.domain
-  PLAYER.raum_id = string.sub(gmcp.MG.room.info.id, 1, 5)
+					<script>function main_gui_update_room()
+  if PLAYER then
+    PLAYER.raum_kurz = gmcp.MG.room.info.short
+    PLAYER.raum_region = gmcp.MG.room.info.domain
+    PLAYER.raum_id = string.sub(gmcp.MG.room.info.id, 1, 5)
+  end
   -- Para?
   local color = "black"
-  if PLAYER.para &gt; 0 then
+  if (PLAYER.para or 0) &gt; 0 then
     PLAYER.raum_region = "Para-" .. PLAYER.raum_region
     color = "white"
   end
   -- Statuszeile aktualisieren
   MainGUI.ort_raum:echo("&amp;nbsp;" .. PLAYER.raum_kurz, color)
-  if PF then
-    local id = gmcp.MG.room.info.id
-    if PF.ids[id] then
-      MainGUI.ort_region:echo(
-        PLAYER.raum_region .. " [" .. PLAYER.raum_id .. "] WS: " .. PF.ids[id], color
-      )
-    else
-      MainGUI.ort_region:echo(PLAYER.raum_region .. " [" .. PLAYER.raum_id .. "]", color)
-    end
-  else
-    MainGUI.ort_region:echo(PLAYER.raum_region .. " [" .. PLAYER.raum_id .. "]", color)
+  local room_id = gmcp.MG.room.info.id
+  local region_text = f("{PLAYER.raum_region} [{room_id:sub(1, 6)}]")
+  if PathData then
+      local node_name = PathData.node_by_id[room_id] or "~"
+      region_text = f("{region_text} WS: {node_name}")
   end
+  MainGUI.ort_region:echo(region_text, color)
 end</script>
 					<eventHandlerList>
 						<string>gmcp.MG.room</string>
 					</eventHandlerList>
 				</Script>
 				<Script isActive="yes" isFolder="no">
-					<name>update_attributes</name>
+					<name>main_gui_update_attributes</name>
 					<packageName></packageName>
 					<script>-------------------------------------------------
 --         Put your Lua functions here.        --
@@ -2117,7 +2115,7 @@ function MainGUI:update_attr(label, name, value, delta)
   end
 end
 
-function update_attributes()
+function main_gui_update_attributes()
   MainGUI:update_attr(MainGUI.ausdauer, "A", PLAYER.con, gmcp.MG.char.attributes.con - PLAYER.con)
   MainGUI:update_attr(
     MainGUI.intelligenz, "I", PLAYER.int, gmcp.MG.char.attributes.int - PLAYER.int
@@ -2130,6 +2128,20 @@ end</script>
 					</eventHandlerList>
 				</Script>
 			</ScriptGroup>
+			<Script isActive="yes" isFolder="no">
+				<name>misc</name>
+				<packageName></packageName>
+				<script>function MainGUI:set_world_background()
+  if PLAYER.para == 0 then
+    MainGUI.ort_raum:setStyleSheet([[background-color: rgba(0,0,0,0%)]])
+    MainGUI.ort_region:setStyleSheet([[background-color: rgba(0,0,0,0%)]])
+  else
+    MainGUI.ort_raum:setStyleSheet([[background-color: rgba(255,0,0,100%)]])
+    MainGUI.ort_region:setStyleSheet([[background-color: rgba(255,0,0,100%)]])
+  end
+end</script>
+				<eventHandlerList />
+			</Script>
 		</ScriptGroup>
 		<ScriptGroup isActive="yes" isFolder="yes">
 			<name>Ausgangskreuz</name>
@@ -2152,7 +2164,7 @@ end</script>
 AK =
   AK or
   {
-    directory = getMundronCoreDir() .. "Bilder/",
+    directory = getMundronCoreDir("Bilder/"),
     posdir =
       {
         norden = true,
@@ -2496,7 +2508,7 @@ function init_klerus_addon()
         {name = "klbgi", x = 5, y = 5, width = 90, height = MainGUI.height - 10},
         GuildGUI.guild_container
       )
-    GuildGUI.klbgi:setTiledBackgroundImage(getMundronCoreDir() .. "Bilder/bg.gif")
+    GuildGUI.klbgi:setTiledBackgroundImage(getMundronCoreDir("Bilder/bg.gif"))
     -- Auren-Label
     GuildGUI.heiligenschein =
       Geyser.Label:new(
@@ -2608,7 +2620,7 @@ function init_werwoelfe_addon()
         {name = "klbgi", x = 5, y = 5, width = 90, height = MainGUI.height - 10},
         GuildGUI.guild_container
       )
-    GuildGUI.klbgi:setTiledBackgroundImage(getMundronCoreDir() .. "Bilder/bg.gif")
+    GuildGUI.klbgi:setTiledBackgroundImage(getMundronCoreDir("Bilder/bg.gif"))
     -- Auren-Label
     GuildGUI.form =
       Geyser.Label:new(

@@ -73,6 +73,8 @@ local function encode_table(val, stack)
     local n = 0
     for k in pairs(val) do
       if type(k) ~= "number" then
+        display(k)
+        display(val)
         error("invalid table: mixed or invalid key types")
       end
       n = n + 1
@@ -383,13 +385,25 @@ return json</script>
 -- Note that you can also use external scripts --
 -------------------------------------------------
 
-function getMundronCoreDir()
+function getMundronCoreDir(extension)
   -- getModulePath("Mundron_Core") liefert den
   -- ganzen Pfad zum Modul. Diese Funktion soll
   -- aber nur das Verzeichnis wiedergeben in der
   -- sich das Modul befindet.
   local path_table = string.split(getModulePath("Mundron_Core"), "/")
-  return table.concat(path_table, "/", 1, #path_table - 1) .. "/"
+  local result = table.concat(path_table, "/", 1, #path_table - 1)
+  if extension then
+    result = f("{result}/{extension}")
+  end
+  return result
+end
+
+function getProfileDir(extension)
+  local result = getMudletHomeDir()
+  if extension then
+    result = f("{result}/{extension}")
+  end
+  return result
 end
 
 function len(obj)
@@ -406,49 +420,7 @@ function len(obj)
   end
 end
 
-function table.contains(tab, element)
-  for _, value in pairs(tab) do
-    if value == element then
-      return true
-    end
-  end
-  return false
-end
 
-function table.keys(tab)
-  result = {}
-  for key, _ in pairs(tab) do
-    table.insert(result, key)
-  end
-  return result
-end
-
-function table.values(tab)
-  result = {}
-  for _, value in pairs(tab) do
-    table.insert(result, value)
-  end
-  return result
-end
-
-function break_lines(text, length)
-  length = length or 59
-  local result = {""}
-  local index = 1
-  for s in text:gmatch("[^%s]+") do
-    if len(result[index] .. s) &lt; length then
-      if len(result[index]) &gt; 0 then
-        result[index] = result[index] .. " " .. s
-      else
-        result[index] = s
-      end
-    else
-      index = index + 1
-      table.insert(result, s)
-    end
-  end
-  return result
-end
 
 function structure(dict)
   if type(dict) == "table" then
@@ -462,17 +434,7 @@ function structure(dict)
   end
 end
 
-function substring(text, subtext)
-  return string.match(text, subtext)
-end
-
-function beginswith(text, subtext)
-  --display("beginswith('"..text.."', '"..subtext.."')")
-  --display(#subtext)
-  --display(text:sub(1,#subtext))
-  --display(text:sub(1,#subtext) == subtext)
-  return text:sub(1, #subtext) == subtext
-end</script>
+</script>
 			<eventHandlerList />
 		</Script>
 		<Script isActive="yes" isFolder="no">
@@ -483,55 +445,96 @@ end</script>
 --                                             --
 -------------------------------------------------
 
-function wprint(text, reference)
-  reference = reference or ""
-  if #reference &gt; 0 then
-    reference = " (" .. reference .. ")"
+local function get_prefix(keyword, reference)
+  local result = ""
+  if reference then
+    result = f("{keyword} ({reference}): ")
+  else
+    result = f("{keyword}: ")
   end
-  echo("\n\n")
-  reference = "WARNUNG" .. reference .. ": "
-  print(text, {reference, "&lt;255,255,0:0,0,0&gt;"})
+  return result
+end
+
+function wprint(text, reference)
+  echo("\n")
+  print(text, {get_prefix("WARNUNG", reference), "&lt;255,255,0:0,0,0&gt;"})
   echo("\n")
 end
 
 function eprint(text, reference)
-  reference = reference or ""
-  if #reference &gt; 0 then
-    reference = " (" .. reference .. ")"
-  end
-  echo("\n\n")
-  reference = "FEHLER" .. reference .. ": "
-  print(text, {reference, "&lt;255,155,0:0,0,0&gt;"})
+  echo("\n")
+  print(text, {get_prefix("FEHLER", reference), "&lt;255,155,0:0,0,0&gt;"})
   echo("\n")
 end
 
 function iprint(text, reference)
-  reference = reference or ""
-  if #reference &gt; 0 then
-    reference = " (" .. reference .. ")"
-  end
-  echo("\n\n")
-  reference = "INFO" .. reference .. ": "
-  print(text, {reference, "&lt;120,170,255:0,0,0&gt;"})
+  echo("\n")
+  print(text, {get_prefix("INFO", reference), "&lt;120,170,255:0,0,0&gt;"})
   echo("\n")
 end
 
-_text_farben =
+local text_farben =
   {
     r = "&lt;255,0,0:0,0,0&gt;",
-    g = "&lt;0,255,0:0,0,0&gt;",
+    g = "&lt;155,255,0:0,0,0&gt;",
     b = "&lt;0,0,255:0,0,0&gt;",
+    o = "&lt;255,155,55:0,0,0&gt;",
+    l = "&lt;155,155,255:0,0,0&gt;",
     y = "&lt;255,255,0:0,0,0&gt;",
     c = "&lt;0,255,255:0,0,0&gt;",
     m = "&lt;255,0,255:0,0,0&gt;",
   }
+  
+local function print_with_breaks(text, pre)
+  pre = pre or {"", ""}
+  decho(f("{pre[2]}{pre[1]}"))
+  local pre_len = len(pre[1])
+  local pseudo_pre = ""
+  for i = 1, pre_len, 1 do
+    pseudo_pre = f("{pseudo_pre} ")
+  end
+  local line_size = pre_len
+  for _, text_part in ipairs(text) do
+    woerter = text_part[1]
+    farbe = text_farben[text_part[2]] or ""
+    for _, word in ipairs(string.split(woerter)) do
+      -- check if word contains line break symbols
+      local word_tab = string.split(word, "\n")
+      if len(word_tab) == 1 then
+        if line_size + #word &lt; 78 then
+          decho(f("{farbe}{word} "))
+          line_size = line_size + #word + 1
+        else
+          decho(f("\n{pseudo_pre}{farbe}{word} "))
+          line_size = pre_len + #word + 1
+        end
+      else
+        if line_size + #word_tab[1] &lt; 78 then
+          decho(f("{farbe}{word_tab[1]}"))
+        else
+          decho(f("\n{pseudo_pre}{farbe}{word_tab[1]}"))
+        end
+        for i=2,len(word_tab),1 do
+          if len(word_tab[i]) == 0 then
+            decho(f("\n{pseudo_pre}"))
+            line_size = pre_len
+          else
+            decho(f("\n{pseudo_pre}{farbe}{word_tab[i]} "))
+            line_size = pre_len + len(word_tab[1]) + 1
+          end
+        end
+      end
+    end
+  end
+  echo("\n")
+end
 
 function print(text, pre)
   if type(pre) == "string" then
     pre = {pre, nil}
   end
   if type(text) == "string" then
-    _print_with_breaks({{text, nil}}, pre)
+    print_with_breaks({{text, nil}}, pre)
   elseif type(text) == "table" then
     new_text = {}
     for _, t in pairs(text) do
@@ -541,47 +544,8 @@ function print(text, pre)
         table.insert(new_text, t)
       end
     end
-    _print_with_breaks(new_text, pre)
+    print_with_breaks(new_text, pre)
   end
-end
-
-function _print_with_breaks(text, pre)
-  pre = pre or {"", nil}
-  if pre[2] then
-    decho(pre[2] .. pre[1])
-  else
-    echo(pre[1])
-  end
-  local pseudo_pre = ""
-  for i = 1, len(pre[1]), 1 do
-    pseudo_pre = pseudo_pre .. " "
-  end
-  local line_size = len(pre[1])
-  for _, text_part in pairs(text) do
-    woerter = text_part[1]
-    farbe = text_part[2]
-    if farbe and len(farbe) == 1 then
-      farbe = _text_farben[farbe]
-    end
-    for _, word in pairs(string.split(woerter)) do
-      if #word &lt; 79 - line_size - 1 then
-        if farbe then
-          decho(farbe .. word .. " ")
-        else
-          echo(word .. " ")
-        end
-        line_size = line_size + #word + 1
-      else
-        if farbe then
-          decho("\n" .. pseudo_pre .. farbe .. word .. " ")
-        else
-          echo("\n" .. pseudo_pre .. word .. " ")
-        end
-        line_size = #pre + #word + 1
-      end
-    end
-  end
-  echo("\n")
 end
 
 function print_table(tab)
@@ -631,7 +595,7 @@ end</script>
 
 function load_csv(path, fls)
   if path == nil then
-    eprint("No filename given to load!")
+    eprint("Kein Dateiname zum Laden gegeben.")
     return
   end
   if file_exists(path) then
@@ -647,14 +611,14 @@ function load_csv(path, fls)
       return result
     end
   else
-    eprint("Datei " .. path .. " zum Laden nicht gefunden")
+    eprint(f("Datei {path} zum Laden nicht gefunden"))
     return nil
   end
 end
 
 function load_tlines(path)
   if path == nil then
-    eprint("No filename given to load!")
+    eprint("Kein Dateiname zum Laden gegeben.")
     return
   end
   if file_exists(path) then
@@ -665,14 +629,30 @@ function load_tlines(path)
     end
     return lines
   else
-    eprint("Datei " .. path .. " zum Laden nicht gefunden")
+    eprint(f("Datei {path} zum Laden nicht gefunden"))
+    return nil
+  end
+end
+
+function load_json(path)
+  if path == nil then
+    eprint("Kein Dateiname zum Laden gegeben.")
+    return
+  end
+  local file = io.open(path, "r")
+  if file then
+    local content = file:read("*all")
+    file:close()
+    return json.decode(content)
+  else
+    eprint(f("Datei {path} zum Laden nicht gefunden"))
     return nil
   end
 end
 
 function load_jsonl(path)
   if path == nil then
-    eprint("No filename given to load!")
+    eprint("Kein Dateiname zum Laden gegeben.")
     return
   end
   if file_exists(path) then
@@ -682,7 +662,7 @@ function load_jsonl(path)
     end
     return lines
   else
-    eprint("Datei " .. path .. " zum Laden nicht gefunden")
+    eprint(f("Datei {path} zum Laden nicht gefunden"))
     return nil
   end
 end
@@ -690,66 +670,72 @@ end
 function save_csv(path, lines, setting)
   -- delimiter is ; because , are used in descriptions
   if #lines == 0 and file_exists(path) then
-    eprint("Versuch die Datei '" .. path .. "' leer zu ueberschreiben verhindert!")
+    eprint(f("Versuch die Datei {path} leer zu ueberschreiben verhindert!"))
     return
   end
-  local f = io.open(path, "w+")
+  local file = io.open(path, "w+")
   local temp
   if setting then
     if type(setting) == 'table' then
-      f:write(table.concat(setting, ";"), "\n")
+      file:write(table.concat(setting, ";"), "\n")
     else
-      f:write(setting, "\n")
+      file:write(setting, "\n")
     end
   end
   for k, v in ipairs(lines) do
     if type(v) == 'table' then
-      f:write(table.concat(v, ";") .. "\n")
+      file:write(table.concat(v, ";") .. "\n")
     else
-      f:write(v, "\n")
+      file:write(v, "\n")
     end
   end
-  f:close()
+  file:close()
 end
 
 function save_tlines(path, lines)
   if #lines == 0 and file_exists(path) then
-    eprint("Versuch die Datei '" .. path .. "' leer zu ueberschreiben verhindert!")
+    eprint(f("Versuch die Datei {path} leer zu ueberschreiben verhindert!"))
     return
   end
-  local f = io.open(path, "w+")
+  local file = io.open(path, "w+")
   for i, v in ipairs(lines) do
-    f:write(v, "\n")
+    file:write(v, "\n")
   end
-  f:close()
+  file:close()
 end
 
 function file_exists(path)
-  local f = io.open(path, "rb")
-  if f then
-    f:close()
+  local file = io.open(path, "rb")
+  if file then
+    file:close()
   end
-  return f ~= nil
+  return file ~= nil
+end
+
+function save_json(path, tab)
+  local file = io.open(path, "w+")
+  file:write(json.encode(tab))
+  file:close()
 end
 
 function save_jsonl(path, tab)
-  if #lines == 0 and file_exists(path) then
-    eprint("Versuch die Datei '" .. path .. "' leer zu ueberschreiben verhindert!")
+  if len(tab) == 0 and file_exists(path) then
+    eprint(f("Versuch die Datei {path} leer zu ueberschreiben verhindert!"))
     return
   end
-  local f = io.open(path, "w+")
+  local file = io.open(path, "w+")
   for i, line in ipairs(tab) do
-    f:write(json.encode(line), "\n")
+    file:write(json.encode(line), "\n")
   end
-  f:close()
+  file:close()
 end
 
 function file_exists(path)
-  local f = io.open(path, "rb")
-  if f then
-    f:close()
+  local file = io.open(path, "rb")
+  if file then
+    file:close()
   end
-  return f ~= nil
+  return file ~= nil
 end
 
 -------------------------------------------------
@@ -758,16 +744,20 @@ end
 
 function mload_csv(filename)
   -- this function loads a csv file from the modules folder
-  return load_csv(getMundronCoreDir() .. filename .. ".csv")
+  return load_csv(getMundronCoreDir(f("{filename}.csv")))
 end
 
 function mload_tlines(filename)
   -- this function loads a text file from the modules folder
-  return load_tlines(getMundronCoreDir() .. filename .. ".txt")
+  return load_tlines(getMundronCoreDir(f("{filename}.txt")))
+end
+
+function mload_json(filename)
+  return load_json(getMundronCoreDir(f("{filename}.json")))
 end
 
 function mload_jsonl(filename)
-  return load_jsonl(getMundronCoreDir() .. filename .. ".jsonl")
+  return load_jsonl(getMundronCoreDir(f("{filename}.jsonl")))
 end
 
 function msave_csv(filename, lines)
@@ -776,7 +766,7 @@ function msave_csv(filename, lines)
   -- the name of the modul Mundron_Core is Mundron_Core.xml
   -- hence, getModuleDir("Mundron_Core") will yield the path with the moduls name
   -- without the last 17 charater, we get just the folder!
-  return save_csv(getMundronCoreDir() .. filename .. ".csv", lines)
+  return save_csv(getMundronCoreDir(f("{filename}.csv")), lines)
 end
 
 function msave_tlines(filename, lines)
@@ -785,11 +775,15 @@ function msave_tlines(filename, lines)
   -- the name of the modul Mundron_Core is Mundron_Core.xml
   -- hence, getModuleDir("Mundron_Core") will yield the path with the moduls name
   -- without the last 17 charater, we get just the folder!
-  return save_tlines(getMundronCoreDir() .. filename .. ".txt", lines)
+  return save_tlines(getMundronCoreDir(f("{filename}.txt")), lines)
+end
+
+function msave_json(filename, tab)
+  return save_json(getMundronCoreDir(f("{filename}.json")), tab)
 end
 
 function msave_jsonl(filename, tab)
-  return save_jsonl(getMundronCoreDir() .. filename .. ".jsonl", tab)
+  return save_jsonl(getMundronCoreDir(f("{filename}.jsonl")), tab)
 end
 
 -------------------------------------------------
@@ -798,32 +792,40 @@ end
 
 function pload_csv(filename, fls)
   -- this function loads a csv file from the profiles folder
-  return load_csv(getMudletHomeDir() .. "/" .. filename .. ".csv", fls)
+  return load_csv(getProfileDir(f("{filename}.csv")), fls)
 end
 
 function pload_tlines(filename)
   -- this function loads a text file from the profiles folder
-  return load_tlines(getMudletHomeDir() .. "/" .. filename .. ".txt")
+  return load_tlines(getProfileDir(f("{filename}.txt")))
+end
+
+function pload_json(filename)
+  return load_json(getProfileDir(f("{filename}.json")))
 end
 
 function pload_jsonl(filename)
-  return load_jsonl(getMudletHomeDir() .. "/" .. filename .. ".jsonl")
+  return load_jsonl(getProfileDir(f("{filename}.jsonl")))
 end
 
 function psave_csv(filename, lines, setting)
   -- this function saves a text file from the profiles folder
   --
-  return save_csv(getMudletHomeDir() .. "/" .. filename .. ".csv", lines, setting)
+  return save_csv(getProfileDir(f("{filename}.csv")), lines, setting)
 end
 
 function psave_tlines(filename, lines)
   -- this function saves a csv file from the profiles folder
   --
-  return save_tlines(getMudletHomeDir() .. "/" .. filename .. ".txt", lines)
+  return save_tlines(getProfileDir(f("{filename}.txt")), lines)
+end
+
+function psave_json(filename, tab)
+  return save_json(getProfileDir(f("{filename}.json")), tab)
 end
 
 function psave_jsonl(filename, tab)
-  return save_jsonl(getMudletHomeDir() .. "/" .. filename .. ".jsonl", tab)
+  return save_jsonl(getProfileDir(f("{filename}.jsonl")), tab)
 end</script>
 			<eventHandlerList />
 		</Script>
@@ -895,10 +897,6 @@ function norm_length(strings, orientation, extra)
   return strings
 end
 
-function string.capitalize(string)
-  return string:sub(1, 1):upper() .. string:sub(2)
-end
-
 function norm_table(tab, orientations, extras)
   if type(orientations) == "nil" then
     orientation = {}
@@ -935,6 +933,179 @@ end</script>
 			<name>Trigger-Helper</name>
 			<packageName></packageName>
 			<script>TRIGGER = TRIGGER or {}</script>
+			<eventHandlerList />
+		</Script>
+		<Script isActive="yes" isFolder="no">
+			<name>table extensions</name>
+			<packageName></packageName>
+			<script>function table.remove_at(tab, index)
+  local table_size = len(tab)
+  if index &lt; 0 then
+    index = table_size + index
+    if index &lt; 1 then
+      eprint(f("The table has just {table_size} elements, can't remove at position {index}."))
+      return false
+    end
+  end
+  if index == 0 or index &gt; len(tab) then
+    eprint(f("The table has just {table_size} elements, can't remove at position {index}."))
+    return false
+  end
+  -- shift values
+  for i=index+1,len(tab),1 do
+    tab[i-1] = tab[i]
+  end
+  -- remove last element
+  table.remove(tab)
+  return true
+end
+
+function table.remove_value(tab, value)
+  local index = table.index_of(tab, value)
+  if not index then
+    eprint(f("The table has no value '{value}' to remove."))
+    return false
+  else
+    table.remove_at(tab, index)
+    return true
+  end
+end
+
+function table.values(tab)
+  local result = {}
+  for _, value in pairs(tab) do
+    table.insert(result, value)
+  end
+  return result
+end
+
+function table.get(tab, key, default_value)
+  for k, v in pairs(tab) do
+    if k == key then
+      return v
+    end
+  end
+  return default_value
+end
+
+function table.fold(tab, field_name)
+  -- transform a table such that the keys 
+  -- part of the values.
+  -- {st={title="Sandtiger"}} with 
+  -- field_name == "name" will return
+  -- { {name="st", title="Sandtiger"} }
+
+  local result = {}
+  for id, props in pairs(tab) do
+    local data = {}
+    data[field_name] = id
+    for pkey, pvalue in pairs(props) do
+      data[pkey] = pvalue
+    end
+    table.insert(result, data)
+  end
+  return result
+end
+
+function table.unfold(tab, field_name)
+  -- inverse to table.fold we move a value
+  -- out of the data as a key of the result
+  
+  local result = {}
+  for _, data in ipairs(tab) do
+    local id = nil
+    local props = {}
+    for pkey, pvalue in pairs(data) do
+      if pkey == field_name then
+        id=pvalue
+      else
+        props[pkey] = pvalue
+      end
+    end
+    if not id then
+      display(props)
+    end
+    result[id] = props
+  end
+  return result
+end
+
+function table.apply(tab, func)
+  local result = {}
+  for _, v in pairs(tab) do
+    table.insert(result, func(v))
+  end
+  return result
+end
+
+function table.subtable(tab, start_index, end_index)
+  local result = {}
+  for i=start_index,end_index,1 do
+    table.insert(result, tab[i])
+  end 
+  return result
+end</script>
+			<eventHandlerList />
+		</Script>
+		<Script isActive="yes" isFolder="no">
+			<name>string extensions</name>
+			<packageName></packageName>
+			<script>function break_lines(text, length)
+  length = length or 59
+  local result = {""}
+  local index = 1
+  for s in text:gmatch("[^%s]+") do
+    if len(result[index] .. s) &lt; length then
+      if len(result[index]) &gt; 0 then
+        result[index] = result[index] .. " " .. s
+      else
+        result[index] = s
+      end
+    else
+      index = index + 1
+      table.insert(result, s)
+    end
+  end
+  return result
+end
+
+function substring(text, subtext)
+  return string.match(text, subtext)
+end
+
+function string.startswith(text, subtext)
+  return text:sub(1, #subtext) == subtext
+end
+
+function string.endswith(text, subtext)
+  return text:sub(-#subtext) == subtext
+end
+
+function string.strip(text)
+  local start_index = 1
+  local end_index = text:len()
+  for i=1,text:len(),1 do
+    local c=text:sub(i,i)
+    if c == " " then
+      start_index = i+1
+    else
+      break
+    end
+  end
+  for i=text:len(),1,-1 do
+    local c=text:sub(i,i)
+    if c == " " then
+      end_index = i-1
+    else
+      break
+    end
+  end
+  if end_index &lt;= start_index then
+    return ""
+  else
+    return text:sub(start_index, end_index)
+  end
+end</script>
 			<eventHandlerList />
 		</Script>
 	</ScriptPackage>

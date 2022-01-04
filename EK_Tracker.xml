@@ -859,7 +859,7 @@ function EK:find_attr(attr, sub)
     end
   end
   if len(matches) == 0 then
-    iprint("Keine " .. string.capitalize(attr) .. " gefunden.", "EK-Tracker")
+    iprint("Keine " .. string.title(attr) .. " gefunden.", "EK-Tracker")
   else
     matches = table.keys(matches)
     table.sort(matches)
@@ -890,7 +890,7 @@ function EK:unknown(x)
       {self.unknown_kills, "&lt;0,255,0:0,0,0&gt;"},
       " zu ",
     }
-  self.unknown_kills = self.unknown_kills - x
+  self.unknown_kills = self.unknown_kills + x
   table.insert(ausgabe, {self.unknown_kills, "&lt;0,255,0:0,0,0&gt;"})
   table.insert(ausgabe, ".")
   self:save_kills()
@@ -1007,7 +1007,7 @@ function EK:change(nr, attr, content)
   if self.change_flag and self.change_flag.npc.position == position then
     self.change_flag.npc[attr] = self.change_flag.change
     echo("\nDas Attribut ")
-    decho("&lt;0,255,0:0,0,0&gt;" .. string.capitalize(attr))
+    decho("&lt;0,255,0:0,0,0&gt;" .. string.title(attr))
     echo(" wurde zu \n")
     decho("&lt;0,255,0:0,0,0&gt;" .. content)
     echo("\ngeaendert.\n\n")
@@ -1033,7 +1033,7 @@ function EK:change(nr, attr, content)
     echo("Willst du bei ...\n\n")
     self:_print_npc(npc)
     echo("\n... wirklich das Attribut ")
-    decho("&lt;0,255,0:0,0,0&gt;" .. string.capitalize(attr))
+    decho("&lt;0,255,0:0,0,0&gt;" .. string.title(attr))
     echo(" zu \n")
     decho("&lt;0,255,0:0,0,0&gt;" .. content)
     echo("\naendern? Falls ja, dann wiederhole den Befehl.\n\n")
@@ -1052,7 +1052,7 @@ function EK:multichange(ids, attr, content)
       npc[attr] = self.mchange_flag.change
     end
     echo("\nDas Attribut ")
-    decho("&lt;0,255,0:0,0,0&gt;" .. string.capitalize(attr))
+    decho("&lt;0,255,0:0,0,0&gt;" .. string.title(attr))
     echo(" wurde zu \n")
     decho("&lt;0,255,0:0,0,0&gt;" .. content)
     echo("\ngeaendert:\n")
@@ -1091,7 +1091,7 @@ function EK:multichange(ids, attr, content)
     echo("Willst du bei ...\n\n")
     self:_print_npc_list(npcs, attr)
     echo("\n... wirklich das Attribut ")
-    decho("&lt;0,255,0:0,0,0&gt;" .. string.capitalize(attr))
+    decho("&lt;0,255,0:0,0,0&gt;" .. string.title(attr))
     echo(" zu \n")
     decho("&lt;0,255,0:0,0,0&gt;" .. content)
     echo("\naendern? Falls ja, dann wiederhole den Befehl.\n\n")
@@ -1175,7 +1175,7 @@ function EK:show_friend(arg)
     entries = {self.competitions[arg]}
     entries[1]._row_id = arg
     if len(entries) &gt; 0 then
-      name = string.capitalize(entries[1]["competitor_name"])
+      name = string.title(entries[1]["competitor_name"])
     end
   else
     arg = string.lower(arg)
@@ -1348,7 +1348,7 @@ function EK:_print_npc_list(npcs, prop, no_killer)
     else
       index = "&lt;255,255,0:0,0,0&gt;" .. index
     end
-    local prop_title = string.capitalize(prop)
+    local prop_title = string.title(prop)
     if prop == "ort" then
       prop_title = prop_title .. "(" .. npc["para"] .. "):"
       if npc["para"] &gt; 0 then
