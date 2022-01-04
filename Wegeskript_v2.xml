@@ -435,10 +435,6 @@ if current_node then
     send("lege muenzen in mir in tresor", false)
     -- in case the tresor is full:
     send("lass muenzen in mir fallen", false)
-    -- go back to last position:
-    if current_node ~= "haus" then
-      PathFinder:go("haus", current_node)
-    end
     PathFinder.post_run_action = PathFinder.post_run_action or {}
     PathFinder.post_run_action["drop_count"] =
       function()
@@ -450,6 +446,10 @@ if current_node then
           "WS"
         )
       end
+    -- go back to last position:
+    if current_node ~= "haus" then
+      PathFinder:go("haus", current_node)
+    end
     -- prepare for next round
     PathData.shop_index =
       (PathData.shop_index + 1) % (all_world_shop_count + normal_world_shop_count)
@@ -1024,12 +1024,12 @@ end
 
 function PathEditor:delete_path(path_id)
   local path_props = PathData.edge[path_id]
+  if not path_props then
+    eprint(f("Es gibt keinen Weg mit der ID {path_id}."), "WS")
+    return
+  end
   local confirmation = PathEditor.confirm_path_deletion
   if not confirmation or confirmation ~= path_id then
-    if not path_props then
-      eprint(f("Es gibt keinen Weg mit der ID {path_id}."), "WS")
-      return
-    end
     iprint({
       f("Willst du wirklich den Weg mit der ID {path_id} \n"),
       "   von",
@@ -1041,7 +1041,7 @@ function PathEditor:delete_path(path_id)
      PathEditor.confirm_path_deletion = path_id
   else
     PathData.edge[path_id] = nil
-    PathData.neighbour[path_prop.start_node][path_prop.end_node] = nil
+    PathData.neighbour[path_props.start_node][path_props.end_node] = nil
     PathEditor.confirm_path_deletion = nil
     iprint("Der Weg wurde geloescht.", "WS")
     PathData:save()
@@ -1985,8 +1985,8 @@ function PathCreator:save_new_path(start_node, end_node, bidirectional)
   end
   --
   -- Finally add path(es)
-  local edge_id = self.max_edge_id + 1
-  self.edge[edge_id] =
+  local edge_id = PathData.max_edge_id + 1
+  PathData.edge[edge_id] =
     {
       start_node = start_node,
       end_node = end_node,
@@ -1994,13 +1994,10 @@ function PathCreator:save_new_path(start_node, end_node, bidirectional)
       weight = PathCreator:compute_weight(self.cpforth),
     }
   PathData.neighbour[start_node][end_node] = edge_id
+  iprint(f("Der Weg von '{start_node}' nach '{end_node}' wurde mit der Pfad-ID {edge_id} gespeichert."), "WS")
   if bidirectional then
-    if PathData.neighbour[end_node][start_node] then
-      eprint(f("Es gibt bereits einen Weg von '{end_node}' nach '{start_node}'."), "WS")
-      return
-    end
     edge_id = edge_id + 1
-    self.edge[edge_id] =
+    PathData.edge[edge_id] =
       {
         start_node = end_node,
         end_node = start_node,
@@ -2008,14 +2005,15 @@ function PathCreator:save_new_path(start_node, end_node, bidirectional)
         weight = PathCreator:compute_weight(self.cpback),
       }
     PathData.neighbour[end_node][start_node] = edge_id
+  iprint(f("Der Weg von '{end_node}' nach '{start_node}' wurde mit der Pfad-ID {edge_id} gespeichert."), "WS")
   end
-  self.max_edge_id = edge_id
+  PathData.max_edge_id = edge_id
   PathData:save()
 end
 
 function PathCreator:add_boundaries(start_name, end_name)
-  self.add_node(start_name, self.startid, true)
-  self.add_node(end_name, self.endid, true)
+  self:add_node(start_name, self.startid, true)
+  self:add_node(end_name, self.endid, true)
   PathData:save()
 end
 
@@ -2027,6 +2025,7 @@ function PathCreator:add_node(name, room_id, dontsave)
     wprint("Knoten hat leere Raum-ID.", "WS")
     if not PathData.node[name] then
       PathData.node[name] = {ids = {}}
+      PathData.neighbour[name] = {ids = {}}
       iprint(
         f("Ein Knoten mit dem Namen '{name}' existiert noch nicht und wurde ohne ID angelegt."),
         "WS"
@@ -2052,6 +2051,7 @@ function PathCreator:add_node(name, room_id, dontsave)
     local node_props = PathData.node[name]
     if not node_props then
       PathData.node[name] = {ids = {room_id}}
+      PathData.neighbour[name] = {ids = {}}
       iprint(f("Der Knoten '{name}' wurde mit der Raum-Id {room_id} angelegt."), "WS")
     elseif table.contains(node_props.ids, room_id) then
       wprint(f("Die Raum-Id ist bereits zum Knoten '{name}' gespeichert."), "WS")
