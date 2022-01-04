@@ -84,22 +84,31 @@ end </script>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
 				<name>Wait erstellen</name>
-				<script>PathCreator:move_forth(matches[1], false)</script>
+				<script>local m = matches[1]
+if PathCreator:move_forth(m, true) then
+  iprint(f("Eine Wartezeit fuer {m:match('%d+')} wurde registriert."), "WS")
+end</script>
 				<command></command>
 				<packageName></packageName>
 				<regex>^#wait \d+$</regex>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
 				<name>Blocker erstellen</name>
-				<script>PathCreator:move_forth(matches[1], false)
-</script>
+				<script>local m = matches[1]
+local m_parts = string.split(m, ":")
+if PathCreator:move_forth(m, true) then
+  iprint(f("Blocker-NPC {m_parts[1]:sub(10)}\nmit Knuddeltext\n'{m_parts[2]}'\nund Todesmeldung\n'{m_parts[3]}'\nregistriert."), "WS")
+end</script>
 				<command></command>
 				<packageName></packageName>
 				<regex>^#blocker \w+:.+:.+$</regex>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
 				<name>Trigger erstellen</name>
-				<script>PathCreator:move_forth(matches[1], false)</script>
+				<script>local m = matches[1]
+if PathCreator:move_forth(m, true) then
+  iprint(f("Der Trigger mit dem Namen {m:sub(10)} ist registriert."), "WS")
+end</script>
 				<command></command>
 				<packageName></packageName>
 				<regex>^#trigger \w+$</regex>
@@ -275,7 +284,7 @@ end</script>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
 				<name>Erneut vorbereiten</name>
-				<script>PathEditor:reprepare_path(matches[3])</script>
+				<script>PathEditor:reprepare_path(matches[3], matches[4])</script>
 				<command></command>
 				<packageName></packageName>
 				<regex>^#reprepare(\s(\w+)\s(\w+))?$</regex>
@@ -1092,52 +1101,19 @@ function PathEditor:flip_portal(nr)
   PathData:save()
 end
 
-function PathEditor:add_permanent_preperation(start_node, end_node)
-  local path_name = f("{start_node}_{end_node}")
-  if table.contains(PathData.permanent_prepared, path_name) then
-    wprint(f("Der Weg von '{start_node}' nach '{end_node}' ist bereits vorbereitet."), "WS")
-    return
-  end
-  if not PathData.prepared_path[path_name] then
-    PathFinder:prepare_path(start_node, end_node)
-  end
-  table.insert(PathData.permanent_prepared, path_name)
-  iprint(f("Der Weg von '{start_node}' nach '{end_node}' ist nun dauerhaft vorbereitet."), "WS")
-  PathData:save()
-end
-
-function PathEditor:delete_permanent_preperation(start_node, end_node)
-  local path_name = f("{start_node}_{end_node}")
-  local path_props = PathData.prepared_path[path_name]
-  local confirmation = PathEditor.confirm_preparation_deletion
-  if not confirmation or confirmation ~= path_name then
-    if not table.contains(PathData.permanent_prepared, path_name) then
-      eprint(f("Der Weg von '{start_node}' nach '{end_node}' ist nicht dauerhaft vorbereitet."), "WS")
-      return
-    end
-    iprint({
-      f("Willst du wirklich die dauerhafte Vorbereitung des Weges\n"),
-      "   von",
-      {start_node, "y"},
-      "nach",
-      {end_node, "y"},
-      "loeschen? Falls ja, wiederhole den Loeschbefehl."
-     }, "WS")
-     PathEditor.confirm_preparation_deletion = path_name
-  else
-    table.remove_value(PathData.permanent_prepared, path_name)
-    iprint("Die dauerhafte Vorbereitung wurde geloescht.", "WS")
-    PathData:save()
-  end
-end
-
 function PathEditor:reprepare_path(start_node, end_node)
   if not start_node or not end_node then
+    local path_names = {}
     for path_name,_ in pairs(PathData.prepared_path) do
-      PathFinder:prepare_path(unpack(string.split(path_name, "_")))
+      table.insert(path_names, string.split(path_name, "_"))
+    end
+    PathData.prepared_path = {}
+    for _,path_name in pairs(path_names) do
+      PathFinder:prepare_path(unpack(path_name))
     end
     iprint("Alle vorbereiteten Wege wurden neu berechnet.", "WS")
   else 
+    PathData.prepared_path[f("{start_node}_{end_node}")] = nil
     PathFinder:prepare_path(start_node, end_node)
     iprint(f("Der Weg von '{start_node}' nach '{end_node}' wurde neu berechnet."), "WS")
   end
@@ -1392,7 +1368,7 @@ function PathFinder:walk_stored_path(verbose)
       step = step:sub(len("#blocker ") + 1)
       local npc_name, cuddle_subtext, death_subtext = unpack(string.split(step, ":"))
       kill_id =
-        tempTrigger(
+        tempRegexTrigger(
           cuddle_subtest,
           function()
             send("schau")
@@ -1409,7 +1385,7 @@ function PathFinder:walk_stored_path(verbose)
         )
       table.insert(self.blocker_trigger_ids, miss_id)
       die_id =
-        tempTigger(
+        tempRegexTigger(
           death_subtext,
           function()
             PathFinder:walk_stored_path()
@@ -1709,12 +1685,13 @@ function PathCreator:continue()
 end
 
 function PathCreator:set_goal()
-  self.endid = gmcp.MG.room.info.id
-  if len(self.endid) == 0 then
+  local room_id = gmcp.MG.room.info.id
+  if len(room_id) == 0 then
     wprint("Dieser Raum hat keine Raum-ID und kann nur mit blindem Laufen als Startknoten benutzt werden.", "WS")
   end
-  self.goback = not self.goback
-  if self.goback then
+  if not self.goback then
+    self.endid = room_id
+    self.goback = true
     iprint(
       {
         "Der Raum ist nun als Endpunkt markiert.\n",
@@ -1732,7 +1709,8 @@ function PathCreator:set_goal()
       },
       "WS"
     )
-  else
+  elseif self.endid == room_id then
+    self.goback = false
     iprint(
       {
         "Die Markierung dieses Raum als Ziel ist wieder aufgehoben.\n",
@@ -1740,6 +1718,8 @@ function PathCreator:set_goal()
       },
       "WS"
     )
+  else
+    eprint("Um die Zielmarkierung aufzuheben muss dies im Zielraum geschehen.", "WS")
   end
 end
 
@@ -1805,13 +1785,19 @@ function PathCreator:delete_last(num)
 end
 
 function PathCreator:move_forth(dir, dont_send)
-  if self.goback then
-    table.insert(self.cpback, dir)
+  if self.recording then
+    if self.goback then
+      table.insert(self.cpback, dir)
+    else
+      table.insert(self.cpforth, dir)
+    end
+    if not dont_send then
+      send(dir, false)
+    end
+    return true
   else
-    table.insert(self.cpforth, dir)
-  end
-  if not dont_send then
-    send(dir, false)
+    eprint("Es ist keine Wegaufzeichnung aktiv.", "WS")
+    return false
   end
 end</script>
 			<eventHandlerList />
@@ -1846,36 +1832,29 @@ local function groupdirections(commands)
   local result = {}
   if #commands == 1 then
     result = commands
-  elseif #commands &gt; 2 then
-    _, numstr = commands[1]:gsub("%S+", "")
-    if numstr == 1 then
-      result[1] = "#dopath " .. commands[1]
-    else
-      result[1] = commands[1]
-    end
-    for i = 2, #commands, 1 do
-      if type(commands[i]) == "string" then
-        _, numstr = commands[i]:gsub("%S+", "")
-        if numstr == 1 then
-          if string.len(result[#result]) &gt; 7 then
-            if string.startswith("#dopath") then
-              result[#result] = result[#result] .. " " .. commands[i]
-            else
-              table.insert(result, "#dopath " .. commands[i])
-            end
-          else
-            table.insert(result, "#dopath " .. commands[i])
-          end
+  elseif #commands &gt; 1 then
+    for i = 1, #commands, 1 do
+      _, numstr = commands[i]:gsub("%S+", "")
+      if numstr == 1 then
+        -- single word commands are combined into one string
+        if len(result) &gt; 0 and string.startswith(result[len(result)], "#dopath") then
+          -- add to last #dopath
+          result[len(result)] = f("{result[len(result)]} {commands[i]}")
         else
-          table.insert(result, commands[i])
+          -- start a #dopath
+          table.insert(result, f("#dopath {commands[i]}"))
         end
       else
+        -- multi word commands get an own entry
         table.insert(result, commands[i])
       end
     end
   end
   -- if last command is a wait, trigger or timer, we add a no-op command
+  display(result)
+  display(len(result))
   local last_command = result[len(result)]
+  display(last_command)
   if
     string.startswith(last_command, "#wait") or
     string.startswith(last_command, "#blocker") or
@@ -1954,9 +1933,9 @@ function PathCreator:save_new_path(start_node, end_node, bidirectional)
   if not complete_boundary then
     iprint(
       {
-        "Um die Ids automatisch zuzuweisen und bei Bedarf die Knoten zu erstellen, ",
+        "Um die Ids automatisch zuzuweisen und bei Bedarf die Knoten zu erstellen,",
         {f("#addboundries {start_node} {end_node}"), "y"},
-        " eingeben und anschliessend das Speichern des Weges wiederholen.",
+        "eingeben und anschliessend das Speichern des Weges wiederholen.",
       },
       "WS"
     )
@@ -1965,15 +1944,17 @@ function PathCreator:save_new_path(start_node, end_node, bidirectional)
   --
   -- check if there is already a path from start_node to end_node
   -- in vice versa if we should save both directions
-  if PathData.neighbour[start_node][end_node] then
-    eprint(f("Es gibt bereits einen Weg von '{start_node}' nach '{end_node}'."), "WS")
+  local start_to_end_id = PathData.neighbour[start_node][end_node]
+  if start_to_end_id then
+    eprint(f("Es gibt bereits einen Weg von '{start_node}' nach '{end_node}' mit der Pfad-ID {start_to_end_id}."), "WS")
     return
   end
   if bidirectional then
-    if PathData.neighbour[end_node][start_node] then
+    local end_to_start = PathData.neighbour[end_node][start_node]
+    if end_to_start then
       eprint(
         {
-          f("Es gibt bereits einen Weg von '{end_node}' nach '{start_node}'.\n"),
+          f("Es gibt bereits einen Weg von '{end_node}' nach '{start_node}' mit der Pfad-ID {end_to_start}.\n"),
           "Du kannst den Weg '{start_node}' nach '{end_node}' einzeln mit",
           {f("#seinbahn {start_node} {end_node}"), "y"},
           "speichern.",
@@ -2254,6 +2235,14 @@ end</script>
   - restrict pathes to life points, magic points and world (positiv "only" or negative "except")
 ]]
 </script>
+			<eventHandlerList />
+		</Script>
+		<Script isActive="no" isFolder="no">
+			<name>Neues Skript</name>
+			<packageName></packageName>
+			<script>Der gewaltige, weisse Skorpion legt sich auf den Ruecken und verendet.
+
+Du knuddelst den gewaltigen, weissen Skorpion. </script>
 			<eventHandlerList />
 		</Script>
 	</ScriptPackage>

@@ -408,19 +408,13 @@ end
 
 function len(obj)
   if type(obj) == "string" then
-    return #obj
+    return string.len(obj)
   elseif type(obj) == "table" then
-    local result = 0
-    for _, _ in pairs(obj) do
-      result = result + 1
-    end
-    return result
+    return table.size(obj)
   else
     return 0
   end
 end
-
-
 
 function structure(dict)
   if type(dict) == "table" then
@@ -1074,6 +1068,10 @@ function substring(text, subtext)
 end
 
 function string.startswith(text, subtext)
+  if not text then
+    display(f("Error: text={text}, subtext={subtext}"))
+    text:sub(1, #subtext)
+  end
   return text:sub(1, #subtext) == subtext
 end
 
