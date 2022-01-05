@@ -213,14 +213,16 @@ angepasst werden muessten.
   Dabei wird nach der gegebenen Anzahl an Sekunden die Bewegung fortgesetzt.
 
 
-    \#trigger <Name des Triggers, das aktivitiert werden soll>
+    \#trigger <Name des Triggers>:<Ausloeser>
 
   Der Trigger-Name bezieht sich auf den Trigger, der man selbst unter
   "Trigger" in der Mudlet-GUI hinterlegt. Es ist empfehlenswert bei der
   Namensweg den Start- und Endknoten zu integrieren um spaeter zu wissen,
   zu welchem Weg der entsprechende Trigger zaehlt. Notwendig ist dies jedoch
   nicht. Der Trigger sollte deaktiviert sein. Beim Laufen des Weges wird der
-  Trigger aktiviert und am Ende wieder deaktiviert.
+  Trigger aktiviert und am Ende wieder deaktiviert. Der Ausloeser ist ein
+  Befehl, der nach dem Aktivieren des Triggers ausgefuehrt wird um den
+  Trigger zu befeuern.
 
 
     \#blocker <NPC Name>:<1. Zeile beim Knuddeln>:<1. Zeile beim Tod>

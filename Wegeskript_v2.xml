@@ -106,8 +106,13 @@ end</script>
 			<Alias isActive="yes" isFolder="no">
 				<name>Trigger erstellen</name>
 				<script>local m = matches[1]
+local parts = string.split(m:sub(len("#trigger ")+1), ":")
 if PathCreator:move_forth(m, true) then
-  iprint(f("Der Trigger mit dem Namen {m:sub(10)} ist registriert."), "WS")
+  if len(parts) == 1 then
+    iprint(f("Der Trigger mit dem Namen {parts[1]} ist registriert."), "WS")
+  else
+    iprint(f("Der Trigger mit dem Namen {parts[1]} ist mit dem Ausloeser {parts[2]} registriert."), "WS")
+  end
 end</script>
 				<command></command>
 				<packageName></packageName>
@@ -295,6 +300,15 @@ end</script>
 				<command></command>
 				<packageName></packageName>
 				<regex>^#runned$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Trigger/Timer loeschen</name>
+				<script>PathFinder:kill_gag_trigger()
+PathFinder:clean_trigger_and_timer()
+iprint("Alle Trigger und Timer des letzten Weges sind geloescht.", "WS")</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^#cleantrigger$</regex>
 			</Alias>
 		</AliasGroup>
 		<AliasGroup isActive="yes" isFolder="yes">
@@ -615,10 +629,15 @@ PathCreator = PathCreator or {}
 -- class to edit existing pathes and nodes
 PathEditor = PathEditor or {}
 -- class to run from node to node
-PathFinder = PathFinder or {}
---
+PathFinder = PathFinder or {
+  catch_gagged_line = {},
+  post_run_action = {}
+}
 -- class for all data 
 PathData = PathData or {}
+
+PathData.prepared_path={}
+PathData.path_end_action = "stolpert beim Abbremsen."
 --
 PathData.shortendir = PathData.shortendir or
   {
@@ -772,6 +791,7 @@ PathData.help_lines = PathData.help_lines or {
     {"#addbounaries", "y"}, {"&lt;Startknoten&gt; &lt;Endknoten&gt;\n", "g"},
     {"#wait", "y"}, {"&lt;Zeit in Sekunden&gt;\n", "g"},
     {"#blocker", "y"}, {"&lt;NPC Name&gt;:&lt;1. Zeile Knuddel&gt;:&lt;1. Zeile Tod&gt;\n", "g"},
+    {"#trigger", "y"}, {"&lt;Triggername&gt;", "g"}, {":&lt;Ausloeser&gt;?\n", "l"},
     {"#vor", "y"}, {"&lt;beliebiges Kommando&gt;\n", "g"},
     {"#showrecord", "y"}, {"&lt;Anzahl letzten Schritte&gt;?\n", "o"},
     {"#deleterecord", "y"}, {"&lt;Anzahl letzten Schritte&gt;?\n", "o"},
@@ -1187,7 +1207,8 @@ end</script>
 		<Script isActive="yes" isFolder="no">
 			<name>pathfinder</name>
 			<packageName></packageName>
-			<script>local function handle_lines_to_gag()
+			<script>      
+local function handle_lines_to_gag()
   if PathFinder.catch_gagged_line then
     local line = getCurrentLine()
     for _,config in pairs(PathFinder.catch_gagged_line) do
@@ -1208,14 +1229,16 @@ function PathFinder:start_gag_trigger()
 end
 
 local function handle_post_run_actions()
-  for _, action in pairs(PathFinder.post_run_action) do
-    action()
+  if PathFinder.post_run_action then
+    for _, action in pairs(PathFinder.post_run_action) do
+      action()
+    end
   end
-  PathFinder.catch_gagged_line = {}
   PathFinder.post_run_action = {}
+  PathFinder.catch_gagged_line = {}
 end
 
-function PathFinder:kill_gag_trigger(param)
+function PathFinder:kill_gag_trigger()
   if self.walk_in_progress and not self.keep_silence then
     if self.all_gag_trigger_id then
       send("lang", false)
@@ -1320,6 +1343,42 @@ function PathFinder:clean_trigger_and_timer()
   self.enabled_trigger = {}
 end
 
+local function continue_func()
+  if table.size(PathFinder.last_path) &lt;  PathFinder.next_walk_index then
+    PathFinder:walk_stored_path()
+  else
+    PathFinder:kill_gag_trigger()
+  end
+end
+
+local function remove_blocker_trigger(list_of_trigger)
+  for _, trig in pairs(list_of_trigger) do
+    local key_name = f("{trig}_trigger")
+    killTrigger(PathFinder.blocker_trigger_ids[key_name])
+    PathFinder.blocker_trigger_ids[key_name] = nil
+  end
+end
+
+local function cuddle_blocker_func()
+  remove_blocker_trigger({"cuddle"})
+  send(f("knuddel {PathFinder.blocker_npc_name}"))
+end
+
+local function kill_blocker_func()
+  remove_blocker_trigger({"kill", "miss"})
+  send(f("toete {PathFinder.blocker_npc_name}"))
+end
+
+local function miss_blocker_func()
+  remove_blocker_trigger({"kill", "miss", "die"})
+  continue_func()
+end
+
+local function die_blocker_func()
+  remove_blocker_trigger({"die"})
+  continue_func()
+end
+
 function PathFinder:walk_stored_path(verbose)
   -- prepare walk
   self.walk_in_progress = true
@@ -1353,54 +1412,23 @@ function PathFinder:walk_stored_path(verbose)
       --
       -- timer to continue afterwards
       local delay = tonumber(step:match("%d+"))
-      id =
-        tempTimer(
-          delay,
-          function()
-            PathFinder:walk_stored_path()
-          end
-        )
-      table.insert(self.timer_ids, id)
+      local wait_id = tempTimer(delay, continue_func)
+      table.insert(self.timer_ids, wait_id)
       break
     elseif string.startswith(step, "#blocker") then
       --
       -- prepare trigger to kill or to continue
       step = step:sub(len("#blocker ") + 1)
       local npc_name, cuddle_subtext, death_subtext = unpack(string.split(step, ":"))
-      kill_id =
-        tempRegexTrigger(
-          cuddle_subtest,
-          function()
-            send("schau")
-            send(f("toete {npc_name}"))
-          end
-        )
-      table.insert(self.blocker_trigger_ids, kill_id)
-      miss_id =
-        tempTrigger(
-          "Knuddle wen?",
-          function()
-            PathFinder:walk_stored_path()
-          end
-        )
-      table.insert(self.blocker_trigger_ids, miss_id)
-      die_id =
-        tempRegexTigger(
-          death_subtext,
-          function()
-            PathFinder:walk_stored_path()
-          end
-        )
-      table.insert(self.blocker_trigger_ids, die_id)
-      table.insert(
-        self.timer_ids,
-        tempTimer(
-          0.5,
-          function()
-            PathFinder:walk_stored_path()
-          end
-        )
-      )
+      self.blocker_npc_name = npc_name
+      local kill_id = tempRegexTrigger(cuddle_subtext, kill_blocker_func)
+      self.blocker_trigger_ids["kill_trigger"] = kill_id
+      local miss_id = tempTrigger("Knuddle wen?", miss_blocker_func)
+      self.blocker_trigger_ids["miss_trigger"] = miss_id
+      local die_id = tempRegexTrigger(death_subtext, die_blocker_func)
+      self.blocker_trigger_ids["die_trigger"] = die_id
+      local cuddle_id = tempTrigger(f("{PLAYER.name} {PathData.path_end_action}"), cuddle_blocker_func)
+      self.blocker_trigger_ids["cuddle_trigger"] = cuddle_id
       break
     elseif string.startswith(step, "#trigger") then
       --
@@ -1415,17 +1443,16 @@ function PathFinder:walk_stored_path(verbose)
   end
   if self.next_walk_index &gt; end_index then
     -- in this case, we went through the loop without a break
-    PathFinder:clean_trigger_and_timer()
+    iprint("cleaned up")
+    self:clean_trigger_and_timer()
   end
   -- stop or finish walk
   if not verbose and not self.keep_silence then
     if PLAYER then
-      local action = "stolpert beim Abbremsen."
-      tempTrigger(f("{PLAYER.name} {action}"), function() PathFinder:kill_gag_trigger() end)
-      send(f("\\:{action}"), false)
+      tempTrigger(f("{PLAYER.name} {PathData.path_end_action}"), function() PathFinder:kill_gag_trigger() end)
+      send(f("\\:{PathData.path_end_action}"), false)
     else
       tempTimer(0.5, function() PathFinder:kill_gag_trigger() end)
-      --tempTimer(0.5, function() send("schau", false) end)
     end
   end
 end
@@ -1521,6 +1548,7 @@ function PathFinder:show_last_runned_path()
   local start_node, end_node, path, node_names, path_ids = unpack(PathFinder.last_path_data or {})
   if not path then
     eprint("Du bist noch keinen Weg gelaufen.", "WS")
+    return
   end
   iprint({
       "Der Weg von",
@@ -2235,14 +2263,6 @@ end</script>
   - restrict pathes to life points, magic points and world (positiv "only" or negative "except")
 ]]
 </script>
-			<eventHandlerList />
-		</Script>
-		<Script isActive="no" isFolder="no">
-			<name>Neues Skript</name>
-			<packageName></packageName>
-			<script>Der gewaltige, weisse Skorpion legt sich auf den Ruecken und verendet.
-
-Du knuddelst den gewaltigen, weissen Skorpion. </script>
 			<eventHandlerList />
 		</Script>
 	</ScriptPackage>
