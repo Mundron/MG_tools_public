@@ -213,17 +213,39 @@ angepasst werden muessten.
   Dabei wird nach der gegebenen Anzahl an Sekunden die Bewegung fortgesetzt.
 
 
-    \#trigger <Name des Triggers>:<Ausloeser>
+    \#trigger <Name des Triggers>:<Ausloeser>?
 
   Der Trigger-Name bezieht sich auf den Trigger, der man selbst unter
   "Trigger" in der Mudlet-GUI hinterlegt. Es ist empfehlenswert bei der
   Namensweg den Start- und Endknoten zu integrieren um spaeter zu wissen,
   zu welchem Weg der entsprechende Trigger zaehlt. Notwendig ist dies jedoch
   nicht. Der Trigger sollte deaktiviert sein. Beim Laufen des Weges wird der
-  Trigger aktiviert und am Ende wieder deaktiviert. Der Ausloeser ist ein
-  Befehl, der nach dem Aktivieren des Triggers ausgefuehrt wird um den
-  Trigger zu befeuern.
+  Trigger aktiviert und am Ende wieder deaktiviert. Der optionale Ausloeser
+  ist ein Befehl oder eine Liste von Befehlen durch ein Komma getrennt,
+  der oder die nach dem Aktivieren des Triggers ausgefuehrt wird bzw werden
+  um den Trigger zu befeuern. Der "schau" Befehl ist dabei nicht notwendig bzw
+  besser wegzulassen, da am Ende des Weges dieser automatisch ausgefuehrt wird
+  um die Raumbeschreibung am Ziel anzuzeigen.
 
+  Beispiele:
+
+    \#trigger drachenhort_schlange:stelle an schlange an
+    \#trigger katzensprung
+    \#trigger mundron_furz:trete mundron,sag Was faellt Dir ein?
+
+  Sollen mehrere Trigger gleichzeitig aktiviert werden, so ist dies mit
+  der Triggergruppe analog moeglich:
+
+    \#triggergroup <Liste von Triggernamen>:<Ausloeser>?
+
+  Analog sind die Ausloeser optional und durch Komma getrennt auch als
+  Liste angebbar. Bei den Triggernamen muessen diese auch durch ein
+  Komma getrennt aufgelistet werden, wie zum Beispiel
+
+    \#triggergroup flack_portal,offenes_portal
+
+
+  Eine spezielle Art von Trigger bilden ist bei Blocker noetig.
 
     \#blocker <NPC Name>:<1. Zeile beim Knuddeln>:<1. Zeile beim Tod>
 

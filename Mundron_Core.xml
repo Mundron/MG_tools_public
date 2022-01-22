@@ -73,8 +73,6 @@ local function encode_table(val, stack)
     local n = 0
     for k in pairs(val) do
       if type(k) ~= "number" then
-        display(k)
-        display(val)
         error("invalid table: mixed or invalid key types")
       end
       n = n + 1
@@ -423,8 +421,6 @@ function structure(dict)
       echo(k .. ": " .. type(v) .. "\n")
     end
     echo("}\n\n")
-  else
-    display(dict)
   end
 end
 
@@ -469,12 +465,14 @@ end
 
 local text_farben =
   {
-    r = "&lt;255,0,0:0,0,0&gt;",
+    r = "&lt;235,80,80:0,0,0&gt;",
     g = "&lt;155,255,0:0,0,0&gt;",
-    b = "&lt;0,0,255:0,0,0&gt;",
+    b = "&lt;120,170,255:0,0,0&gt;",
+    lb = "&lt;120,170,255:0,0,0&gt;",
     o = "&lt;255,155,55:0,0,0&gt;",
     l = "&lt;155,155,255:0,0,0&gt;",
-    y = "&lt;255,255,0:0,0,0&gt;",
+    y = "&lt;205,205,0:0,0,0&gt;",
+    ly = "&lt;205,205,0:0,0,0&gt;",
     c = "&lt;0,255,255:0,0,0&gt;",
     m = "&lt;255,0,255:0,0,0&gt;",
   }
@@ -572,7 +570,9 @@ end</script>
 function initGMCP()
   if not gmpc_is_initialized then
     sendGMCP([[Core.Supports.Set [ "MG.char 1", "MG.room 1", "comm.channel 1" ] ]])
-    deleteOldProfiles(7)
+    if deleteOldProfiles then
+      deleteOldProfiles(7)
+    end
     gmcp_is_initialized = true
   end
 end</script>
@@ -692,7 +692,7 @@ function save_tlines(path, lines)
     return
   end
   local file = io.open(path, "w+")
-  for i, v in ipairs(lines) do
+  for _, v in ipairs(lines) do
     file:write(v, "\n")
   end
   file:close()
@@ -718,7 +718,7 @@ function save_jsonl(path, tab)
     return
   end
   local file = io.open(path, "w+")
-  for i, line in ipairs(tab) do
+  for _, line in spairs(tab) do
     file:write(json.encode(line), "\n")
   end
   file:close()
@@ -954,6 +954,12 @@ end</script>
   return true
 end
 
+function table.add(tab, value)
+  if not table.contains(tab, value) then
+    table.insert(tab, value)
+  end
+end
+
 function table.remove_value(tab, value)
   local index = table.index_of(tab, value)
   if not index then
@@ -1006,7 +1012,7 @@ function table.unfold(tab, field_name)
   -- out of the data as a key of the result
   
   local result = {}
-  for _, data in ipairs(tab) do
+  for _, data in spairs(tab) do
     local id = nil
     local props = {}
     for pkey, pvalue in pairs(data) do
@@ -1015,9 +1021,6 @@ function table.unfold(tab, field_name)
       else
         props[pkey] = pvalue
       end
-    end
-    if not id then
-      display(props)
     end
     result[id] = props
   end
@@ -1038,6 +1041,26 @@ function table.subtable(tab, start_index, end_index)
     table.insert(result, tab[i])
   end 
   return result
+end
+
+function table.indent_lines(tab, indent)
+  local new_line = f("\n{indent}")
+  local result = f("{indent}{table.concat(tab, new_line)}") 
+  return result
+end
+
+function table.indent_lines_with_breaks(tab, indent)
+  local result = {}
+  for _,line in ipairs(tab) do
+    table.insert(result, string.indent_lines(line, indent))
+  end
+  return table.concat(result, "\n")
+end
+
+function table.append_table(tab_a, tab_b)
+  for _,item in ipairs(tab_b) do
+    table.insert(tab_a, item)
+  end
 end</script>
 			<eventHandlerList />
 		</Script>
@@ -1068,10 +1091,6 @@ function substring(text, subtext)
 end
 
 function string.startswith(text, subtext)
-  if not text then
-    display(f("Error: text={text}, subtext={subtext}"))
-    text:sub(1, #subtext)
-  end
   return text:sub(1, #subtext) == subtext
 end
 
@@ -1103,7 +1122,89 @@ function string.strip(text)
   else
     return text:sub(start_index, end_index)
   end
+end
+
+function string.indent_lines(text, indent)
+  local result = {}
+  for word in text:gmatch("[^%s]+") do
+    local prev = result[len(result)]
+    if prev and len(prev) + 1 + len(word) &lt; 78 then
+      result[len(result)] = f("{prev} {word}")
+    else
+      table.insert(result, f("{indent}{word}"))
+    end
+  end
+  return table.concat(result, "\n")
 end</script>
+			<eventHandlerList />
+		</Script>
+		<Script isActive="yes" isFolder="no">
+			<name>Logger</name>
+			<packageName></packageName>
+			<script>LOGGER = LOGGER or {limit = 10000}
+
+local function reset_file(filename)
+  if filename then
+    local path = getMundronCoreDir(filename)
+    local file = io.open(path, "w+")
+    file:close()
+    iprint(f("File {path} reset"), "log")
+  else 
+    for file in lfs.dir(getMundronCoreDir()) do
+      if string.startswith(file, "log_") then
+        local path = getMundronCoreDir(file)
+        local file = io.open(path, "w+")
+        file:close()
+        iprint(f("File {path} reset"), "log")
+      end
+    end
+  end
+end
+
+function LOGGER:getLogger(name, limit)
+  self.name = name
+  self.limit = (limit or self.limit)
+end
+
+function LOGGER:_save_msg(level, msg)
+  local filename = f("log_{self.name}.txt")
+  if type(msg) == "table" then
+    msg = json.encode(msg)
+  end
+  msg = f("{os.date('%c')} {self.name} {level} {msg}")
+  path = getMundronCoreDir(filename)
+  local file = io.open(path, "a+")
+  file:write(msg, "\n")
+  file:close()
+  self.line_cnt = (self.line_cnt or 0) + 1
+  if self.line_cnt &gt; self.limit then
+    lines = mload_tlines(filename)
+    local bias = self.limit / 5
+    local new_lines = {}
+    for i=bias,table.size(lines),1 do
+      table.insert(new_lines, lines[i])
+    end
+    msave_tlines(filename, new_lines)
+    iprint(f("Dropped {bias} lines from log {filename}."), "log")
+  end
+end
+
+function LOGGER:debug(msg)
+  self:_save_msg("DEBUG", msg)
+end
+
+function LOGGER:info(msg)
+  self:_save_msg("INFO", msg)
+end
+
+function LOGGER:warn(msg)
+  self:_save_msg("WARNING", msg)
+end
+
+function LOGGER:err(msg)
+  self:_save_msg("ERROR", msg)
+end
+</script>
 			<eventHandlerList />
 		</Script>
 	</ScriptPackage>

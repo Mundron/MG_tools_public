@@ -1753,6 +1753,21 @@ end</script>
       )
     MainGUI.hydra:setStyleSheet([[background-color: rgba(0,0,0,0%)]])
     MainGUI.hydra:setFontSize(9)
+    
+    MainGUI.vesray_portal_entry =
+      Geyser.Label:new(
+        {name = "vesray_portal_entry", x = 250, y = 120, width = 80, height = 20}, MainGUI.statuszeile
+      )
+    MainGUI.vesray_portal_entry:setStyleSheet([[background-color: rgba(0,0,0,0%)]])
+    MainGUI.vesray_portal_entry:setFontSize(9)
+    
+    MainGUI.vesray_portal_exit =
+      Geyser.Label:new(
+        {name = "vesray_portal_exit", x = 340, y = 120, width = 80, height = 20}, MainGUI.statuszeile
+      )
+    MainGUI.vesray_portal_exit:setStyleSheet([[background-color: rgba(0,0,0,0%)]])
+    MainGUI.vesray_portal_exit:setFontSize(9)
+    
     MainGUI:info("MainGUI ist nun aufgebaut.")
     raiseEvent("MainGUI_loaded")
     MainGUI.angezeigt = true
@@ -1885,6 +1900,9 @@ end</script>
 function main_gui_update_base()
   if gmcp.MG.char.base then
     PLAYER.name = gmcp.MG.char.base.name
+    if PathData then
+      PathData.catch_path_end_action = f("{PLAYER.name} {PathData.path_end_action}") 
+    end
     PLAYER.stufe = gmcp.MG.char.info.level
     PLAYER.gildenlevel = gmcp.MG.char.info.guild_level
     raiseEvent("PLAYER_name_now_known")
@@ -2061,7 +2079,7 @@ end</script>
   end
   -- Para?
   local color = "black"
-  if (PLAYER.para or 0) &gt; 0 then
+  if PLAYER and (PLAYER.para or 0) &gt; 0 then
     PLAYER.raum_region = "Para-" .. PLAYER.raum_region
     color = "white"
   end
@@ -2069,7 +2087,7 @@ end</script>
   MainGUI.ort_raum:echo("&amp;nbsp;" .. PLAYER.raum_kurz, color)
   local room_id = gmcp.MG.room.info.id
   local region_text = f("{PLAYER.raum_region} [{room_id:sub(1, 6)}]")
-  if PathData then
+  if PathData and PathData.node_by_id then
       local node_name = PathData.node_by_id[room_id] or "~"
       region_text = f("{region_text} WS: {node_name}")
   end

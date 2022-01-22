@@ -4,9 +4,7 @@
 	<TriggerPackage>
 		<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 			<name>EKs lesen</name>
-			<script>--display(matches[2])
-local found_eks = tonumber(matches[2])
---display(EK.current, found_eks, EK.saved, delta)
+			<script>local found_eks = tonumber(matches[2])
 local delta = found_eks - EK.known_kills - EK.unknown_kills
 if delta &lt; 0 then
   MainGUI.ekanzahl:echo("EK-Anzahl: " .. found_eks - delta .. "(" .. delta .. ")", "black")
@@ -83,8 +81,7 @@ deleteLine()</script>
 		</Trigger>
 		<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 			<name>Auslesen Teil 1</name>
-			<script>display(matches)
-if matches[2] == "ein" then
+			<script>if matches[2] == "ein" then
   EK.config.competitor_hasnt = 1
 else
   EK.config.competitor_hasnt = tonumber(matches[2])
@@ -109,8 +106,7 @@ EK:save_plakettenabgleich(matches[4])</script>
 		</Trigger>
 		<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 			<name>Auslesen Teil 2</name>
-			<script>display(matches)
-if matches[3] == "ein" then
+			<script>if matches[3] == "ein" then
   EK.config.player_hasnt = 1
 else
   EK.config.player_hasnt = tonumber(matches[3])
@@ -162,8 +158,7 @@ end</script>
 		</Trigger>
 		<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 			<name>temp</name>
-			<script>--display("matched: "..line)
-
+			<script>
 local trigger_name = "Kerbholz"
 
 if not TRIGGER[trigger_name] or not TRIGGER[trigger_name].isOpen then   -- this checks for the first line, and initializes your variables
@@ -173,7 +168,6 @@ end
 TRIGGER[trigger_name].text = TRIGGER[trigger_name].text .. line .. " "   -- this appends each line, with a space added in so that you don't get words running together
 TRIGGER[trigger_name].len = TRIGGER[trigger_name].len + 1   -- this keeps track of how many lines the trigger is capturing
 
---display(line)
 
 if line:match("nichts\..*$") or line:match("stark\..*$") or line:match("leicht\..*$") then   -- this checks to see if the current line ends with "gross.", and closes things out
   TRIGGER[trigger_name].len = 0
@@ -430,12 +424,10 @@ end</script>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
 				<name>EK filtern und bearbeiten</name>
-				<script>display(matches)
-
-if matches[3]=="" then
-	EK:multichange(EK:find("name", matches[4]), matches[5], matches[6])
+				<script>if matches[3] == "" then
+  EK:multichange(EK:find("name", matches[4]), matches[5], matches[6])
 else
-	EK:multichange(EK:find(matches[3], matches[4]), matches[5], matches[6])
+  EK:multichange(EK:find(matches[3], matches[4]), matches[5], matches[6])
 end</script>
 				<command></command>
 				<packageName></packageName>
@@ -626,9 +618,7 @@ function EK:load()
     self.max_id = math.max(self.max_id, doc._id)
     self.max_position = position
   end
-  display("loop done")
   local kills = pload_jsonl("EK_Liste")
-  display("loaded " .. len(kills) .. " Kills")
   self.known_kills = 0
   self.unknown_kills = 0
   for _, doc in pairs(kills) do
