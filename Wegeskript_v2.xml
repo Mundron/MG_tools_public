@@ -832,8 +832,8 @@ PathData.help_lines = PathData.help_lines or {
     {"#run", "y"}, {"&lt;Startknoten&gt;?", "o"}, {"&lt;Endknoten&gt;\n", "g"},
     {"#rerun\n", "y"},
     {"#prepare", "y"}, {"&lt;Startknoten&gt; &lt;Endknoten&gt;\n", "g"},
-    {"#reprepare", "y"}, {"&lt;Startknoten&gt;? &lt;Endknoten&gt;?\n\n", "o"},
-    {"#computepath", "y"}, {"&lt;Startknoten&gt; &lt;Endknoten&gt;\n", "g"},
+    {"#reprepare", "y"}, {"&lt;Startknoten&gt;? &lt;Endknoten&gt;?\n", "o"},
+    {"#computepath", "y"}, {"&lt;Startknoten&gt; &lt;Endknoten&gt;\n\n", "g"},
     {"Neue Wege oder Knoten erstellen:\n", "l"},
     {"#wa start|ziel|stop|weiter\n", "y"},
     {"#addnode", "y"}, {"&lt;Knotenname&gt;", "g"}, {":&lt;Titel&gt;?\n", "o"},
@@ -876,22 +876,20 @@ PathData.help_lines = PathData.help_lines or {
   local result = {}
   for node_name, node_props in pairs(PathData.node) do
     if node_props.title and substring(node_props.title:lower(), lowered_text) then
-      table.insert(result, {node_name=node_name, title=node_props.title})
+      result[node_name] = node_props.title
     end
   end
-  if table.size(result) == 1 then
-    self:show_node(result[1].node_name)
-  elseif table.size(result) &gt; 1 then
-    local text={f("Es wurden folgende Knoten gefunden, die '{node_name}' im Titel beinhalten:\n")}
-    for _,candidate in pairs(real_name) do
+  if table.size(result) &gt; 0 then
+    local text={f("Es wurden folgende Knoten gefunden, die '{text}' im Titel beinhalten:\n")}
+    for node_name,node_title in spairs(result) do
       table.insert(text, "Knotenname:")
-      table.insert(text, {candidate.node_name, "y"})
-      table.insert(text, f("mit dem Titel\n   '{candidate.title}'\n"))
+      table.insert(text, {node_name, "y"})
+      table.insert(text, f("mit dem Titel\n   '{node_title}'\n"))
     end
     iprint(text, "WS")
     return
   else
-    eprint(f("Es wurde kein Knoten gefunden, welcher '{node_name}' im Titel beinhaltet."), "WS")
+    eprint(f("Es wurde kein Knoten gefunden, welcher '{text}' im Titel beinhaltet."), "WS")
     return
   end
 end
@@ -1685,9 +1683,12 @@ function PathFinder:clean_trigger_and_timer()
 end
 
 function PathFinder:continue_func()
+  log:debug("Continue run?")
   if table.size(PathFinder.last_path) &lt; PathFinder.next_walk_index then
+    log:debug("No, since next index is beyond path length.")
     PathFinder:kill_gag_trigger()
   else
+    log:debug("Go for it!")
     PathFinder:walk_stored_path()
   end
 end
@@ -1811,9 +1812,9 @@ function PathFinder:walk_stored_path(verbose)
   --
   -- do steps for walk the path
   for i = start_index, end_index, 1 do
-    log:debug("Step:")
-    log:debug(step)
     step = path[i]
+    log:debug(f("Step {i}:"))
+    log:debug(step)
     self.next_walk_index = i + 1
     if step.type == "#dopath" then
       log:debug("#dopath recognized")
@@ -1824,7 +1825,8 @@ function PathFinder:walk_stored_path(verbose)
       --
       -- timer to continue afterwards
       log:debug("#wait recognized")
-      table.insert(self.timer_ids, tempTimer(step.time, continue_func))
+      table.insert(self.timer_ids, tempTimer(step.time, function() PathFinder:continue_func() end))
+      iprint(f("Warte {step.time} Sekunden."), "WS")
       break
     elseif step.type == "#trigger" then
       --
@@ -1869,7 +1871,10 @@ function PathFinder:walk_stored_path(verbose)
   -- stop or finish walk
   if not verbose and not self.keep_silence then
     log:debug("Neither verbose nor keep silent: kill gags!")
-    if PLAYER then
+    if step.type == "#wait" then
+      log:debug(f("Kill gag after {step.time - 0.5} seconds."))
+      tempTimer(step.time - 0.5, function() PathFinder:kill_gag_trigger() end)
+    elseif PLAYER then
       log:debug("PLAYER exists, trigger by action")
       tempTrigger(PathData.catch_path_end_action, function() PathFinder:kill_gag_trigger() end, 1)
       send(PathData.do_path_end_action, false)
@@ -2190,6 +2195,7 @@ function PathCreator:continue()
   if not self.goback then
     self.goal_id = nil
   end
+  self.recording = true
   iprint("Wegaufzeichnung wird fortgesetzt.", "WS")
 end
 
@@ -2307,7 +2313,7 @@ function PathCreator:delete_last(num)
 end
 
 function PathCreator:add_wait(time)
-  if self:move_forth({type = "#wait", time = time}, true) then
+  if self:move_forth({type = "#wait", time = tonumber(time)}, true) then
     iprint(f("Eine Wartezeit von {time} Sekunden ist registriert."), "WS")
   end
 end

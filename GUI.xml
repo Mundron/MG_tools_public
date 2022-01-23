@@ -1384,7 +1384,7 @@ GuildGUI.form:setStyleSheet(
 		</TriggerGroup>
 	</TriggerPackage>
 	<TimerPackage>
-		<Timer isActive="no" isFolder="no" isTempTimer="no" isOffsetTimer="no">
+		<Timer isActive="yes" isFolder="no" isTempTimer="no" isOffsetTimer="no">
 			<name>timer_for_hydra</name>
 			<script>HYDRA:decrease_time()</script>
 			<command></command>

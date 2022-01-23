@@ -1141,9 +1141,7 @@ end</script>
 		<Script isActive="yes" isFolder="no">
 			<name>Logger</name>
 			<packageName></packageName>
-			<script>LOGGER = LOGGER or {limit = 10000}
-
-local function reset_file(filename)
+			<script>local function reset_file(filename)
   if filename then
     local path = getMundronCoreDir(filename)
     local file = io.open(path, "w+")
@@ -1159,6 +1157,11 @@ local function reset_file(filename)
       end
     end
   end
+end
+
+if not LOGGER then
+  LOGGER =  {limit = 10000}
+  reset_file()
 end
 
 function LOGGER:getLogger(name, limit)
