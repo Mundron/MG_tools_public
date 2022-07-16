@@ -1187,8 +1187,8 @@ function LOGGER:_save_msg(level, msg)
     for i=bias,table.size(lines),1 do
       table.insert(new_lines, lines[i])
     end
-    msave_tlines(filename, new_lines)
-    iprint(f("Dropped {bias} lines from log {filename}."), "log")
+    -- msave_tlines(filename, new_lines)
+    -- iprint(f("Dropped {bias} lines from log {filename}."), "log")
   end
 end
 

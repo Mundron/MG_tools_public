@@ -171,10 +171,10 @@ if SE and SE.kampfmodus == "solo" then
   send("lege alles aus leiche in paket in mir")
   send("lege alles aus haufen in paket in mir")
   send("lege alles im raum in paket in mir")
-elseif SE and SE.kampfmodus == "zaub" then
-  send("lege komponenten aus leiche in paket in mir")
-  send("lege komponenten aus haufen in paket in mir")
-  send("lege komponenten in paket in mir")
+elseif SE and SE.kampfmodus == "zaubi" then
+  send("lege alle komponenten aus leiche in paket in mir")
+  send("lege alle komponenten aus haufen in paket in mir")
+  send("lege alle komponenten in paket in mir")
 end</script>
 				<triggerType>0</triggerType>
 				<conditonLineDelta>0</conditonLineDelta>

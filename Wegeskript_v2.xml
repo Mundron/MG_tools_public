@@ -585,6 +585,13 @@ end</script>
 			<packageName></packageName>
 			<regex>^#WS$</regex>
 		</Alias>
+		<Alias isActive="yes" isFolder="no">
+			<name>Gag löschen</name>
+			<script>PathFinder:kill_gag_trigger()</script>
+			<command></command>
+			<packageName></packageName>
+			<regex>#nogag</regex>
+		</Alias>
 	</AliasPackage>
 	<ActionPackage />
 	<ScriptPackage>
@@ -834,6 +841,7 @@ PathData.help_lines = PathData.help_lines or {
     {"#prepare", "y"}, {"&lt;Startknoten&gt; &lt;Endknoten&gt;\n", "g"},
     {"#reprepare", "y"}, {"&lt;Startknoten&gt;? &lt;Endknoten&gt;?\n", "o"},
     {"#computepath", "y"}, {"&lt;Startknoten&gt; &lt;Endknoten&gt;\n\n", "g"},
+    {"#nogag", "y"}, 
     {"Neue Wege oder Knoten erstellen:\n", "l"},
     {"#wa start|ziel|stop|weiter\n", "y"},
     {"#addnode", "y"}, {"&lt;Knotenname&gt;", "g"}, {":&lt;Titel&gt;?\n", "o"},
@@ -1339,21 +1347,21 @@ local function store_portal_lines()
         local portal_title = string.strip(tab[2])
         echo(f("{portal_nr}: '{portal_title}'"))
         PathData.portals[f("p{portal_nr}")] = true
-        PathData.node[f("p{portal_nr}")].title = portal_title
+        -- PathData.node[f("p{portal_nr}")].title = portal_title
         echo(" (gespeichert)\n")
       end
     end  
     --
-    iprint("Teleportiere zu allen Portalen um die Raum-Ids zu speichern.", "WS")
-    PathEditor.portal_to_visit = 0
-    enableTimer("catch_portal_room_ids")
+    --iprint("Teleportiere zu allen Portalen um die Raum-Ids zu speichern.", "WS")
+    --PathEditor.portal_to_visit = 0
+    --enableTimer("catch_portal_room_ids")
   else
     table.insert(PathEditor.catched_portal_lines, getCurrentLine())
   end
 end
 
 function PathEditor:catch_portals()  --
-  iprint("Fuege dummy Knoten p0 bis p40 hinzu und alle potentiellen Wege dazwischen.", "WS")
+  --[[iprint("Fuege dummy Knoten p0 bis p40 hinzu und alle potentiellen Wege dazwischen.", "WS")
   local edge_id = table.size(PathData.edge)
   for s = 1,40,1 do
     local start_node = f("p{s}")
@@ -1377,9 +1385,9 @@ function PathEditor:catch_portals()  --
         end
       end 
     end
-  end
+  end]]--
   --
-  iprint("Nun fuege Titel der bekannten Portale hinzu.", "WS")
+  iprint("Erfasse nutzbare Portale", "WS")
   --
   PathEditor.catched_portal_lines = {}
   local trigger_id = tempLineTrigger(-1, 30, store_portal_lines)
@@ -1629,10 +1637,12 @@ local function handle_lines_to_gag()
 end
 
 function PathFinder:start_gag_trigger()
-  self:kill_gag_trigger("reset due to start")
-  send("ultrakurz", false)
-  self.all_gag_trigger_id = tempLineTrigger(1, 10000, handle_lines_to_gag)
-  tempTrigger("Du bist nun im \"Ultrakurz\"modus.", deleteLine, 1)
+  self:kill_gag_trigger()
+  if not self.nevergag then
+    send("ultrakurz", false)
+    self.all_gag_trigger_id = tempLineTrigger(1, 10000, handle_lines_to_gag)
+    tempTrigger("Du bist nun im \"Ultrakurz\"modus.", deleteLine, 1)
+  end
   self.walk_in_progress = true
 end
 
