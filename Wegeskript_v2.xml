@@ -689,6 +689,15 @@ PathFinder = PathFinder or {
 -- class for all data 
 PathData = PathData or {}
 
+if not PLAYER then
+  eprint("Da das GUI Modul nicht geladen ist, fehlt der Spielername.", "Wegeskript")
+  if gmcp and gmcp.MG then
+    PLAYER = {name=gmcp.MG.char.base.name}
+  end
+  wprint(f("Spielername {PLAYER.name} wurde ausgewaehlt. Falls dies falsch ist, bitte bei den Skripten Wegeskript_v2, Core in Zeile 27 am Anfang das -- entfernen und in der Zeile den richtigen Namen eintragen."))
+  -- PLAYER.name = "MeinNameIst"
+end
+
 PathData.prepared_path={}
 PathData.path_end_action = "stolpert beim Abbremsen."
 PathData.do_path_end_action = f("\\:{PathData.path_end_action}")
